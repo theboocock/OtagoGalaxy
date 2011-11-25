@@ -1,0 +1,35 @@
+<tool id="novel_snp" name="Convert to Novel SNPS." version="0.1">
+<description>Filter VCF files to create VCF with all known
+		SNPs removed</description>
+
+<command interpreter="perl">
+	find_novel_snp.pl -i ${input} -o  ${output_data} 
+	#if $full_or_novel == "full":
+	-f
+	#end if
+</command>
+
+<inputs>
+<param name="full_or_novel" type="select" label="Perform analysis on novel SNPs or full list of SNPs">
+<option value="novel">Novel Variant file</option>
+<option value="full">Full Variant file</option>
+</param>
+	<param name="input" format="vcf" type="data" label="VCF file"/>
+</inputs>
+<outputs>
+	<data name="output_data" format="vcf" type="data"/>
+</outputs>
+
+<tests>
+<test>
+	<param name="input" value="filter_novel.vcf" />
+	<param name="full_or_novel" value="full" />
+	<output name="output" file="novel_filter_1.vcf"/>
+</test>
+<test>
+	<param name="input" value="filter_novel.vcf" />
+	<param name="full_or_novel" value="novel"/>
+	<output name="output" value="novel_filter_2.vcf" />
+</test>
+</tests>
+</tool>
