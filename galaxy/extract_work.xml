@@ -21,12 +21,12 @@
         --discard-info=$discard_info
       #end if
       $pass_filter;
-  tabix -h  $region "/home/james/galaxy-dist/tools/soer/data/dbSNP.vcf.gz";
+  tabix -h  "/home/james/galaxy-dist/tools/soer/data/dbSNP.vcf.gz" $region > $dbsnp;
   </command>
   <inputs>
     <param name="input1" label="VCF file" type="data" format="vcf" />
     <param name="reference_sequence" label="Extract records from this reference sequence" type="text" value='' />
-    <param name="region" label="Extract records from this region" type="text" value='' help="The format of the region is ref:start..end, where the start and end coordinates are 1-based"/>
+    <param name="region" label="Extract records from this region" type="text" value='' help="The format of the region is ref:start-end, where the start and end coordinates are 1-based"/>
     <param name="keep_quality" label="Keep records containing this quality" type="text" value='' help="This requires two arguments: the quality value and a logical operator (eq - equals, le - less than or equal to, lt - less than, ge - greater than or equal to , gt - greater than) to determine which records to keep.  For example: '90 ge' will retain all records that have a quality of 90 or greater"/>
     <param name="keep_info" label="Keep records containing this info field" type="text" value='' />
     <param name="discard_info" label="Discard records containing this info field" type="text" value='' />
