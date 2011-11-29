@@ -18,7 +18,7 @@
     <param name="input1" label="VCF file" type="data" format="vcf" />
     
     <conditional name ="region">
-    <param name="display_region" display="checkboxes" label="Extract records from this region" type="boolean" help="The format of the region is ref:start-end, where the start and end coordinates are 1-based" value ="true"/>
+    <param name="display_region" display="checkboxes" label="Extract records from this region" type="boolean" help="If you do not select this it will find the chromosome and region from your input file automatically" value ="true"/>
     <when value="true">
         <param name ="region" label="Type in region" type="text" help="The format of the region is ref:start-end, where the and end coordinates are 1-based" optional="false"/>
     </when>
