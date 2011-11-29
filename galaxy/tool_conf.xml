@@ -2,9 +2,8 @@
 <toolbox>
 <section name="SOER" id="soer">
    <tool file="SOER1000genes/galaxy/novel_snp.xml"/>
-   <tool file="SOER1000genes/galaxy/annotate_vcf.xml"/>
    <tool file="SOER1000genes/galaxy/quality_filter.xml"/>
-   <tool file="vcf_tools/extract_work.xml" />
+   <tool file="SOER1000genes/galaxy/extract_work.xml" />
 </section>
 <section name="Get Data" id="getext">
     <tool file="data_source/upload.xml"/>
@@ -112,7 +111,7 @@
     <tool file="extract/extract_genomic_dna.xml" />
   </section>
   <section name="SNP Effect" id="snpeffect">
-    <tool file="snpeff/snpEff.xml" id="snpeff" />
+    <tool file="snpEff/snpEff.xml" />
   </section>
   <section name="Fetch Alignments" id="fetchAlign">
     <tool file="maf/interval2maf_pairwise.xml" />
