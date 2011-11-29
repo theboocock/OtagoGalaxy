@@ -13,4 +13,6 @@ SnpEff will require you have previously downloaded the database you are needing 
 command to download snpeff database example:
 java -jar /galaxy-dist/tool-data/shared/jars/snpEff/snpEff.jar download GRCh37.64
 
+Data file extract.py will need to be moved to tools/vcf_tools/ and overwrite the file.
+
 Created by Edward Hills and James Boocock of Otago University
