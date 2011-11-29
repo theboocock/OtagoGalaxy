@@ -2,7 +2,7 @@
     "a_galaxy_workflow": "true", 
     "annotation": "", 
     "format-version": "0.1", 
-    "name": "Pipeline", 
+    "name": "Pipeline (imported from uploaded file)", 
     "steps": {
         "0": {
             "annotation": "", 
@@ -34,8 +34,8 @@
                 }
             ], 
             "position": {
-                "left": 163, 
-                "top": 203
+                "left": 230, 
+                "top": 200
             }, 
             "post_job_actions": {}, 
             "tool_errors": null, 
@@ -68,8 +68,8 @@
                 }
             ], 
             "position": {
-                "left": 566, 
-                "top": 415
+                "left": 633, 
+                "top": 412
             }, 
             "post_job_actions": {}, 
             "tool_errors": null, 
@@ -102,8 +102,8 @@
                 }
             ], 
             "position": {
-                "left": 252.79998779296875, 
-                "top": 557.0999755859375
+                "left": 319.79998779296875, 
+                "top": 554.1000061035156
             }, 
             "post_job_actions": {}, 
             "tool_errors": null, 
@@ -145,11 +145,11 @@
                 }, 
                 {
                     "description": "runtime parameter for tool SNP effect", 
-                    "name": "genomeVersion"
+                    "name": "udLength"
                 }, 
                 {
                     "description": "runtime parameter for tool SNP effect", 
-                    "name": "uqdLength"
+                    "name": "genomeVersion"
                 }, 
                 {
                     "description": "runtime parameter for tool SNP effect", 
@@ -168,13 +168,13 @@
                 }
             ], 
             "position": {
-                "left": 437.5, 
-                "top": 725
+                "left": 504.5, 
+                "top": 722
             }, 
             "post_job_actions": {}, 
             "tool_errors": null, 
             "tool_id": "snpEff", 
-            "tool_state": "{\"filterHomHet\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"outputFormat\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"filterOut\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"inputFormat\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"filterIn\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"__page__\": 0, \"udLength\": \"\\\"5000\\\"\", \"genomeVersion\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"uqdLength\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"offset\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"input\": \"null\"}", 
+            "tool_state": "{\"filterHomHet\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"outputFormat\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"filterOut\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"inputFormat\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"filterIn\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"__page__\": 0, \"udLength\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"genomeVersion\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"uqdLength\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"offset\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"input\": \"null\"}", 
             "tool_version": "0.9", 
             "type": "tool", 
             "user_outputs": []
