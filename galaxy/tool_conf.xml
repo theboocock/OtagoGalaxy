@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <toolbox>
-<section name="SOER" id="soer_alpha">
-   <tool file="soer/novel_snp.xml"/>
-   <tool file="soer/annotate_vcf.xml"/>
-   <tool file="soer/quality_filter.xml"/>
-    <tool file="vcf_tools/extract_work.xml" />
+<section name="SOER" id="soer">
+   <tool file="SOER1000genes/galaxy/novel_snp.xml"/>
+   <tool file="SOER1000genes/galaxy/annotate_vcf.xml"/>
+   <tool file="SOER1000genes/galaxy/quality_filter.xml"/>
+   <tool file="vcf_tools/extract_work.xml" />
 </section>
 <section name="Get Data" id="getext">
     <tool file="data_source/upload.xml"/>
