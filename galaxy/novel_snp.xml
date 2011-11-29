@@ -11,8 +11,8 @@
 
 <inputs>
 <param name="full_or_novel" type="select" label="Perform analysis on novel SNPs or full list of SNPs">
-<option value="novel">Novel Variant file</option>
 <option value="full">Full Variant file</option>
+<option value="novel">Novel Variant file</option>
 </param>
 	<param name="input" format="vcf" type="data" label="VCF file"/>
 </inputs>
