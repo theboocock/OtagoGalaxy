@@ -5,7 +5,10 @@
       extract 
       --in=$input1
       --out=$output1
+    #if $region = "true":
       --region=$region
+    #else:
+      --region= `cat $input1 | ./getRegion.awk`
 	;
   tabix -h  ~/galaxy-dist/tools/SOER1000genes/data/dbSNP.vcf.gz $region > $dbsnp;
  java -jar ~/galaxy-dist/tool-data/shared/jars/snpEff/SnpSift.jar annotate $dbsnp $output1 1> $variants_annotated 2> $err_output;
@@ -13,7 +16,13 @@
   </command>
   <inputs>
     <param name="input1" label="VCF file" type="data" format="vcf" />
-    <param name="region" label="Extract records from this region" type="text" value='' help="The format of the region is ref:start-end, where the start and end coordinates are 1-based"/>
+    
+    <conditional name ="region">
+    <param name="display_region" display="checkboxes" label="Extract records from this region" type="boolean" help="The format of the region is ref:start-end, where the start and end coordinates are 1-based" value ="true"/>
+    <when value="true">
+        <param name ="region" label="Type in region" type="text" help="The format of the region is ref:start-end, where the and end coordinates are 1-based" optional="false"/>
+    </when>
+    </conditional>
   </inputs>
   <outputs> 
     <data format="vcf" name="output1" label="${tool.name} from ${on_string}" />
