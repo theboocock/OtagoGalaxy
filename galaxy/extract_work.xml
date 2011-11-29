@@ -9,6 +9,7 @@
       --region=$region
     #else:
       --region= `cat $input1 | ./getRegion.awk`
+    #endif
       ;
   tabix -h  ~/galaxy-dist/tools/SOER1000genes/data/dbSNP.vcf.gz $region > $dbsnp;
  java -jar ~/galaxy-dist/tool-data/shared/jars/snpEff/SnpSift.jar annotate $dbsnp $output1 1> $variants_annotated 2> $err_output;
