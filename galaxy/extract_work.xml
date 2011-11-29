@@ -1,13 +1,13 @@
 <tool id="vcf_extract_DBSNP" name="Extract DBSNP and VCF region and annotate VCF File" version="1.0.0">
   <description>Reads fom a specified region of both DBSNP and target VCF file, then using SNPsift annotates the file accordingly </description>
   <command>
-   python "/home/james/galaxy-dist/tools/vcf_tools/vcfPytools.py"
+   python "~/galaxy-dist/tools/vcf_tools/vcfPytools.py"
       extract 
       --in=$input1
       --out=$output1
         --region=$region
 	;
-  tabix -h  ~/galaxy-dist/tools/soer/data/dbSNP.vcf.gz $region > $dbsnp;
+  tabix -h  ~/galaxy-dist/tools/SOER1000genes/data/dbSNP.vcf.gz $region > $dbsnp;
  java -jar ~/galaxy-dist/tool-data/shared/jars/snpEff/SnpSift.jar annotate $dbsnp $output1 1> $variants_annotated 2> $err_output;
    
   </command>
