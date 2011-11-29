@@ -5,7 +5,7 @@
       extract 
       --in=$input1
       --out=$output1
-    #if $region = "true":
+    #if $region == "true":
       --region=$region
     #else:
       --region= `cat $input1 | ./getRegion.awk`
