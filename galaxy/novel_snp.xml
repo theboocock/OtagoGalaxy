@@ -3,7 +3,7 @@
 		SNPs removed</description>
 
 <command interpreter="perl">
-	find_novel_snp.pl -i ${input} -o  ${output_data} 
+	find_novel_snps.pl -i ${input} -o  ${output_data} 
 	#if $full_or_novel == "full":
 	-f
 	#end if
