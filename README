@@ -1,7 +1,7 @@
 Nov 2011
 Updated 29/11/11
 
-Your folder structure must stay as this (you can remove the warrington folder if you please however).
+Your folder structure must stay as this. And you must have dbSNP inside the galaxy/data folder.
 
 Requirements:
 Tabix
