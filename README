@@ -1,3 +1,18 @@
 Nov 2011
+Updated 29/11/11
+
+Your folder structure must stay as this (you can remove the warrington folder if you please however).
+
+Requirements:
+Tabix
+Gzip
+SnpEff/Sift in the directory galaxy-dist/tool-data/shared/jars/snpEff/
+with the xml file located in galaxy-dist/tools/snpEff/
+SnpEff will require you have previously downloaded the database you are needing to use.
+
+command to download snpeff database example:
+java -jar /galaxy-dist/tool-data/shared/jars/snpEff/snpEff.jar download GRCh37.64
+
+Data file extract.py will need to be moved to tools/vcf_tools/ and overwrite the file.
 
 Created by Edward Hills and James Boocock of Otago University
