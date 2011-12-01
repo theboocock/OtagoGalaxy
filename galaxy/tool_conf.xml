@@ -111,7 +111,7 @@
     <tool file="extract/extract_genomic_dna.xml" />
   </section>
   <section name="SNP Effect" id="snpeffect">
-    <tool file="snpEff/snpEff.xml" />
+    <tool file="SOER1000genes/galaxy/snpEff.xml" />
   </section>
   <section name="Fetch Alignments" id="fetchAlign">
     <tool file="maf/interval2maf_pairwise.xml" />

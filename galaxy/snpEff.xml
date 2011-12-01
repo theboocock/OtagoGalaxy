@@ -5,10 +5,10 @@
 		You can change the amount of memory used by snpEff, just change the -Xmx parameter (e.g. use -Xmx2G for 2Gb of memory)
 	<command>java -Xmx6G -jar /path/to/your/snpEff/snpEff.jar -c /path/to/your/snpEff/snpEff/snpEff.config $inputFormat $offset -upDownStreamLen $udLength $filterIn $filterHomHet -no $filterOut -stats $statsFile $genomeVersion $input > $output </command>
 	-->
-	<command>java -Xmx1G -jar ${__root_dir__}/tool-data/shared/jars/snpEff/snpEff.jar -c ${__root_dir__}/shared/jars/snpEff/snpEff.config -i $inputFormat -o $outputFormat -upDownStreamLen $uqdLength $filterIn $filterHomHet 
-#if $filterOut != "" 
+	<command>java -Xmx6G -jar ${__root_dir__}/tool-data/shared/jars/snpEff/snpEff.jar -c ${__root_dir__}/tool-data/shared/jars/snpEff/snpEff.config -i $inputFormat -o $outputFormat -upDownStreamLen $uqdLength $filterIn $filterHomHet 
+#if $filterOut != "None" 
 -no $filterOut 
-#endif
+#end if
 -stats $statsFile $genomeVersion $input > $output </command>
 	<inputs>
 		<param format="vcf" name="input" type="data" label="Sequence changes (SNPs, MNPs, InDels)"/>
@@ -21,7 +21,8 @@
 		</param>
 
 		<param name="genomeVersion" type="select" label="Genome">
-				<option value="ailmel1.61">ailmel1.61:Ailuropoda_melanoleuca </option>
+				<option value="GRCh37.64">GRCh37.64:Homo_sapien</option>		
+		<option value="ailmel1.61">ailmel1.61:Ailuropoda_melanoleuca </option>
 				<option value="ailMel1.63">ailMel1.63:Ailuropoda_melanoleuca</option>
 				<option value="anoCar1.0.60">anoCar1.0.60:Anolis_carolinensis</option>
 				<option value="anoCar2.0.61">anoCar2.0.61:Anolis_carolinensis</option>
@@ -254,14 +255,14 @@
 			<option value="-nmp">Only MNPs (multiple nucleotide polymorphisms) </option>
 			<option value="-snp">Only SNPs (single nucleotide polymorphisms) </option>
         </param>
-        <param name="filterOut" type="select" display="checkboxes" multiple="True" optional="true" value="" label="Filter output">
+        <param name="filterOut" type="select" display="checkboxes" multiple="True" optional="true" value="NONE" label="Filter output">
 			<option value="downstream">Do not show DOWNSTREAM changes </option>
 			<option value="intergenic">Do not show INTERGENIC changes </option>
 			<option value="intron">Do not show INTRON changes </option>
 			<option value="upstream">Do not show UPSTREAM changes </option>
 			<option value="utr">Do not show 5_PRIME_UTR or 3_PRIME_UTR changes </option>
         </param>
-        
+	
         <param name="offset" type="select" display="radio" optional="true" label="Chromosomal position">
 			<option value="">Use default (based on input type)</option>
 			<option value="-0">Force zero-based positions (both input and output)</option>
