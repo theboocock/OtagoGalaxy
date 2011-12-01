@@ -3,18 +3,20 @@
   <command interpreter="bash">
 
   #if $ifChosenRegion.display_region != "true":
-    ##./vcf_extract_wrapper.sh $input1 $output1 $region $dbsnp $variants_annotated $err_output
-    region = ./getRegion $input1
+    ./vcf_extract_wrapper.sh $input1 $output1 $dbsnp $variants_annotated $err_output
+  #else
+  ./vcf_extract_wrapper.sh $input1 $output1 "${ifChosenRegion.region}" $dbsnp $variants_annotated $err_output
   #end if
-
-  ./vcf_extract_wrapper.sh $input1 $output1 $region $dbsnp $variants_annotated $err_output
-    
   </command>
   <inputs>
     <param name="input1" label="VCF file" type="data" format="vcf" />
     <conditional name="ifChosenRegion">
-    <param name="display_region" display="checkboxes" label="Extract records from this region" type="boolean" help="If you do not select this it will find the chromosome and region from your input file automatically" value ="true"/>
-     <when value="true">
+    <param name="display_region" label="Extract records from this region" type="select" help="If you do not select this it will find the chromosome and region from your input file automatically">
+    <option value="auto">Automatically select region from DBSNP</option>
+    <option value="manual">Manually select region</option>
+    </param>
+	
+     <when value="manual">
         <param name ="region" label="Type in region" type="text" help="The format of the region is ref:start-end, where the and end coordinates are 1-based" optional="false"/>
     </when>
     </conditional>

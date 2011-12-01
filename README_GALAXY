@@ -1,0 +1,18 @@
+Instructions for galaxy installation on a Server.
+
+This is the link for settin up galaxy on a production server.
+http://wiki.g2.bx.psu.edu/Admin/Config/Performance/Production%20Server
+
+Required tools for install commands for installation on a linux install with
+apt-get.
+
+#commands
+
+#install samtools genomics suite
+sudo apt-get install samtools
+
+#install tabix tabdelimiter file indexer
+sudo apt-get install tabix
+
+
+sudo apt-get install blast2

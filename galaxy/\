@@ -26,8 +26,7 @@ else
     python ~/galaxy-dist/tools/vcf_tools/vcfPytools.py extract --in=$1 --out $2 --region=$REGIONS
 fi
 
-echo $REGIONS
-tabix -h ~/galaxy-dist/tools/SOER1000genes/data/dbSNP.vcf.gz $REGIONS > $4
+tabix -h ../data/dbSNP.vcf.gz $REGIONS > $4
 
 java -jar ~/galaxy-dist/tool-data/shared/jars/snpEff/SnpSift.jar annotate $4 $2 1> $5 2> $3
 
