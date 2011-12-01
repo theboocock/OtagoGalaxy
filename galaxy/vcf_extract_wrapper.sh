@@ -1,4 +1,4 @@
-#Author: Edward Hills
+#Author: Edward Hills & James Boocock
 #Date: 30/11/11
 #
 # A wrapper that wraps all the functions that need to be called by 
@@ -26,7 +26,6 @@ else
     python ~/galaxy-dist/tools/vcf_tools/vcfPytools.py extract --in=$1 --out $2 --region=$REGIONS
 fi
 
-echo $REGIONS
 tabix -h ~/galaxy-dist/tools/SOER1000genes/data/dbSNP.vcf.gz $REGIONS > $4
 
 java -jar ~/galaxy-dist/tool-data/shared/jars/snpEff/SnpSift.jar annotate $4 $2 1> $5 2> $3

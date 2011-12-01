@@ -3,9 +3,9 @@
   <command interpreter="bash">
 
   #if $ifChosenRegion.display_region != "true":
-    ./vcf_extract_wrapper.sh $input1 $output1 $dbsnp $variants_annotated $err_output
+    ./vcf_extract_wrapper.sh $input1 $output1 $err_output $dbsnp $variants_annotated
   #else
-  ./vcf_extract_wrapper.sh $input1 $output1 "${ifChosenRegion.region}" $dbsnp $variants_annotated $err_output
+  ./vcf_extract_wrapper.sh $input1 $output1 $err_output $dbsnp $variants_annotated "${ifChosenRegion.region}"
   #end if
   </command>
   <inputs>

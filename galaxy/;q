@@ -30,6 +30,7 @@ if ($opt_v){
     print("find_novel_snps.pl Version 1.0\n");
 }
 if($opt_f){
+	print(STDOUT "$opt_f");
 	if($opt_i){
 		open(IN, "$opt_i") or die "error reading $opt_i for reading";
 		
@@ -51,6 +52,7 @@ if($opt_f){
 
 elsif ($opt_i){
 #open file to read
+    print "ueauauaoeuoae";
     open(IN, "$opt_i") or die "error reading $opt_i for reading";
     if($opt_o){
 	open(OUT, ">$opt_o") or die "error creating $opt_o"; #write to file specified
@@ -62,11 +64,10 @@ elsif ($opt_i){
     while(my $line = <IN>){
 #write out if starts with '#'
 	if( $line =~ m/^#/ ){
-	   print(OUT "$line");
+	    print (OUT "$line");
 #look at 3rd column (ID), write out if == "."
 	} else {
-	    if ($line =~ m/^\w+\t\w+\t\.\t./){
-                print (STDOUT "$line");
+	    if ($line =~ m/\w+\t\w+\t\.\t./){
 		print(OUT "$line");
 	    }
 	}
