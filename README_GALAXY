@@ -19,7 +19,7 @@ sudo apt-get install r-base-dev
 
  wget http://downloads.sourceforge.net/project/rpy/rpy2/2.2.x/rpy2-2.2.1.tar.gz 
  tar -xvf rpy2-2.2.1.tar.gz
- cd rpy2-2.2.2.1.tar.gz
+ cd rpy2-2.2.2.1
  python setup.py install
 
 #Install Bowtie
