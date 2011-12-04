@@ -4,7 +4,7 @@
 	cat $input_vcf | java -jar ${__root_dir__}/tool-data/shared/jars/snpEff/SnpSift.jar filter " (QUAL >= $qual_score)" > $output
 </command>
 <inputs>
-	<param name="input_vcf" format="vcf" type="data"/>
+	<param name="input_vcf" format="vcf" type="data" label="Input VCF"/>
 	<param name="qual_score" type="integer" value="0" label="Quality threshold below which to discard all lines of VCF input"/>
 	</inputs>
 <outputs>
