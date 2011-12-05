@@ -65,7 +65,6 @@ def main():
     exit(1)
 
 # If a region was supplied, check the format.
-# Edited to work with tabix format 29/11/11 by Ed/James.
   if options.region:
     if options.region.find(":") == -1 or options.region.find("-") == -1:
       print >> sys.stderr, "\nIncorrect format for region string.  Required: ref:start-end."

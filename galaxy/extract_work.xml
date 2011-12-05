@@ -2,7 +2,7 @@
   <description>Reads fom a specified region of both DBSNP and target VCF file, then using SNPsift annotates the file accordingly </description>
   <command interpreter="bash">
 
-  #if $ifChosenRegion.display_region != "true":
+  #if $ifChosenRegion.display_region == "auto":
     ./vcf_extract_wrapper.sh $input1 $output1 $err_output $dbsnp $variants_annotated
   #else
   ./vcf_extract_wrapper.sh $input1 $output1 $err_output $dbsnp $variants_annotated "${ifChosenRegion.region}"
