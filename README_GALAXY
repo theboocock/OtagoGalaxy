@@ -1,5 +1,5 @@
-#!/bin/bash 
-#Instructions for galaxy installation on a Server. 
+#!/bin/bash
+#Instructions for galaxy installation on a Server.
 
 #This is the link for settin up galaxy on a production server.
 #http://wiki.g2.bx.psu.edu/Admin/Config/Performance/Production%20Server
@@ -17,7 +17,7 @@ sudo apt-get install r-base-dev
 
 #Installing Rpy
 
- wget http://downloads.sourceforge.net/project/rpy/rpy2/2.2.x/rpy2-2.2.1.tar.gz
+ wget http://downloads.sourceforge.net/project/rpy/rpy2/2.2.x/rpy2-2.2.1.tar.gz 
  tar -xvf rpy2-2.2.1.tar.gz
  cd rpy2-2.2.2.1
  python setup.py install
@@ -45,4 +45,3 @@ sudo apt-get install samtools
 sudo apt-get install tabix
 
 
-~                                       
