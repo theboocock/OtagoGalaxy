@@ -30,46 +30,45 @@ if ($opt_v){
     print("find_novel_snps.pl Version 1.0\n");
 }
 if($opt_f){
-	if($opt_i){
-		open(IN, "$opt_i") or die "error reading $opt_i for reading";
-		
-		if($opt_o){
-			open(OUT, ">$opt_o") or die "error creating $opt_o"; #write to file specified
-		} else { #else create input_filename-novel.vcf
-			open(OUT, ">$opt_i-novel_snps.vcf") #creates $opt_i-novel_snps.vcf
-				or die "error creating $opt_i-novel_snps.vcf";
-		}
-#read each line in
-		while(my $line = <IN>){
-			print(OUT "$line");
-		}
+    if($opt_i){
+        open(IN, "$opt_i") or die "error reading $opt_i for reading";
 
-		close IN;
-		close OUT;
-	}
+        if($opt_o){
+            open(OUT, ">$opt_o") or die "error creating $opt_o"; #write to file specified
+        } else { #else create input_filename-novel.vcf
+            open(OUT, ">$opt_i-novel_snps.vcf") #creates $opt_i-novel_snps.vcf
+                or die "error creating $opt_i-novel_snps.vcf";
+        }
+#read each line in
+        while(my $line = <IN>){
+            print(OUT "$line");
+        }
+
+        close IN;
+        close OUT;
+    }
 }
 
 elsif ($opt_i){
 #open file to read
     open(IN, "$opt_i") or die "error reading $opt_i for reading";
     if($opt_o){
-	open(OUT, ">$opt_o") or die "error creating $opt_o"; #write to file specified
+        open(OUT, ">$opt_o") or die "error creating $opt_o"; #write to file specified
     } else { #else create input_filename-novel.vcf
-	open(OUT, ">$opt_i-novel_snps.vcf") #creates $opt_i-novel_snps.vcf
-	    or die "error creating $opt_i-novel_snps.vcf";
+        open(OUT, ">$opt_i-novel_snps.vcf") #creates $opt_i-novel_snps.vcf
+            or die "error creating $opt_i-novel_snps.vcf";
     }
 #read each line in
     while(my $line = <IN>){
 #write out if starts with '#'
-	if( $line =~ m/^#/ ){
-	   print(OUT "$line");
+        if( $line =~ m/^#/ ){
+            print(OUT "$line");
 #look at 3rd column (ID), write out if == "."
-	} else {
-	    if ($line =~ m/^\w+\t\w+\t\.\t./){
-                print (STDOUT "$line");
-		print(OUT "$line");
-	    }
-	}
+        } else {
+            if ($line =~ m/^\w+\t\w+\t\.\t./){
+                print(OUT "$line");
+            }
+        }
     }
     close IN;
     close OUT;

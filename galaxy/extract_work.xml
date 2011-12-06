@@ -2,24 +2,17 @@
   <description>Reads fom a specified region of both DBSNP and target VCF file, then using SNPsift annotates the file accordingly </description>
   <command interpreter="bash">
 
-  #if $ifChosenRegion.display_region == "auto":
+  #if str($display_region) == "auto":
     ./vcf_extract_wrapper.sh $input1 $output1 $err_output $dbsnp $variants_annotated
   #else
-  ./vcf_extract_wrapper.sh $input1 $output1 $err_output $dbsnp $variants_annotated "${ifChosenRegion.region}"
+    ./vcf_extract_wrapper.sh $input1 $output1 $err_output $dbsnp $variants_annotated ${region}
   #end if
   </command>
   <inputs>
     <param name="input1" label="VCF file" type="data" format="vcf" />
-    <conditional name="ifChosenRegion">
-    <param name="display_region" label="Extract records from this region" type="select" help="If you do not select this it will find the chromosome and region from your input file automatically">
-    <option value="auto">Automatically select region from DBSNP</option>
-    <option value="manual">Manually select region</option>
+    <param name="display_region" label="Extract records from this region" type="boolean" help="If you do not select this it will find the chromosome and region from your input file automatically" truevalue="manual" falsevalue="auto">
     </param>
-	
-     <when value="manual">
-        <param name ="region" label="Type in region" type="text" help="The format of the region is ref:start-end, where the and end coordinates are 1-based" optional="false"/>
-    </when>
-    </conditional>
+    <param name ="region" label="Type in region - Only if the box above is ticked" type="text" help="The format of the region is ref:start-end, where the and end coordinates are 1-based" />
   </inputs>
   <outputs> 
     <data format="vcf" name="output1" label="${tool.name} from ${on_string}" />
