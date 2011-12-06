@@ -1,4 +1,4 @@
-<tool id="novel_snp" name="Convert to Novel SNPS." version="0.1">
+<tool id="novel_snp" name="Convert to Novel SNPS." version="1.0">
 <description>Filter VCF files to create VCF with all known
 		SNPs removed</description>
 
