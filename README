@@ -8,11 +8,9 @@ mv extract.py ~/galaxy-dist/tools/vcf_tools/
 Requirements:
 Tabix
 Gzip
-SnpEff/Sift in the directory galaxy-dist/tool-data/shared/jars/snpEff/
-with the xml file located in galaxy-dist/tools/snpEff/
-SnpEff will require you have previously downloaded the database you are needing to use.
-
-SnpEff xml file updated to work with workflows properly
+SnpEff/Sift will need to be installed into the directory galaxy-dist/tool-data/shared/jars/snpEff/ and the xml file located in galaxy-dist/tools/snpEff/
+SnpEff will require you have previously downloaded the database you are needing to use. We have placed these in the data folder. Simply move the databases into galaxy-dist/tool-data/shared/jars/snpEff/data folder.
+dbSnp.vcf.gz and dbSnp.vcf.gz.tbi will need to be placed in /tools/SOER1000genes/data/ directory.
 
 command to download snpeff database example:
 java -jar /galaxy-dist/tool-data/shared/jars/snpEff/snpEff.jar download GRCh37.64
