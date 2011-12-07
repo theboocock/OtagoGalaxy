@@ -6,7 +6,7 @@
     This will cause the program to always go green however.
 -->
 <command>
-    java -jar ${__root_dir__}/tool-data/shared/jars/snpEff/SnpSift.jar tstv hom ${input} 1> ${output} 2> /dev/null
+    java -jar ${__root_dir__}/tool-data/shared/jars/snpEff/SnpSift.jar tstv any ${input} 1> ${output} 2> /dev/null
 </command>
 
 <inputs>

@@ -269,7 +269,7 @@ You can change the amount of memory used by snpEff, just change the -Xmx paramet
     </inputs>
 	
     <outputs>
-	<data format="tabular" name="output" />
+	<data format="vcf" name="output" />
 	<data format="html" name="statsFile" />
 	</outputs>
 
