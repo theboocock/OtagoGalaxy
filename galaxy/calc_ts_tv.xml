@@ -2,7 +2,7 @@
 <description>from a VCF file</description>
 
 <command>
-    java -jar ${__root__}/tool-data/shared/jars/snpEff/SnpSift.jar tstv hom ${input}
+    java -jar ${__root_dir__}/tool-data/shared/jars/snpEff/SnpSift.jar tstv hom ${input}
 </command>
 
 <inputs>
