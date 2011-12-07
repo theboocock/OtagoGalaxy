@@ -1,15 +1,19 @@
 <tool id="sift_ts_tv" name="Calcuate Transition/Transversion Ratios" version="1.0">
 <description>from a VCF file</description>
-
+<!--
+    You have to output stderr to /dev/null because galaxy thinks that all
+    output to std err is an error in the program even though it is not.
+    This will cause the program to always go green however.
+-->
 <command>
-    java -jar ${__root_dir__}/tool-data/shared/jars/snpEff/SnpSift.jar tstv hom ${input}
+    java -jar ${__root_dir__}/tool-data/shared/jars/snpEff/SnpSift.jar tstv hom ${input} 1> ${output} 2> /dev/null
 </command>
 
 <inputs>
     <param name="input" type="data" format="vcf" label="VCF File"/>
 </inputs>
 <outputs>
-    <data name="ts/tv_ratio" format="txt" type="data"/>
+    <data name="output" format="txt" type="data"/>
 </outputs>
 
 <help>
