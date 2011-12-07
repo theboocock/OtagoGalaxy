@@ -5,5 +5,16 @@
     java -jar ${__root__}/tool-data/shared/jars/snpEff/SnpSift.jar tstv hom ${input}
 </command>
 
+<inputs>
+    <param name="input" type="data" format="vcf" label="VCF File"/>
+</inputs>
+<outputs>
+    <data name="ts/tv_ratio" format="txt" type="data"/>
+</outputs>
+
+<help>
+This tool calcuates the Transition/Transversion ratio from your vcf file.
+</help>
+
 </tool>
 
