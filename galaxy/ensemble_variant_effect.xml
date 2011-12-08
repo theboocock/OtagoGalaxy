@@ -1,7 +1,7 @@
 <tool id="ensembl_variants" name="Perform ensemble variant effect prediction" version="0.1">
 
 <command interpreter="bash">
-    variant_effect_predictor.pl $input $output
+    ./ensemble.sh $input $output
 </command>
 
 <inputs>
@@ -9,5 +9,6 @@
 </inputs>
 
 <outputs>
-<data name="output_data" format="vcf" type="data"/>
+<data name="output" format="text" type="data"/>
 </outputs>
+</tool>

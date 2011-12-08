@@ -6,7 +6,7 @@
 #
 # Params:
 # $1 = input1
-# $2 = output1
+# $2 = extracted_region
 # $3 = err_output
 # $4 = dbsnp
 # $5 = variants_annotated

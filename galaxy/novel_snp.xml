@@ -4,7 +4,7 @@
 
 <command interpreter="perl">
 	find_novel_snps.pl -i ${input} -o ${output_data} 
-	#if $full_or_novel == "full":
+	#if str($full_or_novel) == "full":
 	-f
 	#end if
 </command>
