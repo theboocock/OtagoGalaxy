@@ -1,14 +1,14 @@
-<tool id="ensembl_variants" name="Perform ensemble variant effect prediction" version="0.1">
+<tool id="ensembl_vep" name="Ensemble Variant Effect Predictor" version="0.99">
 
 <command interpreter="bash">
-    ./ensemble.sh $input $output
+    ./ensemble.sh ${input} ${output} > ${output}
 </command>
 
 <inputs>
-<param name="input" format="vcf" type="data" label="VCF file"/>
+    <param name="input" format="vcf" type="data" label="VCF file"/>
 </inputs>
 
 <outputs>
-<data name="output" format="text" type="data"/>
+    <data name="output" format="txt" type="data"/>
 </outputs>
 </tool>

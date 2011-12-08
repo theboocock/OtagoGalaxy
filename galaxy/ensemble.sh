@@ -9,7 +9,9 @@
 #$1 input file
 #$2 output file
 
-perl variant_effect_predictor.pl -i $1 -o $2 --check_existing --gene \
+perl ~/galaxy-dist/tools/SOER1000genes/galaxy/variant_effect_predictor.pl -i $1 -o $2 --check_existing --gene \
                         --cache --dir "/usr/local/ensembl_cache" \
                         --poly b --sift b --hgvs --force_overwrite
+
+cat $2
 

@@ -66,7 +66,7 @@ my $config = &configure(scalar @ARGV);
 # this is the main sub-routine - it needs the configured $config hash
 sub main {
     my $config = shift;
-    
+
     debug("Starting...") unless defined $config->{quiet};
     
     my $tr_cache = {};
