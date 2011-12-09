@@ -1,5 +1,5 @@
 <tool id="ensembl_vep" name="Ensemble Variant Effect Predictor" version="0.99">
-
+<!-- FUCKED -->
 <command interpreter="bash">
     ./ensemble.sh ${input} ${output} > ${output}
 </command>

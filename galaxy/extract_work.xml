@@ -1,5 +1,5 @@
 <tool id="vcf_extract_DBSNP" name="Extract and annotate dbSNP and VCF file" version="1.0.0">
-  <description>Reads fom a specified region of both DBSNP and target VCF file, then using SNPsift annotates the file accordingly </description>
+  <description>from a user defined region or whole file.</description>
   <command interpreter="bash">
 
   #if str($display_region) == "auto":

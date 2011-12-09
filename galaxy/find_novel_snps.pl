@@ -3,6 +3,7 @@
 # reads vcf file line by line and writes out lines that have "." as ID
 # takes vcf file as input and writes to inputfile_novel-snps.vcf or
 # the output file specified
+
 use strict; use warnings;
 use Getopt::Std;
 use vars qw($opt_h $opt_v $opt_f $opt_i $opt_o);

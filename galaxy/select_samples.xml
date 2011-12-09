@@ -1,4 +1,4 @@
-<tool id="select_samples" name="Filter Samples" version="0.1">
+<tool id="select_samples" name="Filter by Sample" version="0.1">
 <description>and put into a new VCF file</description>
 
 <command interpreter="bash">

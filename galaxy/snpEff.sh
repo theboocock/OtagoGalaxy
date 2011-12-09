@@ -13,9 +13,11 @@
 
 if [ ! -d "/home/galaxy/tool-data/shared/jars/snpEff/data/$5" ]
 then
-    java ~/galaxy/tool-data/shared/jars/snpEff/snpEff.jar  download $5
+    java -jar ~/galaxy/tool-data/shared/jars/snpEff/snpEff.jar download $5
+    # Suppress output so user isnt bothered
 fi
 
+# Put this back in the xml file and just do the script stuff perhaps
 java -Xmx6G -jar ~/galaxy-dist/tool-data/shared/jars/snpEff/snpEff.jar -c $9 -i vcf -o vcf -upDownStreamLen $1 $2 $3  
      -no $8 -stats $4 $5 $6 > $7 
 
