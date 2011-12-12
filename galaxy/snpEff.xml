@@ -5,7 +5,9 @@
 You can change the amount of memory used by snpEff, just change the -Xmx parameter (e.g. use -Xmx2G for 2Gb of memory)
 	<command>java -Xmx6G -jar /path/to/your/snpEff/snpEff.jar -c /path/to/your/snpEff/snpEff/snpEff.config $inputFormat $offset -upDownStreamLen $udLength $filterIn $filterHomHet -no $filterOut -stats $statsFile $genomeVersion $input > $output </command>
 	-->
-	<command>java -Xmx6G -jar ~/galaxy-dist/tool-data/shared/jars/snpEff/snpEff.jar -c ~/galaxy-dist/tools/snpEff/snpEff.config -i vcf -o vcf -upDownStreamLen $udLength $filterIn $filterHomHet 
+	<command>
+    ~/galaxy-dist/tools/snpEff/snpEff.sh $genomeVersion ~/galaxy-dist/tools/snpEff/snpEff.config;
+    java -Xmx6G -jar ~/galaxy-dist/tool-data/shared/jars/snpEff/snpEff.jar -c ~/galaxy-dist/tools/snpEff/snpEff.config -i vcf -o vcf -upDownStreamLen $udLength $filterIn $filterHomHet 
 #if $filterOut == "None":
     -no None -stats $statsFile $genomeVersion $input > $output
 #else:     
