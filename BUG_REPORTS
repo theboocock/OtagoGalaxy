@@ -1,0 +1,28 @@
+Author: James Boocock
+Date: DEC 13 2011
+
+# BUG DISCUSSION #
+
+#SNPEFF#
+
+Over the past week working with the software to do with genetics we have uncovered bugs and have sent emails to the
+relevant developers of these projects.
+
+Pablo Cingolani who is the solo developer of the project snpEff. This is a tool that is used to predict the effect of variants e.g Indels, SNP and MNPS. 
+
+I have documented a bug within galaxy workflows which causes snpEff to crash when a certain option is not selected. 
+Pablo and Our group came to the same solution although not elegant solves the problem as it is most definetely a galaxy issue.
+
+Another issue with his software was to do with downloading the ensembl genomes using the download command line option. 
+The software did not read the path specified in the config file and attempted to install the snpeffectpredictor bin file 
+relative to where the program was run. This has been documented and through a email exchange with pablo and he say this 
+will be fixed in the new release which is due to be live very soon.
+
+#GALAXY#
+
+Our group has joined the galaxy mailing list and has attempted to participate in discussions with the issues we are facing.
+
+We cannot get the admin interface to work for certain users of our galaxy database we have followed all the instructions and nothing.
+
+Also ftp does not work the files can be loaded onto the FTP server but cannot be viewed within galaxy.
+
