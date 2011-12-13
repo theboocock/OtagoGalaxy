@@ -10,6 +10,21 @@
 <outputs>
 	<data format="vcf" name="output" label="${tool.name} from ${on_string}"/>
 </outputs>
+
+<tests>
+    <test>
+    <param name="input_vcf" value="SOER/QualityFilter/test_vcf_soer.vcf"/>
+    <param name="qual_score" value="0">
+    <output name="output" value="SOER/QualityFilter/q_0.vcf"/>
+
+    </test>
+    <test>
+    <param name="input_vcf" value="SOER/QualityFilter/test_vcf_soer.vcf"/>
+    <param name="qual_score" value="90">
+    <output name="output" value="SOER/QualityFilter/q_90.vcf"/>
+    </test>
+</tests>
+
 <help>
 	This tool filters a vcf file removing all lines below a certain quality mark
 </help>

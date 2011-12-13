@@ -22,14 +22,15 @@
 
 <tests>
 <test>
-	<param name="input" value="filter_novel.vcf" />
+	<param name="input" value="SOER/novel_test_input.vcf" />
 	<param name="full_or_novel" value="full" />
-	<output name="output" file="novel_filter_1.vcf"/>
+	<output name="output" file="SOER/convert_to_full_list.vcf"/>
 </test>
 <test>
-	<param name="input" value="filter_novel.vcf" />
+	<param name="input" value="SOER/novel_test_input.vcf" />
 	<param name="full_or_novel" value="novel"/>
-	<output name="output" value="novel_filter_2.vcf" />
+	<output name="output" value="SOER/convert_to_novel_list.vcf" />
 </test>
 </tests>
+
 </tool>

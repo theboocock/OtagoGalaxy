@@ -20,4 +20,31 @@
     <data name="variants_annotated" label="${tool.name} annotated from ${on_string}" format="vcf"/>
     <data name="err_output" format="txt"/>
   </outputs>
+
+  <tests>
+  <test>
+        <!-- Testing Manual Region Input --!>
+        <param name="input1" value="SOER/ExtractAnnotate/test_vcf_soer.vcf"/>
+        <param name="display_region" value="true"/>
+        <param name="region" value="4:88500091-88505945"/>
+        <output name="output1" value="SOER/ExtractAnnotate/m_output1.vcf"/>
+        <output name="dbsnp"   value="SOER/ExtractAnnotate/m_dbsnp.vcf"/>
+        <output name="variants_annotated" value="SOER/ExtractAnnotate/m_variant_annotated.vcf"/>
+        <output name="err_output" value="SOER/ExtractAnnotate/m_err.txt"/>
+
+  </test>
+        <!-- Testing Auto region input --!>
+        <param name="input1" value="SOER/ExtractAnnotate/test_vcf_soer.vcf"/>
+        <param name="display_region" value="false"/>
+        <param name="region" value=""/>
+        <output name="output1" value="SOER/ExtractAnnotate/a_output1.vcf"/>
+        <output name="dbsnp"   value="SOER/ExtractAnnotate/a_dbsnp.vcf"/>
+        <output name="variants_annotated" value="SOER/ExtractAnnotate/a_variants_annotated.vcf"/>
+        <output name="err_output" value="SOER/ExtractAnnotate/a_err.txt"/>
+  <test>
+
+  </test>
+
+
+  </tests>
 </tool>
