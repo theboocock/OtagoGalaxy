@@ -18,11 +18,72 @@ The software did not read the path specified in the config file and attempted to
 relative to where the program was run. This has been documented and through a email exchange with pablo and he say this 
 will be fixed in the new release which is due to be live very soon.
 
+Another bug we have documented was a bug relating to the genes.txt file that
+is produced when performing snpEffs variant prediction. When attempting to follow the hyperlink within galaxy the file looks for a path that does not exist. The file does exist just not in the path galaxy is looking for it. 
+
+The error seems related to the generation of the HTML files which will 
+create the link you follow on the snpEff summary page. I have emailed 
+pablo about this issue but the bug seem straight forward. We are going 
+to attempt to patch his code to fix the bug.
+
 #GALAXY#
 
 Our group has joined the galaxy mailing list and has attempted to participate in discussions with the issues we are facing.
 
-We cannot get the admin interface to work for certain users of our galaxy database we have followed all the instructions and nothing.
-
 Also ftp does not work the files can be loaded onto the FTP server but cannot be viewed within galaxy.
+
+Set Up galaxy and apache to load balance galaxy across the two cores of our virtual machine. Following the guide on the wiki production server it took a very short period of time to set up.
+
+
+Currently I am awaiting a response regarding a bug in the unit test scripts on both my local instance and the production instance of our galaxy install.Solving this issue will enable the tests to continue. We can then throughly test the tools we have integrated into galaxy using the <tests> tags within our the tool xml files. This will enable us to distribute the tools package with the test so anyone with a galaxy install can verify the output of our tests.
+
+I got a response regarding the unit test bugs on our production instance of galaxy. It seems related to some dependencies that are not 
+installed on the machine, the email response gave clear instructions on how to install these dependencies and I am currently in the 
+process of installing the dependencies hopefully this clears up the issue and enables me to test the unit testing frame work for the
+tools within the pipeline.
+
+The one your error refers to:
+    PyTables    http://www.pytables.org/moin
+
+And its dependencies:
+    numexpr     http://code.google.com/p/numexpr/
+    Cython    http://cython.org/
+    HDF5 (C libraries)    http://www.hdfgroup.org/HDF5/
+
+Were the 3 pieces of software I did not have installed, I have currently downloaded the installation software but configuring
+HDF5 seems rather time consuming so at this present time I cannot test the tools that we have created.
+
+#
+
+## What I have done this Week ##
+
+I have been intergrating 3 new tools to help around the lab I am working in these tools and descriptions are listed below.
+
+1. Print Out all the patient IDS from a vcf file. This is useful as the researcher may be interested at only looking at a 
+   subset of the data they are interested in. The list will enable the to ensure the patient/s they are looking are in the list.
+
+2. VCF-subset 
+
+    integrating a tool from the toolset Vcf-Tools into galaxy so galaxy users can subset a vcf based on only the patients they 
+   are interested in.
+
+3. VCF-merge  
+
+   integrating a tool from the toolset Vcf-Tools into galaxy so galaxy users can merge vcf's together.
+
+   This tool will be useful within galaxy especially when the 1000genomes data has been added as it will enable them to perform 
+   analysis including this data which could help verify or confirm findings. This will be particlulary useful for smaller research groups
+   as the sheer amount of data in the 1000genomes project could be tailored, used and then merged with the data from these groups.
+
+#SNPEFF
+
+Liasing with the creator of the snpEffect software and have since submitted 2 bug reports, he responded to both my requests and 
+said these issues would be fixed in the next release. One particular bug was to do with creating a automatic download script regarding
+the ensembl variant predictor bin files. I feel this feature will be useful within galaxy as users should not have to manually download
+each bin file from the command line when it should be entirely feasible to run a lookup script within galaxy that determines if the file
+exist and if not downloads the snpEffect variant bin file and afterwards runs the analysis.
+
+
+
+
 
