@@ -1,0 +1,15 @@
+<tool id="get_sample_ids" name="Extract Sample IDS" version="0.1">
+
+<command interpreter="bash">
+    get_sample_ids.sh $vcfinput > $output
+</command>
+
+<inputs>
+<param name="vcfinput" type="data" format="vcf" label="Select VCF file" />
+</inputs>
+
+<outputs>
+<data format="txt" name="output" />
+</outputs>
+
+</tool>
