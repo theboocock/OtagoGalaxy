@@ -15,7 +15,7 @@ NUM_SAMPLES=$#
 for ((i=1; i<NUM_SAMPLES; i++))
 do
     eval INPUT=\$${i}
-    SAMPLE_LIST="${SAMPLE_LIST} $INPUT,"
+    SAMPLE_LIST="${SAMPLE_LIST}$INPUT,"
 done
 eval INPUT=\$${#}
 bgzip -c $INPUT > $INPUT.gz
