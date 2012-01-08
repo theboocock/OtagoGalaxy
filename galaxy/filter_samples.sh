@@ -17,5 +17,5 @@ do
     eval INPUT=\$${i}
     SAMPLE_LIST="${SAMPLE_LIST}, $INPUT"
 done
-# Do vcftools stripById $SAMPLE_LIST < $1
+perl ~/galaxy-dist/tool-data/shared/vcfperltools/vcf-subset -c $SAMPLE_LIST < $1
 # OR something
