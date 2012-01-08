@@ -15,7 +15,8 @@ NUM_SAMPLES=$#
 for ((i=1; i<NUM_SAMPLES; i++))
 do
     eval INPUT=\$${i}
-    SAMPLE_LIST="${SAMPLE_LIST}, $INPUT"
+    SAMPLE_LIST="${SAMPLE_LIST}$INPUT,"
 done
-perl ~/galaxy-dist/tool-data/shared/vcfperltools/vcf-subset -c $SAMPLE_LIST < $1
-# OR something
+eval INPUT=\$${#}
+bgzip -c $INPUT > $INPUT.gz
+perl ~/galaxy-dist/tool-data/shared/vcfperltools/vcf-subset -c $SAMPLE_LIST $INPUT.gz
