@@ -1,14 +1,14 @@
 <tool id="indelQual_filter" name="Indel Quality Score Filtering on VCF file" version="1.0.0">
 <description>Filter out rows based on indel having a particular quality score </description>
 <command>
-	cat $input_vcf | java -jar ${__root_dir__}/tool-data/shared/jars/snpEff/SnpSift.jar filter "((exists INDEL ) & (QUAL >= $qual_score))" > $output
+	cat $input_vcf | java -jar ${__root_dir__}/tool-data/shared/jars/snpEff/SnpSift.jar filter "((exists INDEL ) \& (QUAL >= $qual_score))" > $output
 </command>
 <inputs>
 	<param name="input_vcf" format="vcf" type="data" label="Input VCF"/>
-	<param name="qual_score" type="integer" value="0" label="Quality threshold below which to discard all lines of VCF input"/>
+	<param name="qual_score" type="integer" value="0" label="Indel quality threshold. Below which will be filtered"/>
 	</inputs>
 <outputs>
-	<data format="vcf" name="output" label="${tool.name} from ${on_string}"/>
+	<data format="vcf" name="output" label="Indels filtered by ${qual_score} from ${on_string}"/>
 </outputs>
 
 <help>
