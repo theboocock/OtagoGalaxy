@@ -13,7 +13,7 @@
     <param name="input" type="data" format="vcf" label="VCF File"/>
 </inputs>
 <outputs>
-    <data name="output" format="txt" type="data"/>
+    <data name="output" format="txt" type="data" label="TS/TV Ratio on ${input}"/>
 </outputs>
 
 <help>

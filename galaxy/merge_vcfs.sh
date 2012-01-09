@@ -14,7 +14,7 @@ FILE_LIST=""
 
 cat $1 | bgzip -c > ~tmp1.vcf.gz
 cat $2 | bgzip -c > ~tmp2.vcf.gz
-ls -la
+
 tabix -p vcf ~tmp1.vcf.gz
 tabix -p vcf ~tmp2.vcf.gz
 
@@ -33,5 +33,5 @@ fi
 
 perl ~/galaxy-dist/tool-data/shared/vcfperltools/vcf-merge ${FILE_LIST}
 
-#rm -f ~tmp*.vcf.gz
+rm -f ~tmp*
 
