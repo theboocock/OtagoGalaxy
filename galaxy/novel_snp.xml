@@ -1,6 +1,5 @@
-<tool id="novel_snp" name="Convert to Novel SNPS." version="1.0">
-<description>Filter VCF files to create VCF with all known
-		SNPs removed</description>
+<tool id="novel_snp" name="Get SNPS." version="1.0">
+<description>from a VCF file and return all or only novel SNPs</description>
 
 <command interpreter="perl">
 	find_novel_snps.pl -i ${input} -o ${output_data} 
@@ -17,7 +16,7 @@
 	<param name="input" format="vcf" type="data" label="VCF file"/>
 </inputs>
 <outputs>
-	<data name="output_data" format="vcf" type="data"/>
+	<data name="output_data" format="vcf" type="data" label="SNPs from ${input}"/>
 </outputs>
 
 <tests>

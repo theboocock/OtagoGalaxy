@@ -9,6 +9,6 @@
 </inputs>
 
 <outputs>
-    <data name="output" format="txt" type="data"/>
+    <data name="output" format="txt" type="data" label="Ensemble VEP on ${input}"/>
 </outputs>
 </tool>
