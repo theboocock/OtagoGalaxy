@@ -6,6 +6,7 @@
    <tool file="SOER1000genes/galaxy/novel_snp.xml"/>
    <tool file="SOER1000genes/galaxy/quality_filter.xml"/>
    <tool file="SOER1000genes/galaxy/indelQual_filter.xml"/>
+   <tool file="SOER1000genes/galaxy/homo_multi.xml"/>
    <tool file="SOER1000genes/galaxy/extract_work.xml" />
    <label text="Calculations" id="soer_calc" />
    <tool file="SOER1000genes/galaxy/calc_ts_tv.xml" />

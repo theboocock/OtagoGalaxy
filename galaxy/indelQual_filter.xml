@@ -12,7 +12,7 @@
 </outputs>
 
 <help>
-	This tool filters a vcf file removing all lines which have an indel below a certain quality mark.
+	This tool filters out indels which are below a certain quality mark.
 </help>
 
 </tool>
