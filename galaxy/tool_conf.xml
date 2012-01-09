@@ -8,6 +8,7 @@
    <tool file="SOER1000genes/galaxy/ensemble_variant_effect.xml"/>
    <tool file="SOER1000genes/galaxy/select_samples.xml"/>
    <tool file="SOER1000genes/galaxy/merge_vcfs.xml"/>
+   <tool file="SOER1000genes/galaxy/get_sample_id.xml" />
 </section>
 <section name="Get Data" id="getext">
     <tool file="data_source/upload.xml"/>
