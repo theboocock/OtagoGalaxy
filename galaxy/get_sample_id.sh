@@ -8,5 +8,9 @@
 OUTPUT=`grep "^#[^#]" -m 1 $1`
 for line in $OUTPUT
 do
+    if [$line != "#CHROM"] && [$line != "ID"] && [$line != "REF"] && [$line !="ALT"] && [$line != "QUAL"] && [$line != "QUAL"] && [$line != "FILTER"] &&
+[$line != "INFO"] && [$line != "FORMAT"]
+then
     echo $line
+fi
 done
