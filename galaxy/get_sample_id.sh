@@ -5,6 +5,7 @@
 #
 # $1 Input File to extract the ids from.
 
+echo Sample IDs from file ${1} \n
 OUTPUT=`grep "^#[^#]" -m 1 $1`
 for line in $OUTPUT
 do

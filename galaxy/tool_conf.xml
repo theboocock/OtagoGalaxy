@@ -1,12 +1,15 @@
 <?xml version="1.0"?>
 <toolbox>
 <section name="SOER" id="soer">
+   <label text="Filters" id="soer_filt" />
+   <tool file="SOER1000genes/galaxy/select_samples.xml"/>
    <tool file="SOER1000genes/galaxy/novel_snp.xml"/>
    <tool file="SOER1000genes/galaxy/quality_filter.xml"/>
+   <tool file="SOER1000genes/galaxy/indelQual_filter.xml"/>
    <tool file="SOER1000genes/galaxy/extract_work.xml" />
+   <label text="Calculations" id="soer_calc" />
    <tool file="SOER1000genes/galaxy/calc_ts_tv.xml" />
    <tool file="SOER1000genes/galaxy/ensemble_variant_effect.xml"/>
-   <tool file="SOER1000genes/galaxy/select_samples.xml"/>
    <tool file="SOER1000genes/galaxy/merge_vcfs.xml"/>
    <tool file="SOER1000genes/galaxy/get_sample_id.xml" />
 </section>
@@ -38,9 +41,6 @@
     <tool file="data_source/hbvar.xml" />
     <tool file="validation/fix_errors.xml" />
   </section>
-  <!--section name="My Tools" id="ex">
-    <tool file="mine/exampleTool.xml"/>
-  </section!-->
   <section name="Send Data" id="send">
     <tool file="data_destination/epigraph.xml" />
     <tool file="data_destination/epigraph_test.xml" />
