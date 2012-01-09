@@ -20,3 +20,4 @@ done
 eval INPUT=\$${#}
 bgzip -c $INPUT > $INPUT.gz
 perl ~/galaxy-dist/tool-data/shared/vcfperltools/vcf-subset -c $SAMPLE_LIST $INPUT.gz
+
