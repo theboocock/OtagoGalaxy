@@ -577,7 +577,8 @@ INTRO
             
             # module may be installed, but e.g.
             eval {
-                ($w, $h) = GetTerminalSize();
+               # ($w, $h) = GetTerminalSize();
+               
             };
             
             $width = $w if defined $w;

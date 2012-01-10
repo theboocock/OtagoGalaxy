@@ -1,7 +1,7 @@
 <tool id="indelQual_filter" name="Indel Quality Score Filtering on VCF file" version="1.0.0">
 <description>Filter out rows based on indel having a particular quality score </description>
-<command>
-	cat $input_vcf | java -jar ${__root_dir__}/tool-data/shared/jars/snpEff/SnpSift.jar filter "((exists INDEL ) \& (QUAL >= $qual_score))" > $output
+<command interpreter="bash">
+	./indelQual_filter.sh ${input_vcf} ${qual_score} > ${output}
 </command>
 <inputs>
 	<param name="input_vcf" format="vcf" type="data" label="Input VCF"/>
