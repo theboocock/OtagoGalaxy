@@ -18,7 +18,7 @@
     <param name="cb_perGene" label="Display Per Gene information" type="boolean" truevalue="perGene" falsevalue="no-perGene" />
     <param name="cb_codingOnly" label="Display Coding Region Only information" type="boolean" truevalue="codingOnly" falsevalue="no-codingOnly" />
     <param name="cb_checkExisting" label="Check existing variants" type="boolean" truevalue="checkExisting" falsevalue="no-checkExisting" />
-    <param name="cb_checkAlleles" label="When checking for existing varians, only report a co-located variant if none of the alleles supplied are novel" type="boolean" truevalue="checkAlleles" falsevalue="no-checkAlleles" />
+    <param name="cb_checkAlleles" label="When checking for existing variants, only report a co-located variant if none of the alleles supplied are novel" type="boolean" truevalue="checkAlleles" falsevalue="no-checkAlleles" />
     
 </inputs>
 
