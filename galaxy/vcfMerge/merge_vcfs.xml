@@ -20,5 +20,9 @@
 <outputs>
 <data format="vcf" name="output"/>
 </outputs>
+<help>
+Merge VCFs takes input of two or more VCF files and merges the VCFs together
+to make on large VCF containing the sum of its parts.
 
+</help>
 </tool>

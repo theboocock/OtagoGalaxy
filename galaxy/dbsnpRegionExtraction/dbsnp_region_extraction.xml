@@ -46,4 +46,10 @@
 
 
   </tests>
+  <help>
+   This tool annotates a VCF with file with the RSIDs from the installed 
+   version of the DBSNP file that is required for this tool to work.
+    
+   The tool then extracts the specified region from the VCF file.
+  </help>
 </tool>

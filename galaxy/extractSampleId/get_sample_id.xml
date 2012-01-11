@@ -11,5 +11,9 @@
 <outputs>
 <data format="txt" name="output" />
 </outputs>
+<help>
+	Extract sample IDs obtains the list of sample IDs from a given
+	vcf file and returns a line seperated file containing them all.
+</help>
 
 </tool>
