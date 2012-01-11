@@ -7,7 +7,7 @@
    <label text="Filters" id="soer_filt" />
    <tool file="SOER1000genes/galaxy/getSnps/get_snps.xml"/>
    <tool file="SOER1000genes/galaxy/qualityFilter/quality_filter.xml"/>
-   <tool file="SOER1000genes/galaxy/indelQual_filter.xml"/>
+   <tool file="SOER1000genes/galaxy/indelQualityFilter/indelQual_filter.xml"/>
    <tool file="SOER1000genes/galaxy/homozyFilter/homo_multi.xml"/>
    <tool file="SOER1000genes/galaxy/dbsnpRegionExtraction/dbsnp_region_extraction.xml" />
    <label text="Calculations" id="soer_calc" />
