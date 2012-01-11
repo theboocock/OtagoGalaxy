@@ -2,7 +2,7 @@
 #Date: 30/11/11
 #
 # A wrapper that wraps all the functions that need to be called by 
-# extract_vcf.xml for Galaxy.
+# dbsnp_region_extraction.xml for Galaxy.
 #
 # Params:
 # $1 = input1
