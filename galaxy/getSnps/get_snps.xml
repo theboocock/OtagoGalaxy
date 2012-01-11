@@ -31,5 +31,12 @@
 	<output name="output" value="SOER/convert_to_novel_list.vcf" />
 </test>
 </tests>
+<help>
+	Get SNP returns all the snps from a VCF file either the novel ones
+	or just passes through the full list.
+
+	A novel SNP is a snp that has not been assigned a RSID
+
+</help>
 
 </tool>
