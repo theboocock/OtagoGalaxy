@@ -1,8 +1,10 @@
 <?xml version="1.0"?>
 <toolbox>
 <section name="SOER" id="soer">
+   <label text="Variant Effect Predictors" id="soer_vep" />
+   <tool file="SOER1000genes/galaxy/ensemble_variant_effect.xml"/>
+   <tool file="snpEff/snpEff.xml" />
    <label text="Filters" id="soer_filt" />
-   <tool file="SOER1000genes/galaxy/select_samples.xml"/>
    <tool file="SOER1000genes/galaxy/novel_snp.xml"/>
    <tool file="SOER1000genes/galaxy/quality_filter.xml"/>
    <tool file="SOER1000genes/galaxy/indelQual_filter.xml"/>
@@ -10,9 +12,10 @@
    <tool file="SOER1000genes/galaxy/extract_work.xml" />
    <label text="Calculations" id="soer_calc" />
    <tool file="SOER1000genes/galaxy/calc_ts_tv.xml" />
-   <tool file="SOER1000genes/galaxy/ensemble_variant_effect.xml"/>
+   <label text="VCF file Mainuplation" id="soer_vcf-manip" />
    <tool file="SOER1000genes/galaxy/merge_vcfs.xml"/>
    <tool file="SOER1000genes/galaxy/get_sample_id.xml" />
+   <tool file="SOER1000genes/galaxy/select_samples.xml"/>
 </section>
 <section name="Get Data" id="getext">
     <tool file="data_source/upload.xml"/>
@@ -115,9 +118,6 @@
   </section>
   <section name="Fetch Sequences" id="fetchSeq">
     <tool file="extract/extract_genomic_dna.xml" />
-  </section>
-  <section name="SNP Effect" id="snpeffect">
-    <tool file="snpEff/snpEff.xml" />
   </section>
   <section name="Fetch Alignments" id="fetchAlign">
     <tool file="maf/interval2maf_pairwise.xml" />
