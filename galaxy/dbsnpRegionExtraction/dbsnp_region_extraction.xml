@@ -1,0 +1,49 @@
+<tool id="vcf_extract_DBSNP" name="Extract and annotate dbSNP and VCF file" version="1.0.0">
+  <description>from a user defined region or whole file.</description>
+  <command interpreter="bash">
+
+  #if str($display_region) == "auto":
+    ./vcf_extract_wrapper.sh $input1 $output1 $err_output $dbsnp $variants_annotated
+  #else
+    ./vcf_extract_wrapper.sh $input1 $output1 $err_output $dbsnp $variants_annotated ${region}
+  #end if
+  </command>
+  <inputs>
+    <param name="input1" label="VCF file" type="data" format="vcf" />
+    <param name="display_region" label="Extract records from this region" type="boolean" help="If you do not select this it will find the chromosome and region from your input file automatically" truevalue="manual" falsevalue="auto">
+    </param>
+    <param name ="region" label="Type in region - Only if the box above is ticked" type="text" help="The format of the region is ref:start-end, where the and end coordinates are 1-based" />
+  </inputs>
+  <outputs> 
+    <data format="vcf" name="output1" label="${tool.name} from ${on_string}" />
+    <data format="vcf" name="dbsnp"   label="${tool.name} from ${on_string}.dbsnp"/>
+    <data name="variants_annotated" label="${tool.name} annotated from ${on_string}" format="vcf"/>
+    <data name="err_output" format="txt"/>
+  </outputs>
+
+  <tests>
+  <test>
+        <!-- Testing Manual Region Input -->
+        <param name="input1" value="SOER/ExtractAnnotate/test_vcf_soer.vcf"/>
+        <param name="display_region" value="true"/>
+        <param name="region" value="4:88500091-88505945"/>
+        <output name="output1" value="SOER/ExtractAnnotate/m_output1.vcf"/>
+        <output name="dbsnp"   value="SOER/ExtractAnnotate/m_dbsnp.vcf"/>
+        <output name="variants_annotated" value="SOER/ExtractAnnotate/m_variant_annotated.vcf"/>
+        <output name="err_output" value="SOER/ExtractAnnotate/m_err.txt"/>
+
+  </test>
+  <test>
+        <!-- Testing Auto region input -->
+        <param name="input1" value="SOER/ExtractAnnotate/test_vcf_soer.vcf"/>
+        <param name="display_region" value="false"/>
+        <param name="region" value=""/>
+        <output name="output1" value="SOER/ExtractAnnotate/a_output1.vcf"/>
+        <output name="dbsnp"   value="SOER/ExtractAnnotate/a_dbsnp.vcf"/>
+        <output name="variants_annotated" value="SOER/ExtractAnnotate/a_variants_annotated.vcf"/>
+        <output name="err_output" value="SOER/ExtractAnnotate/a_err.txt"/>
+  </test>
+
+
+  </tests>
+</tool>

@@ -1,0 +1,33 @@
+<tool id="qual_filter" name="Quality Score Filtering on VCF file" version="1.0.0">
+<description>Read VCF file and filter out rows based on quality score </description>
+<command>
+	cat $input_vcf | java -jar ${__root_dir__}/tool-data/shared/jars/snpEff/SnpSift.jar filter " (QUAL >= $qual_score)" > $output
+</command>
+<inputs>
+	<param name="input_vcf" format="vcf" type="data" label="Input VCF"/>
+	<param name="qual_score" type="integer" value="0" label="Quality threshold below which to discard all lines of VCF input"/>
+	</inputs>
+<outputs>
+	<data format="vcf" name="output" label="${tool.name} from ${on_string}"/>
+</outputs>
+
+<tests>
+    <test>
+    <param name="input_vcf" value="SOER/QualityFilter/test_vcf_soer.vcf"/>
+    <param name="qual_score" value="0"/>
+    <output name="output" value="SOER/QualityFilter/q_0.vcf"/>
+
+    </test>
+    <test>
+    <param name="input_vcf" value="SOER/QualityFilter/test_vcf_soer.vcf"/>
+    <param name="qual_score" value="90"/>
+    <output name="output" value="SOER/QualityFilter/q_90.vcf"/>
+    </test>
+</tests>
+
+<help>
+	This tool filters a vcf file removing all lines below a certain quality mark
+</help>
+
+</tool>
+

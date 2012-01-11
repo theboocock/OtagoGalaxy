@@ -1,0 +1,18 @@
+<tool id="select_samples" name="Filter by Sample" version="0.1">
+<description>and put into a new VCF file</description>
+
+<command interpreter="bash">
+    filter_samples.sh ${samples} ${input} > ${output}
+</command>
+
+<inputs>
+<param name="input" type="data" format="vcf" label="Select VCF" />
+<param name="samples" type="text" label="Enter sample IDs (whitespace separated)" help="Names must be whitespace separated e.g AT501 AT502 AT503 etc" />
+
+</inputs>
+
+<outputs>
+<data format="vcf" name="output" label="Samples ${samples} from ${input}"/>
+</outputs>
+
+</tool>
