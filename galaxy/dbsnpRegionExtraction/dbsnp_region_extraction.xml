@@ -1,4 +1,4 @@
-<tool id="vcf_extract_DBSNP" name="Extract and annotate dbSNP and VCF file" version="1.0.0">
+<tool id="vcf_extract_DBSNP" name="Extract region and annotate dbSNP and VCF file" version="1.0.0">
   <description>from a user defined region or whole file.</description>
   <command interpreter="bash">
 

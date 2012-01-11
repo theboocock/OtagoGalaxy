@@ -1,0 +1,35 @@
+<tool id="get_snp" name="Get SNPS" version="1.0">
+<description>from a VCF file and return all or only novel SNPs</description>
+
+<command interpreter="perl">
+	get_snps.pl -i ${input} -o ${output_data} 
+	#if str($full_or_novel) == "full":
+	-f
+	#end if
+</command>
+
+<inputs>
+<param name="full_or_novel" type="select" label="Perform analysis on novel SNPs or full list of SNPs">
+<option value="full">All SNPs</option>
+<option value="novel">Novel SNPs</option>
+</param>
+	<param name="input" format="vcf" type="data" label="VCF file"/>
+</inputs>
+<outputs>
+	<data name="output_data" format="vcf" type="data" label="SNPs from ${input}"/>
+</outputs>
+
+<tests>
+<test>
+	<param name="input" value="SOER/novel_test_input.vcf" />
+	<param name="full_or_novel" value="full" />
+	<output name="output" file="SOER/convert_to_full_list.vcf"/>
+</test>
+<test>
+	<param name="input" value="SOER/novel_test_input.vcf" />
+	<param name="full_or_novel" value="novel"/>
+	<output name="output" value="SOER/convert_to_novel_list.vcf" />
+</test>
+</tests>
+
+</tool>
