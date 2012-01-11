@@ -2,7 +2,7 @@
 <description>and put into a new VCF file</description>
 
 <command interpreter="bash">
-    filter_samples.sh ${samples} ${input} > ${output}
+    select_samples.sh ${samples} ${input} > ${output}
 </command>
 
 <inputs>
