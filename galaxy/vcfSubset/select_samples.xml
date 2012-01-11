@@ -14,5 +14,11 @@
 <outputs>
 <data format="vcf" name="output" label="Samples ${samples} from ${input}"/>
 </outputs>
+<help>
+	Filter by sample extracts all the sample ids specified in a whitespace
+	seperated list from a VCF file and returns a new VCF containing only 
+	these samples.
+
+</help>
 
 </tool>
