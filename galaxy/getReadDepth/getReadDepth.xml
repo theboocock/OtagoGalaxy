@@ -1,17 +1,17 @@
 <tool id="get_read_depth" name="Get SNP Read Depth" version="1.0.0">
 <description>per sample from a VCF file</description>
 <command interpreter="bash">
-	 ./getReadDepth.sh ${input} > ${output}
+	 java GetReadDepth ${input} > ${output}
 </command>
 <inputs>
 	<param name="input" format="vcf" type="data" label="Input VCF"/>
 	</inputs>
 <outputs>
-	<data format="vcf" name="output" label="${tool.name} from ${on_string}"/>
+	<data format="vcf" name="output" label="Read Depth from ${on_string}"/>
 </outputs>
 
 <help>
-	This tool returns the Read Depth for every position
+	This tool returns the Read Depth for every position.
 </help>
 
 </tool>
