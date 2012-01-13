@@ -29,7 +29,7 @@ mkdir /home/galaxy/galaxy-dist/tool-data/shared/jars/snpEff
 mv -f ../src/snpEff/SnpSift.jar /home/galaxy/galaxy-dist/tool-data/shared/jars/snpEff
 mv -f ../src/snpEff/snpEff.jar /home/galaxy/galaxy-dist/tool-data/shared/jars/snpEff
 mv -f ../src/snpEff/snpEff.config /home/galaxy/galaxy-dist/tool-data/shared/jars/snpEff
-mv -fr ../src/snpEff/data /home/galaxy/galaxy-dist/tool-data/shared/jars/snpEff
+mv -f ../src/snpEff/data /home/galaxy/galaxy-dist/tool-data/shared/jars/snpEff
 mkdir /home/galaxy/galaxy-dist/tools/snpEff
 mv -f ../src/snpEff/snpEff.xml /home/galaxy/galaxy-dist/tools/snpEff/
 
