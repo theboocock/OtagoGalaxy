@@ -1,0 +1,46 @@
+#!/bin/bash
+#Instructions for galaxy installation on a Server.
+
+#This is the link for settin up galaxy on a production server.
+#http://wiki.g2.bx.psu.edu/Admin/Config/Performance/Production%20Server
+
+#Instructions from the galaxy page for installing all the NGS dependencies
+
+#http://wiki.g2.bx.psu.edu/Admin/NGS%20Local%20Setup
+
+##Quality Control and Pre-Processing##
+
+#Installing R and R-developer
+
+sudo apt-get install r-base
+sudo apt-get install r-base-dev
+
+#Installing Rpy
+
+ wget http://downloads.sourceforge.net/project/rpy/rpy2/2.2.x/rpy2-2.2.1.tar.gz 
+ tar -xvf rpy2-2.2.1.tar.gz
+ cd rpy2-2.2.2.1
+ python setup.py install
+
+#Install Bowtie
+
+sudo apt-get install bowtie
+
+#Install BWA
+
+sudo apt-get install bwa
+
+#Install LASTZ
+
+sudo apt-get install last-align
+
+#Install MEGABLAST
+
+sudo apt-get install blast2
+
+#install samtools genomics suite
+sudo apt-get install samtools
+
+#install tabix tabdelimiter file indexer
+sudo apt-get install tabix
+
