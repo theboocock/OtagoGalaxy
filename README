@@ -1,22 +1,21 @@
-Nov 2011
-Updated 01/12/11
+SOER100genes - Git Hub Repository
 
-Your folder structure must stay as this. And you must have dbSNP inside the galaxy/data folder.
+This repository stores files related to the Galaxy installation of SOER1000genes tools.
 
-mv extract.py ~/galaxy-dist/tools/vcf_tools/
+To set up the files correctly go into the scripts folder and run 
 
-Requirements:
-Tabix
-Gzip
-SnpEff/Sift will need to be installed into the directory galaxy-dist/tool-data/shared/jars/snpEff/ and the xml file located in galaxy-dist/tools/snpEff/
-SnpEff will require you have previously downloaded the database you are needing to use. We have placed these in the data folder. Simply move the databases into galaxy-dist/tool-data/shared/jars/snpEff/data folder.
-dbSnp.vcf.gz and dbSnp.vcf.gz.tbi will need to be placed in /tools/SOER1000genes/data/ directory.
+./setup.sh
 
-command to download snpeff database example:
-java -jar /galaxy-dist/tool-data/shared/jars/snpEff/snpEff.jar download GRCh37.64
+on the command line.
 
-Data file extract.py will need to be moved to tools/vcf_tools/ and overwrite the file.
+Any questions or problems please feel free to get in contact with us.
+Enjoy! 
 
-Created by Edward Hills and James Boocock of Otago University
+Created by Ed Hills and James Boocock.
 
-test edit - MC
+Apart of the Otago University and Auckland University Summer of eResearch Project.
+
+Contact Info:
+Ed Hills - ehills666@gmail.com
+James Boocock - sfk2001@gmail.com
+Mik Black (Supervisor) - mik.black@otago.ac.nz
