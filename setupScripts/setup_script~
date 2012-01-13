@@ -100,7 +100,6 @@ sudo cp -f contrib/dist/rpm/proftpd.init.d /etc/init.d
 sudo mv /etc/init.d/proftpd.init.d /etc/init.d/proftpd
 
 #Restart proftpd 
-
 sudo /etc/init.d/proftpd restart
 
 #Run move scripts to install all our tools.
