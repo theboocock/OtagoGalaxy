@@ -14,6 +14,7 @@ echo Starting install...
 mv -f restart_galaxy.sh /home/galaxy/galaxy-dist/
 mv -f start_galaxy.sh /home/galaxy/galaxy-dist/
 mv -f stop_galaxy.sh /home/galaxy/galaxy-dist/
+mv -f start_webapp.sh /home/galaxy/galaxy-dist/
 
 # Copy config files to root directory
 mv -f universe_wsgi.ini /home/galaxy/galaxy-dist/
