@@ -77,7 +77,7 @@ sudo apt-get install libpam0g-dev
 #Setup galaxydb for ftp authentication
 
 sudo su postgres -c 'createuser -SDR galaxyftp'
-sudo su postgres -c 'psql galaxydb -f ftpsetup.sql'
+sudo su postgres -c 'psql -d galaxydb -f ftpsetup.sql'
 
 #Get source for additional proftpd
 sudo  apt-get install libpq-dev
@@ -109,7 +109,7 @@ bash ./setup.sh
 
 #Migrate data
 
-sudo chown -R galaxy /home/galaxy/galaxy-dist
+sudo chown -R galaxy:galaxy /home/galaxy/galaxy-dist
 
 ./home/galaxy/galaxy-dist/manage.sh upgrade
 
