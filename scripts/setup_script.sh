@@ -3,6 +3,8 @@
 
 #install python
 
+INSTALL_DIR=`pwd`
+
 sudo apt-get install python
 
 #install repo that galaxy uses
@@ -95,13 +97,11 @@ sudo make install
 
 #Copy proftpd config file /etc/proftpd
 
-sudo mkdir /etc/proftpd
-sudo cp -f ~/proftpd.conf /usr/local/etc/proftpd/proftpd.conf
+sudo cp -f $INSTALL_DIR/proftpd.conf /usr/local/etc/proftpd/proftpd.conf
 
 #Copy proftpd startup script
 
-sudo cp -f contrib/dist/rpm/proftpd.init.d /etc/init.d
-sudo mv /etc/init.d/proftpd.init.d /etc/init.d/proftpd
+sudo cp -f $INSTALL_DIR/proftpd /etc/init.d/
 
 #Restart proftpd 
 
@@ -109,7 +109,7 @@ sudo /etc/init.d/proftpd restart
 
 #Run move scripts to install all our tools.
 
-bash ./setup.sh
+bash .$INSTALL_DIR/setup.sh
 
 #Migrate data
 
