@@ -13,6 +13,10 @@ sudo apt-get install mercurial
 
 sudo adduser galaxy
 
+#install SSH
+
+sudo apt-get install openssh-client 
+
 # log into galaxy user
 
 sudo su galaxy -c 'cd ~;  hg clone https://bitbucket.org/galaxy/galaxy-dist/;
@@ -71,20 +75,20 @@ sudo /etc/init.d/apache2 restart
 
 #Install ftp server
 
-sudo apt-get install proftpd-basic
 sudo apt-get install libssl-dev
+sudo apt-get install libpam0g-dev
 
 #Setup galaxydb for ftp authentication
 
 sudo su postgres -c 'createuser -SDR galaxyftp'
-sudo su postgres -c 'psql galaxydb -f ftpsetup.sql'
+sudo su postgres -c 'psql -d galaxydb -f ftpsetup.sql'
 
 #Get source for additional proftpd
 sudo  apt-get install libpq-dev
 wget ftp://ftp1.at.proftpd.org/ProFTPD/distrib/source/proftpd-1.3.4a.tar.gz
 tar -xf proftpd-1.3.4a.tar.gz
 cd proftpd-1.3.4a.tar.gz
-./configure --enable-openssl --with-opt-include=/usr/include/postgresql84/ --with-modules=mod_sql:mod_sql_postgres:mod_sql_passwd
+./configure --enable-openssl --with-opt-include=/usr/include/postgresql84/ --with-modules=mod_sql:mod_sql_postgres:mod_sql_passwd:mod_auth_pam
 make
 sudo make install
 
@@ -92,7 +96,7 @@ sudo make install
 #Copy proftpd config file /etc/proftpd
 
 sudo mkdir /etc/proftpd
-sudo cp -f ~/proftpd.conf /etc/proftpd/proftpd.conf
+sudo cp -f ~/proftpd.conf /usr/local/etc/proftpd/proftpd.conf
 
 #Copy proftpd startup script
 
@@ -100,7 +104,19 @@ sudo cp -f contrib/dist/rpm/proftpd.init.d /etc/init.d
 sudo mv /etc/init.d/proftpd.init.d /etc/init.d/proftpd
 
 #Restart proftpd 
+
 sudo /etc/init.d/proftpd restart
+
+#Run move scripts to install all our tools.
+
+bash ./setup.sh
+
+#Migrate data
+
+sudo chown -R galaxy:galaxy /home/galaxy/galaxy-dist
+sudo echo "* * * * * chmod -R 777 /home/galaxy/galaxy-dist/database/ftp/*" | crontab
+
+./home/galaxy/galaxy-dist/manage.sh upgrade
 
 
 
