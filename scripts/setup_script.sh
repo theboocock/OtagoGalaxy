@@ -49,7 +49,7 @@ sudo cp -f proftpd.conf /etc/proftpd
 # Install the webserver
 
 sudo apt-get install apache2
-sudo apt-get install tabix
+sudo apt-get install samtools
 
 #enable required mods for galaxy
 
