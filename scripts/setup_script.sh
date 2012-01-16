@@ -70,7 +70,15 @@ sudo cp -f httpd.conf /etc/apache2/
 
 sudo /etc/init.d/apache2 restart
 
-#eds script goes here
+# Install TABIX
+
+sudo wget http://downloads.sourceforge.net/project/samtools/tabix/tabix-0.2.5.tar.bz2
+tar -xf tabix-0.2.5.tar.bz2
+cd tabix-0.2.5
+sudo make
+sudo cp tabix /usr/bin/
+sudo cp bgzip /usr/bin/
+cd ..
 
 #
 # FTP SETUP 
