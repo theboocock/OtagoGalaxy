@@ -95,9 +95,7 @@ cd proftpd-1.3.4a
 make
 sudo make install
 
-
 #Copy proftpd config file
-
 
 sudo cp -f $INSTALL_DIR/proftpd.conf /usr/local/etc/proftpd.conf
 
@@ -121,16 +119,21 @@ sudo echo "* * * * * chmod -R 777 /home/galaxy/galaxy-dist/database/ftp/*" | cro
 
 sudo /home/galaxy/galaxy-dist/./manage_db.sh upgrade
 
+# Setup BioPerl
 
+sudo cp -fR ../src/bioperl-live /usr/local/
+sudo cp -fR ../src/ensembl /usr/local/
+sudo cp -fR ../src/ensembl-compara /usr/local/
+sudo cp -fR ../src/ensembl-variation /usr/local/
+sudo cp -fR ../src/ensembl-functgenomics /usr/local/
 
+echo "PERL5LIB=${PERL5LIB}:/usr/local/bioperl-live" >> /home/galaxy/.bashrc
+echo "PERL5LIB=${PERL5LIB}:/usr/local/ensembl/modules" >> /home/galaxy/.bashrc 
+echo "PERL5LIB=${PERL5LIB}:/usr/local/ensembl-compara/modules" >> /home/galaxy/.bashrc
+echo "PERL5LIB=${PERL5LIB}:/usr/local/ensembl-variation/modules" >> /home/galaxy/.bashrc
+echo "PERL5LIB=${PERL5LIB}:/usr/local/ensembl-functgenomics/modules" >> /home/galaxy/.bashrc
+echo "PERL5LIB=${PERL5LIB}:/home/galaxy/galaxy-dist/tool-data/shared/vcfperltools" >> /home/galaxy/.bashrc
+echo "export PERL5LIB" >> /home/galaxy/.bashrc
+source /home/galaxy/.bashrc
 
-
-
-
-
-
-
-
-
- 
-
+echo Installation complete. Please go into /home/galaxy/galaxy-tools/universe.wsgi.ini and change the ftp_upload_name to reflect your domain name.
