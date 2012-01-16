@@ -1,7 +1,7 @@
 <tool id="get_read_depth" name="Get SNP Read Depth" version="1.0.0">
 <description>per sample from a VCF file</description>
-<command>
-	 java -cp . ${__root_dir__}/tools/SOER1000Genes/galaxy/getReadDepth/GetReadDepth ${input} > ${output}
+<command interpreter ="bash">
+	 ./GetReadDepth.sh ${input} > ${output}
 </command>
 <inputs>
 	<param name="input" format="vcf" type="data" label="Input VCF"/>
