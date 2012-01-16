@@ -11,6 +11,7 @@
 echo Starting install...
 
 # Copy handy scripts to root directory
+
 cp -f restart_galaxy.sh /home/galaxy/galaxy-dist/
 cp -f start_galaxy.sh /home/galaxy/galaxy-dist/
 cp -f stop_galaxy.sh /home/galaxy/galaxy-dist/

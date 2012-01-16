@@ -89,7 +89,7 @@ sudo su postgres -c 'psql -d galaxydb -f ftpsetup.sql'
 sudo  apt-get install libpq-dev
 wget ftp://ftp1.at.proftpd.org/ProFTPD/distrib/source/proftpd-1.3.4a.tar.gz
 tar -xf proftpd-1.3.4a.tar.gz
-cd proftpd-1.3.4a.tar.gz
+cd proftpd-1.3.4a
 ./configure --enable-openssl --with-opt-include=/usr/include/postgresql84/ --with-modules=mod_sql:mod_sql_postgres:mod_sql_passwd:mod_auth_pam
 make
 sudo make install
@@ -109,7 +109,7 @@ sudo /etc/init.d/proftpd restart
 
 #Run move scripts to install all our tools.
 
-bash .$INSTALL_DIR/setup.sh
+bash .$INSTALL_DIR/move_files.sh
 
 #Migrate data
 
