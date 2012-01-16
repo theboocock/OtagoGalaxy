@@ -6,9 +6,47 @@
 # AUTHOR: JAMES BOOCOCK AND EDWARD HILLS
 # DATE: 17/01/12
 
+INSTALL_DIR=`pwd`
+
+#install galaxy dependencies
+
+#Installing R
+
+sudo apt-get install r-base
+sudo apt-get install r-base-dev
+
+#Installing Rpy
+
+ wget http://downloads.sourceforge.net/project/rpy/rpy2/2.2.x/rpy2-2.2.1.tar.gz
+  tar -xvf rpy2-2.2.1.tar.gz
+   cd rpy2-2.2.2.1
+    python setup.py install
+   cd $INSTALL_DIR
+#Install Bowtie
+
+    sudo apt-get install bowtie
+
+#Install BWA
+
+    sudo apt-get install bwa
+
+#Install LASTZ
+
+    sudo apt-get install last-align
+
+#Install MEGABLAST
+
+    sudo apt-get install blast2
+
+#install samtools genomics suite
+    sudo apt-get install samtools
+sudo apt-get install blast2
+
+
+
+
 #install python
 
-INSTALL_DIR=`pwd`
 
 sudo apt-get install python
 
