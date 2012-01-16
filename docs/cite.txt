@@ -1,1 +1,0 @@
-ingolani, P. "snpEff: Variant effect prediction", http://snpeff.sourceforge.net, 2011. 
