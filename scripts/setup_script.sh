@@ -1,5 +1,6 @@
 #SETUP A SCRIPT FOR GALAXY INSTANCE
 #THIS PRODUCTION SERVER IS SET TO RUN FOR 2 CORES THROUGH APACHE PROXy
+# AUTHOR JAMES BOOCOCK
 
 #install python
 
@@ -32,7 +33,7 @@ echo "export TEMP" >> .bashrc;'
 sudo apt-get install postgresql
 
 #Create Galaxy database
-sudo su postgres -c createdb galaxydb
+sudo su postgres -c 'createdb galaxydb'
 
 #Create galaxy database user
 sudo su postgres -c 'createuser -SDR galaxy' 
