@@ -76,7 +76,7 @@ public class GetReadDepth {
                 }
             }
             if (! readDepth.equals("-1")) {
-                System.out.println(start + "\t\t" + pos + "\t" + rsid + "\t\t" + alt + "\t\t" + ref + "\t\t" + readDepth);
+                System.out.println(start + "\t\t" + pos + "\t\t" + rsid + "\t\t" + alt + "\t\t" + ref + "\t\t" + readDepth);
             }
         }
 

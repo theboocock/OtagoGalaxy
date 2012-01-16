@@ -31,7 +31,6 @@ echo "export TEMP" >> .bashrc;'
 #Install SQL data base
 sudo apt-get install postgresql
 
-
 #Create Galaxy database
 sudo su postgres -c createdb galaxydb
 
@@ -41,8 +40,8 @@ sudo su postgres -c 'createuser -SDR galaxy'
 # Run setup script for the postgres galaxy db.
 #
 # You can change the default passwords by editing galaxysetup.sql
-# But this will also mean the passwords must be edited in the universe config
-# files
+# But this will also mean the passwords must be edited in the universe
+# config files
 
 sudo su postgres -c 'psql -f galaxysetup.sql'
 sudo cp -f proftpd.conf /etc/proftpd
@@ -109,7 +108,8 @@ sudo /etc/init.d/proftpd restart
 
 #Run move scripts to install all our tools.
 
-bash .$INSTALL_DIR/move_files.sh
+mkdir /home/galaxy/galaxy-dist/tools/SOER1000genes
+./move_files.sh
 
 #Migrate data
 
