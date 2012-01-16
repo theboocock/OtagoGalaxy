@@ -1,7 +1,7 @@
 <tool id="get_read_depth" name="Get SNP Read Depth" version="1.0.0">
 <description>per sample from a VCF file</description>
-<command interpreter ="bash">
-	 ./GetReadDepth.sh ${input} > ${output}
+<command>
+	 java GetReadDepth ${input} > ${output}
 </command>
 <inputs>
 	<param name="input" format="vcf" type="data" label="Input VCF"/>
