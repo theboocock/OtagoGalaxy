@@ -41,15 +41,15 @@ mkdir /home/galaxy/galaxy-dist/tool-data/shared/jars/gatk
 mv -f ../src/gatk/GenomeAnalysisTK.jar /home/galaxy/galaxy-dist/tool-data/shared/jars/
 mv -f ../src/gatk /home/galaxy/galaxy-dist/tools/
 
+# Shift all the tools
+cp -fR ../galaxy/ /home/galaxy/galaxy-dist/tools/SOER1000genes/
+
 # Install dbSNP
 echo "Downloading dbSNP135 (~9Gb).. This may take some time.."
+echo "If you already have dbSNP and its tabix file please put them in /home/galaxy/galaxy-dist/tools/SOER1000genes/data/ folder named 00-All.vcf.gz and 00-All.vcf.gz.tbi accordingly and exit the script."
 wget ftp://ftp.ncbi.nih.gov/snp/organisms/human_9606/VCF/v4.0/00-All.vcf.gz 
-mkdir ../data
-mv -f 00-All.vcf.gz ../data/
-tabix -p vcf ../data/00-All.vcf.gz
+mkdir /home/galaxy/galaxy-dist/tools/SOER1000genes/data
+mv -f 00-All.vcf.gz /home/galaxy/galaxy-dist/tools/SOER1000genes/data/
+tabix -p vcf /home/galaxy/galaxy-dist/tools/SOER1000genes/data/00-All.vcf.gz
 
-# Finish and delete cruft
-rm -fr ../src
-rm -fr .
-
-echo Done
+echo Done!
