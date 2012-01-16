@@ -107,7 +107,7 @@ sudo cp -f $INSTALL_DIR/proftpd /etc/init.d/
 
 #Restart proftpd 
 
-sudo /etc/init.d/proftpd restart
+sudo /etc/init.d/proftpd start
 
 #Run move scripts to install all our tools.
 cd $INSTALL_DIR
