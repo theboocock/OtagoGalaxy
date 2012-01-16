@@ -51,7 +51,7 @@ echo "Rehashing proftpd configuration"
 kill -HUP $pid
 if [ -r $FTPD_CONF ]; then
 echo "Starting proftpd..."
-
+fi
 $FTPD_BIN -c $FTPD_CONF
 
 else

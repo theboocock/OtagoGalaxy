@@ -49,6 +49,10 @@ restart)
 if [ -n "$pid" ]; then
 echo "Rehashing proftpd configuration"
 kill -HUP $pid
+if [ -r $FTPD_CONF ]; then
+echo "Starting proftpd..."
+
+$FTPD_BIN -c $FTPD_CONF
 
 else
 echo "$0: proftpd not running"
