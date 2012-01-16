@@ -100,6 +100,7 @@ sudo cp -f $INSTALL_DIR/proftpd.conf /usr/local/etc/proftpd/proftpd.conf
 
 #Copy proftpd startup script
 
+sudo mkdir /usr/local/etc/proftpd
 sudo cp -f $INSTALL_DIR/proftpd /etc/init.d/
 
 #Restart proftpd 
@@ -109,14 +110,14 @@ sudo /etc/init.d/proftpd restart
 #Run move scripts to install all our tools.
 
 mkdir /home/galaxy/galaxy-dist/tools/SOER1000genes
-./move_files.sh
+.$INSTALL_DIR/move_files.sh
 
 #Migrate data
 
 sudo chown -R galaxy:galaxy /home/galaxy/galaxy-dist
 sudo echo "* * * * * chmod -R 777 /home/galaxy/galaxy-dist/database/ftp/*" | crontab
 
-./home/galaxy/galaxy-dist/manage.sh upgrade
+./home/galaxy/galaxy-dist/manage_db.sh upgrade
 
 
 
