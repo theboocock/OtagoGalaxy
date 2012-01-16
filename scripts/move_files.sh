@@ -12,18 +12,18 @@ echo Starting install...
 
 # Copy handy scripts to root directory
 
-cp -f restart_galaxy.sh /home/galaxy/galaxy-dist/
-cp -f start_galaxy.sh /home/galaxy/galaxy-dist/
-cp -f stop_galaxy.sh /home/galaxy/galaxy-dist/
-cp -f start_webapp.sh /home/galaxy/galaxy-dist/
+sudo cp -f restart_galaxy.sh /home/galaxy/galaxy-dist/
+sudo cp -f start_galaxy.sh /home/galaxy/galaxy-dist/
+sudo cp -f stop_galaxy.sh /home/galaxy/galaxy-dist/
+sudo cp -f start_webapp.sh /home/galaxy/galaxy-dist/
 
 # Copy config files to root directory
-cp -f universe_wsgi.ini /home/galaxy/galaxy-dist/
-cp -f universe_wsgi.runner.ini /home/galaxy/galaxy-dist/
-cp -f universe_wsgi.webapp.ini /home/galaxy/galaxy-dist/
+sudo cp -f universe_wsgi.ini /home/galaxy/galaxy-dist/
+sudo cp -f universe_wsgi.runner.ini /home/galaxy/galaxy-dist/
+sudo cp -f universe_wsgi.webapp.ini /home/galaxy/galaxy-dist/
 
 # Setup tool_conf.xml
-cp -f tool_conf.xml /home/galaxy/galaxy-dist/
+sudo cp -f tool_conf.xml /home/galaxy/galaxy-dist/
 
 # Setup snpEff
 sudo mkdir /home/galaxy/galaxy-dist/tool-data/shared/jars/snpEff
