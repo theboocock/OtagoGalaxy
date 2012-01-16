@@ -119,7 +119,7 @@ $INSTALL_DIR/./move_files.sh
 sudo chown -R galaxy:galaxy /home/galaxy/galaxy-dist
 sudo echo "* * * * * chmod -R 777 /home/galaxy/galaxy-dist/database/ftp/*" | crontab
 
-/home/galaxy/galaxy-dist/./manage_db.sh upgrade
+sudo /home/galaxy/galaxy-dist/./manage_db.sh upgrade
 
 
 
