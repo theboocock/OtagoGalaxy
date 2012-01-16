@@ -50,7 +50,7 @@ echo "Downloading dbSNP135 (~9Gb).. This may take some time.."
 echo "If you already have dbSNP and its tabix file please put them in /home/galaxy/galaxy-dist/tools/SOER1000genes/data/ folder named 00-All.vcf.gz and 00-All.vcf.gz.tbi accordingly and exit the script."
 sudo wget ftp://ftp.ncbi.nih.gov/snp/organisms/human_9606/VCF/v4.0/00-All.vcf.gz 
 sudo mkdir /home/galaxy/galaxy-dist/tools/SOER1000genes/data
-sudo mv -f 00-All.vcf.gz /home/galaxy/galaxy-dist/tools/SOER1000genes/data/
-tabix -p vcf /home/galaxy/galaxy-dist/tools/SOER1000genes/data/00-All.vcf.gz
+sudo mv -f 00-All.vcf.gz /home/galaxy/galaxy-dist/tools/SOER1000genes/data/dbSNP.vcf.gz
+sudo tabix -p vcf /home/galaxy/galaxy-dist/tools/SOER1000genes/data/dbSNP.vcf.gz
 
 echo Done!
