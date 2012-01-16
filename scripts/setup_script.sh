@@ -109,7 +109,7 @@ sudo /etc/init.d/proftpd restart
 
 #Run move scripts to install all our tools.
 
-mkdir /home/galaxy/galaxy-dist/tools/SOER1000genes
+sudo mkdir /home/galaxy/galaxy-dist/tools/SOER1000genes
 $INSTALL_DIR/./move_files.sh
 
 #Migrate data
