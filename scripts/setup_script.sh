@@ -1,6 +1,10 @@
-#SETUP A SCRIPT FOR GALAXY INSTANCE
-#THIS PRODUCTION SERVER IS SET TO RUN FOR 2 CORES THROUGH APACHE PROXy
-# AUTHOR JAMES BOOCOCK
+#!/bin/bash
+#
+# SETUP A SCRIPT FOR GALAXY INSTANCE
+# THIS PRODUCTION SERVER IS SET TO RUN FOR 2 CORES THROUGH APACHE PROXY
+#
+# AUTHOR: JAMES BOOCOCK AND EDWARD HILLS
+# DATE: 17/01/12
 
 #install python
 
@@ -128,6 +132,12 @@ sudo echo "* * * * * chmod -R 777 /home/galaxy/galaxy-dist/database/ftp/*" | cro
 sudo /home/galaxy/galaxy-dist/./manage_db.sh upgrade
 
 # Setup BioPerl
+echo Downloading ensembl cache, ~1.8gb...
+wget ftp://ftp.ensembl.org/pub/release-65/variation/VEP/homo_sapiens/homo_sapiens_vep_65_sift_polyphen.tar.gz
+
+tar -xvf homo_sapiens_vep_65_sift_polyphen.tar.gz
+mv homo_sapiens_vep_65_sift_polyphen.tar.gz ../src/ensembl_cache/
+rm -f homo_sapiens_vep_65_sift_polyphen.tar.gz
 
 sudo cp -fR ../src/bioperl-live /usr/local/
 sudo cp -fR ../src/ensembl /usr/local/
