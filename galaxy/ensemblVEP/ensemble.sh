@@ -24,13 +24,13 @@
 
 ENSEMBL_RUN_SCRIPT=""
 NUM_SAMPLES=$#
-echo $NUM_SAMPLES
-for((i=2; i <= $NUM_SAMPLES; i++))
+
+for (( i=2; i <= $NUM_SAMPLES; i++ ))
     do
        NUM=${i}
        eval INPUT=\${${NUM}}
 
-       if [[ !(($INPUT  =~ ^no-*)) ]];  then
+       if [[ ! (($INPUT  =~ ^no-*)) ]];  then
            if [ $i < 5 ]; then
                 $ENSEMBL_RUN_SCRIPT="${ENSEMBL_RUN_SCRIPT} --${INPUT} b"
             else
