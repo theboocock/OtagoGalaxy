@@ -1,0 +1,240 @@
+25th October 2004
+Update 20th July 2007
+---------------------
+
+Generating synteny blocks:
+=========================
+
+	- from whole genome alignments
+Needs whole genome alignments stored in an ensembl compara database or a set of gff files, one per chromosome
+
+        - or from homologues
+Needs homologues (orthologues and/or paralogues) stored in an ensembl compara database or a set of gff files, one per chromosome
+
+
+BuildSynteny program
+--------------------
+
+This program uses two parameters to define the syntenic regions. The first one, the maxDist, is used
+to define the maximum gap allowed between alignments within a syntenic block. The second one, the minDist,
+is the minimum length a syntenic block must have, shorter blocks are discarded. Both parameters can be set 
+identically or individually for both genomes. 
+
+The syntenic blocks are defined in two steps. In the first one, links (alignments) are grouped if they are in
+synteny, there is no other link breaking the synteny and the distance between the links is smaller than
+twice the maxDist parameter. In the second step, groups are grouped in syntenic block but this time, up to
+two other groups breaking the synteny are allowed (these are the internum lines found in the output which can
+be safely discarded) and the maximum distance between groups is 30 times
+the the maxDist parameter.
+
+
+Configuration
+-------------
+
+ensembl, ensembl-compara and bioperl-live modules will be needed
+Make sure, you've update your PERL5LIB variable to point to the modules 
+
+in tcsh
+setenv BASEDIR /some/path/to/modules
+setenv PERL5LIB ${BASEDIR}/bioperl-live:${BASEDIR}/ensembl/modules:${BASEDIR}/ensembl-compara/modules
+
+in bash
+BASEDIR=/some/path/to/modules
+export BASEDIR
+PERL5LIB=${BASEDIR}/bioperl-live:${BASEDIR}/ensembl/modules:${BASEDIR}/ensembl-compara/modules
+export PERL5LIB
+
+
+Database needed
+---------------
+
+The compara from which you will get the whole genome alignment data
+You will need to set up a Bio::EnsEMBL::Registry configuration file, that will hold all necessary information 
+to connect the compara database. See an example in ensembl/modules/Bio/EnsEMBL/Utils/ensembl_init.example 
+and read the Bio::EnsEMBL::Registry perldoc
+
+
+Dumping whole genome alignments / homologues to build syntenies
+---------------------------------------------------------------
+
+   * Dumping whole genome alignments 
+     -------------------------------
+Use the script ensembl-compara/scripts/synteny/DumpGFFAlignmentsForSynteny.pl
+
+It dumps whole genome alignments in gff format for a given chromosome.
+
+cd /lustre/scratch1/ensembl/jh7/blastz/HsapNCBI36.vs.CfamBROADD2
+
+mkdir synteny
+
+cd synteny
+
+echo "SELECT DISTINCT(dnafrag.name) FROM dnafrag LEFT JOIN genome_db USING (genome_db_id) \
+ WHERE genome_db.name = \"Homo sapiens\" AND coord_system_name=\"chromosome\";" | \
+mysql -h compara1 -u ensro -N jh7_ensembl_Hsap_Cfam_42 |grep -v -e NT -e DR -e c | sort > Hsap_chr_names
+
+
+Run the dump in sequential order, one at a time to avoid overloading the DB:
+
+cat Hsap_chr_names | while read i; do \
+echo "~/src/ensembl_main/ensembl-compara/scripts/synteny/DumpGFFAlignmentsForSynteny.pl \
+ --reg_conf ../reg.conf --dbname ensemblHsapCfam --qy 'Homo sapiens' \
+ --tg 'Canis familiaris' --seq_region $i"; \
+done > run.me
+chmod +x run.me
+bsub -q long -o dump.out -J DumpGFF.Hs-Cf ./run.me
+
+In this command line, "ensemblHsapCfam" is the name of the compara databases,
+as defined in the registry configuration file.
+
+For human vs chimp, we use both the level 1 and level 2 BlastZ alignments. The command will therefore be:
+
+cat Hsap_chr_names | while read i; do \
+echo "~/src/ensembl_main/ensembl-compara/scripts/synteny/DumpGFFAlignmentsForSynteny.pl \
+ --reg_conf ../reg.conf --dbname ensemblHsapPtro --qy 'Homo sapiens' \
+ --tg 'Pan troglodytes' --seq_region $i --level 2"; \
+done > run.me
+chmod +x run.me
+bsub -q long -o dump.out -J DumpGFF.Hs-Pt ./run.me
+
+This will write out all the dna-dna matches for mouse chromosomes against rat into files called
+
+	1.syten.gff
+	2.syten.gff
+	etc...
+
+
+   * Dumping homologues
+    -------------------
+Use the script ensembl-compara/scripts/synteny/DumpGFFHomologuesForSynteny.pl
+
+It dumps the homologues in gff format for all the genome.
+
+You can dump any types of homologues, just give the type(s) as parameters (comma separated, no space). 
+The usual types are: ortholog_one2one, ortholog_one2many, ortholog_many2many,
+		     between_species_paralog, within_species_paralog, apparent_ortholog_one2one                   
+It is recommended to use the orthologs ones only as the paralogs would probably mess up the result.		      
+
+Eg-1: 
+Dumping the orthologs_one2one from the compara database v.45 
+with Drosophila melanogaster as the reference genome and Anopheles gambiae as the secondary genome:
+
+perl ~/src_2/api_branch45/ensembl-compara/scripts/synteny/DumpGFFOrthologForSynteny.pl 
+--dbname Compara_45 --tg "Anopheles gambiae" --qy "Drosophila melanogaster" \
+--ortholog_type ortholog_one2one --reg_conf ~/.ensembl_init
+
+
+Eg-2:
+Dumping the orthologs_one2one, one2many and many2many from the compara database v.45 
+with Drosophila melanogaster as the reference genome and Anopheles gambiae as the secondary genome:
+
+perl ~/src_2/api_branch45/ensembl-compara/scripts/synteny/DumpGFFOrthologForSynteny.pl 
+--dbname Compara_45 --tg "Anopheles gambiae" --qy "Drosophila melanogaster" \
+--ortholog_type ortholog_one2one,ortholog_one2many,ortholog_many2many, --reg_conf ~/.ensembl_init
+
+
+
+In these command line, "Compara_45" is the name of the compara database as defined in the registry configuration file.
+
+
+This will write out all the homologues between Drosophila and Anopheles into files called:
+	2L_A.gam-D.mel_orthologues.syten.gff
+	2R_A.gam-D.mel_orthologues.syten.gff
+	2h_A.gam-D.mel_orthologues.syten.gff
+	3L_A.gam-D.mel_orthologues.syten.gff
+	etc.
+
+
+
+Building the synteny regions
+----------------------------
+
+Make sure you have either your JAVA_HOME variable set
+
+JAVA_HOME=/usr/opt/java141
+export JAVA_HOME
+
+or that the java executable is in your PATH
+
+PATH=/usr/opt/java/bin/:$PATH
+
+Now build the synteny regions for each chromosome.
+
+ls *.syten.gff | sed "s/\.syten\.gff//" | \
+ while read i; do echo "java -Xmx2000M -classpath \
+ ~/src/ensembl_main/ensembl-compara/scripts/synteny/BuildSynteny.jar \
+ BuildSynteny $i.syten.gff 100000 100000 false \
+ > $i.100000.100000.BuildSynteny.out 2> $i.100000.100000.BuildSynteny.err"; done > run
+
+chmod +x run
+
+bsub -R "select[mem>=2000] rusage[mem=2000]" -q bigmem -J HsapCfamSyn -o run.out -e run.err ./run
+
+NOTE-1: the last parameter "false" is only needed for human/mouse, human/rat and mouse/rat NOT for 
+elegans/briggsae (it can be ommitted). Don't ask me (Abel) what that does, Steve Searle included this 
+argument to make it work over mammals and worms.
+
+NOTE-2: if you are building syntenies from homologues and are expecting a lot of micro-synteny 
+(eg: between Drosophila and the mosquitoes), you should decrease the value of the minDist. 
+Ideally, you could estimate the average gene size and intergenic region size to have an idea of 
+the average minDist :	    minDist = (avg_gene_size)*2 + avg_intergenic_region
+In the case of genomes with very different gene size and intergenic region size, 
+it is better to set a minDist for each genome:
+.... BuildSynteny $i.syten.gff 100000 50000 100000 30000 false ...
+That's what was done for the drosophila and mosquitoes analysis.
+
+
+
+Check for error messages:
+
+more *BuildSynteny.err
+
+Concatenate all the results into one single file:
+
+cat *.BuildSynteny.out|grep cluster > all.100000.100000.BuildSynteny
+
+Loading the data in compara db
+------------------------------
+
+ensembl-compara/scripts/synteny/LoadSyntenyData.pl --dbname jh7_ensembl_compara_42 \
+ --qy "Homo sapiens" --tg "Canis familiaris" all.100000.100000.BuildSynteny
+
+
+Compiling BuildSynteny.java
+===========================
+
+NOTE: not important for production, it is just to know how to create the BuildSynteny.jar file from
+BuildSynteny.java
+
+BuildSynteny.java has still dependancies on apollo code, basically those
+
+import apollo.datamodel.*; //for FeatureSet and FeatureSetI
+import apollo.seq.io.*; //for GFFFile
+import apollo.util.*; //for QuickSort
+
+Better to do all the following on a PC linux box, either yours or one of the rlx blades. That because
+apollo does not compile properly on alpha, Don't ask me why...I've used j2sdk1.4.1_02 from sun.
+
+1- get the apollo source code
+
+ http://gmod.sourceforge.net/cvs.shtml
+
+2- compile apollo.
+
+ See the README
+
+3- Compile BuildSynteny.java
+
+ if your apollo classfiles directory is ~/src/apollo/src/java/classfiles/, then
+
+ javac -classpath ~/src/apollo/src/java/classfiles/ BuildSynteny.java
+
+4- Create the first part of BuildSynteny.jar
+
+ jar cvf BuildSynteny.jar -C ~/src/apollo/src/java/classfiles/ apollo
+
+5- Then integrate BuildSynteny.class in it
+
+ jar uvf BuildSynteny.jar BuildSynteny.class
+
+And that should be all :)

@@ -1,0 +1,15 @@
+# $Id: README,v 1.1 2001-09-10 16:30:04 lijnzaad Exp $
+
+This directory contains stuff needed to run Anton Enright's Tribe
+algorithm, starting from a on a complete peptide set, and finishing with a
+file of families that can be loaded into a family databases using
+the scripts. 
+
+The script/ directory contains sh and perl scripts. This used to be in
+ensembl-external/scripts/family, but has been moved to 
+ensembl-external/family/scripts.
+
+The src/ directory contains some C-source code etc., see there. 
+
+See ensembl-doc/family.txt for directions on how to produce a new family
+set. 

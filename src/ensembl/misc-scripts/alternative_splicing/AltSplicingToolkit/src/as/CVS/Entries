@@ -1,0 +1,27 @@
+/Coordinates.cpp/1.2/Fri Jan 28 15:34:35 2011//Tbranch-ensembl-64
+/Coordinates.h/1.2/Fri Jan 28 15:34:15 2011//Tbranch-ensembl-64
+/ExonChunk.cpp/1.2/Fri Jan 28 15:34:35 2011//Tbranch-ensembl-64
+/ExonChunk.h/1.2/Fri Jan 28 15:34:15 2011//Tbranch-ensembl-64
+/Feature.cpp/1.2/Fri Jan 28 15:34:35 2011//Tbranch-ensembl-64
+/Feature.h/1.2/Fri Jan 28 15:34:15 2011//Tbranch-ensembl-64
+/Gene.cpp/1.2/Fri Jan 28 15:34:35 2011//Tbranch-ensembl-64
+/Gene.h/1.2/Fri Jan 28 15:34:15 2011//Tbranch-ensembl-64
+/GeneFeature.cpp/1.2/Fri Jan 28 15:34:35 2011//Tbranch-ensembl-64
+/GeneFeature.h/1.2/Fri Jan 28 15:34:15 2011//Tbranch-ensembl-64
+/RegionChunk.cpp/1.2/Fri Jan 28 15:34:35 2011//Tbranch-ensembl-64
+/RegionChunk.h/1.2/Fri Jan 28 15:34:15 2011//Tbranch-ensembl-64
+/SplicingEvent.cpp/1.2/Fri Jan 28 15:34:35 2011//Tbranch-ensembl-64
+/SplicingEvent.h/1.2/Fri Jan 28 15:34:16 2011//Tbranch-ensembl-64
+/SplicingEventContainer.cpp/1.2/Fri Jan 28 15:34:35 2011//Tbranch-ensembl-64
+/SplicingEventContainer.h/1.2/Fri Jan 28 15:34:15 2011//Tbranch-ensembl-64
+/SplicingEventMatrix.cpp/1.2/Fri Jan 28 15:34:35 2011//Tbranch-ensembl-64
+/SplicingEventMatrix.h/1.2/Fri Jan 28 15:34:16 2011//Tbranch-ensembl-64
+/SplicingGraph.cpp/1.2/Fri Jan 28 15:34:36 2011//Tbranch-ensembl-64
+/SplicingGraph.h/1.2/Fri Jan 28 15:34:16 2011//Tbranch-ensembl-64
+/SplicingVertex.cpp/1.2/Fri Jan 28 15:34:36 2011//Tbranch-ensembl-64
+/SplicingVertex.h/1.2/Fri Jan 28 15:34:16 2011//Tbranch-ensembl-64
+/Transcript.cpp/1.2/Fri Jan 28 15:34:36 2011//Tbranch-ensembl-64
+/Transcript.h/1.2/Fri Jan 28 15:34:16 2011//Tbranch-ensembl-64
+/TranscriptFeature.cpp/1.2/Fri Jan 28 15:34:36 2011//Tbranch-ensembl-64
+/TranscriptFeature.h/1.2/Fri Jan 28 15:34:16 2011//Tbranch-ensembl-64
+D

@@ -1,0 +1,23 @@
+/FAQ.txt/1.2/Thu Dec 17 11:15:22 2009//Tbranch-ensembl-64
+/compare_mapping.pl/1.13/Wed Feb 11 09:32:43 2009//Tbranch-ensembl-64
+/compare_xrefs_by_source.pl/1.1/Tue Apr 19 09:37:42 2005//Tbranch-ensembl-64
+/convert_xrefs_to_all_translations.pl/1.1/Thu Nov 11 11:40:43 2004//Tbranch-ensembl-64
+/core_vega_link_check.pl/1.1/Tue Mar 23 13:40:08 2010//Tbranch-ensembl-64
+/ensembl_xrefs.pdf/1.4/Thu Apr 21 09:04:18 2005/-kb/Tbranch-ensembl-64
+/ensembl_xrefs.sxw/1.13/Thu Apr 21 09:04:18 2005//Tbranch-ensembl-64
+/gen_perc_file.pl/1.2/Thu Jan 13 15:35:12 2005//Tbranch-ensembl-64
+/generate_csv_graph_file.pl/1.2/Thu Jan 20 13:08:39 2005//Tbranch-ensembl-64
+/parsing_information.txt/1.14/Thu Apr 14 08:59:50 2011//Tbranch-ensembl-64
+/test_mapping_files.pl/1.2/Sun Mar 13 14:38:58 2005//Tbranch-ensembl-64
+/test_xref_mapper.pl/1.2/Thu Nov 19 12:56:07 2009//Tbranch-ensembl-64
+/xref_config.ini/1.151/Mon Aug  8 15:38:33 2011//Tbranch-ensembl-64
+/xref_config2sql.pl/1.16/Tue May 10 10:23:32 2011//Tbranch-ensembl-64
+/xref_mapper.input/1.7/Tue Jan 20 13:53:29 2009//Tbranch-ensembl-64
+/xref_mapper.pl/1.78/Wed May  4 09:17:03 2011//Tbranch-ensembl-64
+/xref_parser.pl/1.34/Tue Sep 29 13:00:09 2009//Tbranch-ensembl-64
+/xref_tracker.pl/1.3/Thu Nov 19 12:56:07 2009//Tbranch-ensembl-64
+/xrefs_detailed_docs.txt/1.2/Thu Jan 27 10:04:14 2011//Tbranch-ensembl-64
+/xrefs_overview.txt/1.8/Fri May 13 13:33:35 2011//Tbranch-ensembl-64
+D/XrefMapper////
+D/XrefParser////
+D/sql////

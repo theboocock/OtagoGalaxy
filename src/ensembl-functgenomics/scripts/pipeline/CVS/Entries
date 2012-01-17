@@ -1,0 +1,8 @@
+/.efg_pipeline/1.13/Thu Oct 22 13:36:29 2009//Tbranch-ensembl-64
+/configure_inputs.pl/1.4/Mon Jan 10 14:01:09 2011//Tbranch-ensembl-64
+/create_input_ids.pl/1.8/Mon Jan 10 14:01:10 2011//Tbranch-ensembl-64
+/efg_analysis.txt/1.5/Mon Mar  2 14:37:50 2009//Tbranch-ensembl-64
+/example.env/1.2/Mon Mar  2 14:00:16 2009//Tbranch-ensembl-64
+/mouse_51.env/1.2/Thu Sep 25 11:29:14 2008//Tbranch-ensembl-64
+/write_pipeline_config.pl/1.5/Mon Jan 10 14:01:11 2011//Tbranch-ensembl-64
+D

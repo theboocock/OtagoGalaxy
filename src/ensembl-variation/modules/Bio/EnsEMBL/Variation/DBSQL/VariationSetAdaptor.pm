@@ -1,0 +1,410 @@
+=head1 LICENSE
+
+ Copyright (c) 1999-2011 The European Bioinformatics Institute and
+ Genome Research Limited.  All rights reserved.
+
+ This software is distributed under a modified Apache license.
+ For license details, please see
+
+   http://www.ensembl.org/info/about/code_licence.html
+
+=head1 CONTACT
+
+ Please email comments or questions to the public Ensembl
+ developers list at <dev@ensembl.org>.
+
+ Questions may also be sent to the Ensembl help desk at
+ <helpdesk@ensembl.org>.
+
+=cut
+
+#
+# Ensembl module for Bio::EnsEMBL::Variation::DBSQL::VariationSetAdaptor
+#
+# Copyright (c) 2010 Ensembl
+#
+# You may distribute this module under the same terms as perl itself
+#
+#
+
+=head1 NAME
+
+Bio::EnsEMBL::Variation::DBSQL::VariationSetAdaptor
+
+=head1 SYNOPSIS
+
+  $db = Bio::EnsEMBL::Variation::DBSQL::DBAdaptor->new(...);
+
+  $vsa = $db->get_VariationSetAdaptor();
+
+  # retrieve a variation set by its name
+  $vs = $vsa->fetch_by_name('Phenotype-associated variations');
+
+  # retrieve a variation set by its internal identifier
+  $vs = $vsa->fetch_by_dbID(12);
+
+  # retrieve all variation sets which a variation is a part of
+  @vs = @{$vsa->fetch_all_by_Variation($var)};
+
+
+=head1 DESCRIPTION
+
+This adaptor provides database connectivity for VariationSet objects.
+VariationSets may be retrieved from the Ensembl variation database by
+several means using this module.
+
+=head1 METHODS
+
+=cut
+
+use strict;
+use warnings;
+
+package Bio::EnsEMBL::Variation::DBSQL::VariationSetAdaptor;
+
+use Bio::EnsEMBL::DBSQL::BaseAdaptor;
+use Bio::EnsEMBL::Utils::Exception qw(throw warning);
+use Bio::EnsEMBL::Utils::Scalar qw(assert_ref wrap_array);
+
+use Bio::EnsEMBL::Variation::VariationSet;
+
+our @ISA = ('Bio::EnsEMBL::DBSQL::BaseAdaptor');
+
+our $MAX_VARIATION_SET_ID = 64;
+
+=head2 fetch_all_top_VariationSets
+
+  Example    : $vs = $vs_adaptor->fetch_all_top_VariationSets();
+  Description: Retrieves all VariationSet objects that are 'toplevel', 
+               i.e. they are not subsets of any other variation set.
+  Returntype : istref of Bio::EnsEMBL::Variation::VariationSet
+  Exceptions : none
+  Caller     : general
+  Status     : At Risk
+
+=cut
+
+sub fetch_all_top_VariationSets {
+    my $self = shift;
+
+    #ÊAdd a constraint to only get the sets that don't have any parent sets
+    my $constraint = qq{
+        NOT EXISTS (
+            SELECT
+                *
+            FROM
+                variation_set_structure vss
+            WHERE
+                vss.variation_set_sub = vs.variation_set_id
+        )
+    };
+    
+    #ÊGet the results from generic fetch method
+    return $self->generic_fetch($constraint);
+    
+}
+
+=head2 fetch_all_by_sub_VariationSet
+
+  Arg [1]    : Bio::EnsEMBL::Variation::VariationSet $sub
+  Arg [2]    : (optional) boolean $only_immediate
+               If true, only the direct supersets of this variation set will be fetched. The default behaviour is
+               to recursively fetch all supersets.
+  Example    : @vs_supersets = @{$vs_adaptor->fetch_all_by_sub_VariationSet($vs)};
+  Description: Retrieves all VariationSets that are direct supersets of the specified VariationSet.
+  Returntype : listref of Bio::EnsEMBL::Variation::VariationSet
+  Exceptions : throw if sub arg is not valid
+  Caller     : general
+  Status     : At Risk
+
+=cut
+
+sub fetch_all_by_sub_VariationSet {
+  my $self = shift;
+  my $set = shift;
+  my $only_immediate = shift;
+
+  #ÊCheck the input set
+  assert_ref($set,'Bio::EnsEMBL::Variation::VariationSet');
+  
+# First, get all VariationSets that are direct supersets of this one
+
+  my $dbID = $set->dbID();
+  
+  my $stmt = qq{
+    SELECT
+      vss.variation_set_super
+    FROM
+      variation_set_structure vss
+    WHERE
+      vss.variation_set_sub = ?
+  };
+  my $sth = $self->prepare($stmt);
+  $sth->execute($dbID);
+
+  my %vs;
+  while (my $result = $sth->fetchrow_arrayref()) {
+# For each superset, fetch all of its supersets, unless specifically told not to
+    my $vs_sup = $self->fetch_by_dbID($result->[0]);
+    $vs{$vs_sup->dbID()} = $vs_sup;
+    if (!defined($only_immediate)) {
+      foreach my $v (@{$self->fetch_all_by_sub_VariationSet($vs_sup)}) {
+        $vs{$v->dbID()} = $v;
+      }
+    }
+  }
+  
+  my @res = values(%vs);
+  
+  return \@res;
+}
+
+=head2 fetch_all_by_super_VariationSet
+
+  Arg [1]    : Bio::EnsEMBL::Variation::VariationSet $super
+  Arg [2]    : (optional) boolean $only_immediate
+               If true, only the direct subsets of this variation set will be fetched. The default behaviour is
+               to recursively fetch all subsets.
+  Example    : @vs_subsets = @{$vs_adaptor->fetch_all_by_super_VariationSet($vs)};
+  Description: Retrieves all VariationSets that are subsets of the specified VariationSet.
+  Returntype : listref of Bio::EnsEMBL::Variation::VariationSet
+  Exceptions : throw if super arg is not valid
+  Caller     : general
+  Status     : At Risk
+
+=cut
+
+sub fetch_all_by_super_VariationSet {
+  my $self = shift;
+  my $set = shift;
+  my $only_immediate = shift;
+  
+  #ÊCheck the input set
+  assert_ref($set,'Bio::EnsEMBL::Variation::VariationSet');
+  
+# First, get all VariationSets that are direct subsets of this one
+
+  my $dbID = $set->dbID();
+  
+  my $stmt = qq{
+    SELECT
+      vss.variation_set_sub
+    FROM
+      variation_set_structure vss
+    WHERE
+      vss.variation_set_super = ?
+  };
+  my $sth = $self->prepare($stmt);
+  $sth->execute($dbID);
+
+  my %vs;
+  while (my $result = $sth->fetchrow_arrayref()) {
+# For each subset, fetch all of its subsets unless specifically told not to
+    my $vs_sub = $self->fetch_by_dbID($result->[0]);
+    $vs{$vs_sub->dbID()} = $vs_sub;
+    if (!defined($only_immediate)) {
+      foreach my $v (@{$self->fetch_all_by_super_VariationSet($vs_sub)}) {
+        $vs{$v->dbID()} = $v;
+      }
+    }
+  }
+  
+  my @res = values(%vs);
+  
+  return \@res;
+}
+
+
+=head2 fetch_by_name
+
+  Arg [1]    : string $name
+  Example    : $vg = $vga->fetch_by_name('Phenotype-associated variations');
+  Description: Retrieves a variation set by its name.
+  Returntype : Bio::EnsEMBL::Variation::VariationSet
+  Exceptions : throw if name argument is not provided
+  Caller     : general
+  Status     : At Risk
+
+=cut
+
+sub fetch_by_name {
+    my $self = shift;
+    my $name = shift;
+
+    throw('name argument expected') unless (defined($name));
+
+    # Add a constraint on the name column and bind the name to it
+    my $constraint = qq{ vs.name LIKE ? };
+    $self->bind_param_generic_fetch($name,SQL_VARCHAR);
+    
+    #ÊCall the generic fetch method
+    my $result = wrap_array($self->generic_fetch($constraint));
+    
+    # Return the result
+    return undef unless (scalar(@{$result}));
+    return $result->[0];
+}
+
+=head2 fetch_by_short_name
+
+  Arg [1]    : string $name
+  Example    : $vg = $vga->fetch_by_short_name('ph_variants');
+  Description: Retrieves a variation set by its short name.
+  Returntype : Bio::EnsEMBL::Variation::VariationSet
+  Exceptions : throw if short name argument is not provided
+  Caller     : general
+
+=cut
+
+sub fetch_by_short_name {
+    my $self = shift;
+    my $name = shift;
+
+    throw('short name argument expected') unless (defined($name));
+
+    #ÊGet the attrib_id corresponding to the 'short_name' type and specified name
+    my $aa = $self->db->get_AttributeAdaptor();
+    my $attrib_id = $aa->attrib_id_for_type_value($self->_short_name_attrib_type_code(),$name);
+    return undef unless (defined($attrib_id));
+    
+    # Add a constraint on the short_name_attrib_id column and bind the name to it
+    my $constraint = qq{ vs.short_name_attrib_id = ? };
+    $self->bind_param_generic_fetch($attrib_id,SQL_INTEGER);
+    
+    #ÊCall the generic fetch method
+    my $result = wrap_array($self->generic_fetch($constraint));
+    
+    # Return the result
+    return undef unless (scalar(@{$result}));
+    return $result->[0];
+}
+
+
+=head2 fetch_all_by_Variation
+
+  Arg [1]    : Bio::EnsEMBL::Variation::Variation
+  Example    : my $vgs = $vga->fetch_all_by_Variation($var);
+  Description: Retrieves all variation sets which a particular variation
+               is present in.
+  Returntype : reference to list of Bio::EnsEMBL::Variation::VariationSets
+  Exceptions : throw on incorrect argument
+  Caller     : general
+  Status     : At Risk
+
+=cut
+
+sub fetch_all_by_Variation {
+    my $self = shift;
+    my $var  = shift;
+
+    assert_ref($var,'Bio::EnsEMBL::Variation::Variation');
+
+  my $cols = join(',',$self->_columns());
+  my $stmt = qq{
+    SELECT
+      $cols
+    FROM
+      variation_set vs,
+      variation_set_variation vsv
+    WHERE
+      vs.variation_set_id = vsv.variation_set_id AND
+      vsv.variation_id = ?
+  };
+
+  my $sth = $self->prepare($stmt);
+  $sth->bind_param(1,$var->dbID,SQL_INTEGER);
+  $sth->execute();
+
+  my $result = $self->_objs_from_sth($sth);
+  $sth->finish();
+
+# Fetch all supersets of the returned sets as well. Since a variation may occur at several places in a hierarchy
+# which will cause duplicated data, store variation sets in a hash with dbID as key.
+  my %sets;
+  foreach my $set (@{$result}) {
+    $sets{$set->dbID()} = $set;
+    foreach my $sup (@{$self->fetch_all_by_sub_VariationSet($set)}) {
+      $sets{$sup->dbID()} = $sup;
+    }
+  }
+  
+  my @res = values %sets;
+  return \@res;
+}
+
+# An API-internal subroutine for getting the bitvalue of the specified variation_set and (unless specifically indicated) its subsets
+sub _get_bitvalue {
+  my $self = shift;
+  my $set = shift;
+  my $no_subsets = shift;
+  
+  #ÊCheck the input set
+  assert_ref($set,'Bio::EnsEMBL::Variation::VariationSet');
+  
+  #ÊStore the dbIDs of the set and its subsets in an array
+  my @dbIDs = ($set->dbID());
+  unless ($no_subsets) {
+    map {push(@dbIDs,$_->dbID())} @{$set->adaptor->fetch_all_by_super_VariationSet($set)};
+  }
+  
+  #ÊDo a quick check that none of the dbIDs are too large for being stored in the set construct. In that case, warn about this.
+  my @non_compatible = grep {$_ > $MAX_VARIATION_SET_ID} @dbIDs;
+  if (scalar(@non_compatible)) {
+    warn ("Variation set(s) with dbID " . join(", ",@non_compatible) . " cannot be stored in the variation_set_id SET construct. Entries for these sets won't be returned");
+  }
+  
+  #ÊAdd the bitvalues of the dbIDs in the set together to get the bitvalue, use only the ones that fit within the $MAX_VARIATION_SET_ID limit
+  my $bitvalue = 0;
+  map {$bitvalue += (2 ** ($_ - 1))} grep {$_ <= $MAX_VARIATION_SET_ID} @dbIDs;
+  
+  return $bitvalue;
+}
+
+# API-internal method for getting the attrib_type code used for short names
+sub _short_name_attrib_type_code {
+    return q{short_name};
+}
+
+sub _columns {
+  return qw( vs.variation_set_id vs.name vs.description vs.short_name_attrib_id );
+}
+sub _tables {
+  return ( ['variation_set','vs'] );
+}
+sub _default_where_clause {
+  return '1';
+}
+
+sub _objs_from_sth {
+  my $self = shift;
+  my $sth  = shift;
+
+  my ($vs_id, $name, $description, $short_name_attrib_id);
+  $sth->bind_columns(\$vs_id, \$name, \$description, \$short_name_attrib_id);
+
+  my @results;
+  my ($cur_vs, $cur_vs_id);
+    my $aa = $self->db->get_AttributeAdaptor();
+    
+# Construct all variation sets
+
+  while($sth->fetch()) {
+    if (!defined($cur_vs) || $vs_id != $cur_vs_id) {
+      $cur_vs = Bio::EnsEMBL::Variation::VariationSet->new
+        (
+          -dbID => $vs_id,
+          -adaptor => $self,
+          -name    => $name,
+          -description  => $description,
+          -short_name   => $aa->attrib_value_for_id($short_name_attrib_id)
+        );
+      $cur_vs_id = $vs_id;
+      push(@results,$cur_vs);
+    }
+  }
+
+  return \@results;
+}
+
+
+1;

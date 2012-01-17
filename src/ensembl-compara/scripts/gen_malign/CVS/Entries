@@ -1,0 +1,7 @@
+/check_mavid_alignments.pl/1.3/Wed Jan 10 12:03:08 2007//Tbranch-ensembl-64
+/store_mavid_alignment.pl/1.2/Tue Sep 14 10:30:45 2004//Tbranch-ensembl-64
+/store_multiz_alignment.pl/1.8/Wed Jan 10 12:04:25 2007//Tbranch-ensembl-64
+/store_old_pairwise_alignments_into_new_schema.pl/1.3/Wed Jan 10 12:04:36 2007//Tbranch-ensembl-64
+/test_GenomicAlignAdaptor.pl/1.2/Tue Sep 14 10:30:45 2004//Tbranch-ensembl-64
+/test_MethodLinkSpeciesSetAdaptor.pl/1.2/Tue Sep 14 10:30:45 2004//Tbranch-ensembl-64
+D

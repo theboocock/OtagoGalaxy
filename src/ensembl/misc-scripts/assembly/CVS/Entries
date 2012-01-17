@@ -1,0 +1,14 @@
+/EXAMPLE.use_mapping.pl/1.6/Fri Jan 28 11:35:58 2011//Tbranch-ensembl-64
+/README/1.11/Fri Jan 28 11:35:58 2011//Tbranch-ensembl-64
+/align_by_clone_identity.pl/1.7/Fri Jan 28 11:35:58 2011//Tbranch-ensembl-64
+/align_nonident_regions.pl/1.9/Fri Jan 28 11:35:58 2011//Tbranch-ensembl-64
+/align_nonident_regions_wrapper.pl/1.5/Fri Jan 28 11:35:58 2011//Tbranch-ensembl-64
+/blastz_matrix.txt/1.1/Thu Apr 13 08:41:18 2006//Tbranch-ensembl-64
+/check_mapping.pl/1.8/Fri Jan 28 11:35:58 2011//Tbranch-ensembl-64
+/cleanup_tmp_tables.sql/1.1/Thu Apr 23 14:14:01 2009//Tbranch-ensembl-64
+/compare_assemblies.pl/1.7/Fri Jan 28 11:35:58 2011//Tbranch-ensembl-64
+/find_overlaps.pl/1.4/Wed Jun 22 10:03:57 2011//Tbranch-ensembl-64
+/fix_overlaps.pl/1.7/Fri Jan 28 11:35:58 2011//Tbranch-ensembl-64
+/load_alternative_assembly.pl/1.8/Fri Jan 28 11:35:58 2011//Tbranch-ensembl-64
+/mapping_stats.pl/1.8/Fri Jan 28 11:35:58 2011//Tbranch-ensembl-64
+D/AssemblyMapper////

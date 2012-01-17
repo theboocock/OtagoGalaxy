@@ -1,0 +1,10 @@
+/build_overlap_features.pl/1.4/Mon Jan 10 14:01:19 2011//Tbranch-ensembl-64
+/build_regulatory_features.pl/1.37/Tue Jul 26 12:34:30 2011//Tbranch-ensembl-64
+/build_union_features.pl/1.4/Mon Jan 10 14:01:21 2011//Tbranch-ensembl-64
+/generate_new_stable_ids.pl/1.3/Mon Jan 10 14:01:22 2011//Tbranch-ensembl-64
+/get_sets_for_regulatory_build.pl/1.4/Mon Jan 10 14:01:23 2011//Tbranch-ensembl-64
+/patch_reg_features.pl/1.3/Mon Jan 10 14:01:24 2011//Tbranch-ensembl-64
+/reg_build_qc.sql/1.3/Wed Jan 27 11:33:57 2010//Tbranch-ensembl-64
+/run_regulatory_build.sh/1.1/Tue Mar 23 14:18:12 2010//Tbranch-ensembl-64
+/stable_id_mapper.pl/1.12/Thu Aug  4 15:16:41 2011//Tbranch-ensembl-64
+D

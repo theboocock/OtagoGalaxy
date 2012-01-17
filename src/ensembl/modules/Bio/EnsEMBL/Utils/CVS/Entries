@@ -1,0 +1,33 @@
+/Argument.pm/1.11/Wed Jan  5 15:10:10 2011//Tbranch-ensembl-64
+/AssemblyProjector.pm/1.7/Wed Jan  5 15:10:10 2011//Tbranch-ensembl-64
+/BitString.pm/1.5/Wed Jan  5 15:10:10 2011//Tbranch-ensembl-64
+/Cache.pm/1.3/Wed Mar  4 10:58:14 2009//Tbranch-ensembl-64
+/CigarString.pm/1.6/Wed Jan  5 15:10:10 2011//Tbranch-ensembl-64
+/Collector.pm/1.6/Thu Jun  9 14:01:03 2011//Tbranch-ensembl-64
+/ConfParser.pm/1.13/Wed Jan  5 15:10:10 2011//Tbranch-ensembl-64
+/ConfigRegistry.pm/1.35/Wed Jun  8 15:10:09 2011//Tbranch-ensembl-64
+/ConversionSupport.pm/1.38.4.3/Fri Nov 25 18:29:50 2011//Tbranch-ensembl-64
+/Converter.pm/1.11/Thu Jun  9 14:01:03 2011//Tbranch-ensembl-64
+/EasyArgv.pm/1.7/Wed Jan  5 15:10:10 2011//Tbranch-ensembl-64
+/Eprof.pm/1.16/Wed Jan  5 15:10:10 2011//Tbranch-ensembl-64
+/EprofStack.pm/1.13/Wed Jan  5 15:10:10 2011//Tbranch-ensembl-64
+/Exception.pm/1.12/Wed Jan  5 15:10:10 2011//Tbranch-ensembl-64
+/Iterator.pm/1.10/Thu May 12 15:55:06 2011//Tbranch-ensembl-64
+/Logger.pm/1.13/Thu Jun  9 14:01:03 2011//Tbranch-ensembl-64
+/PolyA.pm/1.12/Wed Jan  5 15:10:10 2011//Tbranch-ensembl-64
+/Scalar.pm/1.9/Wed Aug 31 13:31:26 2011//Tbranch-ensembl-64
+/SchemaConversion.pm/1.11/Wed Jan  5 15:10:10 2011//Tbranch-ensembl-64
+/ScriptUtils.pm/1.10/Wed Jan  5 15:10:10 2011//Tbranch-ensembl-64
+/SeqDumper.pm/1.35/Fri Aug 19 14:52:02 2011//Tbranch-ensembl-64
+/SeqRegionCache.pm/1.9/Wed Jan  5 15:10:10 2011//Tbranch-ensembl-64
+/Sequence.pm/1.6/Wed Jan  5 15:10:10 2011//Tbranch-ensembl-64
+/Slice.pm/1.9/Wed Jan  5 15:10:10 2011//Tbranch-ensembl-64
+/SqlHelper.pm/1.19/Wed Aug 24 10:07:35 2011//Tbranch-ensembl-64
+/TranscriptAlleles.pm/1.49/Wed Jan  5 15:10:11 2011//Tbranch-ensembl-64
+/TranscriptSNPs.pm/1.11/Wed Jan  5 15:10:11 2011//Tbranch-ensembl-64
+/URIParser.pm/1.1/Fri Aug 19 15:03:04 2011//Tbranch-ensembl-64
+/User_defined_load.pm/1.5/Wed Jan  5 15:10:11 2011//Tbranch-ensembl-64
+/ensembl_init.example/1.1/Wed Aug  4 15:53:32 2004//Tbranch-ensembl-64
+D/Converter////
+D/URIParser////
+D/VegaCuration////

@@ -1,0 +1,14 @@
+$Id: README,v 1.4 2002-03-14 14:46:11 abel Exp $
+
+The markov/ directory contains a program to transform blast scores into a
+markov matrix.
+
+NB: It used to be here a mcl/ directory containing the programs for
+doing clustering routine. It is not here anymore, see ensembl-doc/family.txt for details.
+In an initial 'cvs checkout', you would have this empty directory and
+all the empty directories behind it. Just run 'cvs update -P' to prune
+these empty directories from your ensembl-external working copy.
+
+
+
+

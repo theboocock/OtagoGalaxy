@@ -1,0 +1,278 @@
+#
+# You may distribute this module under the same terms as perl itself
+#
+# POD documentation - main docs before the code
+
+=pod 
+
+=head1 NAME
+
+Bio::EnsEMBL::Compara::RunnableDB::ncRNAtrees::NCRecoverSearch
+
+=cut
+
+=head1 SYNOPSIS
+
+my $db           = Bio::EnsEMBL::Compara::DBAdaptor->new($locator);
+my $ncrecoversearch = Bio::EnsEMBL::Compara::RunnableDB::ncRNAtrees::NCRecoverSearch->new
+  (
+   -db         => $db,
+   -input_id   => $input_id,
+   -analysis   => $analysis
+  );
+$ncrecoversearch->fetch_input(); #reads from DB
+$ncrecoversearch->run();
+$ncrecoversearch->output();
+$ncrecoversearch->write_output(); #writes to DB
+
+=cut
+
+
+=head1 DESCRIPTION
+
+This Analysis will take the sequences from a cluster, the cm from
+nc_profile and run a profiled alignment, storing the results as
+cigar_lines for each sequence.
+
+=cut
+
+
+=head1 CONTACT
+
+  Contact Albert Vilella on module implementation/design detail: avilella@ebi.ac.uk
+  Contact Ewan Birney on EnsEMBL in general: birney@sanger.ac.uk
+
+=cut
+
+
+=head1 APPENDIX
+
+The rest of the documentation details each of the object methods. 
+Internal methods are usually preceded with a _
+
+=cut
+
+
+package Bio::EnsEMBL::Compara::RunnableDB::ncRNAtrees::NCRecoverSearch;
+
+use strict;
+use Time::HiRes qw(time gettimeofday tv_interval);
+use Bio::EnsEMBL::Registry;
+
+use base ('Bio::EnsEMBL::Compara::RunnableDB::BaseRunnable');
+
+sub param_defaults {
+    return {
+        'clusterset_id' => 1,
+        'context_size'  => '120%',
+    };
+}
+
+=head2 fetch_input
+
+    Title   :   fetch_input
+    Usage   :   $self->fetch_input
+    Function:   Fetches input data from the database
+    Returns :   none
+    Args    :   none
+
+=cut
+
+
+sub fetch_input {
+    my $self = shift @_;
+
+    $self->input_job->transient_error(0);
+    my $nc_tree_id = $self->param('nc_tree_id') || die "'nc_tree_id' is an obligatory numeric parameter\n";
+    $self->input_job->transient_error(1);
+
+    my $nc_tree    = $self->compara_dba->get_NCTreeAdaptor->fetch_node_by_node_id($nc_tree_id) or die "Could not fetch nc_tree with id=$nc_tree_id\n";
+    $self->param('nc_tree', $nc_tree);
+
+    $self->param('model_id', $nc_tree->get_tagvalue('clustering_id'));
+
+    $self->fetch_recovered_member_entries($nc_tree->node_id);
+
+        # Get the needed adaptors here:
+    $self->param('genomedb_adaptor', $self->compara_dba->get_GenomeDBAdaptor);
+}
+
+=head2 run
+
+    Title   :   run
+    Usage   :   $self->run
+    Function:   runs something
+    Returns :   none
+    Args    :   none
+
+=cut
+
+sub run {
+  my $self = shift;
+
+  ## This is disabled right now
+  # $self->run_ncrecoversearch;
+}
+
+
+=head2 write_output
+
+    Title   :   write_output
+    Usage   :   $self->write_output
+    Function:   stores something
+    Returns :   none
+    Args    :   none
+
+=cut
+
+
+sub write_output {
+  my $self = shift;
+
+  # Default autoflow
+}
+
+
+##########################################
+#
+# internal methods
+#
+##########################################
+
+sub run_ncrecoversearch {
+  my $self = shift;
+
+  next unless(keys %{$self->param('recovered_members')});
+
+  my $cmsearch_executable = $self->analysis->program_file || '/software/ensembl/compara/infernal/infernal-1.0.2/src/cmsearch';
+  die "can't find a cmsearch executable to run\n" unless(-e $cmsearch_executable);
+
+  my $worker_temp_directory = $self->worker_temp_directory;
+  my $root_id = $self->param('nc_tree')->node_id;
+
+  my $input_fasta = $worker_temp_directory . $root_id . ".db";
+  open FILE,">$input_fasta" or die "$!\n";
+
+  foreach my $genome_db_id (keys %{$self->param('recovered_members')}) {
+    my $gdb = $self->param('genomedb_adaptor')->fetch_by_dbID($genome_db_id);
+    my $core_slice_adaptor = $gdb->db_adaptor->get_SliceAdaptor;
+    foreach my $recovered_entry (keys %{$self->param('recovered_members')->{$genome_db_id}}) {
+      my $recovered_id = $self->param('recovered_members')->{$genome_db_id}{$recovered_entry};
+      unless ($recovered_entry =~ /(\S+)\:(\S+)\-(\S+)/) {
+        warn("failed to parse coordinates for recovered entry: [$genome_db_id] $recovered_entry\n");
+        next;
+      } else {
+        my ($seq_region_name,$start,$end) = ($1,$2,$3);
+        my $temp; if ($start > $end) { $temp = $start; $start = $end; $end = $temp;}
+        my $size = $self->param('context_size');
+        $size = int( ($1-100)/200 * ($end-$start+1) ) if( $size =~/([\d+\.]+)%/ );
+        my $slice = $core_slice_adaptor->fetch_by_region('toplevel',$seq_region_name,$start-$size,$end+$size);
+        my $seq = $slice->seq; $seq =~ s/(.{60})/$1\n/g; chomp $seq;
+        print FILE ">$recovered_id\n$seq\n";
+      }
+    }
+  }
+  close FILE;
+
+  my $model_id = $self->param('model_id');
+  my $ret1 = $self->dump_model('model_id', $model_id);
+  my $ret2 = $self->dump_model('name',     $model_id) if (1 == $ret1);
+  if (1 == $ret2) {
+    $self->param('nc_tree')->release_tree;
+    $self->param('nc_tree', undef);
+    $self->input_job->transient_error(0);
+    die "Failed to find '$model_id' both in 'model_id' and 'name' fields of 'nc_profile' table";
+  }
+
+  my $cmd = $cmsearch_executable;
+  # /nfs/users/nfs_a/avilella/src/infernal/infernal-1.0/src/cmsearch --tabfile 110257.tab snoU89_profile.cm 110257.db
+
+  return 1;   # FIXME: this is not ready -- disabling
+
+  my $tabfilename = $worker_temp_directory . $root_id . ".tab";
+  $cmd .= " --tabfile " . $tabfilename;
+  $cmd .= " " . $self->param('profile_file');
+  $cmd .= " " . $input_fasta;
+
+  $self->compara_dba->dbc->disconnect_when_inactive(1);
+  print("$cmd\n") if($self->debug);
+  unless(system($cmd) == 0) {
+    $self->throw("error running cmsearch, $!\n");
+  }
+  $self->compara_dba->dbc->disconnect_when_inactive(0);
+
+  open TABFILE,"$tabfilename" or die "$!\n";
+  while (<TABFILE>) {
+    next if /^\#/;
+    my ($dummy,$target_name,$target_start,$target_stop,$query_start,$query_stop,$bit_sc,$evalue,$gc) = split(/\s+/,$_);
+    my $sth = $self->compara_dba->dbc->prepare
+      ("INSERT IGNORE INTO cmsearch_hit 
+                           (recovered_id,
+                            node_id,
+                            target_start,
+                            target_stop,
+                            query_start,
+                            query_stop,
+                            bit_sc,
+                            evalue) VALUES (?,?,?,?,?,?,?,?)");
+    $sth->execute($target_name,
+                  $root_id,
+                  $target_start,
+                  $target_stop,
+                  $query_start,
+                  $query_stop,
+                  $bit_sc,
+                  $evalue);
+    $sth->finish;
+  }
+  close TABFILE;
+
+  return 1;
+}
+
+
+sub dump_model {
+  my $self = shift;
+  my $field = shift;
+  my $model_id = shift;
+
+  my $sql = 
+    "SELECT hc_profile FROM nc_profile ".
+      "WHERE $field=\"$model_id\"";
+  my $sth = $self->compara_dba->dbc->prepare($sql);
+  $sth->execute();
+  my $nc_profile  = $sth->fetchrow;
+  unless (defined($nc_profile)) {
+    return 1;
+  }
+  my $profile_file = $self->worker_temp_directory . $model_id . "_profile.cm";
+  open FILE, ">$profile_file" or die "$!";
+  print FILE $nc_profile;
+  close FILE;
+
+  $self->param('profile_file', $profile_file);
+  return 0;
+}
+
+sub fetch_recovered_member_entries {
+  my $self = shift;
+  my $root_id = shift;
+
+  $self->param('recovered_members', {});
+
+  my $sql = 
+    "SELECT rcm.recovered_id, rcm.node_id, rcm.stable_id, rcm.genome_db_id ".
+    "FROM recovered_member rcm ".
+    "WHERE rcm.node_id=\"$root_id\" AND ".
+    "rcm.stable_id not in ".
+    "(SELECT stable_id FROM member WHERE source_name='ENSEMBLGENE' AND genome_db_id=rcm.genome_db_id)";
+  my $sth = $self->compara_dba->dbc->prepare($sql);
+  $sth->execute();
+  while ( my $ref  = $sth->fetchrow_arrayref() ) {
+    my ($recovered_id, $node_id, $stable_id, $genome_db_id) = @$ref;
+    $self->param('recovered_members')->{$genome_db_id}{$stable_id} = $recovered_id;
+  }
+}
+
+
+1;

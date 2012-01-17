@@ -1,0 +1,17 @@
+/Deletion.pm/1.11/Sun Apr  4 12:03:05 2004//Tbranch-ensembl-64
+/Gene.pm/1.2/Thu Apr  8 12:25:22 2004//Tbranch-ensembl-64
+/Insertion.pm/1.7/Sun Apr  4 12:03:05 2004//Tbranch-ensembl-64
+/InterimExon.pm/1.10/Thu May 13 12:25:07 2004//Tbranch-ensembl-64
+/InterimTranscript.pm/1.6/Thu Apr  8 12:25:22 2004//Tbranch-ensembl-64
+/Length.pm/1.3/Sun Apr  4 12:01:39 2004//Tbranch-ensembl-64
+/README/1.2/Fri Sep 10 14:19:41 2004//Tbranch-ensembl-64
+/StatLogger.pm/1.1/Mon Mar 29 08:53:18 2004//Tbranch-ensembl-64
+/StatMsg.pm/1.5/Mon Mar 29 08:52:21 2004//Tbranch-ensembl-64
+/Transcript.pm/1.11/Wed Dec  8 10:27:32 2004//Tbranch-ensembl-64
+/Utils.pm/1.4/Tue Apr 13 15:14:25 2004//Tbranch-ensembl-64
+/chimp_chr_ctg_assembly.pl/1.1/Tue Apr 13 15:16:11 2004//Tbranch-ensembl-64
+/get_stats.pl/1.1/Mon Mar 29 08:53:47 2004//Tbranch-ensembl-64
+/human2chimp.pl/1.24/Wed Dec  8 10:29:18 2004//Tbranch-ensembl-64
+/lift_assembly.pl/1.1/Sun Apr  4 22:03:32 2004//Tbranch-ensembl-64
+/run_hum2chimp.sh/1.7/Wed Dec  8 10:29:54 2004//Tbranch-ensembl-64
+D

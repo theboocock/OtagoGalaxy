@@ -1,0 +1,23 @@
+/Archiver.pm/1.6/Wed Jan  5 15:10:09 2011//Tbranch-ensembl-64
+/BaseObject.pm/1.10/Wed Jan  5 15:10:09 2011//Tbranch-ensembl-64
+/Cache.pm/1.36/Thu Aug 18 11:43:42 2011//Tbranch-ensembl-64
+/Entry.pm/1.8/Wed Jan  5 15:10:09 2011//Tbranch-ensembl-64
+/ExonScoreBuilder.pm/1.31/Tue Aug 30 13:06:48 2011//Tbranch-ensembl-64
+/GeneScoreBuilder.pm/1.17/Fri Aug 12 10:07:06 2011//Tbranch-ensembl-64
+/InternalIdMapper.pm/1.10/Wed Jan  5 15:10:09 2011//Tbranch-ensembl-64
+/MappingList.pm/1.9/Wed Jan  5 15:10:09 2011//Tbranch-ensembl-64
+/ResultAnalyser.pm/1.16/Wed Jan  5 15:10:09 2011//Tbranch-ensembl-64
+/ScoreBuilder.pm/1.13/Mon Mar 14 17:16:56 2011//Tbranch-ensembl-64
+/ScoredMappingMatrix.pm/1.14/Fri Aug 12 10:06:21 2011//Tbranch-ensembl-64
+/Serialisable.pm/1.9/Wed Jan  5 15:10:09 2011//Tbranch-ensembl-64
+/StableIdMapper.pm/1.16/Wed Jan  5 15:10:09 2011//Tbranch-ensembl-64
+/SyntenyFramework.pm/1.15/Tue Aug 30 13:05:52 2011//Tbranch-ensembl-64
+/SyntenyRegion.pm/1.9/Wed Jan  5 15:10:09 2011//Tbranch-ensembl-64
+/TinyExon.pm/1.10/Wed Jan  5 15:10:09 2011//Tbranch-ensembl-64
+/TinyFeature.pm/1.8/Wed Jan  5 15:10:09 2011//Tbranch-ensembl-64
+/TinyGene.pm/1.12/Wed Jan  5 15:10:09 2011//Tbranch-ensembl-64
+/TinyTranscript.pm/1.10/Wed Jan  5 15:10:09 2011//Tbranch-ensembl-64
+/TinyTranslation.pm/1.8/Wed Jan  5 15:10:09 2011//Tbranch-ensembl-64
+/TranscriptScoreBuilder.pm/1.12/Mon Mar 14 17:16:56 2011//Tbranch-ensembl-64
+D/InternalIdMapper////
+D/StableIdGenerator////

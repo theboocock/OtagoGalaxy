@@ -1,0 +1,116 @@
+How to perform SAGE mapping (via LocusLink for known genes and via
+UniGene for novel genes) and how to prepare SAGE database (Expression)
+
+DATABASE CORE:
+
+cd /nfs/acari/lh1/src/ensembl-external/modules/Bio/EnsEMBL/ExternalData/Expression/sql
+mysqladmin -u root create expression110
+mysqladmin -u root expression110 < expression.sql
+cd ../scripts/mapping_scripts
+perl wget.data
+perl prepare_txt.pl
+mysqlimport -u root expression110 *.txt
+
+also download the BodyMap file  
+
+and proceed to:
+
+MAPPING:
+
+Mapping scripts live in:
+ensembl-external/modules/Bio/EnsEMBL/ExternalData/Expression/scripts/mapping_scripts
+
+a) perl unigene_locuslink_extractor.pl > unigene_locuslink.dat
+b) join that with ensp_locuslink.dat mapping (a table from Ensembl
+dumped by Arek or Manu) using ELUSmapper.pl to produce ELUSmapper.dat
+
+c) Use perl ENSUmapper.pl for direct mapping
+   of Ensembl transcripts to UniGene clusters
+   (chromosome names in chr.dat)
+
+d) ENSUpostprocessor.pl     cut-off 300 bits, eliminate UniGenes mapping
+                            to more than 15 ENSTs
+e) ELUS_ENSUjoiner.pl       join ELUS and ENSU mapping - use ENSU mapping
+                            only if there is no ELUS mapping       
+f) perform script first.pl 
+g) perform second.pl (one more file from Manu with enst ensg ensp mapping)
+h) perform third.pl to prepare seqtag_alias_before_sorting.txt (one more file here called seqtag_id.txt which is derived from a dump from the expression table seqtag (select * from seqtag into outfile 'name_with_full_path';); only 1 and 3rd column from this are needed so do cat seqtag.txt | cut -f 1,3 > seqtag_id.txt before proceeding to third.pl)
+i) sort -un seqtag_alias_before_sorting.txt > seqtag_alias.txt
+j) mysqlimport -u root Expressio110 seqtag_alias.txt
+
+Tests:
+ELUS_ENSUtester.pl - compare mapping for known genes (ELUS vs ENUS
+mapping)
+test_genes         - hand check for my favourite genes
+
+contact: Lukasz Huminiecki mobile 07980 376931
+         email lucash@ebi.ac.uk
+         or    lucash@molbiol.ox.ac.uk
+                                          
+         and Arek Kasprzyk
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
