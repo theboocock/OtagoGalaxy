@@ -136,7 +136,7 @@ echo Downloading ensembl cache, ~1.8gb...
 wget ftp://ftp.ensembl.org/pub/release-65/variation/VEP/homo_sapiens/homo_sapiens_vep_65_sift_polyphen.tar.gz
 
 tar -xvf homo_sapiens_vep_65_sift_polyphen.tar.gz
-mv homo_sapiens_vep_65_sift_polyphen.tar.gz ../src/ensembl_cache/
+mv homo_sapiens ../src/ensembl_cache/
 rm -f homo_sapiens_vep_65_sift_polyphen.tar.gz
 
 sudo cp -fR ../src/bioperl-live /usr/local/

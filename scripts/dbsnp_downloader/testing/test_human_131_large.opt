@@ -1,0 +1,46 @@
+#
+# dbsnp.pl options
+#
+# ---TESTING---
+#
+# HUMAN BUILD 131
+#
+# *** LARGE TEST *** 
+#
+#   Download all tables from tables_to_load.txt and load into specified MySQL database
+#
+
+#
+# THESE OPTIONS NEED TO BE MODIFIED
+#
+# * Please do not commit changes to Subversion
+#
+
+download-dir=   # Where to save dbSNP downloads
+database=       # Local MySQL database
+user=           # MySQL user
+host=           # MySQL host
+email=          # Use e-mail address for dbSNP anonymouys login password 
+
+#
+# THESE OPTIONS MAY NEED TO BE MODIFIED
+#
+
+password-file=passwd        # MySQL password
+organism=human_9606         # dbSNP organism
+build=135                   # dbSNP build
+genome=37_1                 # dbSNP genome build - used in table names
+genome-long=GRCh37          # dbSNP genome build - used to select reference genome
+
+tables-to-download-file=tables_to_load_human_131.txt  # Which dbSNP tables to download from dbSNP FTP server
+tables-to-load-file=tables_to_load_human_131.txt      # Which dbSNP tables to load into MySQL database
+
+download-schemas                    # Download the schema files - automatic for getorg and getbuild commands
+script=local_tables_human_131.sql   # MySQL script to run. Example: create _loc tables
+init-table-log                      # Initialize the local table _loc_table_log
+check-data-dictionary               # Check if dbSNP tables are documented in their online dictionary
+print-options                       # Print all dbsnp.pl options in output 
+
+
+
+

@@ -1,0 +1,135 @@
+#
+# tables_to_load.txt (configured for human_9606)
+#
+# For use with dbsnp.pl
+# 	Use for options --tables-to-download-file and --tables-to-load-file
+#       Also use option --build for variable $build, and --genome for $genome
+
+#
+# Submission
+#
+# Local tables:
+#	_loc_submissions
+#
+
+SubSNP
+Submitter
+    Contact
+    Publication
+	Author
+Batch
+Population
+SNPSubSNPLink
+
+#
+# Experimental Methods
+#
+# Local tables:
+#
+#	_loc_methods
+#
+
+Method
+    MethodClass
+    MethodLine
+
+#
+# Validation
+#
+# Local tables:
+#
+#	_loc_validation
+#
+
+SNP
+    SnpValidationCode
+
+#
+# Classification
+#
+# Local tables:
+#
+#	_loc_classification_ref (for reference genome)
+#
+
+b$build_SNPContigLoc_$genome
+    b$build_ContigInfo_$genome
+    LocTypeCode
+SnpClassCode
+UniVariation
+
+#
+# Sample Information
+#
+# Local tables:
+#
+#	_loc_sample_information
+#
+
+OrganismTax
+Population
+    PopLine
+Individual
+SubmittedIndividual
+Pedigree
+
+#
+# Alleles and Frequency Data
+#
+# Local tables:
+#
+#	_loc_alleles_top_strand
+#	_loc_allele_freqs
+#	_loc_genotype_freqs
+#	_loc_maf
+#
+
+ObsVariation
+    Allele
+UniGty
+SNPAncestralAllele
+AlleleFreqBySsPop
+GtyFreqBySsPop
+FreqSummaryBySsPop
+
+#
+# Genome Mapping
+#
+# Local tables:
+#
+#	_loc_unique_mappings_ref
+#
+
+b$build_SNPContigLoc_$genome
+    b$build_ContigInfo_$genome
+    b$build_SNPMapInfo_$genome
+    LocTypeCode
+
+#
+# Genes and Function
+#
+# Local tables:
+#
+#	_loc_snp_gene_ref
+#	_loc_snp_gene_list_ref
+#	_loc_snp_gene_rep_ref
+#	_loc_functional_representative
+#
+
+b$build_SNPContigLocusId_$genome
+    b$build_ContigInfo_$genome
+    GeneIdToName
+    SnpFunctionCode
+
+#
+# Flanking Sequence
+#
+
+#SubSNPSeq3_ins
+#SubSNPSeq3_p1_human
+#SubSNPSeq3_p2_human
+#SubSNPSeq3_p3_human
+#SubSNPSeq5_ins
+#SubSNPSeq5_p1_human
+#SubSNPSeq5_p2_human
+#SubSNPSeq5_p3_human

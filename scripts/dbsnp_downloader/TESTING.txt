@@ -1,0 +1,20 @@
+
+To test dbsnp.pl
+
+* Copy the following files from the 'testing' directory to the
+  same directory as dbsnp.pl, now referred to as '.'.
+
+  test_human_131_quick.sh
+  test_human_131_quick.opt
+
+* Modify the .opt options file to as necessary
+  
+* Create the file ./passwd which contains only the MySQL password.
+
+* Run the script ./test_human_131_quick.sh
+
+* The "quick" scripts uses a minimal amount of data. More intensive tests
+  are done by the "medium" and "large" scripts in the 'testing' directory.
+  
+* Please be aware of the sizes of the MySQL tables so that you do not fill up your disk. The sizes
+  of the human tables may be found at http://cgsmd.isi.edu/dbdoc/db.php?db=dbsnp_human_131.
