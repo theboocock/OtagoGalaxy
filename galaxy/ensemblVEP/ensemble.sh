@@ -31,10 +31,10 @@ for (( i=2; i <= $NUM_SAMPLES; i++ ))
        eval INPUT=\${${NUM}}
 
        if [[ ! (($INPUT  =~ ^no-*)) ]];  then
-           if [ $i < 5 ]; then
-                $ENSEMBL_RUN_SCRIPT="${ENSEMBL_RUN_SCRIPT} --${INPUT} b"
+           if [ "${i}" -lt "5" ]; then
+                ENSEMBL_RUN_SCRIPT="${ENSEMBL_RUN_SCRIPT} --${INPUT} b"
             else
-                $ENSEMBL_RUN_SCRIPT="${ENSEMBL_RUN_SCRIPT} --${INPUT}"
+                ENSEMBL_RUN_SCRIPT="${ENSEMBL_RUN_SCRIPT} --${INPUT}"
             fi
        fi
     done
