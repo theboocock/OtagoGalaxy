@@ -6,15 +6,171 @@
 # AUTHOR: JAMES BOOCOCK AND EDWARD HILLS
 # DATE: 17/01/12
 
-#install python
-
 INSTALL_DIR=`pwd`
+
+#install galaxy dependencies
+#
+#http://wiki.g2.bx.psu.edu/Admin/Tools/Tool%20Dependencies
+#
+#DEPENDENCIES NOT INSTALLED
+# lps_tool
+# laj
+# gpass
+# gmaj
+# R leaps
+
+
+#install python
 
 sudo apt-get install python
 
 #install repo that galaxy uses
 
 sudo apt-get install mercurial
+#Installing R
+
+sudo apt-get install r-base
+sudo apt-get install r-base-dev
+sudo apt-get install git
+
+#Installing Rpy
+
+ wget http://downloads.sourceforge.net/project/rpy/rpy2/2.2.x/rpy2-2.2.1.tar.gz
+  tar -xzf rpy2-2.2.1.tar.gz
+   cd rpy2-2.2.1
+    python setup.py install
+   cd $INSTALL_DIR
+   sudo rm -Rf rpy2-2.2.1
+   sudo rm rpy2-2.2.1.tar.gz
+#Install beam2
+   sudo apt-get install libgsl0-dev
+   wget http://stat.psu.edu/~yuzhang/software/beam2_source.tar
+   tar -xf beam2_source.tar
+   mv -f ../src/beam2_source/datastructure.h .
+   make
+   sudo mv BEAM2 /usr/bin
+   rm beam2_source.tar
+   rm *.o
+   rm *.h
+   rm *.cpp
+   rm makefile
+
+#Install Bowtie
+
+    sudo apt-get install bowtie
+
+#Install BWA
+
+    sudo apt-get install bwa
+
+	
+#Install clustalw
+	
+    sudo apt-get install clustalw
+
+#Install cufflinks
+
+    wget http://cufflinks.cbcb.umd.edu/downloads/cufflinks-1.3.0.Linux_x86_64.tar.gz
+    cd cufflinks-1.3.0.Linux_x86_64
+    sudo mv cuff* /usr/bin
+    sudo mv gffread /usr/bin
+    sudo mv gtf_to_sam /usr/bin
+    cd $INSTALL_DIR
+    rm -Rf cufflinks-1.3.0.Linux_x86_64
+
+#GNUPLOT-py
+
+    sudo apt-get install gnuplot
+    sudo apt-get install python-numpy
+    sudo apt-get install python-scipy
+    wget http://downloads.sourceforge.net/project/gnuplot-py/Gnuplot-py/1.8/gnuplot-py-1.8.tar.gz
+    tar -xzf gnuplot-py-1.8.tar.gz
+    cd gnuplot-py-1.8.tar.gz
+    sudo python setup.py install
+    cd $INSTALL_DIR
+    /gpfs/apps/x86_64-rhel5/matlab/R2009b/toolbox/compiler/deploy/glnxa64/MCRInstaller.bin
+    sudo rm -Rf gnuplot-py-1.8/
+    sudo rm -f gnuplot-py-1.8.tar.gz
+
+#Install HyPhy
+
+    sudo apt-get install cmake
+    git clone git://github.com/veg/hyphy.git
+    cd hyphy
+    cmake ./
+    sudo make install
+    cd $INSTALL_DIR
+    sudo rm -Rf hyphy
+
+# INSTALL PASS2
+    wget http://stat.psu.edu/~yuzhang/software/pass2_source.tar
+    make
+    sudo mv pass2 /usr/bin
+    rm *.cpp
+    rm *.txt
+    rm makefile
+    cd $INSTALL_DIR
+
+# install lift over
+
+    wget http://hgdownload.cse.ucsc.edu/admin/exe/linux.i386/liftOver
+    sudo mv liftOver /usr/bin
+
+# install Perm with OpenMp
+
+    wget http://perm.googlecode.com/files/PerM_Linux32_v0.2.9.6.gz
+    gunzip PerM_Linux32_v0.2.9.6.gz
+    sudo mv PerM_Linux32_v0.2.9.6 /usr/bin/PerM
+
+# Install ghostscript
+
+    sudo apt-get install ghostscript
+
+# Install python tables
+# ------ NEEDS FIXING TODO -------
+ sudo apt-get install python-setuptools
+
+#   wget http://www.hdfgroup.org/ftp/HDF5/current/bin/linux/hdf5-1.8.8-linux-static.tar.gz
+#   tar -xzf hdf5-1.8.8-linux-static.tar.gz
+#   cd hdf5-1.8.8-linux.static
+#   sudo mv bin/* /usr/bin/
+#   sudo mv lib/* /usr/lib/
+#   sudo mv share/* /usr/share/
+#   sudo mv include/* /usr/include/
+#   cd $INSTALL_DIR
+#   Vsudo rm -Rf hdf5-1.8.8-linux.static
+
+  sudo apt-get install python-dev
+   wget http://downloads.sourceforge.net/project/numpy/NumPy/1.6.1/numpy-1.6.1.tar.gz 
+
+    tar -xzf numpy-1.6.1.tar.gz
+    cd numpy-1.6.1
+    sudo python setup.py install
+    cd $INSTALL_DIR
+    wget http://numexpr.googlecode.com/files/numexpr-2.0.tar.gz
+    tar -xzf numexpr-2.0.tar.gz
+    sudo python numexpr-2.0/setup.py install
+    rm -Rf numexpr-2.0/
+    sudo easy_install cython
+#    sudo easy_install tables
+    
+
+#Install EMBOSS
+
+    sudo apt-get install emboss
+
+#Install LASTZ
+
+    sudo apt-get install last-align
+
+#Install MEGABLAST
+
+    sudo apt-get install blast2
+
+#install samtools genomics suite
+    sudo apt-get install samtools
+    sudo apt-get install blast2
+
 
 #create the galaxy user
 
@@ -71,6 +227,7 @@ sudo touch /etc/apache2/logs/rewrite_log
 sudo cp -f httpd.conf /etc/apache2/
 
 #Restart Apache
+udo easy_install cython
 
 sudo /etc/init.d/apache2 restart
 
@@ -83,6 +240,7 @@ sudo make
 sudo cp tabix /usr/bin/
 sudo cp bgzip /usr/bin/
 cd ..
+rm -Rf tabix-0.2.5
 
 #
 # FTP SETUP 
@@ -106,6 +264,8 @@ cd proftpd-1.3.4a
 ./configure --enable-openssl --with-opt-include=/usr/include/postgresql84/ --with-modules=mod_sql:mod_sql_postgres:mod_sql_passwd:mod_auth_pam
 make
 sudo make install
+cd ..
+rm -Rf proftpd-1.3.4a
 
 #Copy proftpd config file
 
