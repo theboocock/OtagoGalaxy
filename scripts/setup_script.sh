@@ -22,16 +22,16 @@ INSTALL_DIR=`pwd`
 
 #install python
 
-sudo apt-get install python
+sudo apt-get --force-yes install python
 
 #install repo that galaxy uses
 
-sudo apt-get install mercurial
+sudo apt-get --force-yes install mercurial
 #Installing R
 
-sudo apt-get install r-base
-sudo apt-get install r-base-dev
-sudo apt-get install git
+sudo apt-get --force-yes install r-base
+sudo apt-get --force-yes install r-base-dev
+sudo apt-get --force-yes install git
 
 #Installing Rpy
 
@@ -43,7 +43,7 @@ sudo apt-get install git
    sudo rm -Rf rpy2-2.2.1
    sudo rm rpy2-2.2.1.tar.gz
 #Install beam2
-   sudo apt-get install libgsl0-dev
+   sudo apt-get --force-yes install libgsl0-dev
    wget http://stat.psu.edu/~yuzhang/software/beam2_source.tar
    tar -xf beam2_source.tar
    mv -f ../src/beam2_source/datastructure.h .
@@ -57,16 +57,16 @@ sudo apt-get install git
 
 #Install Bowtie
 
-    sudo apt-get install bowtie
+    sudo apt-get --force-yes install bowtie
 
 #Install BWA
 
-    sudo apt-get install bwa
+    sudo apt-get --force-yes install bwa
 
 	
 #Install clustalw
 	
-    sudo apt-get install clustalw
+    sudo apt-get --force-yes install clustalw
 
 #Install cufflinks
 
@@ -80,9 +80,9 @@ sudo apt-get install git
 
 #GNUPLOT-py
 
-    sudo apt-get install gnuplot
-    sudo apt-get install python-numpy
-    sudo apt-get install python-scipy
+    sudo apt-get --force-yes install gnuplot
+    sudo apt-get --force-yes install python-numpy
+    sudo apt-get --force-yes install python-scipy
     wget http://downloads.sourceforge.net/project/gnuplot-py/Gnuplot-py/1.8/gnuplot-py-1.8.tar.gz
     tar -xzf gnuplot-py-1.8.tar.gz
     cd gnuplot-py-1.8.tar.gz
@@ -94,7 +94,7 @@ sudo apt-get install git
 
 #Install HyPhy
 
-    sudo apt-get install cmake
+    sudo apt-get --force-yes install cmake
     git clone git://github.com/veg/hyphy.git
     cd hyphy
     cmake ./
@@ -124,11 +124,11 @@ sudo apt-get install git
 
 # Install ghostscript
 
-    sudo apt-get install ghostscript
+    sudo apt-get --force-yes install ghostscript
 
 # Install python tables
 # ------ NEEDS FIXING TODO -------
- sudo apt-get install python-setuptools
+ sudo apt-get --force-yes install python-setuptools
 
 #   wget http://www.hdfgroup.org/ftp/HDF5/current/bin/linux/hdf5-1.8.8-linux-static.tar.gz
 #   tar -xzf hdf5-1.8.8-linux-static.tar.gz
@@ -140,7 +140,7 @@ sudo apt-get install git
 #   cd $INSTALL_DIR
 #   Vsudo rm -Rf hdf5-1.8.8-linux.static
 
-  sudo apt-get install python-dev
+  sudo apt-get --force-yes install python-dev
    wget http://downloads.sourceforge.net/project/numpy/NumPy/1.6.1/numpy-1.6.1.tar.gz 
 
     tar -xzf numpy-1.6.1.tar.gz
@@ -157,19 +157,19 @@ sudo apt-get install git
 
 #Install EMBOSS
 
-    sudo apt-get install emboss
+    sudo apt-get --force-yes install emboss
 
 #Install LASTZ
 
-    sudo apt-get install last-align
+    sudo apt-get --force-yes install last-align
 
 #Install MEGABLAST
 
-    sudo apt-get install blast2
+    sudo apt-get --force-yes install blast2
 
 #install samtools genomics suite
-    sudo apt-get install samtools
-    sudo apt-get install blast2
+    sudo apt-get --force-yes install samtools
+    sudo apt-get --force-yes install blast2
 
 
 #create the galaxy user
@@ -178,7 +178,7 @@ sudo adduser galaxy
 
 #install SSH
 
-sudo apt-get install openssh-client 
+sudo apt-get --force-yes install openssh-client 
 
 # log into galaxy user
 
@@ -190,7 +190,7 @@ echo "TEMP=/home/galaxy/galaxy-dist/database/tmp" >> .bashrc;
 echo "export TEMP" >> .bashrc;'
 
 #Install SQL data base
-sudo apt-get install postgresql
+sudo apt-get --force-yes install postgresql
 
 #Create Galaxy database
 sudo su postgres -c 'createdb galaxydb'
@@ -208,8 +208,8 @@ sudo su postgres -c 'psql -f galaxysetup.sql'
 sudo cp -f proftpd.conf /etc/proftpd
 # Install the webserver
 
-sudo apt-get install apache2
-sudo apt-get install samtools
+sudo apt-get --force-yes install apache2
+sudo apt-get --force-yes install samtools
 
 #enable required mods for galaxy
 
@@ -248,8 +248,8 @@ rm -Rf tabix-0.2.5
 
 #Install ftp server
 
-sudo apt-get install libssl-dev
-sudo apt-get install libpam0g-dev
+sudo apt-get --force-yes install libssl-dev
+sudo apt-get --force-yes install libpam0g-dev
 
 #Setup galaxydb for ftp authentication
 
@@ -257,7 +257,7 @@ sudo su postgres -c 'createuser -SDR galaxyftp'
 sudo su postgres -c 'psql -d galaxydb -f ftpsetup.sql'
 
 #Get source for additional proftpd
-sudo  apt-get install libpq-dev
+sudo  apt-get --force-yes install libpq-dev
 wget ftp://ftp1.at.proftpd.org/ProFTPD/distrib/source/proftpd-1.3.4a.tar.gz
 tar -xf proftpd-1.3.4a.tar.gz
 cd proftpd-1.3.4a
