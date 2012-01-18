@@ -70,6 +70,7 @@ sudo apt-get --force-yes install clustalw
 #Install cufflinks
 
 wget http://cufflinks.cbcb.umd.edu/downloads/cufflinks-1.3.0.Linux_x86_64.tar.gz
+tar -xzf cufflinks-1.3.0.Linux_x86_64.tar.gz
 cd cufflinks-1.3.0.Linux_x86_64
 make
 sudo mv cuff* /usr/bin
@@ -85,7 +86,7 @@ sudo apt-get --force-yes install python-numpy
 sudo apt-get --force-yes install python-scipy
 wget http://downloads.sourceforge.net/project/gnuplot-py/Gnuplot-py/1.8/gnuplot-py-1.8.tar.gz
 tar -xzf gnuplot-py-1.8.tar.gz
-cd gnuplot-py-1.8.tar.gz
+cd gnuplot-py-1.8
 sudo python setup.py install
 cd $INSTALL_DIR
 /gpfs/apps/x86_64-rhel5/matlab/R2009b/toolbox/compiler/deploy/glnxa64/MCRInstaller.bin
