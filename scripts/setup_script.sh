@@ -80,6 +80,7 @@ sudo mv cuff* /usr/bin
 sudo mv gffread /usr/bin
 sudo mv gtf_to_sam /usr/bin
 cd $INSTALL_DIR
+rm cufflinks-1.3.0.Linux_x86_64
 
 
 #GNUPLOT-py
@@ -149,7 +150,6 @@ sudo apt-get --force-yes install python-setuptools
 #   Vsudo rm -Rf hdf5-1.8.8-linux.static
 
 sudo apt-get --force-yes install python-dev
-wget http://downloads.sourceforge.net/project/numpy/NumPy/1.6.1/numpy-1.6.1.tar.gz 
 
 sudo apt-get install svn
 sudo apt-get install libatlas-dev
