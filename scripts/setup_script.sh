@@ -18,7 +18,10 @@ INSTALL_DIR=`pwd`
 # gpass
 # gmaj
 # R leaps
-
+# addscores
+# 
+#
+#
 
 #install python
 
