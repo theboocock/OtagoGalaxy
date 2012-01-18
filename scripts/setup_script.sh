@@ -23,6 +23,7 @@ INSTALL_DIR=`pwd`
 #install python
 
 sudo apt-get --force-yes install python
+sudo apt-get --force-yes install python2.6
 
 #install repo that galaxy uses
 
@@ -46,7 +47,7 @@ sudo rm rpy2-2.2.1.tar.gz
 sudo apt-get --force-yes install libgsl0-dev
 wget http://stat.psu.edu/~yuzhang/software/beam2_source.tar
 tar -xf beam2_source.tar
-mv -f ../src/beam2_source/datastructure.h .
+mv -f ../src/beam2/datastructure.h .
 make
 sudo mv BEAM2 /usr/bin
 rm beam2_source.tar
