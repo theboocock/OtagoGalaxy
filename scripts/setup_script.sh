@@ -115,7 +115,9 @@ sudo mv pass2 /usr/bin
 rm *.cpp
 rm *.txt
 rm makefile
+rm pass2_source.tar
 cd $INSTALL_DIR
+
 
 # install lift over
 
