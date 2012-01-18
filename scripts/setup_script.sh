@@ -152,6 +152,7 @@ sudo apt-get --force-yes install python-dev
 wget http://downloads.sourceforge.net/project/numpy/NumPy/1.6.1/numpy-1.6.1.tar.gz 
 
 sudo apt-get install svn
+sudo apt-get install libatlas-dev
 tar -xzf numpy-1.6.1.tar.gz
 cd numpy-1.6.1
 sudo python setup.py install
