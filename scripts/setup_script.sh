@@ -109,7 +109,7 @@ sudo rm -Rf hyphy
 # INSTALL PASS2
 wget http://stat.psu.edu/~yuzhang/software/pass2_source.tar
 tar -xf pass2_source.tar
-mv -f ../src/pass2/tilepass.cpp .
+cp -f ../src/pass2/tilepass.cpp .
 make
 sudo mv pass2 /usr/bin
 rm *.cpp
@@ -153,14 +153,8 @@ wget http://downloads.sourceforge.net/project/numpy/NumPy/1.6.1/numpy-1.6.1.tar.
 
 sudo apt-get install svn
 sudo apt-get install libatlas-dev
-tar -xzf numpy-1.6.1.tar.gz
-cd numpy-1.6.1
-sudo python setup.py install
-cd $INSTALL_DIR
-wget http://numexpr.googlecode.com/files/numexpr-2.0.tar.gz
-tar -xzf numexpr-2.0.tar.gz
-sudo python numexpr-2.0/setup.py install
-rm -Rf numexpr-2.0/
+sudo easy_install numpy
+sudo easy_install numexpr
 sudo easy_install cython
 #    sudo easy_install tables
 
