@@ -76,7 +76,6 @@ sudo apt-get --force-yes install clustalw
 wget http://cufflinks.cbcb.umd.edu/downloads/cufflinks-1.3.0.Linux_x86_64.tar.gz
 tar -xzf cufflinks-1.3.0.Linux_x86_64.tar.gz
 cd cufflinks-1.3.0.Linux_x86_64
-make
 sudo mv cuff* /usr/bin
 sudo mv gffread /usr/bin
 sudo mv gtf_to_sam /usr/bin
