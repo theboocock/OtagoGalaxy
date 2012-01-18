@@ -259,7 +259,7 @@ sudo su postgres -c 'psql -d galaxydb -f ftpsetup.sql'
 #Get source for additional proftpd
 sudo  apt-get --force-yes install libpq-dev
 wget ftp://ftp1.at.proftpd.org/ProFTPD/distrib/source/proftpd-1.3.4a.tar.gz
-tar -xf proftpd-1.3.4a.tar.gz
+tar -xzf proftpd-1.3.4a.tar.gz
 cd proftpd-1.3.4a
 ./configure --enable-openssl --with-opt-include=/usr/include/postgresql84/ --with-modules=mod_sql:mod_sql_postgres:mod_sql_passwd:mod_auth_pam
 make
@@ -295,7 +295,7 @@ sudo /home/galaxy/galaxy-dist/./manage_db.sh upgrade
 echo Downloading ensembl cache, ~1.8gb...
 wget ftp://ftp.ensembl.org/pub/release-65/variation/VEP/homo_sapiens/homo_sapiens_vep_65_sift_polyphen.tar.gz
 
-tar -xvf homo_sapiens_vep_65_sift_polyphen.tar.gz
+tar -xzf homo_sapiens_vep_65_sift_polyphen.tar.gz
 mv homo_sapiens ../src/ensembl_cache/
 rm -f homo_sapiens_vep_65_sift_polyphen.tar.gz
 
