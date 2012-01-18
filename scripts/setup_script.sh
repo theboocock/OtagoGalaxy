@@ -151,8 +151,8 @@ sudo apt-get --force-yes install python-setuptools
 
 sudo apt-get --force-yes install python-dev
 
-sudo apt-get install svn
-sudo apt-get install libatlas-dev
+sudo apt-get --force-yes install svn
+sudo apt-get --force-yes install libatlas-dev
 sudo easy_install numpy
 sudo easy_install numexpr
 sudo easy_install cython
