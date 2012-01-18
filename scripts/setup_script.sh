@@ -56,9 +56,7 @@ rm *.h
 rm *.cpp
 rm makefile
 
-#Install Bowtie
 
-sudo apt-get --force-yes install bowtie
 
 #Install BWA
 
@@ -77,7 +75,7 @@ sudo mv cuff* /usr/bin
 sudo mv gffread /usr/bin
 sudo mv gtf_to_sam /usr/bin
 cd $INSTALL_DIR
-rm -Rf cufflinks-1.3.0.Linux_x86_64
+
 
 #GNUPLOT-py
 
