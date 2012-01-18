@@ -80,8 +80,8 @@ sudo mv cuff* /usr/bin
 sudo mv gffread /usr/bin
 sudo mv gtf_to_sam /usr/bin
 cd $INSTALL_DIR
-rm cufflinks-1.3.0.Linux_x86_64
-
+sudo rm -Rf cufflinks-1.3.0.Linux_x86_64
+sudo rm cufflinks.Linux_x86_64.tar.gz
 
 #GNUPLOT-py
 
@@ -190,6 +190,7 @@ sudo su galaxy -c 'cd ~;  hg clone https://bitbucket.org/galaxy/galaxy-dist/;
 wget http://bitbucket.org/ianb/virtualenv/raw/tip/virtualenv.py;
 /usr/bin/python2.6 virtualenv.py --no-site-packages galaxy_env;
 . ./galaxy_env/bin/activate;
+hg clone https://bitbucket.org/galaxy/galaxy-dist/;
 echo "TEMP=/home/galaxy/galaxy-dist/database/tmp" >> .bashrc;
 echo "export TEMP" >> .bashrc;'
 
@@ -231,7 +232,7 @@ sudo touch /etc/apache2/logs/rewrite_log
 sudo cp -f httpd.conf /etc/apache2/
 
 #Restart Apache
-udo easy_install cython
+sudo easy_install cython
 
 sudo /etc/init.d/apache2 restart
 
