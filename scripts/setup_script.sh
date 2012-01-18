@@ -27,6 +27,7 @@ INSTALL_DIR=`pwd`
 
 sudo apt-get --force-yes install python
 sudo apt-get --force-yes install python2.6
+sudo apt-get --force-yes install python2.6-dev
 
 #install repo that galaxy uses
 
