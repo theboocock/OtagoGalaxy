@@ -35,100 +35,100 @@ sudo apt-get --force-yes install git
 
 #Installing Rpy
 
- wget http://downloads.sourceforge.net/project/rpy/rpy2/2.2.x/rpy2-2.2.1.tar.gz
-  tar -xzf rpy2-2.2.1.tar.gz
-   cd rpy2-2.2.1
-    python setup.py install
-   cd $INSTALL_DIR
-   sudo rm -Rf rpy2-2.2.1
-   sudo rm rpy2-2.2.1.tar.gz
+wget http://downloads.sourceforge.net/project/rpy/rpy2/2.2.x/rpy2-2.2.1.tar.gz
+tar -xzf rpy2-2.2.1.tar.gz
+cd rpy2-2.2.1
+python setup.py install
+cd $INSTALL_DIR
+sudo rm -Rf rpy2-2.2.1
+sudo rm rpy2-2.2.1.tar.gz
 #Install beam2
-   sudo apt-get --force-yes install libgsl0-dev
-   wget http://stat.psu.edu/~yuzhang/software/beam2_source.tar
-   tar -xf beam2_source.tar
-   mv -f ../src/beam2_source/datastructure.h .
-   make
-   sudo mv BEAM2 /usr/bin
-   rm beam2_source.tar
-   rm *.o
-   rm *.h
-   rm *.cpp
-   rm makefile
+sudo apt-get --force-yes install libgsl0-dev
+wget http://stat.psu.edu/~yuzhang/software/beam2_source.tar
+tar -xf beam2_source.tar
+mv -f ../src/beam2_source/datastructure.h .
+make
+sudo mv BEAM2 /usr/bin
+rm beam2_source.tar
+rm *.o
+rm *.h
+rm *.cpp
+rm makefile
 
 #Install Bowtie
 
-    sudo apt-get --force-yes install bowtie
+sudo apt-get --force-yes install bowtie
 
 #Install BWA
 
-    sudo apt-get --force-yes install bwa
+sudo apt-get --force-yes install bwa
 
-	
+
 #Install clustalw
-	
-    sudo apt-get --force-yes install clustalw
+
+sudo apt-get --force-yes install clustalw
 
 #Install cufflinks
 
-    wget http://cufflinks.cbcb.umd.edu/downloads/cufflinks-1.3.0.Linux_x86_64.tar.gz
-    cd cufflinks-1.3.0.Linux_x86_64
-    sudo mv cuff* /usr/bin
-    sudo mv gffread /usr/bin
-    sudo mv gtf_to_sam /usr/bin
-    cd $INSTALL_DIR
-    rm -Rf cufflinks-1.3.0.Linux_x86_64
+wget http://cufflinks.cbcb.umd.edu/downloads/cufflinks-1.3.0.Linux_x86_64.tar.gz
+cd cufflinks-1.3.0.Linux_x86_64
+sudo mv cuff* /usr/bin
+sudo mv gffread /usr/bin
+sudo mv gtf_to_sam /usr/bin
+cd $INSTALL_DIR
+rm -Rf cufflinks-1.3.0.Linux_x86_64
 
 #GNUPLOT-py
 
-    sudo apt-get --force-yes install gnuplot
-    sudo apt-get --force-yes install python-numpy
-    sudo apt-get --force-yes install python-scipy
-    wget http://downloads.sourceforge.net/project/gnuplot-py/Gnuplot-py/1.8/gnuplot-py-1.8.tar.gz
-    tar -xzf gnuplot-py-1.8.tar.gz
-    cd gnuplot-py-1.8.tar.gz
-    sudo python setup.py install
-    cd $INSTALL_DIR
-    /gpfs/apps/x86_64-rhel5/matlab/R2009b/toolbox/compiler/deploy/glnxa64/MCRInstaller.bin
-    sudo rm -Rf gnuplot-py-1.8/
-    sudo rm -f gnuplot-py-1.8.tar.gz
+sudo apt-get --force-yes install gnuplot
+sudo apt-get --force-yes install python-numpy
+sudo apt-get --force-yes install python-scipy
+wget http://downloads.sourceforge.net/project/gnuplot-py/Gnuplot-py/1.8/gnuplot-py-1.8.tar.gz
+tar -xzf gnuplot-py-1.8.tar.gz
+cd gnuplot-py-1.8.tar.gz
+sudo python setup.py install
+cd $INSTALL_DIR
+/gpfs/apps/x86_64-rhel5/matlab/R2009b/toolbox/compiler/deploy/glnxa64/MCRInstaller.bin
+sudo rm -Rf gnuplot-py-1.8/
+sudo rm -f gnuplot-py-1.8.tar.gz
 
 #Install HyPhy
 
-    sudo apt-get --force-yes install cmake
-    git clone git://github.com/veg/hyphy.git
-    cd hyphy
-    cmake ./
-    sudo make install
-    cd $INSTALL_DIR
-    sudo rm -Rf hyphy
+sudo apt-get --force-yes install cmake
+git clone git://github.com/veg/hyphy.git
+cd hyphy
+cmake ./
+sudo make install
+cd $INSTALL_DIR
+sudo rm -Rf hyphy
 
 # INSTALL PASS2
-    wget http://stat.psu.edu/~yuzhang/software/pass2_source.tar
-    make
-    sudo mv pass2 /usr/bin
-    rm *.cpp
-    rm *.txt
-    rm makefile
-    cd $INSTALL_DIR
+wget http://stat.psu.edu/~yuzhang/software/pass2_source.tar
+make
+sudo mv pass2 /usr/bin
+rm *.cpp
+rm *.txt
+rm makefile
+cd $INSTALL_DIR
 
 # install lift over
 
-    wget http://hgdownload.cse.ucsc.edu/admin/exe/linux.i386/liftOver
-    sudo mv liftOver /usr/bin
+wget http://hgdownload.cse.ucsc.edu/admin/exe/linux.i386/liftOver
+sudo mv liftOver /usr/bin
 
 # install Perm with OpenMp
 
-    wget http://perm.googlecode.com/files/PerM_Linux32_v0.2.9.6.gz
-    gunzip PerM_Linux32_v0.2.9.6.gz
-    sudo mv PerM_Linux32_v0.2.9.6 /usr/bin/PerM
+wget http://perm.googlecode.com/files/PerM_Linux32_v0.2.9.6.gz
+gunzip PerM_Linux32_v0.2.9.6.gz
+sudo mv PerM_Linux32_v0.2.9.6 /usr/bin/PerM
 
 # Install ghostscript
 
-    sudo apt-get --force-yes install ghostscript
+sudo apt-get --force-yes install ghostscript
 
 # Install python tables
 # ------ NEEDS FIXING TODO -------
- sudo apt-get --force-yes install python-setuptools
+sudo apt-get --force-yes install python-setuptools
 
 #   wget http://www.hdfgroup.org/ftp/HDF5/current/bin/linux/hdf5-1.8.8-linux-static.tar.gz
 #   tar -xzf hdf5-1.8.8-linux-static.tar.gz
@@ -140,36 +140,36 @@ sudo apt-get --force-yes install git
 #   cd $INSTALL_DIR
 #   Vsudo rm -Rf hdf5-1.8.8-linux.static
 
-  sudo apt-get --force-yes install python-dev
-   wget http://downloads.sourceforge.net/project/numpy/NumPy/1.6.1/numpy-1.6.1.tar.gz 
+sudo apt-get --force-yes install python-dev
+wget http://downloads.sourceforge.net/project/numpy/NumPy/1.6.1/numpy-1.6.1.tar.gz 
 
-    tar -xzf numpy-1.6.1.tar.gz
-    cd numpy-1.6.1
-    sudo python setup.py install
-    cd $INSTALL_DIR
-    wget http://numexpr.googlecode.com/files/numexpr-2.0.tar.gz
-    tar -xzf numexpr-2.0.tar.gz
-    sudo python numexpr-2.0/setup.py install
-    rm -Rf numexpr-2.0/
-    sudo easy_install cython
+tar -xzf numpy-1.6.1.tar.gz
+cd numpy-1.6.1
+sudo python setup.py install
+cd $INSTALL_DIR
+wget http://numexpr.googlecode.com/files/numexpr-2.0.tar.gz
+tar -xzf numexpr-2.0.tar.gz
+sudo python numexpr-2.0/setup.py install
+rm -Rf numexpr-2.0/
+sudo easy_install cython
 #    sudo easy_install tables
-    
+
 
 #Install EMBOSS
 
-    sudo apt-get --force-yes install emboss
+sudo apt-get --force-yes install emboss
 
 #Install LASTZ
 
-    sudo apt-get --force-yes install last-align
+sudo apt-get --force-yes install last-align
 
 #Install MEGABLAST
 
-    sudo apt-get --force-yes install blast2
+sudo apt-get --force-yes install blast2
 
 #install samtools genomics suite
-    sudo apt-get --force-yes install samtools
-    sudo apt-get --force-yes install blast2
+sudo apt-get --force-yes install samtools
+sudo apt-get --force-yes install blast2
 
 
 #create the galaxy user
@@ -286,7 +286,6 @@ $INSTALL_DIR/./move_files.sh
 
 #Migrate data
 
-sudo chown -R galaxy:galaxy /home/galaxy/galaxy-dist
 sudo echo "* * * * * chmod -R 777 /home/galaxy/galaxy-dist/database/ftp/*" | crontab
 
 sudo /home/galaxy/galaxy-dist/./manage_db.sh upgrade
@@ -314,4 +313,6 @@ echo "PERL5LIB=${PERL5LIB}:/home/galaxy/galaxy-dist/tool-data/shared/vcfperltool
 echo "export PERL5LIB" >> /home/galaxy/.bashrc
 source /home/galaxy/.bashrc
 
+
+sudo chown -R galaxy:galaxy /home/galaxy/galaxy-dist
 echo Installation complete. Please go into /home/galaxy/galaxy-tools/universe.wsgi.ini and change the ftp_upload_name to reflect your domain name.
