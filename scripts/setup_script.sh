@@ -131,6 +131,20 @@ wget http://perm.googlecode.com/files/PerM_Linux32_v0.2.9.6.gz
 gunzip PerM_Linux32_v0.2.9.6.gz
 sudo mv PerM_Linux32_v0.2.9.6 /usr/bin/PerM
 
+#Install EMBOSS
+
+sudo apt-get --force-yes install emboss
+
+#Install LASTZ
+
+sudo apt-get --force-yes install last-align
+
+#Install MEGABLAST
+
+sudo apt-get --force-yes install blast2
+
+#install samtools genomics suite
+sudo apt-get --force-yes install samtools
 # Install ghostscript
 
 sudo apt-get --force-yes install ghostscript
@@ -149,32 +163,18 @@ sudo apt-get --force-yes install python-setuptools
 #   cd $INSTALL_DIR
 #   Vsudo rm -Rf hdf5-1.8.8-linux.static
 
-sudo apt-get --force-yes install python-dev
 
-sudo apt-get --force-yes install svn
+sudo apt-get --force-yes install libnuma-dev
+sudo apt-get --force-yes install python-dev
+sudo apt-get --force-yes install liblzo2-dev
+sudo apt-get --force-yes install subversion
+sudo apt-get --force-yes install libhdf5-serial-dev
 sudo apt-get --force-yes install libatlas-dev
 sudo easy_install numpy
 sudo easy_install numexpr
 sudo easy_install cython
-#    sudo easy_install tables
-
-
-#Install EMBOSS
-
-sudo apt-get --force-yes install emboss
-
-#Install LASTZ
-
-sudo apt-get --force-yes install last-align
-
-#Install MEGABLAST
-
-sudo apt-get --force-yes install blast2
-
-#install samtools genomics suite
-sudo apt-get --force-yes install samtools
-sudo apt-get --force-yes install blast2
-
+sudo easy_install tables
+		
 
 #create the galaxy user
 
