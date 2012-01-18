@@ -47,7 +47,7 @@ sudo rm rpy2-2.2.1.tar.gz
 sudo apt-get --force-yes install libgsl0-dev
 wget http://stat.psu.edu/~yuzhang/software/beam2_source.tar
 tar -xf beam2_source.tar
-mv -f ../src/beam2/datastructure.h .
+cp -f ../src/beam2/datastructure.h .
 make
 sudo mv BEAM2 /usr/bin
 rm beam2_source.tar
@@ -71,6 +71,7 @@ sudo apt-get --force-yes install clustalw
 
 wget http://cufflinks.cbcb.umd.edu/downloads/cufflinks-1.3.0.Linux_x86_64.tar.gz
 cd cufflinks-1.3.0.Linux_x86_64
+make
 sudo mv cuff* /usr/bin
 sudo mv gffread /usr/bin
 sudo mv gtf_to_sam /usr/bin
