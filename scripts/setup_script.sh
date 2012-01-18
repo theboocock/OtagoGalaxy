@@ -103,6 +103,8 @@ sudo rm -Rf hyphy
 
 # INSTALL PASS2
 wget http://stat.psu.edu/~yuzhang/software/pass2_source.tar
+tar -xf pass2_source.tar
+mv -f ../src/pass2/tilepass.cpp .
 make
 sudo mv pass2 /usr/bin
 rm *.cpp
@@ -142,6 +144,7 @@ sudo apt-get --force-yes install python-setuptools
 sudo apt-get --force-yes install python-dev
 wget http://downloads.sourceforge.net/project/numpy/NumPy/1.6.1/numpy-1.6.1.tar.gz 
 
+sudo apt-get install svn
 tar -xzf numpy-1.6.1.tar.gz
 cd numpy-1.6.1
 sudo python setup.py install
