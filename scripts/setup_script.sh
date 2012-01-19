@@ -316,12 +316,12 @@ sudo cp -fR ../src/ensembl-compara /usr/local/
 sudo cp -fR ../src/ensembl-variation /usr/local/
 sudo cp -fR ../src/ensembl-functgenomics /usr/local/
 
-echo "PERL5LIB=${PERL5LIB}:/usr/local/bioperl-live" >> /home/galaxy/.bashrc
-echo "PERL5LIB=${PERL5LIB}:/usr/local/ensembl/modules" >> /home/galaxy/.bashrc 
-echo "PERL5LIB=${PERL5LIB}:/usr/local/ensembl-compara/modules" >> /home/galaxy/.bashrc
-echo "PERL5LIB=${PERL5LIB}:/usr/local/ensembl-variation/modules" >> /home/galaxy/.bashrc
-echo "PERL5LIB=${PERL5LIB}:/usr/local/ensembl-functgenomics/modules" >> /home/galaxy/.bashrc
-echo "PERL5LIB=${PERL5LIB}:/home/galaxy/galaxy-dist/tool-data/shared/vcfperltools" >> /home/galaxy/.bashrc
+echo "PERL5LIB=$PERL5LIB:/usr/local/bioperl-live" >> /home/galaxy/.bashrc
+echo "PERL5LIB=$PERL5LIB:/usr/local/ensembl/modules" >> /home/galaxy/.bashrc 
+echo "PERL5LIB=$PERL5LIB:/usr/local/ensembl-compara/modules" >> /home/galaxy/.bashrc
+echo "PERL5LIB=$PERL5LIB:/usr/local/ensembl-variation/modules" >> /home/galaxy/.bashrc
+echo "PERL5LIB=$PERL5LIB:/usr/local/ensembl-functgenomics/modules" >> /home/galaxy/.bashrc
+echo "PERL5LIB=$PERL5LIB:/home/galaxy/galaxy-dist/tool-data/shared/vcfperltools" >> /home/galaxy/.bashrc
 echo "export PERL5LIB" >> /home/galaxy/.bashrc
 source /home/galaxy/.bashrc
 
