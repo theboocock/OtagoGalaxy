@@ -104,7 +104,7 @@ sudo apt-get --force-yes install liblzo2-dev
 sudo apt-get --force-yes install subversion
 sudo apt-get --force-yes install libhdf5-serial-dev
 sudo apt-get --force-yes install libatlas-dev
-sudo apt-get --force-yet install libatlas-base-dev
+sudo apt-get --force-yes install libatlas-base-dev
 sudo easy_install -U numpy
 sudo easy_install -U numexpr
 sudo easy_install -U cython
