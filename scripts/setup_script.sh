@@ -119,7 +119,6 @@ tar -xzf gnuplot-py-1.8.tar.gz
 cd gnuplot-py-1.8
 sudo python setup.py install
 cd $INSTALL_DIR
-/gpfs/apps/x86_64-rhel5/matlab/R2009b/toolbox/compiler/deploy/glnxa64/MCRInstaller.bin
 sudo rm -Rf gnuplot-py-1.8/
 sudo rm -f gnuplot-py-1.8.tar.gz
 
@@ -241,8 +240,9 @@ sudo /etc/init.d/apache2 restart
 
 # Install TABIX
 
-wget http://downloads.sourceforge.net/project/samtools/tabix/tabix-0.2.5.tar.bz
-tar -xf tabix-0.2.5.tar.bz2
+wget http://downloads.sourceforge.net/project/samtools/tabix/tabix-0.2.5.tar.bz2
+gunzip tabix-0.2.5.tar.bz2
+tar -xf tabix-0.2.5.tar
 cd tabix-0.2.5
 sudo make
 sudo cp tabix /usr/bin/
