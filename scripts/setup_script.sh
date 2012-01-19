@@ -83,11 +83,36 @@ cd $INSTALL_DIR
 sudo rm -Rf cufflinks-1.3.0.Linux_x86_64
 sudo rm cufflinks.Linux_x86_64.tar.gz
 
+# Install python tables
+# ------ NEEDS FIXING TODO -------
+sudo apt-get --force-yes install python-setuptools
+
+#   wget http://www.hdfgroup.org/ftp/HDF5/current/bin/linux/hdf5-1.8.8-linux-static.tar.gz
+#   tar -xzf hdf5-1.8.8-linux-static.tar.gz
+#   cd hdf5-1.8.8-linux.static
+#   sudo mv bin/* /usr/bin/
+#   sudo mv lib/* /usr/lib/
+#   sudo mv share/* /usr/share/
+#   sudo mv include/* /usr/include/
+#   cd $INSTALL_DIR
+#   Vsudo rm -Rf hdf5-1.8.8-linux.static
+
+
+sudo apt-get --force-yes install libnuma-dev
+sudo apt-get --force-yes install python-dev
+sudo apt-get --force-yes install liblzo2-dev
+sudo apt-get --force-yes install subversion
+sudo apt-get --force-yes install libhdf5-serial-dev
+sudo apt-get --force-yes install libatlas-dev
+sudo easy_install numpy
+sudo easy_install numexpr
+sudo easy_install cython
+sudo easy_install tables
+sudo easy_install scipy
+		
 #GNUPLOT-py
 
 sudo apt-get --force-yes install gnuplot
-sudo apt-get --force-yes install python-numpy
-sudo apt-get --force-yes install python-scipy
 wget http://downloads.sourceforge.net/project/gnuplot-py/Gnuplot-py/1.8/gnuplot-py-1.8.tar.gz
 tar -xzf gnuplot-py-1.8.tar.gz
 cd gnuplot-py-1.8
@@ -149,32 +174,6 @@ sudo apt-get --force-yes install samtools
 
 sudo apt-get --force-yes install ghostscript
 
-# Install python tables
-# ------ NEEDS FIXING TODO -------
-sudo apt-get --force-yes install python-setuptools
-
-#   wget http://www.hdfgroup.org/ftp/HDF5/current/bin/linux/hdf5-1.8.8-linux-static.tar.gz
-#   tar -xzf hdf5-1.8.8-linux-static.tar.gz
-#   cd hdf5-1.8.8-linux.static
-#   sudo mv bin/* /usr/bin/
-#   sudo mv lib/* /usr/lib/
-#   sudo mv share/* /usr/share/
-#   sudo mv include/* /usr/include/
-#   cd $INSTALL_DIR
-#   Vsudo rm -Rf hdf5-1.8.8-linux.static
-
-
-sudo apt-get --force-yes install libnuma-dev
-sudo apt-get --force-yes install python-dev
-sudo apt-get --force-yes install liblzo2-dev
-sudo apt-get --force-yes install subversion
-sudo apt-get --force-yes install libhdf5-serial-dev
-sudo apt-get --force-yes install libatlas-dev
-sudo easy_install numpy
-sudo easy_install numexpr
-sudo easy_install cython
-sudo easy_install tables
-		
 
 #create the galaxy user
 
