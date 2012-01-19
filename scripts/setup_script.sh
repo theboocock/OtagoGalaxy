@@ -192,9 +192,7 @@ sudo su galaxy -c 'cd ~;  hg clone https://bitbucket.org/galaxy/galaxy-dist/;
 wget http://bitbucket.org/ianb/virtualenv/raw/tip/virtualenv.py;
 /usr/bin/python2.6 virtualenv.py --no-site-packages galaxy_env;
 . ./galaxy_env/bin/activate;
-hg clone https://bitbucket.org/galaxy/galaxy-dist/;
-echo "TEMP=/home/galaxy/galaxy-dist/database/tmp" >> .bashrc;
-echo "export TEMP" >> .bashrc;'
+hg clone https://bitbucket.org/galaxy/galaxy-dist/;'
 
 #Install SQL data base
 sudo apt-get --force-yes install postgresql
@@ -331,12 +329,14 @@ echo "PERL5LIB=$PERL5LIB:/usr/local/ensembl-variation/modules" >> /home/galaxy/.
 echo "PERL5LIB=$PERL5LIB:/usr/local/ensembl-functgenomics/modules" >> /home/galaxy/.bashrc
 echo "PERL5LIB=$PERL5LIB:/home/galaxy/galaxy-dist/tool-data/shared/vcfperltools" >> /home/galaxy/.bashrc
 echo "export PERL5LIB" >> /home/galaxy/.bashrc
-#Install Java
+echo "TEMP=/home/galaxy/galaxy-dist/database/tmp" >> .bashrc;
+echo "export TEMP" >> .bashrc;'
+
+#install java
 
 sudo apt-get install --force-yes openjdk-6-jre-headless
 sudo apt-get install --force-yes openjdk-6-jdk
 sudo apt-get install --force-yes mysql-server
-
 
 
 sudo chown -R galaxy:galaxy /home/galaxy/galaxy-dist
