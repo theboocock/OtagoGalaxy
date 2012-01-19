@@ -241,7 +241,7 @@ sudo /etc/init.d/apache2 restart
 
 # Install TABIX
 
-
+wget http://downloads.sourceforge.net/project/samtools/tabix/tabix-0.2.5.tar.bz
 tar -xf tabix-0.2.5.tar.bz2
 cd tabix-0.2.5
 sudo make
