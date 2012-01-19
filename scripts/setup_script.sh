@@ -81,7 +81,7 @@ sudo mv gffread /usr/bin
 sudo mv gtf_to_sam /usr/bin
 cd $INSTALL_DIR
 sudo rm -Rf cufflinks-1.3.0.Linux_x86_64
-sudo rm cufflinks.Linux_x86_64.tar.gz
+sudo rm -f cufflinks-1.3.0.Linux_x86_64.tar.gz
 
 # Install python tables
 # ------ NEEDS FIXING TODO -------
@@ -104,6 +104,7 @@ sudo apt-get --force-yes install liblzo2-dev
 sudo apt-get --force-yes install subversion
 sudo apt-get --force-yes install libhdf5-serial-dev
 sudo apt-get --force-yes install libatlas-dev
+sudo apt-get --force-yet install libatlas-base-dev
 sudo easy_install -U numpy
 sudo easy_install -U numexpr
 sudo easy_install -U cython
