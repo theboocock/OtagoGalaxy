@@ -1,24 +1,25 @@
 <tool id="ensembl_vep" name="Ensemble Variant Effect Predictor" version="0.99">
 <command interpreter="bash">
-    ./ensemble.sh ${input} ${cb_sift} ${cb_polyphen} ${cb_condel} ${cb_regulatory} ${cb_protein} ${cb_hgnc} ${cb_mostSevere} ${cb_summary} ${cb_perGene} ${cb_codingOnly} ${cb_checkExisting} ${cb_checkAlleles} > ${output}
+    ./ensemble.sh ${input} ${vep_options} > ${output}
 </command>
 
 <inputs>
     <param name="input" format="vcf" type="data" label="VCF file"/>
 
-    <param name="cb_sift" label="Display SIFT information" type="boolean" truevalue="sift" falsevalue="no-sift" />
-    <param name="cb_polyphen" label="Display Polyphen information" type="boolean" truevalue="polyphen" falsevalue="no-polyphen" />
-    <param name="cb_condel" label="Display Condel information" type="boolean" truevalue="condel" falsevalue="no-condel" />
-    <param name="cb_regulatory" label="Display Regulatory information" type="boolean" truevalue="regulatory" falsevalue="no-regulatory" />
-    <param name="cb_protein" label="Display Protein information" type="boolean" truevalue="protein" falsevalue="no-protein" />
-    <param name="cb_hgnc" label="Display HGNC information" type="boolean" truevalue="hgnc" falsevalue="no-hgnc" />
-<!--    <param name="cb_ccds" label="Display CCDS information" type="boolean" truevalue="ccds" falsevalue="no-ccds" /> -->
-    <param name="cb_mostSevere" label="Display Most Severe information" type="boolean" truevalue="most_severe" falsevalue="no-mostSevere" />
-    <param name="cb_summary" label="Display Summary information" type="boolean" truevalue="summary" falsevalue="no-summary" />
-    <param name="cb_perGene" label="Display Per Gene information" type="boolean" truevalue="per_gene" falsevalue="no-perGene" />
-    <param name="cb_codingOnly" label="Display Coding Region Only information" type="boolean" truevalue="coding_only" falsevalue="no-codingOnly" />
-    <param name="cb_checkExisting" label="Check existing variants" type="boolean" truevalue="check_existing" falsevalue="no-checkExisting" />
-    <param name="cb_checkAlleles" label="When checking for existing variants, only report a co-located variant if none of the alleles supplied are novel" type="boolean" truevalue="check_alleles" falsevalue="no-checkAlleles" />
+    <param name="vep_options" type="select" display="checkboxes" multiple="True" optional="true" value="" label="Select VEP options">
+
+    <option value="sift">Display Sift output</option>
+    <option value="polyphen">Display PolyPhen output</option>
+    <option value="condel">Display Condel output</option>
+    <option value="regulatory">Display Regulatory output</option>
+    <option value="protein">Display Protein output</option>
+    <option value="hgnc">Display HGNC output</option>
+    <option value="most_severe">Display Most Severe output</option>
+    <option value="most_severe">Display summary output</option>
+    <option value="per_gene">Display per-gene output</option>
+    <option value="coding_only">Display Coding Region Only</option>
+    <option value="check_existing">Check Existing work</option>
+    <option value="check_alleles">When checking for existing variants, only report a co-located variant if none of the alleles supplied are novel</option>
     
 </inputs>
 

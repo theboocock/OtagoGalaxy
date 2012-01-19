@@ -18,12 +18,16 @@ INSTALL_DIR=`pwd`
 # gpass
 # gmaj
 # R leaps
-
+# addscores
+# 
+#
+#
 
 #install python
 
 sudo apt-get --force-yes install python
 sudo apt-get --force-yes install python2.6
+sudo apt-get --force-yes install python2.6-dev
 
 #install repo that galaxy uses
 
@@ -70,22 +74,48 @@ sudo apt-get --force-yes install clustalw
 #Install cufflinks
 
 wget http://cufflinks.cbcb.umd.edu/downloads/cufflinks-1.3.0.Linux_x86_64.tar.gz
+tar -xzf cufflinks-1.3.0.Linux_x86_64.tar.gz
 cd cufflinks-1.3.0.Linux_x86_64
-make
 sudo mv cuff* /usr/bin
 sudo mv gffread /usr/bin
 sudo mv gtf_to_sam /usr/bin
 cd $INSTALL_DIR
+sudo rm -Rf cufflinks-1.3.0.Linux_x86_64
+sudo rm cufflinks.Linux_x86_64.tar.gz
+
+# Install python tables
+# ------ NEEDS FIXING TODO -------
+sudo apt-get --force-yes install python-setuptools
+
+#   wget http://www.hdfgroup.org/ftp/HDF5/current/bin/linux/hdf5-1.8.8-linux-static.tar.gz
+#   tar -xzf hdf5-1.8.8-linux-static.tar.gz
+#   cd hdf5-1.8.8-linux.static
+#   sudo mv bin/* /usr/bin/
+#   sudo mv lib/* /usr/lib/
+#   sudo mv share/* /usr/share/
+#   sudo mv include/* /usr/include/
+#   cd $INSTALL_DIR
+#   Vsudo rm -Rf hdf5-1.8.8-linux.static
 
 
+sudo apt-get --force-yes install libnuma-dev
+sudo apt-get --force-yes install python-dev
+sudo apt-get --force-yes install liblzo2-dev
+sudo apt-get --force-yes install subversion
+sudo apt-get --force-yes install libhdf5-serial-dev
+sudo apt-get --force-yes install libatlas-dev
+sudo easy_install numpy
+sudo easy_install numexpr
+sudo easy_install cython
+sudo easy_install tables
+sudo easy_install scipy
+		
 #GNUPLOT-py
 
 sudo apt-get --force-yes install gnuplot
-sudo apt-get --force-yes install python-numpy
-sudo apt-get --force-yes install python-scipy
 wget http://downloads.sourceforge.net/project/gnuplot-py/Gnuplot-py/1.8/gnuplot-py-1.8.tar.gz
 tar -xzf gnuplot-py-1.8.tar.gz
-cd gnuplot-py-1.8.tar.gz
+cd gnuplot-py-1.8
 sudo python setup.py install
 cd $INSTALL_DIR
 /gpfs/apps/x86_64-rhel5/matlab/R2009b/toolbox/compiler/deploy/glnxa64/MCRInstaller.bin
@@ -105,13 +135,15 @@ sudo rm -Rf hyphy
 # INSTALL PASS2
 wget http://stat.psu.edu/~yuzhang/software/pass2_source.tar
 tar -xf pass2_source.tar
-mv -f ../src/pass2/tilepass.cpp .
+cp -f ../src/pass2/tilepass.cpp .
 make
 sudo mv pass2 /usr/bin
 rm *.cpp
 rm *.txt
 rm makefile
+rm pass2_source.tar
 cd $INSTALL_DIR
+
 
 # install lift over
 
@@ -123,40 +155,6 @@ sudo mv liftOver /usr/bin
 wget http://perm.googlecode.com/files/PerM_Linux32_v0.2.9.6.gz
 gunzip PerM_Linux32_v0.2.9.6.gz
 sudo mv PerM_Linux32_v0.2.9.6 /usr/bin/PerM
-
-# Install ghostscript
-
-sudo apt-get --force-yes install ghostscript
-
-# Install python tables
-# ------ NEEDS FIXING TODO -------
-sudo apt-get --force-yes install python-setuptools
-
-#   wget http://www.hdfgroup.org/ftp/HDF5/current/bin/linux/hdf5-1.8.8-linux-static.tar.gz
-#   tar -xzf hdf5-1.8.8-linux-static.tar.gz
-#   cd hdf5-1.8.8-linux.static
-#   sudo mv bin/* /usr/bin/
-#   sudo mv lib/* /usr/lib/
-#   sudo mv share/* /usr/share/
-#   sudo mv include/* /usr/include/
-#   cd $INSTALL_DIR
-#   Vsudo rm -Rf hdf5-1.8.8-linux.static
-
-sudo apt-get --force-yes install python-dev
-wget http://downloads.sourceforge.net/project/numpy/NumPy/1.6.1/numpy-1.6.1.tar.gz 
-
-sudo apt-get install svn
-tar -xzf numpy-1.6.1.tar.gz
-cd numpy-1.6.1
-sudo python setup.py install
-cd $INSTALL_DIR
-wget http://numexpr.googlecode.com/files/numexpr-2.0.tar.gz
-tar -xzf numexpr-2.0.tar.gz
-sudo python numexpr-2.0/setup.py install
-rm -Rf numexpr-2.0/
-sudo easy_install cython
-#    sudo easy_install tables
-
 
 #Install EMBOSS
 
@@ -172,7 +170,9 @@ sudo apt-get --force-yes install blast2
 
 #install samtools genomics suite
 sudo apt-get --force-yes install samtools
-sudo apt-get --force-yes install blast2
+# Install ghostscript
+
+sudo apt-get --force-yes install ghostscript
 
 
 #create the galaxy user
@@ -189,6 +189,7 @@ sudo su galaxy -c 'cd ~;  hg clone https://bitbucket.org/galaxy/galaxy-dist/;
 wget http://bitbucket.org/ianb/virtualenv/raw/tip/virtualenv.py;
 /usr/bin/python2.6 virtualenv.py --no-site-packages galaxy_env;
 . ./galaxy_env/bin/activate;
+hg clone https://bitbucket.org/galaxy/galaxy-dist/;
 echo "TEMP=/home/galaxy/galaxy-dist/database/tmp" >> .bashrc;
 echo "export TEMP" >> .bashrc;'
 
@@ -230,7 +231,7 @@ sudo touch /etc/apache2/logs/rewrite_log
 sudo cp -f httpd.conf /etc/apache2/
 
 #Restart Apache
-udo easy_install cython
+sudo easy_install cython
 
 sudo /etc/init.d/apache2 restart
 
