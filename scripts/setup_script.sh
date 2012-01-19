@@ -104,11 +104,11 @@ sudo apt-get --force-yes install liblzo2-dev
 sudo apt-get --force-yes install subversion
 sudo apt-get --force-yes install libhdf5-serial-dev
 sudo apt-get --force-yes install libatlas-dev
-sudo easy_install numpy
-sudo easy_install numexpr
-sudo easy_install cython
-sudo easy_install tables
-sudo easy_install scipy
+sudo easy_install -U numpy
+sudo easy_install -U numexpr
+sudo easy_install -U cython
+sudo easy_install -U tables
+sudo easy_install -U scipy
 		
 #GNUPLOT-py
 
@@ -174,6 +174,9 @@ sudo apt-get --force-yes install samtools
 
 sudo apt-get --force-yes install ghostscript
 
+# Install all dependencies in the dependencies folder
+
+dependencies/installs/./*.sh
 
 #create the galaxy user
 
