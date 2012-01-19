@@ -298,23 +298,31 @@ $INSTALL_DIR/./move_files.sh
 
 #Migrate data
 
+source /home/galaxy/.bashrc
 sudo echo "* * * * * chmod -R 777 /home/galaxy/galaxy-dist/database/ftp/*" | crontab
 
-sudo /home/galaxy/galaxy-dist/./manage_db.sh upgrade
+sudo su galaxy -c '/home/galaxy/galaxy-dist/./start_galaxy.sh'
 
 # Setup BioPerl
 echo Downloading ensembl cache, ~1.8gb...
-wget ftp://ftp.ensembl.org/pub/release-65/variation/VEP/homo_sapiens/homo_sapiens_vep_65_sift_polyphen.tar.gz
+
+wget ftp://ftp.ensembl.org/pub/release-64/variation/VEP/homo_sapiens/homo_sapiens_vep_65_sift_polyphen.tar.gz
+wget ftp://ftp.ensembl.org/pub/release-64/variation/VEP/homo_sapiens/homo_sapiens_vep_64_sift_polyphen.tar.gz
 
 tar -xzf homo_sapiens_vep_65_sift_polyphen.tar.gz
 mv homo_sapiens ../src/ensembl_cache/
 rm -f homo_sapiens_vep_65_sift_polyphen.tar.gz
+
+tar -xzf homo_sapiens_vep_64_sift_polyphen.tar.gz
+mv homo_sapiens ../src/ensembl_cache/
+rm -f homo_sapiens_vep_64_sift_polyphen.tar.gz
 
 sudo cp -fR ../src/bioperl-live /usr/local/
 sudo cp -fR ../src/ensembl /usr/local/
 sudo cp -fR ../src/ensembl-compara /usr/local/
 sudo cp -fR ../src/ensembl-variation /usr/local/
 sudo cp -fR ../src/ensembl-functgenomics /usr/local/
+sudo cp -fR ../src/ensembl_cache /usr/local
 
 echo "PERL5LIB=$PERL5LIB:/usr/local/bioperl-live" >> /home/galaxy/.bashrc
 echo "PERL5LIB=$PERL5LIB:/usr/local/ensembl/modules" >> /home/galaxy/.bashrc 
@@ -323,7 +331,12 @@ echo "PERL5LIB=$PERL5LIB:/usr/local/ensembl-variation/modules" >> /home/galaxy/.
 echo "PERL5LIB=$PERL5LIB:/usr/local/ensembl-functgenomics/modules" >> /home/galaxy/.bashrc
 echo "PERL5LIB=$PERL5LIB:/home/galaxy/galaxy-dist/tool-data/shared/vcfperltools" >> /home/galaxy/.bashrc
 echo "export PERL5LIB" >> /home/galaxy/.bashrc
-source /home/galaxy/.bashrc
+#Install Java
+
+sudo apt-get install --force-yes openjdk-6-jre-headless
+sudo apt-get install --force-yes openjdk-6-jdk
+sudo apt-get install --force-yes mysql-server
+
 
 
 sudo chown -R galaxy:galaxy /home/galaxy/galaxy-dist
