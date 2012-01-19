@@ -247,7 +247,7 @@ cd tabix-0.2.5
 sudo make
 sudo cp tabix /usr/bin/
 sudo cp bgzip /usr/bin/
-cd ..
+cd $INSTALL_DIR 
 rm -Rf tabix-0.2.5
 
 #
@@ -266,6 +266,7 @@ sudo su postgres -c 'psql -d galaxydb -f ftpsetup.sql'
 
 #Get source for additional proftpd
 sudo  apt-get --force-yes install libpq-dev
+sudo mkdir /var/log/proftpd
 wget ftp://ftp1.at.proftpd.org/ProFTPD/distrib/source/proftpd-1.3.4a.tar.gz
 tar -xzf proftpd-1.3.4a.tar.gz
 cd proftpd-1.3.4a
