@@ -1,6 +1,6 @@
 <tool id="ensembl_vep" name="Ensemble Variant Effect Predictor" version="0.99">
 <command interpreter="bash">
-    ./ensemble.sh ${input} ${vep_options} > ${output}
+    ./ensembl.sh ${input} ${vep_options} > ${output}
 </command>
 
 <inputs>
@@ -20,7 +20,7 @@
     <option value="coding_only">Display Coding Region Only</option>
     <option value="check_existing">Check Existing work</option>
     <option value="check_alleles">When checking for existing variants, only report a co-located variant if none of the alleles supplied are novel</option>
-    
+</param>   
 </inputs>
 
 <outputs>
