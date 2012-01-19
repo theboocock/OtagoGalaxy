@@ -39,8 +39,8 @@ sudo cp -f ../src/vcfperltools /home/galaxy/galaxy-dist/tool-data/shared/
 
 # Setup GATK
 sudo mkdir /home/galaxy/galaxy-dist/tool-data/shared/jars/gatk
-cp -f ../src/gatk/GenomeAnalysisTK.jar /home/galaxy/galaxy-dist/tool-data/shared/jars/
-sudo cp -f ../src/gatk /home/galaxy/galaxy-dist/tools/
+sudo cp -f ../src/gatk/GenomeAnalysisTK.jar /home/galaxy/galaxy-dist/tool-data/shared/jars/
+sudo cp -Rf ../src/gatk /home/galaxy/galaxy-dist/tools/
 
 # Shift all the tools
 sudo cp -fR ../galaxy/ /home/galaxy/galaxy-dist/tools/SOER1000genes/

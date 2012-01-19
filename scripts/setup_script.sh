@@ -267,6 +267,7 @@ sudo su postgres -c 'psql -d galaxydb -f ftpsetup.sql'
 #Get source for additional proftpd
 sudo  apt-get --force-yes install libpq-dev
 sudo mkdir /var/log/proftpd
+sudo touch /var/log/proftpd/proftpd.log
 wget ftp://ftp1.at.proftpd.org/ProFTPD/distrib/source/proftpd-1.3.4a.tar.gz
 tar -xzf proftpd-1.3.4a.tar.gz
 cd proftpd-1.3.4a
@@ -289,7 +290,9 @@ sudo cp -f $INSTALL_DIR/proftpd /etc/init.d/
 sudo /etc/init.d/proftpd start
 
 #Run move scripts to install all our tools.
+
 cd $INSTALL_DIR
+sudo mkdir /home/galaxy/galaxy-dist/tool-data/shared/jars
 sudo mkdir /home/galaxy/galaxy-dist/tools/SOER1000genes
 $INSTALL_DIR/./move_files.sh
 
