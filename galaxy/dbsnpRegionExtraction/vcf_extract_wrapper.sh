@@ -21,7 +21,7 @@ then
 
 else
 
-    REGIONS=`~/galaxy-dist/tools/SOER1000genes/galaxy/getRegion.sh $1`
+    REGIONS=`~/galaxy-dist/tools/SOER1000genes/galaxy/dbsnpRegionExtraction/getRegion.sh $1`
     python ~/galaxy-dist/tools/vcf_tools/vcfPytools.py extract --in=${1} --out=${2} --region=${REGIONS}
 
 fi
