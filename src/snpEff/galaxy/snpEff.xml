@@ -4,7 +4,7 @@
 	    You will need to change the path to wherever your installation is.
 		You can change the amount of memory used by snpEff, just change the -Xmx parameter (e.g. use -Xmx2G for 2Gb of memory)
 	-->
-	<command>java -Xmx6G -jar /scratch/galaxy/galaxy_dist/tools/snpEff/snpEff.jar -c /scratch/galaxy/galaxy_dist/tools/snpEff/snpEff.config $inputFormat $addChr $offset -upDownStreamLen $udLength $filterIn $filterHomHet -no $filterOut -stats $statsFile $genomeVersion $input > $output </command>
+	<command>java -Xmx6G -jar ${__root_dir__}/tool-data/shared/jars/snpEff/snpEff.jar -c ${__root_dir__}/tool-data/shared/jars/snpEff/snpEff.config $inputFormat $addChr $offset -upDownStreamLen $udLength $filterIn $filterHomHet -no $filterOut -stats $statsFile $genomeVersion $input > $output </command>
 	<inputs>
 		<param format="Tabular" name="input" type="data" label="Sequence changes (SNPs, MNPs, InDels)"/>
 
@@ -15,6 +15,10 @@
 		</param>
 
 		<param name="genomeVersion" type="select" label="Genome">
+			<option value="GRCH37.63"> Homo sapiens (GRCH 37.63)</option>
+			<option value="GRCH37.64"> Homo sapiens (GRCH 37.64)</option>
+			<option value="hg37"> Homo sapiens (hg37 UCSC)</option>
+        <!-- Commented out cause we havent downloaded them so no point having them shown...
 			<option value="amel2"> Apis mellifera (amel2 BeeBase)</option>
 			<option value="anoCar1.0.60"> Anolis carolinensis       ( anoCar1.0.60 ) </option>
 			<option value="aquiCoer"> Aquilegia coerulea       (aquiCoer) </option>
@@ -54,7 +58,6 @@
 			<option value="gorGor3.60"> Gorilla gorilla     ( gorGor3.60 ) </option>
 			<option value="hg37.59"> Homo sapiens (hg37.59 Ensembl)</option>
 			<option value="hg37.60"> Homo sapiens   ( hg37.60 ) </option>
-			<option value="hg37"> Homo sapiens (hg37 UCSC)</option>
 			<option value="loxAfr3.60"> Loxodonta africana  ( loxAfr3.60 ) </option>
 			<option value="medaka1.60"> Oryzias latipes     ( medaka1.60 ) </option>
 			<option value="meug1.0.60"> Macropus eugenii    ( meug1.0.60 ) </option>
@@ -92,6 +95,7 @@
 			<option value="turTru1.60"> Tursiops truncatus  ( turTru1.60 ) </option>
 			<option value="vicPac1.60"> Vicugna pacos       ( vicPac1.60 ) </option>
 			<option value="xtrop4.1.60"> Xenopus tropicalis ( xtrop4.1.60 ) </option>
+            -->
 		</param>
 
 		<param name="addChr"  type="boolean" checked="false" truevalue="-chr" falsevalue="" label="Prepepnd 'chr' to chromosome names" />
