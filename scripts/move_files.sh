@@ -30,9 +30,10 @@ sudo mkdir /home/galaxy/galaxy-dist/tool-data/shared/jars/snpEff
 sudo cp -f ../src/snpEff/SnpSift.jar /home/galaxy/galaxy-dist/tool-data/shared/jars/snpEff
 sudo cp -f ../src/snpEff/snpEff.jar /home/galaxy/galaxy-dist/tool-data/shared/jars/snpEff
 sudo cp -f ../src/snpEff/snpEff.config /home/galaxy/galaxy-dist/tool-data/shared/jars/snpEff
-sudo cp -f ../src/snpEff/data /home/galaxy/galaxy-dist/tool-data/shared/jars/snpEff
+sudo cp -Rf ../src/snpEff/data /home/galaxy/galaxy-dist/tool-data/shared/jars/snpEff
 sudo mkdir /home/galaxy/galaxy-dist/tools/snpEff
 sudo cp -f ../src/snpEff/snpEff.xml /home/galaxy/galaxy-dist/tools/snpEff/
+sudo cp -f ../src/snpEff/snpEff.config /home/galaxy/galaxy-dist/tools/snpEff/
 
 # Setup VcfTools
 sudo cp -f ../src/vcfperltools /home/galaxy/galaxy-dist/tool-data/shared/
