@@ -10,6 +10,8 @@
 # Start script
 echo Starting install...
 
+MYLOC=`pwd`
+
 # Copy handy scripts to root directory
 
 sudo cp -f restart_galaxy.sh /home/galaxy/galaxy-dist/
@@ -30,10 +32,13 @@ sudo mkdir /home/galaxy/galaxy-dist/tool-data/shared/jars/snpEff
 sudo cp -f ../src/snpEff/SnpSift.jar /home/galaxy/galaxy-dist/tool-data/shared/jars/snpEff
 sudo cp -f ../src/snpEff/snpEff.jar /home/galaxy/galaxy-dist/tool-data/shared/jars/snpEff
 sudo cp -f ../src/snpEff/snpEff.config /home/galaxy/galaxy-dist/tool-data/shared/jars/snpEff
-sudo cp -Rf ../src/snpEff/data /home/galaxy/galaxy-dist/tool-data/shared/jars/snpEff
 sudo mkdir /home/galaxy/galaxy-dist/tools/snpEff
 sudo cp -f ../src/snpEff/snpEff.xml /home/galaxy/galaxy-dist/tools/snpEff/
-sudo cp -f ../src/snpEff/snpEff.config /home/galaxy/galaxy-dist/tools/snpEff/
+cd /home/galaxy/galaxy-dist/tool-data/shared/jars/snpEff
+mkdir -f data
+java -jar snpEff.jar download GRCh37.64
+java -jar snpEff.jar download GRCh37.65
+java -jar snpEff.jar download hg19
 
 # Setup VcfTools
 sudo cp -f ../src/vcfperltools /home/galaxy/galaxy-dist/tool-data/shared/
