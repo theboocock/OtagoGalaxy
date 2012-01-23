@@ -39,6 +39,7 @@ mkdir -f data
 java -jar snpEff.jar download GRCh37.64
 java -jar snpEff.jar download GRCh37.65
 java -jar snpEff.jar download hg19
+cd $MYLOC
 
 # Setup VcfTools
 sudo cp -f ../src/vcfperltools /home/galaxy/galaxy-dist/tool-data/shared/

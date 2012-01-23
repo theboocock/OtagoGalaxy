@@ -1,0 +1,27 @@
+<tool id="evs" name="Query Exome Variant Server" version="0.9">
+<description>based on position, gene name or id</description>
+	<command interpreter="bash">
+       <!-- java -jar ${__root_dir__}/tool-data/shared/jars/evs/evsClient.jar -t ${input} -f vcf -->
+       ./evs.sh ${input} vcf ${output_vcf} ${output_allSites} ${output_summaryStats}
+    </command>
+	<inputs>
+
+        <param name="input" type="text" label="Please enter your chromosone and region OR gene name OR (NCBI) Gene Id" help ="Region needs to be in a format like so: chr:startPos-endPos eg. 4:85748-47483. Gene name for example is abcg2." />
+
+    </inputs>
+	
+    <outputs>
+	    <data format="vcf" name="output_vcf" label="EVS_${input}_vcf"/>
+	    <data format="txt" name="output_allSites" label="EVS_${input}_AllSites"/>
+	    <data format="txt" name="output_summaryStats" label="EVS_${input}_SummaryStats"/>
+	</outputs>
+
+	<help>
+
+	This tool returns data based on given exome region or gene.
+
+	For details about this tool, please go to http://evs.gs.washington.edu/EVS/
+
+	</help>
+	</tool>
+

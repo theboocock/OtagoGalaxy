@@ -1,0 +1,23 @@
+Here are the list of programs/databases etc that will need to be updated...
+
+1) Ensemble perl script may need to be updated but will have to check manually. The script can be found in ~/galaxy-dist/tools/SOER1000genes/galaxy/ensemblVEP/variant_effect_predictor.pl
+
+2) SnpEff will need to be manually updated also. You will have to visit his site http://snpeff.sourceforge.net/ and check for the latest versions.
+
+Once downloaded unzip into the /home/galaxy/galaxy-dist/tools/SOER1000genes/src/snpEff folder and run the ./setup_snpEff.sh script which will take care of placing the files where they need to be.
+
+To update to the latest reference genome, 
+    cd into /home/galaxy/galaxy-dist/tool-data/shared/jars/snpEff 
+and run 
+    java -jar snpEff.jar download latestRefGenome
+and it should have installed into the data folder. It may return errors while downloading but chances are that it worked anyway.
+
+3) The GATK is sometimes updated (or will be at least) so all that needs to be done is:
+
+    mv GenomeAnalysisTK.jar /home/galaxy/galaxy-dist/tool-data/shared/jars/gatk
+    mv *.* (everything but the jar) to /home/galaxy/galaxy-dist/tools/gatk
+
+4) dbSNP will need to be updated as new versions come out. 
+You can update dbSNP by running the update_dbSnp.sh script in SOER1000genes/scripts folder:
+        sudo ./update_dbSnp.sh
+
