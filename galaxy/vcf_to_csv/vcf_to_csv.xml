@@ -1,0 +1,22 @@
+<tool id="vcf_to_csv" name="VCF To CSV converter" version="0.0.1">
+
+<command>
+	java VcfToCsv $vcf_file > $csv_file
+</command>
+
+<inputs>
+	<param name="vcf_file" label="VCF to be Converted" type="data" format="vcf"/>
+</inputs>
+
+<outputs>
+	<data name="csv_file" format="csv"/>
+</outputs>
+
+<help>
+	Converts a VCF file into a CSV file taking each part of the info
+	field and seperating it into its own column.
+
+</help>
+
+
+</tool>
