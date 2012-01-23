@@ -1,7 +1,7 @@
 <tool id="vcf_to_csv" name="VCF To CSV converter" version="0.0.1">
 
 <command>
-	java VcfToCsv $vcf_file > $csv_file
+java -jar ${__root_dir__}/tool-data/shared/jars/vcf_to_csv/VcfToCsv.jar $vcf_file > $csv_file
 </command>
 
 <inputs>
