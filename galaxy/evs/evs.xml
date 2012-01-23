@@ -1,16 +1,12 @@
 <tool id="evs" name="Query Exome Variant Server" version="0.9">
 <description>based on position, gene name or id</description>
-<!-- 
-	You will need to change the path to wherever your installation is.
-You can change the amount of memory used by snpEff, just change the -Xmx parameter (e.g. use -Xmx2G for 2Gb of memory)
-	<command>java -Xmx6G -jar /path/to/your/snpEff/snpEff.jar -c /path/to/your/snpEff/snpEff/snpEff.config $inputFormat $offset -upDownStreamLen $udLength $filterIn $filterHomHet -no $filterOut -stats $statsFile $genomeVersion $input > $output </command>
-	-->
-	<command>
-        java -jar ${__root_dir__}/tool-data/shared/jars/evs/evsClient.jar -t ${input} -f vcf
+	<command interpreter="bash">
+       <!-- java -jar ${__root_dir__}/tool-data/shared/jars/evs/evsClient.jar -t ${input} -f vcf -->
+       ./evs.sh ${input} vcf ${output_vcf} ${output_allSites} ${output_summaryStats}
     </command>
 	<inputs>
 
-        <param name="input" type="text" label="Please enter your chromosone and region OR gene name OR (NCBI) Gene Id"/>
+        <param name="input" type="text" label="Please enter your chromosone and region OR gene name OR (NCBI) Gene Id" help ="Region needs to be in a format like so: chr:startPos-endPos eg. 4:85748-47483. Gene name for example is abcg2." />
 
     </inputs>
 	
@@ -24,7 +20,7 @@ You can change the amount of memory used by snpEff, just change the -Xmx paramet
 
 	This tool returns data based on given exome region or gene.
 
-	For details about this tool, please go to ** INSERT WEBSITE HERE **
+	For details about this tool, please go to http://evs.gs.washington.edu/EVS/
 
 	</help>
 	</tool>
