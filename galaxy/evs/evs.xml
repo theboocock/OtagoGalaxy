@@ -11,9 +11,9 @@
     </inputs>
 	
     <outputs>
-	    <data format="vcf" name="output_vcf" />
-	    <data format="txt" name="output_allSites" />
-	    <data format="txt" name="output_summaryStats" />
+	    <data format="vcf" name="output_vcf" label="EVS_${input}_vcf"/>
+	    <data format="txt" name="output_allSites" label="EVS_${input}_AllSites"/>
+	    <data format="txt" name="output_summaryStats" label="EVS_${input}_SummaryStats"/>
 	</outputs>
 
 	<help>
