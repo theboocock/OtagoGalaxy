@@ -14,20 +14,19 @@ if [ $# == 3 ]
 then
 
     REGIONS=$3
-    python ~/galaxy-dist/tools/vcf_tools/vcfPytools.py extract --in=${1} --out=~tmp.tmp --region=${REGIONS}
+    python ~/galaxy-dist/tools/vcf_tools/vcfPytools.py extract --in=${1} --out=~tmpReg.tmp --region=${REGIONS}
 
 else
 
     REGIONS=`~/galaxy-dist/tools/SOER1000genes/galaxy/dbsnpRegionExtraction/getRegion.sh $1`
     
-    python ~/galaxy-dist/tools/vcf_tools/vcfPytools.py extract --in=${1} --out=~tmp.tmp --region=${REGIONS}
+    python ~/galaxy-dist/tools/vcf_tools/vcfPytools.py extract --in=${1} --out=~tmpReg.tmp --region=${REGIONS}
 
 fi
 
-rm -f ~tmp.tmp
-
 tabix -h ~/galaxy-dist/tools/SOER1000genes/data/dbSNP.vcf.gz ${REGIONS} > ~tmp.tmp
 
-java -jar ~/galaxy-dist/tool-data/shared/jars/snpEff/SnpSift.jar annotate ~tmp.tmp 1> $2 2> /dev/null
+java -jar ~/galaxy-dist/tool-data/shared/jars/snpEff/SnpSift.jar annotate ~tmp.tmp ~tmpReg.tmp 1> $2 2> /dev/null
 
 rm -f ~tmp.tmp
+rm -f ~tmpReg.tmp
