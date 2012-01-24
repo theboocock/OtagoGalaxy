@@ -1,11 +1,11 @@
-<tool id="snpEff_data_annotation" name="Add Genomic annotations Using Variant Annotater" version="0.0.1">
-<command>
-
+<tool id="snpEff_data_annotation" name="Add Genomic annotations Using SNPEff" description="Add variant annotations to A VCF file using the SNPeff output of that file" version="0.0.1">
+<command interpreter="bash"> variant_annotator.sh $ref_fasta $snp_vcf $orig_vcf $output_vcf $options
 </command>
 
 <inputs>
+    <param name="ref_fasta" label="Refernce Fasta file" type="data" format="fasta"/>
     <param name="snp_vcf" label="SnpEff vcf output file" type="data" format="vcf"/>
-    <param name="orig_vcf"label="Original VCF file for snpEff to annotate" type="data" format="vcf"/>
+    <param name="orig_vcf" label="Original VCF file for snpEff to annotate" type="data" format="vcf"/>
     <param name="options" label="Select Option 1 or 2 (described in detail in help" type="select" display="radio">
     <option value="1">Option 1(Highest Impact Variant)</option>
     <option value="2">Option 2(All Effects)</option>

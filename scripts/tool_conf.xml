@@ -4,6 +4,7 @@
    <label text="Variant Effect Predictors" id="soer_vep" />
    <tool file="SOER1000genes/galaxy/ensemblVEP/ensemble_variant_effect.xml"/>
    <tool file="snpEff/snpEff.xml" />
+   <tool file="SOER1000genes/galaxy/variantAnnotator/variant_annotator.xml" />
    <label text="Filters" id="soer_filt" />
    <tool file="SOER1000genes/galaxy/getReadDepth/getReadDepth.xml"/>
    <tool file="SOER1000genes/galaxy/getSnps/get_snps.xml"/>
