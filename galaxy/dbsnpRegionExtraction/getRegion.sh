@@ -7,6 +7,9 @@
 # pair of regions. ie chromosome:startRegion-endRegion.
 #
 # Example use is cat inputFile.vcf | ./getRegion inputFile.vcf
+#
+# Inputs 
+# $1 = input_file
 
 awk '
     {if ($1 !~ /'#'/)
