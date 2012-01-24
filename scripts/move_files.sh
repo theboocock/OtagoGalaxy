@@ -27,6 +27,10 @@ sudo cp -f universe_wsgi.webapp.ini /home/galaxy/galaxy-dist/
 # Setup tool_conf.xml
 sudo cp -f tool_conf.xml /home/galaxy/galaxy-dist/
 
+#Setup VCF to CSV 
+sudo mkdir /home/galaxy/galaxy-dist/tool-data/shared/jars/vcf_to_csv
+sudo cp -f ../src/vcf_to_csv/VcfToCsv.jar /home/galaxy/galaxy-dist/tool-data/shared/jars/vcf_to_csv
+
 # Setup snpEff
 sudo mkdir /home/galaxy/galaxy-dist/tool-data/shared/jars/snpEff
 sudo cp -f ../src/snpEff/SnpSift.jar /home/galaxy/galaxy-dist/tool-data/shared/jars/snpEff

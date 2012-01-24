@@ -17,6 +17,8 @@
    <tool file="SOER1000genes/galaxy/vcfMerge/merge_vcfs.xml"/>
    <tool file="SOER1000genes/galaxy/extractSampleId/get_sample_id.xml" />
    <tool file="SOER1000genes/galaxy/vcfSubset/select_samples.xml"/>
+   <tool file="SOER1000genes/galaxy/vcf_to_csv/vcf_to_csv.xml"/>
+   <label text="Work with 1000 Genomes Data" id="soer_hg" />
    <label text="Query Databases" id="soer_db" />
    <tool file="SOER1000genes/galaxy/evs/evs.xml"/>
 </section>
