@@ -58,7 +58,7 @@ sudo mv -fR ../src/evs/ /home/galaxy/galaxy-dist/tool-data/shared/jars/
 
 # Move haploview
 sudo mkdir /home/galaxy/galaxy-dist/tool-data/shared/jars/haploview
-sudo mv -f ../src/haplo/HaploView.jar /home/galaxy/galaxy-dist/tool-data/shared/jars/haploview/
+sudo cp -f ../src/haplo/HaploView.jar /home/galaxy/galaxy-dist/tool-data/shared/jars/haploview/
 
 # Shift all the tools
 sudo cp -fR ../galaxy/ /home/galaxy/galaxy-dist/tools/SOER1000genes/

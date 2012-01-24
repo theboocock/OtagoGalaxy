@@ -46,7 +46,7 @@ cd rpy2-2.2.1
 python setup.py install
 cd $INSTALL_DIR
 sudo rm -Rf rpy2-2.2.1
-sudo rm rpy2-2.2.1.tar.gz
+sudo rm -f rpy2-2.2.1.tar.gz
 #Install beam2
 sudo apt-get --force-yes install libgsl0-dev
 wget http://stat.psu.edu/~yuzhang/software/beam2_source.tar
@@ -140,6 +140,7 @@ make
 sudo mv pass2 /usr/bin
 rm *.cpp
 rm *.txt
+rm *.o
 rm makefile
 rm pass2_source.tar
 cd $INSTALL_DIR
@@ -247,6 +248,7 @@ sudo cp tabix /usr/bin/
 sudo cp bgzip /usr/bin/
 cd $INSTALL_DIR 
 rm -Rf tabix-0.2.5
+rm -Rf tabix-0.2.5.tar.bz2
 
 #
 # FTP SETUP 
@@ -274,6 +276,7 @@ make
 sudo make install
 cd ..
 rm -Rf proftpd-1.3.4a
+rm -Rf proftpd-1.3.4a.tar.gz
 
 #Copy proftpd config file
 
@@ -287,6 +290,11 @@ sudo cp -f $INSTALL_DIR/proftpd /etc/init.d/
 
 sudo /etc/init.d/proftpd start
 
+#install java
+
+sudo apt-get install --force-yes openjdk-6-jre-headless
+sudo apt-get install --force-yes openjdk-6-jdk
+sudo apt-get install --force-yes mysql-server
 #Run move scripts to install all our tools.
 
 cd $INSTALL_DIR
@@ -330,13 +338,8 @@ echo "PERL5LIB=$PERL5LIB:/usr/local/ensembl-functgenomics/modules" >> /home/gala
 echo "PERL5LIB=$PERL5LIB:/home/galaxy/galaxy-dist/tool-data/shared/vcfperltools" >> /home/galaxy/.bashrc
 echo "export PERL5LIB" >> /home/galaxy/.bashrc
 echo "TEMP=/home/galaxy/galaxy-dist/database/tmp" >> .bashrc;
-echo "export TEMP" >> .bashrc;'
+echo "export TEMP" >> .bashrc;
 
-#install java
-
-sudo apt-get install --force-yes openjdk-6-jre-headless
-sudo apt-get install --force-yes openjdk-6-jdk
-sudo apt-get install --force-yes mysql-server
 
 
 sudo chown -R galaxy:galaxy /home/galaxy/galaxy-dist
