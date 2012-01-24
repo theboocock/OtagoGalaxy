@@ -1,7 +1,10 @@
 #!/bin/bash
 #
+# Author: Ed Hills
+# Date : 24/1/12
 #
-#
+# This script will run the HaploView.jar LD Plotter and create an HTML
+# page that will embed the output png image.
 #
 # Inputs
 # $1 = input_hapmap
