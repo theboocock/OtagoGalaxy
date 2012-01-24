@@ -1,6 +1,6 @@
 <tool id="ldplot_haplo" name="Create LD Plot" description="with HaploView from a Hapmap file and view it." version="0.0.1">
-<command>
-    java -jar ${__root_dir__}/tool-data/shared/jars/haploview/HaploView.jar -n -ldcolorscheme RSQ -ldvalues RQ -png -hapmap ${input_hapmap} 
+<command interpreter="bash">
+    ./haploview.sh ${input_hapmap} ${html_output}
 </command>
 
 <inputs>
