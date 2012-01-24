@@ -1,53 +1,14 @@
-<tool id="snpEff_data_annotation" name="Add Genomic annotations Using SNPEff" description="Add variant annotations to A VCF file using the SNPeff output of that file" version="0.0.1">
-<command interpreter="bash"> variant_annotator.sh $ref_fasta $snp_vcf $orig_vcf $output_vcf $options
+<tool id="ldplot_haplo" name="Create LD Plot" description="with HaploView from a Hapmap file and view it." version="0.0.1">
+<command>
+    java -jar ${__root_dir__}/tool-data/shared/jars/haploview/HaploView.jar -n -ldcolorscheme RSQ -ldvalues RQ -png -hapmap ${input_hapmap} 
 </command>
 
 <inputs>
-    <param name="ref_fasta" label="Refernce Fasta file" type="data" format="fasta"/>
-    <param name="snp_vcf" label="SnpEff vcf output file" type="data" format="vcf"/>
-    <param name="orig_vcf" label="Original VCF file for snpEff to annotate" type="data" format="vcf"/>
-    <param name="options" label="Select Option 1 or 2 (described in detail in help" type="select" display="radio">
-    <option value="1">Option 1(Highest Impact Variant)</option>
-    <option value="2">Option 2(All Effects)</option>
-    </param>
+    <param name="input_hapmap" label="Upload your hapmap file to create LD Plot" type="data" format="txt"/>
 </inputs>
 <outputs>
-    <data format="vcf" name="output_vcf"/>
+    <data format="html" name="html_output"/>
 </outputs>
 <help>
-Option 1: Annotate with only the highest-impact effect for each variant
-
-
-The default behavior when you run VariantAnnotator on a SnpEff output file is to parse the complete set of effects resulting from the current variant, select the most biologically-significant effect, and add annotations for just that effect to the INFO field of the VCF record for the current variant. This is the mode we plan to use in our Production Data-Processing Pipeline.
-
-When selecting the most biologically-significant effect associated with the current variant, VariantAnnotator does the following:
-
-    Prioritizes the effects according to the categories (in order of decreasing precedence) "High-Impact", "Moderate-Impact", "Low-Impact", and "Modifier", and always selects one of the effects from the highest-priority category. For example, if there are three moderate-impact effects and two high-impact effects resulting from the current variant, the annotator will choose one of the high-impact effects and add annotations based on it. See below for a full list of the effects arranged by category.
-        Within each category, ties are broken using the functional class of each effect (in order of precedence: NONSENSE, MISSENSE, SILENT, or NONE). For example, if there is both a NON_SYNONYMOUS_CODING (MODERATE-impact, MISSENSE) and a CODON_CHANGE (MODERATE-impact, NONE) effect associated with the current variant, the annotator will select the NON_SYNONYMOUS_CODING effect. This is to allow for more accurate counts of the total number of sites with NONSENSE/MISSENSE/SILENT mutations. See below for a description of the functional classes SnpEff associates with the various effects.
-            Effects that are within a non-coding region are always considered lower-impact than effects that are within a coding region. 
-
-
-VariantAnnotator adds some or all of the following INFO field annotations to each variant record:
-
-SNPEFF_EFFECT - The highest-impact effect resulting from the current variant (or one of the highest-impact effects, if there is a tie)
-
-SNPEFF_IMPACT - Impact of the highest-impact effect resulting from the current variant (HIGH, MODERATE, LOW, or MODIFIER)
-
-SNPEFF_FUNCTIONAL_CLASS - Functional class of the highest-impact effect resulting from the current variant (NONE, SILENT, MISSENSE, or NONSENSE)
-
-SNPEFF_CODON_CHANGE - Old/New codon for the highest-impact effect resulting from the current variant
-
-SNPEFF_AMINO_ACID_CHANGE - Old/New amino acid for the highest-impact effect resulting from the current variant
-
-SNPEFF_GENE_NAME - Gene name for the highest-impact effect resulting from the current variant
-
-SNPEFF_GENE_BIOTYPE - Gene biotype for the highest-impact effect resulting from the current variant
-
-SNPEFF_TRANSCRIPT_ID - Transcript ID for the highest-impact effect resulting from the current variant
-SNPEFF_EXON_ID - Exon ID for the highest-impact effect resulting from the current variant 
-
-Option 2: Annotate with all effects for each variant
-
-VariantAnnotator also has the ability to take the EFF field from the SnpEff VCF output file containing all the effects aggregated together and copy it verbatim into the VCF to annotate. 
 </help>
 </tool>
