@@ -50,7 +50,7 @@ sudo cp -f ../src/vcfperltools /home/galaxy/galaxy-dist/tool-data/shared/
 
 # Setup GATK
 sudo mkdir /home/galaxy/galaxy-dist/tool-data/shared/jars/gatk
-sudo cp -f ../src/gatk/GenomeAnalysisTK.jar /home/galaxy/galaxy-dist/tool-data/shared/jars/
+sudo cp -f ../src/gatk/GenomeAnalysisTK.jar /home/galaxy/galaxy-dist/tool-data/shared/jars/gatk/
 sudo cp -Rf ../src/gatk /home/galaxy/galaxy-dist/tools/
 
 # Setup EVS

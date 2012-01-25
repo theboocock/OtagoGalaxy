@@ -13,6 +13,7 @@
    <tool file="SOER1000genes/galaxy/homozyFilter/homo_multi.xml"/>
    <tool file="SOER1000genes/galaxy/dbsnpRegionExtraction/dbsnp_region_extraction.xml" />
    <label text="Calculations" id="soer_calc" />
+   <tool file="SOER1000genes/galaxy/haploview/haploview.xml" />
    <tool file="SOER1000genes/galaxy/calcTsTv/calc_ts_tv.xml" />
    <label text="VCF file Mainuplation" id="soer_vcf-manip" />
    <tool file="SOER1000genes/galaxy/vcfMerge/merge_vcfs.xml"/>

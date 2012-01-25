@@ -312,7 +312,7 @@ sudo su galaxy -c '/home/galaxy/galaxy-dist/./start_galaxy.sh'
 # Setup BioPerl
 echo Downloading ensembl cache, ~1.8gb...
 
-wget ftp://ftp.ensembl.org/pub/release-64/variation/VEP/homo_sapiens/homo_sapiens_vep_65_sift_polyphen.tar.gz
+wget ftp://ftp.ensembl.org/pub/release-65/variation/VEP/homo_sapiens/homo_sapiens_vep_65_sift_polyphen.tar.gz
 wget ftp://ftp.ensembl.org/pub/release-64/variation/VEP/homo_sapiens/homo_sapiens_vep_64_sift_polyphen.tar.gz
 
 tar -xzf homo_sapiens_vep_65_sift_polyphen.tar.gz
