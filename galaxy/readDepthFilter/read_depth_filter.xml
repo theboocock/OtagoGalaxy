@@ -1,12 +1,12 @@
-<tool id="read_depth_filter_vcf" label="VCF read depth filter" version="1.0.0" >
+<tool id="read_depth_filter_vcf" name="VCF read depth filter" version="1.0.0" >
 
 <command>
-    java -jar ${GALAXY_DATA_INDEX_DIR}/shared/jars/snpEff/SnpSift.jar filter " (DP > ${depth_thresh} ) " > $filter_vcf
+    cat $in_vcf | java -jar ${GALAXY_DATA_INDEX_DIR}/shared/jars/snpEff/SnpSift.jar filter " (DP >=  ${depth_thresh} ) " > $filter_vcf
 </command>
 
 <inputs>
     <param name="in_vcf" format="vcf" type="data" label="VCF file to filter" />
-    <param name="depth_thresh" format="integer" label="Read depth threshhold below which VCF files will be discarded"/> 
+    <param name="depth_thresh" type="integer" value="0" label="Read depth threshhold below which VCF files will be discarded"/> 
 </inputs>
 
 
