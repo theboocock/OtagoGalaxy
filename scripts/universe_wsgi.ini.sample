@@ -19,26 +19,26 @@
 
 # Configuration of the internal HTTP server.
 
-[server:runner0]
+[server:main]
 
 # The internal HTTP server to use.  Currently only Paste is provided.  This
 # option is required.
 use = egg:Paste#http
 
 # The port on which to listen.
-port = 8079
+#port = 8080
 
 # The address on which to listen.  By default, only listen to localhost (Galaxy
 # will not be accessible over the network).  Use '0.0.0.0' to listen on all
 # available network interfaces.
-host = 127.0.0.1
+#host = 127.0.0.1
 
 # Use a threadpool for the web server instead of creating a thread for each
 # request.
 use_threadpool = True
 
 # Number of threads in the web server thread pool.
-threadpool_workers = 10
+#threadpool_workers = 10
 
 # ---- Filters --------------------------------------------------------------
 
@@ -75,13 +75,13 @@ paste.app_factory = galaxy.web.buildapp:app_factory
 # If running behind a proxy server and Galaxy is served from a subdirectory,
 # enable the proxy-prefix filter and set the prefix in the
 # [filter:proxy-prefix] section above.
-filter-with = proxy-prefix
+#filter-with = proxy-prefix
 
 # If proxy-prefix is enabled and you're running more than one Galaxy instance
 # behind one hostname, you will want to set this to the same path as the prefix
 # in the filter above.  This value becomes the "path" attribute set in the
 # cookie so the cookies from each instance will not clobber each other.
-#cookie_path = /galaxy
+#cookie_path = None
 
 # -- Database
 
@@ -89,7 +89,7 @@ filter-with = proxy-prefix
 # may use a SQLAlchemy connection string to specify an external database
 # instead.  This string takes many options which are explained in detail in the
 # config file documentation.
-database_connection = postgres:///galaxydb?host=/var/run/postgresql&user=galaxy&password=1234
+#database_connection = sqlite:///./database/universe.sqlite?isolation_level=IMMEDIATE
 
 # If the server logs errors about not having enough database pool connections,
 # you will want to increase these values, or consider running more Galaxy
@@ -104,11 +104,11 @@ database_connection = postgres:///galaxydb?host=/var/run/postgresql&user=galaxy&
 # If large database query results are causing memory or response time issues in
 # the Galaxy process, leave the result on the server instead.  This option is
 # only available for PostgreSQL and is highly recommended.
-database_engine_option_server_side_cursors = True
+#database_engine_option_server_side_cursors = False
 
 # Create only one connection to the database per thread, to reduce the
 # connection overhead.  Recommended when not using SQLite:
-database_engine_option_strategy = threadlocal
+#database_engine_option_strategy = threadlocal
 
 # Log all database transactions, can be useful for debugging and performance
 # profiling.  Logging is done via Python's 'logging' module under the qualname
@@ -137,7 +137,7 @@ database_engine_option_strategy = threadlocal
 #tool_data_path = tool-data
 
 # Directory where chrom len files are kept, currently mainly used by trackster
-len_file_path = tool-data/shared/ucsc/chrom
+#len_file_path = tool-data/shared/ucsc/chrom
 
 
 # Datatypes config file, defines what data (file) types are available in
@@ -190,13 +190,13 @@ len_file_path = tool-data/shared/ucsc/chrom
 # browsers are defined in the specifield files.
 
 # UCSC browsers: tool-data/shared/ucsc/ucsc_build_sites.txt
-ucsc_display_sites = main,test,archaea,ucla
+#ucsc_display_sites = main,test,archaea,ucla
 
 # GBrowse servers: tool-data/shared/gbrowse/gbrowse_build_sites.txt
-gbrowse_display_sites = wormbase,tair,modencode_worm,modencode_fly,yeast_sgd
+#gbrowse_display_sites = wormbase,tair,modencode_worm,modencode_fly,yeast_sgd
 
 # GeneTrack servers: tool-data/shared/genetrack/genetrack_sites.txt
-genetrack_display_sites = main,test
+#genetrack_display_sites = main,test
 
 # -- Next gen LIMS interface on top of existing Galaxy Sample/Request management code.
 
@@ -212,10 +212,10 @@ nglims_config_file = tool-data/nglims.yaml
 #logo_url = /
 
 # The URL linked by the "Galaxy Wiki" link in the "Help" menu.
-wiki_url = http://wiki.g2.bx.psu.edu/
+#wiki_url = http://wiki.g2.bx.psu.edu/
 
 # The URL linked by the "Support" link in the "Help" menu.
-support_url = http://wiki.g2.bx.psu.edu/Support
+#support_url = http://wiki.g2.bx.psu.edu/Support
 
 # The URL linked by the "How to Cite..." link in the "Help" menu.
 #citation_url = http://wiki.g2.bx.psu.edu/Citing%20Galaxy
@@ -270,7 +270,7 @@ static_style_dir = %(here)s/static/june_2007_style/blue
 
 # Verbosity of console log messages.  Acceptable values can be found here:
 # http://docs.python.org/library/logging.html#logging-levels
-log_level = DEBUG
+#log_level = DEBUG
 
 # Print database operations to the server log (warning, quite verbose!).
 #database_engine_option_echo = False
@@ -371,18 +371,18 @@ use_interactive = True
 # used by the algorithm that encodes and decodes these values.  It can be any
 # string.  If left unchanged, anyone could construct a cookie that would grant
 # them access to others' sessions.
-id_secret = SaltySalt
+#id_secret = USING THE DEFAULT IS NOT SECURE!
 
 # User authentication can be delegated to an upstream proxy server (usually
 # Apache).  The upstream proxy should set a REMOTE_USER header in the request.
 # Enabling remote user disables regular logins.  For more information, see:
 # http://wiki.g2.bx.psu.edu/Admin/Config/Apache%20Proxy
-#use_remote_user = True
+#use_remote_user = False
 
 # If use_remote_user is enabled and your external authentication
 # method just returns bare usernames, set a default mail domain to be appended
 # to usernames, to become your Galaxy usernames (email addresses).
-#remote_user_maildomain = example.org
+#remote_user_maildomain = None
 
 # If use_remote_user is enabled, you can set this to a URL that will log your
 # users out.
@@ -393,25 +393,25 @@ id_secret = SaltySalt
 # of the server, and will have access to create users, groups, roles,
 # libraries, and more.  For more information, see:
 # http://wiki.g2.bx.psu.edu/Admin/Interface
-admin_users = sfk2001@gmail.com,ehills666@mikblack.com
+#admin_users = None
 
 # Force everyone to log in (disable anonymous access).
-#require_login = True
+#require_login = False
 
 # Allow unregistered users to create new accounts (otherwise, they will have to
 # be created by an admin).
-allow_user_creation = True
+#allow_user_creation = True
 
 # Allow administrators to delete accounts.
-allow_user_deletion = True 
+#allow_user_deletion = False
 
 # Allow administrators to log in as other users (useful for debugging)
-allow_user_impersonation = True
+#allow_user_impersonation = False
 
 # Allow users to remove their datasets from disk immediately (otherwise,
 # datasets will be removed after a time period specified by an administrator in
 # the cleanup scripts run via cron)
-allow_user_dataset_purge = True
+#allow_user_dataset_purge = False
 
 # By default, users' data will be public, but setting this to True will cause
 # it to be private.  Does not affect existing users and data, only ones created
@@ -425,13 +425,13 @@ allow_user_dataset_purge = True
 #enable_sequencer_communication = False
 
 # Enable Galaxy's built-in visualization module, Trackster.
-enable_tracks = True
+#enable_tracks = False
 
 # Enable Galaxy Pages. Pages are custom webpages that include embedded Galaxy items, 
 # such as datasets, histories, workflows, and visualizations; pages are useful for 
 # documenting and sharing multiple analyses or workflows. Pages are created using a 
 # WYSIWYG editor that is very similar to a word processor.
-enable_pages = True
+#enable_pages = False
 
 # Enable authentication via OpenID.  Allows users to log in to their Galaxy
 # account by authenticating with an OpenID provider.
@@ -447,7 +447,7 @@ enable_pages = True
 # Enable tool tags (associating tools with tags).  This has its own option
 # since its implementation has a few performance implications on startup for
 # large servers.
-enable_tool_tags = True
+#enable_tool_tags = False
 
 # Enable Galaxy's "Upload via FTP" interface.  You'll need to install and
 # configure an FTP server (we've used ProFTPd since it can use Galaxy's
@@ -455,11 +455,11 @@ enable_tool_tags = True
 
 # This should point to a directory containing subdirectories matching users'
 # email addresses, where Galaxy will look for files.
-ftp_upload_dir =/home/galaxy/galaxy-dist/database/ftp
+#ftp_upload_dir = None
 
 # This should be the hostname of your FTP server, which will be provided to
 # users in the help text.
-ftp_upload_site = mikblack
+#ftp_upload_site = None
 
 # Enable enforcement of quotas.  Quotas can be set from the Admin interface.
 #enable_quotas = False
@@ -478,11 +478,11 @@ ftp_upload_site = mikblack
 # If running multiple Galaxy processes, one can be designated as the job
 # runner.  For more information, see:
 # http://wiki.g2.bx.psu.edu/Admin/Config/Performance/Web%20Application%20Scaling
-enable_job_running = True
+#enable_job_running = True
 
 # Should jobs be tracked through the database, rather than in memory.
 # Necessary if you're running the load balanced setup.
-track_jobs_in_database = True
+#track_jobs_in_database = False
 
 # This enables splitting of jobs into tasks, if specified by the particular tool config.
 # This is a new feature and not recommended for production servers yet.

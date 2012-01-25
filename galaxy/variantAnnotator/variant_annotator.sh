@@ -21,7 +21,7 @@ if [ "$5" == "1" ] ; then
 java -jar -Xmx6G ~/galaxy-dist/tool-data/shared/jars/gatk/GenomeAnalysisTK.jar -T VariantAnnotator -R "${1}.fasta" -A SnpEff --variant "${2}.vcf"  --snpEffFile "${3}.vcf"  -L "${2}.vcf"  -o $4.vcf 
 
 else
-java -jar ~/galaxy-dist/tool-data/shared/jars/gatk/GenomeAnalysisTK.jar -T VariantAnnotator -R "${1}.fasta" -E resource.EFF --variant "${2}.vcf" --snpEffFile "${3}.vcf"  -L "${2}.vcf"  -o "${4}.vcf" 
+java -jar ~/galaxy-dist/tool-data/shared/jars/gatk/GenomeAnalysisTK.jar -T VariantAnnotator -R "${1}.fasta" -E resource.EFF --variant "${2}.vcf" --resource "${3}.vcf"  -L "${2}.vcf"  -o "${4}.vcf" 
 
 fi
 cp -f "${1}.fasta" $1
