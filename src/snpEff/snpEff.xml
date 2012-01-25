@@ -6,7 +6,7 @@ You can change the amount of memory used by snpEff, just change the -Xmx paramet
 	<command>java -Xmx6G -jar /path/to/your/snpEff/snpEff.jar -c /path/to/your/snpEff/snpEff/snpEff.config $inputFormat $offset -upDownStreamLen $udLength $filterIn $filterHomHet -no $filterOut -stats $statsFile $genomeVersion $input > $output </command>
 	-->
 	<command>
-    java -Xmx6G -jar ${__root_dir__}/tool-data/shared/jars/snpEff/snpEff.jar -c ${root_dir__}/tool-data/shared/jars/snpEff/snpEff.config -i vcf -o vcf -upDownStreamLen $udLength $filterIn $filterHomHet 
+    java -Xmx6G -jar ${__root_dir__}/tool-data/shared/jars/snpEff/snpEff.jar -c ${__root_dir__}/tool-data/shared/jars/snpEff/snpEff.config -i vcf -o vcf -upDownStreamLen $udLength $filterIn $filterHomHet 
 #if $filterOut == "None":
     -no None -stats $statsFile $genomeVersion $input > $output
 #else:     
@@ -19,7 +19,6 @@ You can change the amount of memory used by snpEff, just change the -Xmx paramet
 
 	<param name="genomeVersion" type="select" label="Genome">
 	<option value="GRCh37.64">GRCh37.64:Homo_sapiens</option>
-	<option value="GRCh37.65">GRCh37.65:Homo_sapiens</option>
 	<option value="hg19">hg19:Homo_sapiens</option>
     <!--
 	<option value="ailmel1.61">ailmel1.61:Ailuropoda_melanoleuca </option>

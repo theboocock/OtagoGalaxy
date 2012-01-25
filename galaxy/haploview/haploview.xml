@@ -1,0 +1,14 @@
+<tool id="ldplot_haplo" name="Create LD Plot" description="with HaploView from a Hapmap file and view it." version="0.0.1">
+<command interpreter="bash">
+    ./haploview.sh ${input_hapmap} ${html_output}
+</command>
+
+<inputs>
+    <param name="input_hapmap" label="Upload your hapmap file to create LD Plot" type="data" format="txt"/>
+</inputs>
+<outputs>
+    <data format="html" name="html_output"/>
+</outputs>
+<help>
+</help>
+</tool>

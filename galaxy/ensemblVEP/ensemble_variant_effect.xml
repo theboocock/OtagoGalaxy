@@ -18,13 +18,13 @@
     <option value="most_severe">Display summary output</option>
     <option value="per_gene">Display per-gene output</option>
     <option value="coding_only">Display Coding Region Only</option>
-    <option value="check_existing">Check Existing work</option>
+    <option value="check_existing">Check Existing Snps</option>
     <option value="check_alleles">When checking for existing variants, only report a co-located variant if none of the alleles supplied are novel</option>
 </param>   
 </inputs>
 
 <outputs>
-    <data name="output" format="txt" type="data" label="Ensemble VEP on ${input}"/>
+    <data name="output" format="txt" type="data" />
 </outputs>
 
 <help>
