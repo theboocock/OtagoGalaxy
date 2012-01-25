@@ -330,17 +330,16 @@ sudo cp -fR ../src/ensembl-variation /usr/local/
 sudo cp -fR ../src/ensembl-functgenomics /usr/local/
 sudo cp -fR ../src/ensembl_cache /usr/local
 
-echo "PERL5LIB=$PERL5LIB:/usr/local/bioperl-live" >> /home/galaxy/.bashrc
-echo "PERL5LIB=$PERL5LIB:/usr/local/ensembl/modules" >> /home/galaxy/.bashrc 
-echo "PERL5LIB=$PERL5LIB:/usr/local/ensembl-compara/modules" >> /home/galaxy/.bashrc
-echo "PERL5LIB=$PERL5LIB:/usr/local/ensembl-variation/modules" >> /home/galaxy/.bashrc
-echo "PERL5LIB=$PERL5LIB:/usr/local/ensembl-functgenomics/modules" >> /home/galaxy/.bashrc
-echo "PERL5LIB=$PERL5LIB:/home/galaxy/galaxy-dist/tool-data/shared/vcfperltools" >> /home/galaxy/.bashrc
+echo 'PERL5LIB=$PERL5LIB:/usr/local/bioperl-live' >> /home/galaxy/.bashrc
+echo 'PERL5LIB=$PERL5LIB:/usr/local/ensembl/modules' >> /home/galaxy/.bashrc 
+echo 'PERL5LIB=$PERL5LIB:/usr/local/ensembl-compara/modules' >> /home/galaxy/.bashrc
+echo 'PERL5LIB=$PERL5LIB:/usr/local/ensembl-variation/modules' >> /home/galaxy/.bashrc
+echo 'PERL5LIB=$PERL5LIB:/usr/local/ensembl-functgenomics/modules' >> /home/galaxy/.bashrc
+echo 'PERL5LIB=$PERL5LIB:/home/galaxy/galaxy-dist/tool-data/shared/vcfperltools' >> /home/galaxy/.bashrc
 echo "export PERL5LIB" >> /home/galaxy/.bashrc
-echo "TEMP=/home/galaxy/galaxy-dist/database/tmp" >> .bashrc;
-echo "export TEMP" >> .bashrc;
 
-
+echo "TEMP=/home/galaxy/galaxy-dist/database/tmp" >> /home/galaxy/.bashrc;
+echo "export TEMP" >> /home/galaxy/.bashrc
 
 sudo chown -R galaxy:galaxy /home/galaxy/galaxy-dist
-echo Installation complete. Please go into /home/galaxy/galaxy-tools/universe.wsgi.ini and change the ftp_upload_name to reflect your domain name.
+echo Installation complete. Please go into /home/galaxy/galaxy-tools/universe.wsgi.ini and check the galaxy configuration.
