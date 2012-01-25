@@ -17,7 +17,7 @@ mv $1 "${1}.fasta"
 mv $2 "${2}.vcf"
 mv $3 "${3}.vcf"
 
-if [$5 -eq "1" ] ; then
+if ["$5" -eq "1" ] ; then
  java -jar ~/galaxy-dist/tool-data/shared/jars/gatk/GenomeAnalysisTK.jar -T VariantAnnotator -R "${1}.fasta" -A -SnpEff --variant "${2}.vcf"  --snpEffFile "${3}.vcf"  -L "${2}.vcf"  -o $4.vcf 
 
 else
