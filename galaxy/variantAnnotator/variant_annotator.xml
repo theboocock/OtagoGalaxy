@@ -1,5 +1,5 @@
 <tool id="snpEff_data_annotation" name="Add Genomic annotations Using SNPEff" description="Add variant annotations to A VCF file using the SNPeff output of that file" version="0.0.1">
-<command interpreter="bash"> variant_annotator.sh $ref_fasta $snp_vcf $orig_vcf $output_vcf $options
+<command interpreter="bash"> variant_annotator.sh $ref_fasta $orig_vcf $snp_vcf $output_vcf $options
 </command>
 
 <inputs>
