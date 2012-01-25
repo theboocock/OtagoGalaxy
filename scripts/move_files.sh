@@ -41,7 +41,6 @@ sudo cp -f ../src/snpEff/snpEff.xml /home/galaxy/galaxy-dist/tools/snpEff/
 cd /home/galaxy/galaxy-dist/tool-data/shared/jars/snpEff
 mkdir -f data
 java -jar snpEff.jar download GRCh37.64
-java -jar snpEff.jar download GRCh37.65
 java -jar snpEff.jar download hg19
 cd $MYLOC
 

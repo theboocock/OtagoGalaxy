@@ -18,8 +18,8 @@ then
 
 else
 
-    REGIONS=`~/galaxy-dist/tools/SOER1000genes/galaxy/dbsnpRegionExtraction/getRegion.sh $1`
-    
+    REGIONS=`/home/galaxy/galaxy-dist/tools/SOER1000genes/galaxy/dbsnpRegionExtraction/getRegion.sh $1`
+    echo $REGIONS    
     python ~/galaxy-dist/tools/vcf_tools/vcfPytools.py extract --in=${1} --out=~tmpReg.tmp --region=${REGIONS}
 
 fi

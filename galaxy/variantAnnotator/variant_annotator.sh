@@ -13,20 +13,24 @@
 # $5 Option either 1 or 2
 #
 
-mv $1 "${1}.fasta"
-mv $2 "${2}.vcf"
-mv $3 "${3}.vcf"
+cp $1 "${1}.fasta"
+cp $2 "${2}.vcf"
+cp $3 "${3}.vcf"
 
-if ["$5" -eq "1" ] ; then
- java -jar ~/galaxy-dist/tool-data/shared/jars/gatk/GenomeAnalysisTK.jar -T VariantAnnotator -R "${1}.fasta" -A -SnpEff --variant "${2}.vcf"  --snpEffFile "${3}.vcf"  -L "${2}.vcf"  -o $4.vcf 
+if [ "$5" == "1" ] ; then
+java -jar -Xmx6G ~/galaxy-dist/tool-data/shared/jars/gatk/GenomeAnalysisTK.jar -T VariantAnnotator -R "${1}.fasta" -A SnpEff --variant "${2}.vcf"  --snpEffFile "${3}.vcf"  -L "${2}.vcf"  -o $4.vcf 
 
 else
- java -jar ~/galaxy-dist/tool-data/shared/jars/gatk/GenomeAnalysisTK.jar -T VariantAnnotator -R "${1}.fasta" -E resource.EFF --variant "${2}.vcf" --snpEffFile "${3}.vcf"  -L "${2}.vcf"  -o "${4}.vcf" 
+java -jar ~/galaxy-dist/tool-data/shared/jars/gatk/GenomeAnalysisTK.jar -T VariantAnnotator -R "${1}.fasta" -E resource.EFF --variant "${2}.vcf" --snpEffFile "${3}.vcf"  -L "${2}.vcf"  -o "${4}.vcf" 
 
 fi
-mv "${1}.fasta" $1
-mv "${2}.vcf" $2
-mv "${3}.vcf" $3
-mv "${4}.vcf" $4
+cp -f "${1}.fasta" $1
+cp -f "${2}.vcf" $2
+cp -f "${3}.vcf" $3
+cp -f "${4}.vcf" $4
 
+rm -f "${1}.fasta"
+rm -f "${2}.vcf"
+rm -f "${3}.vcf"
+rm -f "${4}.vcf"
 

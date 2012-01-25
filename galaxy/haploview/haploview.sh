@@ -23,5 +23,7 @@ Your HapMap LD Plot
 </h1>
 
 <img src= '/haploview/images/${FILE_NAME}.LD.PNG'>
+
 </body>
 </html>" > $2
+

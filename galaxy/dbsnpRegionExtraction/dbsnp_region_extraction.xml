@@ -1,11 +1,11 @@
-<tool id="vcf_extract_DBSNP" name="Extract region and annotate dbSNP and VCF file" version="1.0.0">
-  <description>from a user defined region or whole file.</description>
+<tool id="vcf_extract_DBSNP" name="Annotate VCF file with RS IDs" version="1.0.0">
+  <description>from DBSNP.</description>
   <command interpreter="bash">
 
   #if str($display_region) == "auto":
-    ./vcf_extract_wrapper.sh $input1 $variants_annotated
+    ./vcf_extract_wrapper.sh ${input1} ${variants_annotated}
   #else
-    ./vcf_extract_wrapper.sh $input1 $variants_annotated ${region}
+    ./vcf_extract_wrapper.sh ${input1} ${variants_annotated} ${region}
   #end if
   </command>
   <inputs>
