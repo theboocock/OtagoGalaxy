@@ -213,29 +213,13 @@ sudo su postgres -c 'createuser -SDR galaxy'
 sudo su postgres -c 'psql -f galaxysetup.sql'
 sudo cp -f proftpd.conf /etc/proftpd
 # Install the webserver
-
-sudo apt-get --force-yes install apache2
 sudo apt-get --force-yes install samtools
 
-#enable required mods for galaxy
+sudo apt-get --force-yes install apache2
 
-sudo a2enmod rewrite
-sudo a2enmod proxy
-sudo a2enmod proxy_http
-sudo a2enmod proxy_balancer
+#Run apache Install script
 
-#make log file for mod rewrite
-sudo mkdir /etc/apache2/logs
-sudo touch /etc/apache2/logs/rewrite_log
-
-#Create the config file so apache will act as proxy for galaxy
-
-sudo cp -f httpd.conf /etc/apache2/
-
-#Restart Apache
-sudo easy_install cython
-
-sudo /etc/init.d/apache2 restart
+./apache.sh
 
 # Install TABIX
 
