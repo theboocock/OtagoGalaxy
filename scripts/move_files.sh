@@ -53,7 +53,12 @@ sudo cp -f ../src/gatk/GenomeAnalysisTK.jar /home/galaxy/galaxy-dist/tool-data/s
 sudo cp -Rf ../src/gatk /home/galaxy/galaxy-dist/tools/
 
 # Setup EVS
-sudo mv -fR ../src/evs/ /home/galaxy/galaxy-dist/tool-data/shared/jars/
+sudo cp -fR ../src/evs/ /home/galaxy/galaxy-dist/tool-data/shared/jars/
+
+# Download Visualisation things
+sudo mkdir /home/galaxy/galaxy-dist/tool-data/shared/ucsc/chrom
+echo Downloading Reference Genomes for Visualisations.. this may take some time..
+python /home/galaxy/galaxy-dist/cron/build_crom_db.py /home/galaxy/galaxy-dist/tool-data/shared/ucsc/chrom/
 
 # Move haploview
 sudo mkdir /home/galaxy/galaxy-dist/tool-data/shared/jars/haploview
