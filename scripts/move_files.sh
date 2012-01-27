@@ -64,6 +64,14 @@ python /home/galaxy/galaxy-dist/cron/build_crom_db.py /home/galaxy/galaxy-dist/t
 sudo mkdir /home/galaxy/galaxy-dist/tool-data/shared/jars/haploview
 sudo cp -f ../src/haplo/HaploView.jar /home/galaxy/galaxy-dist/tool-data/shared/jars/haploview/
 
+# Download 1kg allele frequency data
+echo Downloading 1000genomes files... ~1.3gb..
+wget ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20110521/ALL.wgs.phase1_integrated_calls.20101123.snps_indels_svs.sites.vcf.gz
+mkdir /home/galaxy/galaxy-dist/tools/SOER1000genes/data/1kg
+mkdir /home/galaxy/galaxy-dist/tools/SOER1000genes/data/1kg/vcf
+tabix -p vcf ALL.wgs.phase1_integrated_calls.20101123.snps_indels_svs.sites.vcf.gz
+cp -f ALL.wgs.phase1.integrated_calls.* /home/galaxy/galaxy-dist/tools/SOER1000genes/data/1kg/vcf/
+
 # Shift all the tools
 sudo cp -fR ../galaxy/ /home/galaxy/galaxy-dist/tools/SOER1000genes/
 
