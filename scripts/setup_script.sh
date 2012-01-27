@@ -215,7 +215,6 @@ sudo cp -f proftpd.conf /etc/proftpd
 # Install the webserver
 sudo apt-get --force-yes install samtools
 
-<<<<<<< HEAD
 #enable required mods for galaxy
 
 sudo a2enmod rewrite
@@ -231,9 +230,7 @@ sudo touch /etc/apache2/logs/rewrite_log
 #Create the config file so apache will act as proxy for galaxy
 
 sudo cp -f httpd.conf /etc/apache2/
-=======
 sudo apt-get --force-yes install apache2
->>>>>>> 6768bb8f06dfb4493a27fb503b5977f96b21f2b2
 
 #Run apache Install script
 
