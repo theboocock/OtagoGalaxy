@@ -1,0 +1,21 @@
+<tool id="get_pop_af" name="Get Population Specific Allele Frequencies" version="0.1">
+<description>for a given region</description>
+
+<command interpreter="bash">
+    ./getPopAf.sh ${region} ${output} ${output_summary_txt}
+</command>
+
+<inputs>
+    <param name="region" type="text" label="Enter Region" help="Formated as chr:startPos-endPos. eg. 4:883445-886454" />
+</inputs>
+
+<outputs>
+<data format="vcf" name="output_whole_vcf"/>
+<data format="txt" name="output_summary_txt"/>
+</outputs>
+
+<help>
+Returns the allele frequencies for each population for a specified region.
+</help>
+
+</tool>

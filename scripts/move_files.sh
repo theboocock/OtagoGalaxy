@@ -41,7 +41,6 @@ sudo cp -f ../src/snpEff/snpEff.xml /home/galaxy/galaxy-dist/tools/snpEff/
 cd /home/galaxy/galaxy-dist/tool-data/shared/jars/snpEff
 mkdir -f data
 java -jar snpEff.jar download GRCh37.64
-java -jar snpEff.jar download GRCh37.65
 java -jar snpEff.jar download hg19
 cd $MYLOC
 
@@ -50,11 +49,20 @@ sudo cp -f ../src/vcfperltools /home/galaxy/galaxy-dist/tool-data/shared/
 
 # Setup GATK
 sudo mkdir /home/galaxy/galaxy-dist/tool-data/shared/jars/gatk
-sudo cp -f ../src/gatk/GenomeAnalysisTK.jar /home/galaxy/galaxy-dist/tool-data/shared/jars/
+sudo cp -f ../src/gatk/GenomeAnalysisTK.jar /home/galaxy/galaxy-dist/tool-data/shared/jars/gatk/
 sudo cp -Rf ../src/gatk /home/galaxy/galaxy-dist/tools/
 
 # Setup EVS
-mv -fR ../src/evs/ /home/galaxy/galaxy-dist/tool-data/shared/jars/
+sudo cp -fR ../src/evs/ /home/galaxy/galaxy-dist/tool-data/shared/jars/
+
+# Download Visualisation things
+sudo mkdir /home/galaxy/galaxy-dist/tool-data/shared/ucsc/chrom
+echo Downloading Reference Genomes for Visualisations.. this may take some time..
+python /home/galaxy/galaxy-dist/cron/build_crom_db.py /home/galaxy/galaxy-dist/tool-data/shared/ucsc/chrom/
+
+# Move haploview
+sudo mkdir /home/galaxy/galaxy-dist/tool-data/shared/jars/haploview
+sudo cp -f ../src/haplo/HaploView.jar /home/galaxy/galaxy-dist/tool-data/shared/jars/haploview/
 
 # Shift all the tools
 sudo cp -fR ../galaxy/ /home/galaxy/galaxy-dist/tools/SOER1000genes/

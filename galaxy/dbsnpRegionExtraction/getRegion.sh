@@ -23,6 +23,6 @@ tail -1 $1 | awk '{print $2}' >> ~tmp.tmp
 
 SECOND_LINE=`tail -1 ~tmp.tmp`
 
-echo $FIRST_LINE"-"$SECOND_LINE
+echo $FIRST_LINE".."$SECOND_LINE
 
 rm -f ~tmp.tmp

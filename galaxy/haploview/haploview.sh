@@ -10,14 +10,20 @@
 # $1 = input_hapmap
 # $2 = html_output
 
-`echo java -jar /home/galaxy/galaxy-dist/tool-data/shared/jars/haploview/HaploView.jar -n -ldcolorscheme RSQ -ldvalues RSQ -png -hapmap $1`
+java -jar /home/galaxy/galaxy-dist/tool-data/shared/jars/haploview/Haploview.jar -n -ldcolorscheme RSQ -ldvalues RSQ -png -hapmap $1
 
-echo "
-<html>
+FILE_NAME=`echo $1 | awk -F[\/] '{print $NF}'`
+
+echo "<html>
 <head>
 </head>
 <body>
-<img src= '/home/galaxy/galaxy-dist/database/files/000/${1}.LD.PNG'>
+<h1> 
+Your HapMap LD Plot
+</h1>
+
+<img src= '/haploview/images/${FILE_NAME}.LD.PNG'>
+
 </body>
-</html>
-" > $2
+</html>" > $2
+

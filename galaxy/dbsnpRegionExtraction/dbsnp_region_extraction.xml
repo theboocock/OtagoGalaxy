@@ -1,18 +1,18 @@
-<tool id="vcf_extract_DBSNP" name="Extract region and annotate dbSNP and VCF file" version="1.0.0">
-  <description>from a user defined region or whole file.</description>
+<tool id="vcf_extract_DBSNP" name="Annotate VCF file with RS IDs" version="1.0.0">
+  <description>from DBSNP.</description>
   <command interpreter="bash">
 
   #if str($display_region) == "auto":
-    ./vcf_extract_wrapper.sh $input1 $variants_annotated
+    ./vcf_extract_wrapper.sh ${input1} ${variants_annotated}
   #else
-    ./vcf_extract_wrapper.sh $input1 $variants_annotated ${region}
+    ./vcf_extract_wrapper.sh ${input1} ${variants_annotated} ${region}
   #end if
   </command>
   <inputs>
-    <param name="input1" label="VCF file" type="data" format="vcf" />
+    <param name="input1" label="VCF file" type="data" format="vcf" help="Can only upload a VCF that contains one chromosone."/>
     <param name="display_region" label="Extract records from this region" type="boolean" help="If you do not select this it will find the chromosome and region from your input file automatically" truevalue="manual" falsevalue="auto">
     </param>
-    <param name ="region" label="Type in region - Only if the box above is ticked" type="text" help="The format of the region is ref:start-end, where the and end coordinates are 1-based" />
+    <param name ="region" label="Type in region - Only if the box above is ticked" type="text" help="The format of the region is chr:start..end, where the and end coordinates are 1-based" />
   </inputs>
   <outputs> 
     <data name="variants_annotated" label="Dbsnp annotated region from ${input1}" format="vcf"/>
