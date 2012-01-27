@@ -1,1 +1,68 @@
+<tool id="region_effect_filter" name="VCF filter on SNPEFF annotated VCF" version="1.0.0">
+<command interpreter="bash">
+		region_effect_filter.sh $input $impact_options $effect_options > $output
+</command>
 
+<inputs>
+
+
+	<param name="input" format="vcf" label="VCF file with snpEff annotations"/>
+
+	<param name="impact_options" type="select" display="checkboxes" multiple="True" optional="true" value="" label="Select variant impact filters (impact levels to be removed)">
+	<option value="HIGH">Filter HIGH impact effects</option>
+	<option value="MODERATE">Filter MODERATE impact effects</option>
+	<option value="LOW">Filter LOW impact effects</options>
+	<option value="MODIFIER">Filter MODIFIER effects</option>
+	</param>
+
+
+	<param name="effect_options" type="select" display="checkboxes" multiple="True" optional="true" value="" label="Select variant effect filters (effects to be removed)"/>
+	<option value="INTERGENIC">Filter INTERGENIC effect</option>
+	<option value="UPSTREAM">Filter UPSTREAM effect</option>
+	<option value="UTR_5_PRIME">Filter UTR_5_PRIME in 5'UTR region</option>
+	<option value="UTR_5_DELETED">Filter UTR_5_DELETED effect</option>
+	<option value="START_GAINED">Filter START_GAINED effect</option>
+	<option value="SPLICE_SITE_ACCEPTOR"> Filter SPLICE_SITE_ACCEPTOR effect</option>
+	<option value="SPLICE_SITE_DONOR"> Filter SPLICE_SITE_DONOR effect </option>
+	<option value="START_LOST">Filter START_LOST effect </option>
+	<option value="SYNONYMOUS_START">Filter SYNONYMOUS_START effect </option>
+	<option value="CDS">Filter CDS effect </option>
+	<option value="GENE">Filter GENE effect </option>
+	<option value="TRANSCRIPT">Filter TRANSCIPT effect</option>
+	<option value="EXON">Filter EXON effect </option>
+	<option value="EXON_DELETED">Filter EXON_DELETED effect</option>
+	<option value="NON_SYNONOMOUS_CODING"> Filter NON_SYNONOMOUS_CODING effect</option>
+	<option value="FRAME_SHIFT"> Filter FRAME_SHIFT effect </option>
+	<option value="CODON_CHANGE">Filter CODON_CHANGE effect </option>
+	<option value="CODON_INSERTION">Filter CODON_INSERTION effect </option>
+	<option value="CODON_CHANGE_PLUS_CODON_INSERTION">Filter CODON_CHANGE_PLUS_CODON_INSERTION effect </option>
+	<option value="CODON_DELETION">Filter CODON_DELETION effect </option>
+	<option value="CODON_CHANGE_PLUS_CODON_DELETION">Filter CODON_CHANGE_PLUS_CODON_DELETION effect </option>
+	<option value="STOP_GAINED">Filter STOP_GAINED effect </option>
+	<option value="SYNONOMOUS_STOP">Filter SYNONOMOUS_STOP effect </option>
+	<option value="STOP_LOST">Filter STOP_LOST effect </option>
+	<option value="INTRON">Filter INTRON effect </option>
+	<option value="UTR_3_PRIME">Filter UTR_3_PRIME effect</option>
+	<option value="UTR_3_DELETED">Filter UTR_3_DELETED effect</option>
+	<option value="DOWNSTREAM">Filter DOWNSTREAM effect</option>
+	<option value="INTRON_CONSERVED">Filter INTRON_CONSERVED effect </option>
+	<option value="INTRAGENIC_CONVERSED">Filter INTRAGENIC_CONVERSED </option>
+	<option value="INTRAGENIC">Filter INTRAGENIC effect</options>
+	</param>
+	</inputs>
+
+<outputs>
+	<data name="vcf_output" format="vcf"/>
+</outputs>
+
+<help>
+
+This tool filters a VCF annotated with SNPEFF VEP information
+
+For a more detailed description of the effects go to http://snpeff.sourceforge.net/faq.html#What_effects_are_predicted?
+
+For an description of what effect are cateogorized as each type go to http://snpeff.sourceforge.net/faq.html#How_is_impact_categorized?
+
+</help>
+
+</tool>
