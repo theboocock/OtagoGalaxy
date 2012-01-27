@@ -46,7 +46,7 @@ cd rpy2-2.2.1
 python setup.py install
 cd $INSTALL_DIR
 sudo rm -Rf rpy2-2.2.1
-sudo rm rpy2-2.2.1.tar.gz
+sudo rm -f rpy2-2.2.1.tar.gz
 #Install beam2
 sudo apt-get --force-yes install libgsl0-dev
 wget http://stat.psu.edu/~yuzhang/software/beam2_source.tar
@@ -140,6 +140,7 @@ make
 sudo mv pass2 /usr/bin
 rm *.cpp
 rm *.txt
+rm *.o
 rm makefile
 rm pass2_source.tar
 cd $INSTALL_DIR
@@ -212,10 +213,9 @@ sudo su postgres -c 'createuser -SDR galaxy'
 sudo su postgres -c 'psql -f galaxysetup.sql'
 sudo cp -f proftpd.conf /etc/proftpd
 # Install the webserver
-
-sudo apt-get --force-yes install apache2
 sudo apt-get --force-yes install samtools
 
+<<<<<<< HEAD
 #enable required mods for galaxy
 
 sudo a2enmod rewrite
@@ -231,11 +231,13 @@ sudo touch /etc/apache2/logs/rewrite_log
 #Create the config file so apache will act as proxy for galaxy
 
 sudo cp -f httpd.conf /etc/apache2/
+=======
+sudo apt-get --force-yes install apache2
+>>>>>>> 6768bb8f06dfb4493a27fb503b5977f96b21f2b2
 
-#Restart Apache
-sudo easy_install cython
+#Run apache Install script
 
-sudo /etc/init.d/apache2 restart
+./apache.sh
 
 # Install TABIX
 
@@ -248,6 +250,7 @@ sudo cp tabix /usr/bin/
 sudo cp bgzip /usr/bin/
 cd $INSTALL_DIR 
 rm -Rf tabix-0.2.5
+rm -Rf tabix-0.2.5.tar.bz2
 
 #
 # FTP SETUP 
@@ -275,6 +278,7 @@ make
 sudo make install
 cd ..
 rm -Rf proftpd-1.3.4a
+rm -Rf proftpd-1.3.4a.tar.gz
 
 #Copy proftpd config file
 
@@ -288,6 +292,11 @@ sudo cp -f $INSTALL_DIR/proftpd /etc/init.d/
 
 sudo /etc/init.d/proftpd start
 
+#install java
+
+sudo apt-get install --force-yes openjdk-6-jre-headless
+sudo apt-get install --force-yes openjdk-6-jdk
+sudo apt-get install --force-yes mysql-server
 #Run move scripts to install all our tools.
 
 cd $INSTALL_DIR
@@ -305,7 +314,7 @@ sudo su galaxy -c '/home/galaxy/galaxy-dist/./start_galaxy.sh'
 # Setup BioPerl
 echo Downloading ensembl cache, ~1.8gb...
 
-wget ftp://ftp.ensembl.org/pub/release-64/variation/VEP/homo_sapiens/homo_sapiens_vep_65_sift_polyphen.tar.gz
+wget ftp://ftp.ensembl.org/pub/release-65/variation/VEP/homo_sapiens/homo_sapiens_vep_65_sift_polyphen.tar.gz
 wget ftp://ftp.ensembl.org/pub/release-64/variation/VEP/homo_sapiens/homo_sapiens_vep_64_sift_polyphen.tar.gz
 
 tar -xzf homo_sapiens_vep_65_sift_polyphen.tar.gz
@@ -323,22 +332,16 @@ sudo cp -fR ../src/ensembl-variation /usr/local/
 sudo cp -fR ../src/ensembl-functgenomics /usr/local/
 sudo cp -fR ../src/ensembl_cache /usr/local
 
-echo "PERL5LIB=$PERL5LIB:/usr/local/bioperl-live" >> /home/galaxy/.bashrc
-echo "PERL5LIB=$PERL5LIB:/usr/local/ensembl/modules" >> /home/galaxy/.bashrc 
-echo "PERL5LIB=$PERL5LIB:/usr/local/ensembl-compara/modules" >> /home/galaxy/.bashrc
-echo "PERL5LIB=$PERL5LIB:/usr/local/ensembl-variation/modules" >> /home/galaxy/.bashrc
-echo "PERL5LIB=$PERL5LIB:/usr/local/ensembl-functgenomics/modules" >> /home/galaxy/.bashrc
-echo "PERL5LIB=$PERL5LIB:/home/galaxy/galaxy-dist/tool-data/shared/vcfperltools" >> /home/galaxy/.bashrc
+echo 'PERL5LIB=$PERL5LIB:/usr/local/bioperl-live' >> /home/galaxy/.bashrc
+echo 'PERL5LIB=$PERL5LIB:/usr/local/ensembl/modules' >> /home/galaxy/.bashrc 
+echo 'PERL5LIB=$PERL5LIB:/usr/local/ensembl-compara/modules' >> /home/galaxy/.bashrc
+echo 'PERL5LIB=$PERL5LIB:/usr/local/ensembl-variation/modules' >> /home/galaxy/.bashrc
+echo 'PERL5LIB=$PERL5LIB:/usr/local/ensembl-functgenomics/modules' >> /home/galaxy/.bashrc
+echo 'PERL5LIB=$PERL5LIB:/home/galaxy/galaxy-dist/tool-data/shared/vcfperltools' >> /home/galaxy/.bashrc
 echo "export PERL5LIB" >> /home/galaxy/.bashrc
-echo "TEMP=/home/galaxy/galaxy-dist/database/tmp" >> .bashrc;
-echo "export TEMP" >> .bashrc;'
 
-#install java
-
-sudo apt-get install --force-yes openjdk-6-jre-headless
-sudo apt-get install --force-yes openjdk-6-jdk
-sudo apt-get install --force-yes mysql-server
-
+echo "TEMP=/home/galaxy/galaxy-dist/database/tmp" >> /home/galaxy/.bashrc;
+echo "export TEMP" >> /home/galaxy/.bashrc
 
 sudo chown -R galaxy:galaxy /home/galaxy/galaxy-dist
-echo Installation complete. Please go into /home/galaxy/galaxy-tools/universe.wsgi.ini and change the ftp_upload_name to reflect your domain name.
+echo Installation complete. Please go into /home/galaxy/galaxy-tools/universe.wsgi.ini and check the galaxy configuration.
