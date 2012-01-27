@@ -11,13 +11,12 @@
 # Inputs
 # $1 - region
 # $2 - output_whole_vcf
-# $3 - output_summary_txt TODO - USE THIS FILE (Not currently used)
+# $3 - output_summary_txt 
 
 CHROM=`echo ${1} | awk -F[:] '{print $1}'`
 REGION=`echo ${1} | awk -F[:] '{print $2}'`
 
 tabix -fh /home/galaxy/galaxy-dist/tools/SOER1000genes/data/1kg/vcf/ALL.wgs.phase1_intergrated_calls.20101123.snps_indels_svs.sites.vcf.gz ${CHROM}:${REGION} > $2
 
-# TODO - Write script to produce nice output and strip unnecessary output
-#./getSummary.sh $2
+java GetAlleleFreqSummary $2 > $3
 

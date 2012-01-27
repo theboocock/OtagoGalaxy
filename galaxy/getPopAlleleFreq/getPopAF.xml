@@ -2,7 +2,7 @@
 <description>for a given region</description>
 
 <command interpreter="bash">
-    ./getPopAf.sh ${region} ${output}
+    ./getPopAf.sh ${region} ${output_whole_vcf} ${output_summary_txt}
 </command>
 
 <inputs>
@@ -11,7 +11,7 @@
 
 <outputs>
 <data format="vcf" name="output_whole_vcf"/>
-<!-- <data format="txt" name="output_summary_txt"/> -->
+<data format="txt" name="output_summary_txt"/>
 </outputs>
 
 <help>

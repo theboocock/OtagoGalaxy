@@ -5,7 +5,7 @@
  *
  *
  * @Author James Boocock
- * @date 23/01/2012
+ * @Date 27/01/2012
  *
  **/
 
@@ -15,7 +15,7 @@ import java.io.*;
 import java.util.regex.*;
 
 
-public class VcfToCsv{
+public class GetAlleleFreqSummary{
 	
 	private static ArrayList<String> infoColumnA;
 	private static int offSet;
@@ -109,7 +109,7 @@ public class VcfToCsv{
 					if(columnName.matches("INFO")){
 						offSet=countC;
 						for(String temp: infoColumnA){
-							infoColumn+=temp+"/t";
+							infoColumn+=temp+"\t";
 						}
 						// put info column splice here
 					}else{
