@@ -1,17 +1,16 @@
-<tool id="get_pop_af" name="Get Population Specific Allele Frequencies" version="0.1">
-<description>for a given region</description>
+<tool id="get_af" name="Get Allele Frequencies" version="0.1">
+<description>from your VCF</description>
 
-<command interpreter="bash">
-    ./getPopAf.sh ${region} ${output} ${output_summary_txt}
+<command>
+    java GetAlleleFreq ${input} > ${output_af}
 </command>
 
 <inputs>
-    <param name="region" type="text" label="Enter Region" help="Formated as chr:startPos-endPos. eg. 4:883445-886454" />
+    <param name="input" type="data" format="vcf" label="Select VCF" help="This will return basic information and the allele frequencies for each row in the VCF." />
 </inputs>
 
 <outputs>
-<data format="vcf" name="output_whole_vcf"/>
-<data format="txt" name="output_summary_txt"/>
+<data format="txt" name="output_af"/>
 </outputs>
 
 <help>
