@@ -222,6 +222,7 @@ sudo a2enmod rewrite
 sudo a2enmod proxy
 sudo a2enmod proxy_http
 sudo a2enmod proxy_balancer
+sudo a2enmod xsend
 
 #make log file for mod rewrite
 sudo mkdir /etc/apache2/logs
