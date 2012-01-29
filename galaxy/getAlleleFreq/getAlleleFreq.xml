@@ -2,7 +2,7 @@
 <description>from your VCF</description>
 
 <command>
-    java -jar ${__root_dir__}/tools/SOER1000genes/galaxy/getAlleleFreq/GetAlleleFreqSummary.jar ${input} > ${output_af}
+    java -jar ${__root_dir__}/tool-data/shared/jars/alleleFreq/GetAlleleFreqSummary.jar ${input} '\t' > ${output_af}
 </command>
 
 <inputs>
@@ -14,7 +14,7 @@
 </outputs>
 
 <help>
-Returns the allele frequencies for each population for a specified region.
+Returns the allele frequencies from your VCF
 </help>
 
 </tool>
