@@ -12,7 +12,7 @@
    <tool file="SOER1000genes/galaxy/indelQualityFilter/indelQual_filter.xml"/>
    <tool file="SOER1000genes/galaxy/homozyFilter/homo_multi.xml"/>
    <tool file="SOER1000genes/galaxy/dbsnpRegionExtraction/dbsnp_region_extraction.xml" />
-   <tool file="SOER1000genes/galaxy/dbsnpRegionExtraction/multi_region_extraction.xml"/>
+   <tool file="SOER1000genes/galaxy/dbsnpRegionExtraction/multiple_region_extraction.xml"/>
    <tool file="SOER1000genes/galaxy/readDepthFilter/read_depth_filter.xml"/>
    <label text="Calculations" id="soer_calc" />
    <tool file="SOER1000genes/galaxy/haploview/haploview.xml" />
