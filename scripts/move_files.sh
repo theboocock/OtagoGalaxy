@@ -55,6 +55,10 @@ sudo cp -Rf ../src/gatk /home/galaxy/galaxy-dist/tools/
 # Setup EVS
 sudo cp -fR ../src/evs/ /home/galaxy/galaxy-dist/tool-data/shared/jars/
 
+# Move AlleleFreq jar files to directory
+sudo mkdir /home/galaxy/galaxy-dist/tool-data/shared/jars/alleleFreq
+sudo cp -f ../src/getAlleleFreqSummary/GetAlleleFreqSummary.jar /home/galaxy/galaxy-dist/tool-data/shared/jars/alleleFreq/
+
 # Download Visualisation things
 sudo mkdir /home/galaxy/galaxy-dist/tool-data/shared/ucsc/chrom
 echo Downloading Reference Genomes for Visualisations.. this may take some time..
