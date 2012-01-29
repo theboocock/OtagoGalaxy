@@ -1,11 +1,11 @@
 /**
  *
- * This converts VCF to a human readable format ready to be imported
- * into excel or a similar spreadsheet program.
+ * This converts a VCF containing Allele Frequency information 
+ * and returns a user chosen delimitted file containing only column 
+ * headings containing 'AF'.
  *
- *
- * @Author James Boocock
- * @Date 27/01/2012
+ * @Author James Boocock and Edward Hills
+ * @Date 27/01/2012 - Updated 30/01/2012
  *
  **/
 
@@ -14,11 +14,11 @@ import java.util.ArrayList;
 import java.io.*;
 import java.util.regex.*;
 
-
 public class GetAlleleFreqSummary{
 	
 	private static ArrayList<String> infoColumnA;
 	private static int offSet;
+    private static char DELIMITTER;
 
 	public static void main(String[] args){
 		if(args.length < 1 || args[0].equals("-h")){
@@ -27,7 +27,9 @@ public class GetAlleleFreqSummary{
 		}
 		try {
 		Scanner fileReader=new Scanner(new File(args[0]));
+        DELIMITTER = '\t';
 		buildColumnHeaders(fileReader);
+        System.out.println();
 		extractLine(fileReader);
 		} catch(FileNotFoundException e){
 		e.printStackTrace();
@@ -37,8 +39,8 @@ public class GetAlleleFreqSummary{
 	}
 
 	public static void usage(){
-		System.out.println("program: VCF to CSV converter\n");
-		System.out.println("Usage: java VcfToCsv <IN.vcf>");
+		System.out.println("Program: Returns Allele Frequency formatted output\n");
+		System.out.println("Usage: java GetAlleleFreqSummary <IN.vcf>");
 	}
 
 	public static void extractLine(Scanner input){
@@ -54,7 +56,7 @@ public class GetAlleleFreqSummary{
 			int x = 0;
 			while(x < 7){
 				x++;
-				row += tokens.next()+"\t";
+				row += tokens.next() + DELIMITTER;
 			}
 			if(tokens.hasNext()){	
 				String data=tokens.next();
@@ -71,11 +73,11 @@ public class GetAlleleFreqSummary{
 					}						
 				}
 				for(int i = 0; i < listInfo.length; i ++){
-					row+= listInfo[i] + "\t";	
+					row+= listInfo[i] + DELIMITTER;	
 				}
 			}
 			while(tokens.hasNext()){
-				row+= tokens.next() + "\t";
+				row+= tokens.next() + DELIMITTER;
 			}
 			System.out.println(row);
 		}
@@ -109,10 +111,10 @@ public class GetAlleleFreqSummary{
 					if(columnName.matches("INFO")){
 						offSet=countC;
 						for(String temp: infoColumnA){
-							infoColumn+=temp+"\t";
+							infoColumn += temp + DELIMITTER;
 						}
 					}else{
-						infoColumn+=columnName+"\t";
+						infoColumn += columnName + DELIMITTER;
 					}
 					countC++;	
 					
