@@ -1,1 +1,42 @@
-<tool id="multi_
+<tool id="multi_region_extraction" name="Multiple Region Extraction" version="1.0.0">
+
+<command intepreter="bash">
+./mulit_region_extration.sh $outputs $dbsnp_annotation $input_vcf < $input_region
+
+</command>
+
+<inputs>
+<param name="input_vcf" type="data" format="vcf" label="VCF file to ektract regions from"/>
+
+<param name="input_region" type="data" format="txt" label="Regions in format chr:regionFrom-regionTo in a line seperated text file" />
+<param name="dbsnp_annotation" label="Perform dbsnp annotation" type="boolean"  falsevalue="False" truevalue="True" falsevalue="False" help="The regions will be annotated with RSIDs from dbSNP if no region is selected."/>
+
+</inputs>
+
+<outputs>
+
+<data name="all_regions_vcf" label="All regions asked for collated into one VCF file" format="vcf"/>
+
+</outputs>
+
+<help>
+
+Multi region extraction takes a text file contaning 
+regions to be extracted line seperated in ChR:regionTo-RegionFrom
+ 
+ example text file.
+
+ 3:4343-21234521
+ 4:32132-1231251
+ 5:534324-432434242
+ 6:432-3262
+
+ etc.....
+
+The tool also contains the option to perform dbsnp annotation
+which will add RSIDs for the variants that already exist in
+the DBSNP database.
+
+
+</help>
+</tool>
