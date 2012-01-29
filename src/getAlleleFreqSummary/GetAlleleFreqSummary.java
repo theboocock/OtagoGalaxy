@@ -18,7 +18,7 @@ public class GetAlleleFreqSummary{
 	
 	private static ArrayList<String> infoColumnA;
 	private static int offSet;
-    private static String DELIMITTER;
+    private static char DELIMITTER;
 
 	public static void main(String[] args){
 		if(args.length < 1 || args[0].equals("-h")){
@@ -27,8 +27,9 @@ public class GetAlleleFreqSummary{
 		}
 		try {
 		Scanner fileReader=new Scanner(new File(args[0]));
-        DELIMITTER = args[1];
+        DELIMITTER = '\t';
 		buildColumnHeaders(fileReader);
+        System.out.println();
 		extractLine(fileReader);
 		} catch(FileNotFoundException e){
 		e.printStackTrace();
