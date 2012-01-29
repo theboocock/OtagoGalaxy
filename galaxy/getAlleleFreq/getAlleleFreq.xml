@@ -2,7 +2,7 @@
 <description>from your VCF</description>
 
 <command>
-    java -jar GetAlleleFreqSummary.jar ${input} > ${output_af}
+    java -jar ${__root_dir__}/tools/SOER1000genes/galaxy/getAlleleFreq/GetAlleleFreqSummary.jar ${input} > ${output_af}
 </command>
 
 <inputs>
