@@ -2,7 +2,7 @@
 <description>for a given region</description>
 
 <command interpreter="bash">
-    ./getPopAf.sh ${region} ${output_whole_vcf} ${output_summary_txt}
+    ./getPopAF.sh ${region} ${output_whole_vcf} ${output_summary_txt}
 </command>
 
 <inputs>
@@ -10,8 +10,8 @@
 </inputs>
 
 <outputs>
-<data format="vcf" name="output_whole_vcf"/>
-<data format="txt" name="output_summary_txt"/>
+<data format="vcf" name="output_whole_vcf" label="Pop specific Allele Freq for ${region} vcf"/>
+<data format="txt" name="output_summary_txt" label="Pop specific Allele Freq for ${region} Summary"/>
 </outputs>
 
 <help>
