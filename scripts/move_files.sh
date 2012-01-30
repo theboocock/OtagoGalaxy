@@ -37,10 +37,12 @@ sudo cp -f ../src/snpEff/SnpSift.jar /home/galaxy/galaxy-dist/tool-data/shared/j
 sudo cp -f ../src/snpEff/snpEff.jar /home/galaxy/galaxy-dist/tool-data/shared/jars/snpEff
 sudo cp -f ../src/snpEff/snpEff.config /home/galaxy/galaxy-dist/tool-data/shared/jars/snpEff
 sudo mkdir /home/galaxy/galaxy-dist/tools/snpEff
-sudo cp -f ../src/snpEff/snpEff.xml /home/galaxy/galaxy-dist/tools/snpEff/
+sudo cp -f ../src/snpEff/galaxy/snpEff.xml /home/galaxy/galaxy-dist/tools/snpEff/
 cd /home/galaxy/galaxy-dist/tool-data/shared/jars/snpEff
 mkdir -f data
+java -jar snpEff.jar download GRCh37.63
 java -jar snpEff.jar download GRCh37.64
+java -jar snpEff.jar download GRCh37.65
 java -jar snpEff.jar download hg19
 cd $MYLOC
 
