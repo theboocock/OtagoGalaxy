@@ -15,7 +15,7 @@ ${__root_dir__}/tools/SOER1000genes/galaxy/dbsnpRegionExtraction/multiple_region
 
 <outputs>
 
-<data name="all_regions_vcf" label="All regions asked for collated into one VCF file" format="vcf"/>
+<data name="all_regions_vcf" label="Multiple Region Extraction on ${input_vcf.name}" format="vcf"/>
 
 </outputs>
 
@@ -25,11 +25,11 @@ Multi region extraction takes a text file contaning
 regions to be extracted line seperated in ChR:regionTo-RegionFrom
  
 example text file.
-3:4343-21234521 
-4:32132-1231251 
-5:534324-432434242
-6:432-3262
-etc.....
+-3:4343-21234521 
+-4:32132-1231251 
+-5:534324-432434242
+-6:432-3262
+-etc.....
 
 The tool also contains the option to perform dbsnp annotation
 which will add RSIDs for the variants that already exist in
