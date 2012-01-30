@@ -18,7 +18,7 @@ public class GetAlleleFreqSummary{
 	
 	private static ArrayList<String> infoColumnA;
 	private static int offSet;
-    private static char DELIMITTER;
+    private static final String DELIMITTER = "\t";
 
 	public static void main(String[] args){
 		if(args.length < 1 || args[0].equals("-h")){
@@ -27,8 +27,8 @@ public class GetAlleleFreqSummary{
 		}
 		try {
 		Scanner fileReader=new Scanner(new File(args[0]));
-        DELIMITTER = '\t';
-		buildColumnHeaders(fileReader);
+		printKey();
+        buildColumnHeaders(fileReader);
         System.out.println();
 		extractLine(fileReader);
 		} catch(FileNotFoundException e){
@@ -37,6 +37,20 @@ public class GetAlleleFreqSummary{
 		
 		}
 	}
+
+    public static void printKey() {
+        
+        System.out.println("** KEY **\n");
+        System.out.println("LDAF \t = \t Linkage Disequilibrium Allele Frequency");
+        System.out.println("AF \t = \t Allele Frequency");
+        System.out.println("AMR_AF \t = \t American AF");
+        System.out.println("ASN_AF \t = \t Asian AF");
+        System.out.println("AFR_AF \t = \t African AF");
+        System.out.println("AFR_AF \t = \t African AF");
+        System.out.println("EUR_AF \t = \t European AF");
+        System.out.println("\t***************************\t\n");
+
+    }
 
 	public static void usage(){
 		System.out.println("Program: Returns Allele Frequency formatted output\n");
