@@ -66,7 +66,7 @@ python /home/galaxy/galaxy-dist/cron/build_chrom_db.py /home/galaxy/galaxy-dist/
 
 # Move haploview
 sudo mkdir /home/galaxy/galaxy-dist/tool-data/shared/jars/haploview
-sudo cp -f ../src/haplo/HaploView.jar /home/galaxy/galaxy-dist/tool-data/shared/jars/haploview/
+sudo cp -f ../src/haplo/Haploview.jar /home/galaxy/galaxy-dist/tool-data/shared/jars/haploview/
 
 # Download 1kg allele frequency data
 echo Downloading 1000genomes files... ~1.3gb..
