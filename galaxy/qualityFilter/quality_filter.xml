@@ -27,7 +27,11 @@
 
 <help>
 	This tool filters a vcf file removing all lines below a certain quality mark
-</help>
+
+	Credits
+
+	SnpEff is used to filter the quality. Cingolani, P. "snpEff: Variant effect prediction", http://snpeff.sourceforge.net, 2012. 
+	</help>
 
 </tool>
 

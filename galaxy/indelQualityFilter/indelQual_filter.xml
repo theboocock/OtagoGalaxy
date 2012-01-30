@@ -13,6 +13,10 @@
 
 <help>
 	This tool filters out indels which are below a certain quality mark.
+
+	Credits.
+
+	SnpSift is used to do the filtering. Cingolani, P. "snpEff: Variant effect prediction", http://snpeff.sourceforge.net, 2012. 
 </help>
 
 </tool>

@@ -25,16 +25,28 @@ Multi region extraction takes a text file contaning
 regions to be extracted line seperated in ChR:regionTo-RegionFrom
  
 example text file.
--3:4343-21234521 
--4:32132-1231251 
--5:534324-432434242
--6:432-3262
--etc.....
+
+3:4343-21234521 
+
+4:32132-1231251 
+
+5:534324-432434242
+
+6:432-3262
+
+etc.....
 
 The tool also contains the option to perform dbsnp annotation
 which will add RSIDs for the variants that already exist in
 the DBSNP database.
 
+Credits
+
+Samtools Tabix is used to index a vcf file. http://samtools.sourceforge.net/
+
+SnpSift is used to annotate from the dbSNP database. 
+
+SnpSift is written by  Cingolani, P. "snpEff: Variant effect prediction", http://snpeff.sourceforge.net, 2012.
 
 </help>
 </tool>

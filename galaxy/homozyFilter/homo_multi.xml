@@ -12,7 +12,11 @@
 </outputs>
 
 <help>
-	Filters out all homozygous variants which can be found in more than a give number of samples.
+	Filters out all homozygous variants which can be found in more than a given number of samples.
+
+	Credits
+
+	SnpSift is used to filter the data. Cingolani, P. "snpEff: Variant effect prediction", http://snpeff.sourceforge.net, 2012. 
 </help>
 
 </tool>

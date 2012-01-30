@@ -82,5 +82,10 @@ When checking for existing variants, only report a co-located variant if none of
 
 Strand is also taken into account - in the same example, if the user input has alleles T/G but on the negative strand, then the co-located variant will be reported since its alleles match the reverse complement of user input.
 
+Credits-
+
+The VEP perl script is written by ensembl. http://www.ensembl.org/index.html
+
+
 </help>
 </tool>

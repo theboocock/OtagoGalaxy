@@ -21,6 +21,11 @@
 The tool filters a VCF file by the raw read depth 
 field from the info column of the input VCF file
 
+
+Credits
+
+SnpEff is used to filter the raw read depth. Cingolani, P. "snpEff: Variant effect prediction", http://snpeff.sourceforge.net, 2012. 
+
 </help>
 
 

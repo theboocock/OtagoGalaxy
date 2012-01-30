@@ -24,5 +24,10 @@
 Merge VCFs takes input of two or more VCF files and merges the VCFs together
 to make on large VCF containing the sum of its parts.
 
+
+Credits
+
+VCFtools is used to perfrom the merge. The Variant Call Format and VCFtools, Petr Danecek, Adam Auton, Goncalo Abecasis, Cornelis A. Albers, Eric Banks, Mark A. DePristo, Robert Handsaker, Gerton Lunter, Gabor Marth, Stephen T. Sherry, Gilean McVean, Richard Durbin and 1000 Genomes Project Analysis Group, Bioinformatics, 2011  
+
 </help>
 </tool>

@@ -48,6 +48,16 @@ SNPEFF_EXON_ID - Exon ID for the highest-impact effect resulting from the curren
 
 Option 2: Annotate with all effects for each variant
 
-VariantAnnotator also has the ability to take the EFF field from the SnpEff VCF output file containing all the effects aggregated together and copy it verbatim into the VCF to annotate. 
+VariantAnnotator also has the ability to take the EFF field from the SnpEff VCF output file containing all the effects aggregated together and copy it verbatim into the VCF to annotate.
+
+
+
+Credits
+
+Gatk variant annotator is used to do the annotation. http://www.broadinstitute.org/gsa/wiki/index.php/The_Genome_Analysis_Toolkit
+
+SnpEff vcf output is used for annotating.  Cingolani, P. "snpEff: Variant effect prediction", http://snpeff.sourceforge.net, 2012. 
+
+
 </help>
 </tool>

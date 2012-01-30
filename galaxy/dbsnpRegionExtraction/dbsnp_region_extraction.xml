@@ -44,5 +44,12 @@
    version of the DBSNP file that is required for this tool to work.
     
    The tool then extracts the specified region from the VCF file.
-  </help>
+
+   Credits
+
+   The tool uses Samtools Tabix ( tab-delimeted indexer ). http://samtools.sourceforge.net/
+
+   The tool uses SnpSift to annotate from dbSNP. SnpSift is writted by 
+    Cingolani, P. "snpEff: Variant effect prediction", http://snpeff.sourceforge.net, 2012.
+   </help>
 </tool>

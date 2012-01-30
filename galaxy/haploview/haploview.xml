@@ -10,5 +10,12 @@
     <data format="html" name="html_output"/>
 </outputs>
 <help>
+
+This tool creates a basic greyscale LD plot from hapmap data.
+
+Credits
+
+Haploview is used to generate the LD plots. http://www.broadinstitute.org/scientific-community/science/programs/medical-and-population-genetics/haploview/haploview
+
 </help>
 </tool>
