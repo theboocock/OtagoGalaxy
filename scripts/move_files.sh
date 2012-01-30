@@ -62,7 +62,7 @@ sudo cp -f ../src/getAlleleFreqSummary/GetAlleleFreqSummary.jar /home/galaxy/gal
 # Download Visualisation things
 sudo mkdir /home/galaxy/galaxy-dist/tool-data/shared/ucsc/chrom
 echo Downloading Reference Genomes for Visualisations.. this may take some time..
-python /home/galaxy/galaxy-dist/cron/build_crom_db.py /home/galaxy/galaxy-dist/tool-data/shared/ucsc/chrom/
+python /home/galaxy/galaxy-dist/cron/build_chrom_db.py /home/galaxy/galaxy-dist/tool-data/shared/ucsc/chrom/
 
 # Move haploview
 sudo mkdir /home/galaxy/galaxy-dist/tool-data/shared/jars/haploview
