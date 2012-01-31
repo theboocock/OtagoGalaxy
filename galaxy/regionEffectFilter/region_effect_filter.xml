@@ -1,14 +1,21 @@
 <tool id="region_effect_filter" name="VCF filter on SNPEFF annotated VCF" version="1.0.0">
 <command interpreter="bash">
-		region_effect_filter.sh $input $impact_options  $effect_options $option > $vcf_output
+		region_effect_filter.sh $input $impact_options  $effect_options $file_option > $vcf_output
 </command>
 
 <inputs>
 
 
 	<param name="input" type="data" format="vcf" label="VCF file with snpEff annotations"/>
+    
+    <param name="file_option" type="select" label="Select SNPEff annotation type for input file">
+        <option value="snpeff">SnpEff VCF output file</option>
 
-    <param name="option" type="boolean" label="Option used when SnpEff variant annotation was used" falsevalue="1" truevalue="2" help="Tick this box if option two was used for snpEff variant annotation" />
+        <!-- FIX THIS WHEN I CAN DIFFERING RESULTS ETC -->
+        <!--option value="genomic1">Genomic Annotation option 1</option-->
+        <!--option value="genomic2">Genomic Annotation option 2</option-->
+    </param>
+
 	<param name="impact_options" type="select" display="checkboxes" multiple="True" optional="true" value="" label="Select variant impact filters (impact levels to be removed)">
 	<option value="HIGH">Filter HIGH impact effects</option>
 	<option value="MODERATE">Filter MODERATE impact effects</option>
@@ -60,8 +67,14 @@
 
 This tool filters a VCF annotated with SNPEFF VEP information
 
-Option two is a copy paste of the EFF field from a snpEffect vcf file. If the text box is selected
-the tool will also work for snpEff vcf files.
+File options are.
+
+SnpEff VCF output file - the file produced by a standard run of galaxy.
+
+Genomic annotaion w/ option one - the file produced by the SOER tool "Add Genomic annotations using SNPEff" w/  option one
+
+Genomic annotation w/ option two - the file produced by the SOER tool "Add Genomic annotations using SNPEff" w/ option two
+
 
 For a more detailed description of the effects go to http://snpeff.sourceforge.net/faq.html#What_effects_are_predicted?
 
