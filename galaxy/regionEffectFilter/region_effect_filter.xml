@@ -1,22 +1,22 @@
 <tool id="region_effect_filter" name="VCF filter on SNPEFF annotated VCF" version="1.0.0">
 <command interpreter="bash">
-		region_effect_filter.sh $input $impact_options $effect_options > $output
+		region_effect_filter.sh $input $impact_options  $effect_options  > $vcf_output
 </command>
 
 <inputs>
 
 
-	<param name="input" format="vcf" label="VCF file with snpEff annotations"/>
+	<param name="input" type="data" format="vcf" label="VCF file with snpEff annotations"/>
 
 	<param name="impact_options" type="select" display="checkboxes" multiple="True" optional="true" value="" label="Select variant impact filters (impact levels to be removed)">
 	<option value="HIGH">Filter HIGH impact effects</option>
 	<option value="MODERATE">Filter MODERATE impact effects</option>
-	<option value="LOW">Filter LOW impact effects</options>
+	<option value="LOW">Filter LOW impact effects</option>
 	<option value="MODIFIER">Filter MODIFIER effects</option>
 	</param>
 
 
-	<param name="effect_options" type="select" display="checkboxes" multiple="True" optional="true" value="" label="Select variant effect filters (effects to be removed)"/>
+	<param name="effect_options" type="select" display="checkboxes" multiple="True" optional="true" value="" label="Select variant effect filters (effects to be removed)">
 	<option value="INTERGENIC">Filter INTERGENIC effect</option>
 	<option value="UPSTREAM">Filter UPSTREAM effect</option>
 	<option value="UTR_5_PRIME">Filter UTR_5_PRIME in 5'UTR region</option>
@@ -47,7 +47,7 @@
 	<option value="DOWNSTREAM">Filter DOWNSTREAM effect</option>
 	<option value="INTRON_CONSERVED">Filter INTRON_CONSERVED effect </option>
 	<option value="INTRAGENIC_CONVERSED">Filter INTRAGENIC_CONVERSED </option>
-	<option value="INTRAGENIC">Filter INTRAGENIC effect</options>
+	<option value="INTRAGENIC">Filter INTRAGENIC effect</option>
 	</param>
 	</inputs>
 

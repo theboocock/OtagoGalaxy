@@ -6,6 +6,7 @@
    <tool file="snpEff/snpEff.xml" />
    <tool file="SOER1000genes/galaxy/variantAnnotator/variant_annotator.xml" />
    <label text="Filters" id="soer_filt" />
+   <tool file="SOER1000genes/galaxy/regionEffectFilter/region_effect_filter.xml"/>
    <tool file="SOER1000genes/galaxy/getAlleleFreq/getAlleleFreq.xml"/>
    <tool file="SOER1000genes/galaxy/getSnps/get_snps.xml"/>
    <tool file="SOER1000genes/galaxy/qualityFilter/quality_filter.xml"/>
