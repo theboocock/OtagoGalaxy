@@ -27,9 +27,9 @@ do
     if [ $4 == "2" ]; then
     if [ "$COUNT" == "0" ]; then
 
-       SNPSIFT_EXPR="${SNPSIFT_EXPR}( EFF[*].IMPACT != ${IMPACT} ) "
+       SNPSIFT_EXPR="${SNPSIFT_EXPR}!( EFF[*].IMPACT = '${IMPACT}' ) "
     else
-       SNPSIFT_EXPR="${SNPSIFT_EXPR} & ( EFF[*].IMPACT != ${IMPACT} ) "
+       SNPSIFT_EXPR="${SNPSIFT_EXPR} & !( EFF[*].IMPACT = '${IMPACT}' ) "
     fi
     else
     if [ "$COUNT" == "0" ] ; then 
@@ -48,17 +48,17 @@ do
     #Remove the item from the list
     SNPEFF_EFFECT=${SNPEFF_EFFECT#*\,}
     #Add the item to the snpSift expression string
-    if [ $4 == "2"] ; then
+    if [ "$4" == "2" ] ; then
     if [ "$COUNT" == "0" ] ; then
-    SNPSIFT_EXPR="${SNPSIFT_EXPR} ( EFF[*].EFFECT != ${IMPACT} )"
+    SNPSIFT_EXPR="${SNPSIFT_EXPR} !( EFF[*].EFFECT = ${EFFECT} )"
     else
-    SNPSIFT_EXPR="${SNPSIFT_EXPR} & ( EFF[*].EFFECT != ${IMPACT} ) "    
+    SNPSIFT_EXPR="${SNPSIFT_EXPR} & !( EFF[*].EFFECT != ${EFFECT} ) "    
     fi
     else
-    if [ "$COUNT" == "0"] ; then
-    SNPSIFT_EXPR="${SNPSIFT_EXPR} ( SNPEFF_EFFECT != $EFFECT )"
+    if [ "$COUNT" == "0" ] ; then
+    SNPSIFT_EXPR="${SNPSIFT_EXPR} ( SNPEFF_EFFECT != ${EFFECT} )"
     else
-    SNPSIFT_EXPR="${SNPSIFT_EXPR} & ( SNPEFF_EFFECT != $EFFECT )"
+    SNPSIFT_EXPR="${SNPSIFT_EXPR} & ( SNPEFF_EFFECT != ${EFFECT} )"
     fi
     fi 
     COUNT=`expr $COUNT + 1`

@@ -60,9 +60,14 @@
 
 This tool filters a VCF annotated with SNPEFF VEP information
 
+Option two is a copy paste of the EFF field from a snpEffect vcf file. If the text box is selected
+the tool will also work for snpEff vcf files.
+
 For a more detailed description of the effects go to http://snpeff.sourceforge.net/faq.html#What_effects_are_predicted?
 
 For an description of what effect are cateogorized as each type go to http://snpeff.sourceforge.net/faq.html#How_is_impact_categorized?
+
+
 
 </help>
 
