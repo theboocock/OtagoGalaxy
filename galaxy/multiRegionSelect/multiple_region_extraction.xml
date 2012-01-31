@@ -1,7 +1,7 @@
 <tool id="multi_region_extraction" name="Multiple Region Extraction" version="1.0.0">
 
 <command intepreter="bash">
-${__root_dir__}/tools/SOER1000genes/galaxy/dbsnpRegionExtraction/multiple_region_extraction.sh $all_regions_vcf $dbsnp_annotation $input_vcf  $input_region
+${__root_dir__}/tools/SOER1000genes/galaxy/multiRegionSelect/multiple_region_extraction.sh $all_regions_vcf $dbsnp_annotation $input_vcf  $input_region
 
 </command>
 
