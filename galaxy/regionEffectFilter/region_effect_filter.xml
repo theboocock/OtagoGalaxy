@@ -1,6 +1,6 @@
 <tool id="region_effect_filter" name="VCF filter on SNPEFF annotated VCF" version="1.0.0">
 <command interpreter="bash">
-		region_effect_filter.sh $input $impact_options  $effect_options  > $vcf_output
+		region_effect_filter.sh $input $impact_options  $effect_options $option > $vcf_output
 </command>
 
 <inputs>
@@ -8,6 +8,7 @@
 
 	<param name="input" type="data" format="vcf" label="VCF file with snpEff annotations"/>
 
+    <param name="option" type="boolean" label="Option used when SnpEff variant annotation was used" falsevalue="1" truevalue="2" help="Tick this box if option two was used for snpEff variant annotation" />
 	<param name="impact_options" type="select" display="checkboxes" multiple="True" optional="true" value="" label="Select variant impact filters (impact levels to be removed)">
 	<option value="HIGH">Filter HIGH impact effects</option>
 	<option value="MODERATE">Filter MODERATE impact effects</option>
