@@ -8,20 +8,17 @@
 
 INSTALL_DIR=`pwd`
 
-#install galaxy dependencies
+# Install galaxy dependencies
 #
-#http://wiki.g2.bx.psu.edu/Admin/Tools/Tool%20Dependencies
+# http://wiki.g2.bx.psu.edu/Admin/Tools/Tool%20Dependencies
 #
-#DEPENDENCIES NOT INSTALLED
-# lps_tool
-# laj
-# gpass
-# gmaj
-# R leaps
-# addscores
-# 
-#
-#
+# DEPENDENCIES NOT INSTALLED
+# - lps_tool
+# - laj
+# - gpass
+# - gmaj
+# - R leaps
+# - addscores
 
 #install python
 
@@ -60,12 +57,9 @@ rm *.h
 rm *.cpp
 rm makefile
 
-
-
 #Install BWA
 
 sudo apt-get --force-yes install bwa
-
 
 #Install clustalw
 
@@ -84,20 +78,8 @@ sudo rm -Rf cufflinks-1.3.0.Linux_x86_64
 sudo rm -f cufflinks-1.3.0.Linux_x86_64.tar.gz
 
 # Install python tables
-# ------ NEEDS FIXING TODO -------
+
 sudo apt-get --force-yes install python-setuptools
-
-#   wget http://www.hdfgroup.org/ftp/HDF5/current/bin/linux/hdf5-1.8.8-linux-static.tar.gz
-#   tar -xzf hdf5-1.8.8-linux-static.tar.gz
-#   cd hdf5-1.8.8-linux.static
-#   sudo mv bin/* /usr/bin/
-#   sudo mv lib/* /usr/lib/
-#   sudo mv share/* /usr/share/
-#   sudo mv include/* /usr/include/
-#   cd $INSTALL_DIR
-#   Vsudo rm -Rf hdf5-1.8.8-linux.static
-
-
 sudo apt-get --force-yes install libnuma-dev
 sudo apt-get --force-yes install python-dev
 sudo apt-get --force-yes install liblzo2-dev
@@ -205,13 +187,10 @@ sudo su postgres -c 'createdb galaxydb'
 sudo su postgres -c 'createuser -SDR galaxy' 
 
 # Run setup script for the postgres galaxy db.
-#
-
 # But this will also mean the passwords must be edited in the universe
 # config files
-
 sudo su postgres -c 'psql -f galaxysetup.sql'
-sudo cp -f proftpd.conf /etc/proftpd
+
 # Install the webserver
 sudo apt-get --force-yes install samtools
 
@@ -278,15 +257,10 @@ rm -Rf proftpd-1.3.4a
 rm -Rf proftpd-1.3.4a.tar.gz
 
 #Copy proftpd config file
-
 sudo cp -f $INSTALL_DIR/proftpd.conf /usr/local/etc/proftpd.conf
-
 #Copy proftpd startup script
-
 sudo cp -f $INSTALL_DIR/proftpd /etc/init.d/
-
 #Restart proftpd 
-
 sudo /etc/init.d/proftpd start
 
 #install java
@@ -314,12 +288,14 @@ echo Downloading ensembl cache, ~1.8gb...
 wget ftp://ftp.ensembl.org/pub/release-65/variation/VEP/homo_sapiens/homo_sapiens_vep_65_sift_polyphen.tar.gz
 wget ftp://ftp.ensembl.org/pub/release-64/variation/VEP/homo_sapiens/homo_sapiens_vep_64_sift_polyphen.tar.gz
 
+sudo mkdir /usr/local/ensembl_cache
+
 tar -xzf homo_sapiens_vep_65_sift_polyphen.tar.gz
-mv homo_sapiens ../src/ensembl_cache/
+mv homo_sapiens /usr/local/ensembl_cache/
 rm -f homo_sapiens_vep_65_sift_polyphen.tar.gz
 
 tar -xzf homo_sapiens_vep_64_sift_polyphen.tar.gz
-mv homo_sapiens ../src/ensembl_cache/
+mv homo_sapiens /usr/local/ensembl_cache/
 rm -f homo_sapiens_vep_64_sift_polyphen.tar.gz
 
 sudo cp -fR ../src/bioperl-live /usr/local/
