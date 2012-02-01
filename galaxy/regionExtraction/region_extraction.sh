@@ -11,7 +11,8 @@
 #
 #
 
-cp $1 ~input.tmp
-tabix -p vcf ~input.tmp
-tabix -h ~input.tmp $2 > $3
-rm ~input.tmp
+cp -f $1 ~input.tmp
+bgzip -c ~input.tmp > ~input.tmp.gz
+tabix -p vcf ~input.tmp.gz
+tabix -h ~input.tmp.gz $3 > $2
+rm ~input.tmp*
