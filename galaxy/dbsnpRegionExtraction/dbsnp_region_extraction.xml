@@ -3,9 +3,9 @@
   <command interpreter="bash">
 
   #if str($display_region) == "auto":
-    ./vcf_extract_wrapper.sh ${input1} ${variants_annotated}
+    ./dbsnp_region_extraction.sh ${input1} ${variants_annotated}
   #else
-    ./vcf_extract_wrapper.sh ${input1} ${variants_annotated} ${region}
+    ./dbsnp_region_extraction.sh ${input1} ${variants_annotated} ${region}
   #end if
   </command>
   <inputs>
