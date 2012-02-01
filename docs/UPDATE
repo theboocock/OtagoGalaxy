@@ -39,7 +39,7 @@ You can update dbSNP by running the update_dbSnp.sh script in SOER1000genes/scri
 You can download them from:
         ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/*latestVersion*/ALL.wgs.phase1_integrated_calls.*latestVersion*.snps_indels_svs.sites.vcf.gz
         then
-        tabix ALL.wgs.phase1_integrated_calls.*latestVersion*.snps_indels_svs.sites.vcf.gz
+        tabix -p vcf ALL.wgs.phase1_integrated_calls.*latestVersion*.snps_indels_svs.sites.vcf.gz
         then
         mv ALL.wgs.phase1_integrated_calls.*latestVersion*.snps_indels_sv    s.sites.vcf.gz* ~/galaxy-dist/tools/SOER1000genes/data/1kg/vcf/
         

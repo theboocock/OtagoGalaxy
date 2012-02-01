@@ -4,7 +4,7 @@ Install Instructions for 1000 & GATK galaxy
 
 Run the command 
 
-.scripts/setup_script.sh
+scripts/./setup_script.sh
 
 # # # # #
 
