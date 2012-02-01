@@ -83,7 +83,3 @@ the ensembl variant predictor bin files. I feel this feature will be useful with
 each bin file from the command line when it should be entirely feasible to run a lookup script within galaxy that determines if the file
 exist and if not downloads the snpEffect variant bin file and afterwards runs the analysis.
 
-
-
-
-

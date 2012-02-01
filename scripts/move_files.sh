@@ -39,11 +39,11 @@ sudo cp -f ../src/snpEff/snpEff.config /home/galaxy/galaxy-dist/tool-data/shared
 sudo mkdir /home/galaxy/galaxy-dist/tools/snpEff
 sudo cp -f ../src/snpEff/galaxy/snpEff.xml /home/galaxy/galaxy-dist/tools/snpEff/
 cd /home/galaxy/galaxy-dist/tool-data/shared/jars/snpEff
-mkdir -f data
-java -jar snpEff.jar download GRCh37.63
-java -jar snpEff.jar download GRCh37.64
-java -jar snpEff.jar download GRCh37.65
-java -jar snpEff.jar download hg19
+sudo mkdir -f data
+sudo java -jar snpEff.jar download GRCh37.63
+sudo java -jar snpEff.jar download GRCh37.64
+sudo java -jar snpEff.jar download GRCh37.65
+sudo java -jar snpEff.jar download hg19
 cd $MYLOC
 
 # Setup VcfTools
@@ -64,7 +64,7 @@ sudo cp -f ../src/getAlleleFreqSummary/GetAlleleFreqSummary.jar /home/galaxy/gal
 # Download Visualisation things
 sudo mkdir /home/galaxy/galaxy-dist/tool-data/shared/ucsc/chrom
 echo Downloading Reference Genomes for Visualisations.. this may take some time..
-python /home/galaxy/galaxy-dist/cron/build_chrom_db.py /home/galaxy/galaxy-dist/tool-data/shared/ucsc/chrom/
+sudo python /home/galaxy/galaxy-dist/cron/build_chrom_db.py /home/galaxy/galaxy-dist/tool-data/shared/ucsc/chrom/
 
 # Move haploview
 sudo mkdir /home/galaxy/galaxy-dist/tool-data/shared/jars/haploview
@@ -72,11 +72,11 @@ sudo cp -f ../src/haplo/Haploview.jar /home/galaxy/galaxy-dist/tool-data/shared/
 
 # Download 1kg allele frequency data
 echo Downloading 1000genomes files... ~1.3gb..
-wget ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20110521/ALL.wgs.phase1_integrated_calls.20101123.snps_indels_svs.sites.vcf.gz
-mkdir /home/galaxy/galaxy-dist/tools/SOER1000genes/data/1kg
-mkdir /home/galaxy/galaxy-dist/tools/SOER1000genes/data/1kg/vcf
-tabix -p vcf ALL.wgs.phase1_integrated_calls.20101123.snps_indels_svs.sites.vcf.gz
-cp -f ALL.wgs.phase1.integrated_calls.* /home/galaxy/galaxy-dist/tools/SOER1000genes/data/1kg/vcf/
+sudo wget ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20110521/ALL.wgs.phase1_integrated_calls.20101123.snps_indels_svs.sites.vcf.gz
+sudo mkdir /home/galaxy/galaxy-dist/tools/SOER1000genes/data/1kg
+sudo mkdir /home/galaxy/galaxy-dist/tools/SOER1000genes/data/1kg/vcf
+sudo tabix -p vcf ALL.wgs.phase1_integrated_calls.20101123.snps_indels_svs.sites.vcf.gz
+sudo cp -f ALL.wgs.phase1.integrated_calls.* /home/galaxy/galaxy-dist/tools/SOER1000genes/data/1kg/vcf/
 
 # Shift all the tools
 sudo cp -fR ../galaxy/ /home/galaxy/galaxy-dist/tools/SOER1000genes/

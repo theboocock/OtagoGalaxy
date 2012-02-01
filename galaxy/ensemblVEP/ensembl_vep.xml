@@ -1,0 +1,91 @@
+<tool id="ensembl_vep" name="Ensembl Variant Effect Predictor" version="0.99">
+<command interpreter="bash">
+    ./ensembl_vep.sh ${input} ${vep_options} > ${output}
+</command>
+
+<inputs>
+    <param name="input" format="vcf" type="data" label="VCF file"/>
+
+    <param name="vep_options" type="select" display="checkboxes" multiple="True" optional="true" value="" label="Select VEP options">
+
+    <option value="sift">Display Sift output</option>
+    <option value="polyphen">Display PolyPhen output</option>
+    <option value="condel">Display Condel output</option>
+    <option value="regulatory">Display Regulatory output</option>
+    <option value="protein">Display Protein output</option>
+    <option value="hgnc">Display HGNC output</option>
+    <option value="most_severe">Display Most Severe output</option>
+    <option value="most_severe">Display summary output</option>
+    <option value="per_gene">Display per-gene output</option>
+    <option value="coding_only">Display Coding Region Only</option>
+    <option value="check_existing">Check Existing Snps</option>
+    <option value="check_alleles">When checking for existing variants, only report a co-located variant if none of the alleles supplied are novel</option>
+</param>   
+</inputs>
+
+<outputs>
+    <data name="output" format="txt" type="data" />
+</outputs>
+
+<help>
+-- Sift --
+
+SIFT predicts whether an amino acid substitution affects protein function based on sequence homology and the physical properties of amino acids. The VEP can output the prediction term, score or both. Using SIFT requires a database connection - while it can be used with --cache, the database will still be accessed to retrieve SIFT data.
+
+-- Polyphen --
+
+PolyPhen is a tool which predicts possible impact of an amino acid substitution on the structure and function of a human protein using straightforward physical and comparative considerations. The VEP can output the prediction term, score or both. Using PolyPhen requires a database connection - while it can be used with --cache, the database will still be accessed to retrieve PolyPhen data.
+
+-- Condel --
+
+Condel computes a weighted average of the scores (WAS) of several computational tools aimed at classifying missense mutations as likely deleterious or likely neutral.
+
+-- Regulatory --
+
+Look for overlaps with regulatory regions. The script can also call if a variant falls in a high information position within a transcription factor binding site. Output lines have a Feature type of RegulatoryFeature or MotifFeature.
+
+-- Protein --
+
+Add the Ensembl protein identifier to the output where appropriate.
+
+-- HGNC --
+
+Adds the HGNC gene identifer (where available) to the output.
+
+-- Canonical --
+
+Adds a flag indicating if the transcript is the canonical transcript for the gene.
+
+-- Most Severe --
+
+Output only the most severe consequence per variation. Transcript-specific columns will be left blank.
+
+-- Summary --
+
+Output only a comma-separated list of all observed consequences per variation. Transcript-specific columns will be left blank.
+
+-- Per Gene --
+
+Output only the most severe consequence per gene. The transcript selected is arbitrary if more than one has the same predicted consequence.
+
+-- Coding Only --
+
+Only return consequences that fall in the coding regions of transcripts.
+
+-- Check Existing --
+
+Checks for the existence of variants that are co-located with your input. By default the alleles are not compared - to do so, use --check_alleles.
+
+-- Check Alleles --
+
+When checking for existing variants, only report a co-located variant if none of the alleles supplied are novel. For example, if the user input has alleles A/G, and an existing co-located variant has alleles A/C, the co-located variant will not be reported.
+
+Strand is also taken into account - in the same example, if the user input has alleles T/G but on the negative strand, then the co-located variant will be reported since its alleles match the reverse complement of user input.
+
+Credits-
+
+The VEP perl script is written by ensembl. http://www.ensembl.org/index.html
+
+
+</help>
+</tool>

@@ -2,7 +2,7 @@
 <toolbox>
 <section name="SOER" id="soer">
    <label text="Variant Effect Predictors" id="soer_vep" />
-   <tool file="SOER1000genes/galaxy/ensemblVEP/ensemble_variant_effect.xml"/>
+   <tool file="SOER1000genes/galaxy/ensemblVEP/ensembl_vep.xml"/>
    <tool file="snpEff/snpEff.xml" />
    <tool file="SOER1000genes/galaxy/variantAnnotator/variant_annotator.xml" />
    <label text="Filters" id="soer_filt" />

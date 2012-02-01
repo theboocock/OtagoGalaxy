@@ -13,7 +13,7 @@ and run
     then run cd .. 
     and run
     java -jar snpEff.jar download latestRefGenome
-and it should have installed into the data folder. It may return errors while downloading but chances are that it worked anyway.
+and it should have installed into the data folder. It may return errors while downloading but chances are that it worked anyway, should still double check however.
     
    If the reference Genome has been updated to a version that did 
    not exist in the previous SnpEff installation a column must be
@@ -22,9 +22,9 @@ and it should have installed into the data folder. It may return errors while do
    Open up snpEff.xml using a txt editor and navigate to 
    <param name="genomeVersion" ...
  
-  and add a <option value="<latestRefGenome>">LaterRefGenome:Homo_sapiens</option>
+  and add a <option value="<latestRefGenome>">LatestRefGenome:Homo_sapiens</option>
 
-  This example applies in the case of the updated human reference genome
+  This example applies in the case of the updated human reference genome but is the same for an genome.
 
 3) The GATK is sometimes updated (or will be at least) so all that needs to be done is:
 
@@ -35,3 +35,12 @@ and it should have installed into the data folder. It may return errors while do
 You can update dbSNP by running the update_dbSnp.sh script in SOER1000genes/scripts folder:
         sudo ./update_dbSnp.sh
 
+5) The 1000 Genomes allele frequency will need to be manually updated due to the nature of how the files are stored on the ftp. 
+You can download them from:
+        ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/*latestVersion*/ALL.wgs.phase1_integrated_calls.*latestVersion*.snps_indels_svs.sites.vcf.gz
+        then
+        tabix ALL.wgs.phase1_integrated_calls.*latestVersion*.snps_indels_svs.sites.vcf.gz
+        then
+        mv ALL.wgs.phase1_integrated_calls.*latestVersion*.snps_indels_sv    s.sites.vcf.gz* ~/galaxy-dist/tools/SOER1000genes/data/1kg/vcf/
+        
+    
