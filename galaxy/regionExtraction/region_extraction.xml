@@ -1,0 +1,24 @@
+<tool id="region_extraction" name="VCF region extraction" version="1.0.0">
+<command interpreter="bash">
+	region_extraction.sh $input_vcf $output_vcf $region
+</command>
+
+<inputs>
+	<param name="input_vcf" type="data" format="vcf" />
+	<param name="region"  type="text" label="Type In region" 
+	help="The format of the region to be selected is chr:start-end"/>
+</inputs>
+
+<outputs>
+	<data name="output_vcf" format="vcf" label="${region} region extracted from ${input_vcf.name}" />
+</outputs>
+
+<help>
+
+ Region extraction selects a certain region from a vcf file
+
+ Samtools tabix is used to extract a region. http://samtools.sourceforge.net/tabix.shtml
+
+</help>
+
+</tool>
