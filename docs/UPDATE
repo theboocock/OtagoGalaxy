@@ -43,4 +43,12 @@ You can download them from:
         then
         mv ALL.wgs.phase1_integrated_calls.*latestVersion*.snps_indels_sv    s.sites.vcf.gz* ~/galaxy-dist/tools/SOER1000genes/data/1kg/vcf/
         
-    
+6) EVS Client will need to be updated as new versions are released. This will need to be manually updated by downloading the gzipped file from:
+        http://evs.gs.washington.edu/EVS/
+        then navigate to the How To Use tab and scroll down to where it says 1. Download Batch Query Program and download it from the link given.
+        then
+        unzip the downloaded file using tar -xzf
+        then
+        mv -f evsClient.jar ~/galaxy-dist/tool-data/shared/jars/evs/
+        and overwrite the file.
+
