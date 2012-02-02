@@ -21,20 +21,18 @@
   <tests>
   <test>
         <!-- Testing Manual Region Input -->
-        <param name="input1" value="SOER/ExtractAnnotate/test_vcf_soer.vcf"/>
+        <param name="input1" value="SOER1000genes/dbsnpRegionExtraction/in.vcf"/>
         <param name="display_region" value="true"/>
         <param name="region" value="4:88500091-88505945"/>
-        <output name="output1" value="SOER/ExtractAnnotate/m_output1.vcf"/>
-        <output name="variants_annotated" value="SOER/ExtractAnnotate/m_variant_annotated.vcf"/>
+	<output name="variants_annotated" value="SOER1000genes/dbsnpRegionExtraction/regionSelected.vcf"/>
 
   </test>
   <test>
         <!-- Testing Auto region input -->
-        <param name="input1" value="SOER/ExtractAnnotate/test_vcf_soer.vcf"/>
+        <param name="input1" value="SOER1000genes/dbsnpRegionExtraction/test_vcf_soer.vcf"/>
         <param name="display_region" value="false"/>
         <param name="region" value=""/>
-        <output name="output1" value="SOER/ExtractAnnotate/a_output1.vcf"/>
-        <output name="variants_annotated" value="SOER/ExtractAnnotate/a_variants_annotated.vcf"/>
+        <output name="variants_annotated" value="SOER1000genes/dbsnpRegionExtraction/noRegionSelected.vcf"/>
   </test>
 
 

@@ -1,4 +1,4 @@
-<tool id="ensembl_vep" name="Ensemble Variant Effect Predictor" version="0.99">
+<tool id="ensembl_vep" name="Ensembl Variant Effect Predictor" version="0.99">
 <command interpreter="bash">
     ./ensembl.sh ${input} ${vep_options} > ${output}
 </command>
@@ -26,6 +26,10 @@
 <outputs>
     <data name="output" format="txt" type="data" />
 </outputs>
+
+<tests>
+
+</tests>
 
 <help>
 -- Sift --

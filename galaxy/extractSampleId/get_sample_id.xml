@@ -2,7 +2,7 @@
 <description>from a VCF file</description>
 
 <command interpreter="bash">
-    get_sample_id.sh $vcfinput > $output
+    get_sample_id.sh $vcfinput ${output.name} > $output
 </command>
 
 <inputs>
@@ -12,6 +12,19 @@
 <outputs>
 <data format="txt" name="output" />
 </outputs>
+<tests>
+
+	<test>
+		<param name="vcfinput" value="SOER1000genes/extractSampleId/multi_sample.vcf"/>
+		<output name="output" value="SOER1000genes/extractSampleId/multi_out.txt" />
+	</test>
+	<test>
+		<param name="vcfinput" value="SOER1000genes/extractSampleId/single_sample.vcf" />
+		<output name="output" value="SOER1000genes/extractSampleId/single_out.txt"/>
+	</test>
+
+</tests>
+
 <help>
 	Extract sample IDs obtains the list of sample IDs from a given
 	vcf file and returns a line seperated file containing them all.

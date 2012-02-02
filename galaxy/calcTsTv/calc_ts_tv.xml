@@ -15,6 +15,14 @@
 <outputs>
     <data name="output" format="txt" type="data" label="TS/TV Ratio on ${input}"/>
 </outputs>
+<tests>
+	<test>
+		<param name="input" value="SOER1000genes/calcTsTv/in1.vcf" />
+		<output name="output" value="SOER1000genes/calcTsTv/out1.txt"/>
+	</test>
+
+
+</tests>
 
 <help>
 This tool calcuates the Transition/Transversion ratio from your vcf file.
