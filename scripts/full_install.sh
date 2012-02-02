@@ -274,47 +274,26 @@ cd $INSTALL_DIR
 sudo mkdir /home/galaxy/galaxy-dist/tool-data/shared/jars
 sudo mkdir /home/galaxy/galaxy-dist/tools/SOER1000genes
 $INSTALL_DIR/./move_files.sh
+# Copy handy scripts to root directory
+
+sudo cp -f restart_galaxy.sh /home/galaxy/galaxy-dist/
+sudo cp -f start_galaxy.sh /home/galaxy/galaxy-dist/
+sudo cp -f stop_galaxy.sh /home/galaxy/galaxy-dist/
+sudo cp -f start_webapp.sh /home/galaxy/galaxy-dist/
+
+# Copy config files to root directory
+sudo cp -f universe_wsgi.ini /home/galaxy/galaxy-dist/
+sudo cp -f universe_wsgi.runner.ini /home/galaxy/galaxy-dist/
+sudo cp -f universe_wsgi.webapp.ini /home/galaxy/galaxy-dist/
+# Setup tool_conf.xml
 
 #Migrate data
 
 source /home/galaxy/.bashrc
 sudo echo "* * * * * chmod -R 777 /home/galaxy/galaxy-dist/database/ftp/*" | crontab
 
+
 sudo su galaxy -c '/home/galaxy/galaxy-dist/./start_galaxy.sh'
+sudo chown galaxy:galaxy /home/galaxy/galaxy-dist
 
-# Setup BioPerl
-echo Downloading ensembl cache, ~1.8gb...
-
-wget ftp://ftp.ensembl.org/pub/release-65/variation/VEP/homo_sapiens/homo_sapiens_vep_65_sift_polyphen.tar.gz
-wget ftp://ftp.ensembl.org/pub/release-64/variation/VEP/homo_sapiens/homo_sapiens_vep_64_sift_polyphen.tar.gz
-
-sudo mkdir /usr/local/ensembl_cache
-
-tar -xzf homo_sapiens_vep_65_sift_polyphen.tar.gz
-mv homo_sapiens /usr/local/ensembl_cache/
-rm -f homo_sapiens_vep_65_sift_polyphen.tar.gz
-
-tar -xzf homo_sapiens_vep_64_sift_polyphen.tar.gz
-mv homo_sapiens /usr/local/ensembl_cache/
-rm -f homo_sapiens_vep_64_sift_polyphen.tar.gz
-
-sudo cp -fR ../src/bioperl-live /usr/local/
-sudo cp -fR ../src/ensembl /usr/local/
-sudo cp -fR ../src/ensembl-compara /usr/local/
-sudo cp -fR ../src/ensembl-variation /usr/local/
-sudo cp -fR ../src/ensembl-functgenomics /usr/local/
-sudo cp -fR ../src/ensembl_cache /usr/local
-
-echo 'PERL5LIB=$PERL5LIB:/usr/local/bioperl-live' >> /home/galaxy/.bashrc
-echo 'PERL5LIB=$PERL5LIB:/usr/local/ensembl/modules' >> /home/galaxy/.bashrc 
-echo 'PERL5LIB=$PERL5LIB:/usr/local/ensembl-compara/modules' >> /home/galaxy/.bashrc
-echo 'PERL5LIB=$PERL5LIB:/usr/local/ensembl-variation/modules' >> /home/galaxy/.bashrc
-echo 'PERL5LIB=$PERL5LIB:/usr/local/ensembl-functgenomics/modules' >> /home/galaxy/.bashrc
-echo 'PERL5LIB=$PERL5LIB:/home/galaxy/galaxy-dist/tool-data/shared/vcfperltools' >> /home/galaxy/.bashrc
-echo "export PERL5LIB" >> /home/galaxy/.bashrc
-
-echo "TEMP=/home/galaxy/galaxy-dist/database/tmp" >> /home/galaxy/.bashrc;
-echo "export TEMP" >> /home/galaxy/.bashrc
-
-sudo chown -R galaxy:galaxy /home/galaxy/galaxy-dist
 echo Installation complete. Please go into /home/galaxy/galaxy-tools/universe.wsgi.ini and check the galaxy configuration.
