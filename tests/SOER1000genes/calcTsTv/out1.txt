@@ -1,0 +1,5 @@
+Sample        :	NA06986	Total
+Transitions   :	1	1
+Transversions :	1	1
+Ts/Tv         :	1.000	1.000	
+
