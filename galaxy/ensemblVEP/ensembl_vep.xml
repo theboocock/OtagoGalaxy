@@ -6,7 +6,7 @@
 <inputs>
     <param name="input" format="vcf" type="data" label="VCF file"/>
 
-    <param name="vep_options" type="select" display="checkboxes" multiple="True" optional="true" value="" label="Select VEP options">
+    <param name="vep_options" type="select" display="checkboxes" multiple="True" optional="true" value="" label="Select VEP options" help="For best output we strongly recommend that you have sift, polyphen, condel and check_existing ticked. Some other options severley limit the output">
 
     <option value="sift">Display Sift output</option>
     <option value="polyphen">Display PolyPhen output</option>
