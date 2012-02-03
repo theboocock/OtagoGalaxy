@@ -74,6 +74,7 @@ sudo mkdir $GALAXY_INSTALLATION/tools/SOER1000genes/data/1kg
 sudo mkdir $GALAXY_INSTALLATION/tools/SOER1000genes/data/1kg/vcf
 sudo tabix -p vcf ALL.wgs.phase1_integrated_calls.20101123.snps_indels_svs.sites.vcf.gz
 sudo cp -f ALL.wgs.phase1.integrated_calls.* $GALAXY_INSTALLATION/tools/SOER1000genes/data/1kg/vcf/
+sudo rm -f All.wgs.phase1.integrated_calls.*
 
 # Shift all the tools
 sudo cp -fR ../galaxy/ $GALAXY_INSTALLATION/tools/SOER1000genes/
