@@ -80,7 +80,17 @@ For a more detailed description of the effects go to http://snpeff.sourceforge.n
 
 For an description of what effect are cateogorized as each type go to http://snpeff.sourceforge.net/faq.html#How_is_impact_categorized?
 
+Credits
 
+Gatk variant annotator used to perform SnpEffect annotation.
+
+McKenna A, Hanna M, Banks E, Sivachenko A, Cibulskis K, Kernytsky A, Garimella K, Altshuler D, Gabriel S, Daly M, DePristo MA. The Genome Analysis Toolkit: a MapReduce framework for analyzing next-generation DNA sequencing data. Genome Res. 2010 Sep; 20(9):1297-303. Epub 2010 Jul 19.
+
+DePristo, M., Banks, E., Poplin, R., Garimella, K., Maguire, J., Hartl., C., Philippakis, A., del Angel, G., Rivas, M.A, Hanna, M., McKenna, A., Fennell, T. Kernytsky, A., Sivachenko, A, Cibulskis, K., Gabriel, S., Altshuler, D. and Daly, M. A framework for variation discovery and genotyping using next-generation DNA sequencing data. Nature Genetics. 2011 Apr; 43(5):491-498.
+
+SnpEffect VCF files are used to annotate back onto the Original VCF file. 
+
+Cingolani, P. "snpEff: Variant effect prediction", http://snpeff.sourceforge.net, 2012. 
 
 </help>
 

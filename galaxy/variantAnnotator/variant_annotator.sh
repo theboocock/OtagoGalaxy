@@ -1,6 +1,8 @@
 #!/bin/bash
 #
-# SnpEff Variant Annotation using GATK 
+# SnpEff Variant Annotation using GATK
+# Annotate Original VCF file with the SNPEFFECT
+# output
 #
 #@date 24/01/2011
 #@author James Boocock

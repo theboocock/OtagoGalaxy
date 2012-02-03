@@ -12,6 +12,7 @@
 # $1 - region
 # $2 - output_whole_vcf
 # $3 - output_summary_txt 
+#
 
 CHROM=`echo ${1} | awk -F[:] '{print $1}'`
 REGION=`echo ${1} | awk -F[:] '{print $2}'`

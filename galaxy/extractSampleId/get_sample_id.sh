@@ -9,6 +9,8 @@ echo "Sample IDs from file ${2}"
 OUTPUT=`grep "^#[^#]" -m 1 $1`
 for line in $OUTPUT
 do
+	
+
         if [ $line != "#CHROM" -a $line != "FORMAT" -a $line != "POS" -a $line != "ID" -a $line != "REF" -a $line != "ALT" -a $line != "QUAL" -a $line != "FILTER" -a $line != "INFO" ]
 then
     echo $line

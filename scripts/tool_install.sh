@@ -26,7 +26,7 @@ sudo cp -f ../src/snpEff/snpEff.config $GALAXY_INSTALLATION/tool-data/shared/jar
 sudo mkdir $GALAXY_INSTALLATION/tools/snpEff
 sudo cp -f ../src/snpEff/galaxy/snpEff.xml $GALAXY_INSTALLATION/tools/snpEff/
 cd $GALAXY_INSTALLATION/tool-data/shared/jars/snpEff
-sudo mkdir -f data
+sudo mkdir data
 sudo java -jar snpEff.jar download GRCh37.63
 sudo java -jar snpEff.jar download GRCh37.64
 sudo java -jar snpEff.jar download GRCh37.65

@@ -9,6 +9,7 @@
 # Inputs
 # $1 = input_hapmap
 # $2 = html_output
+#
 
 java -jar /home/galaxy/galaxy-dist/tool-data/shared/jars/haploview/Haploview.jar -n -ldcolorscheme RSQ -ldvalues RSQ -png -hapmap $1
 

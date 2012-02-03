@@ -50,6 +50,8 @@ if($opt_f){
     }
 }
 
+
+
 elsif ($opt_i){
 #open file to read
     open(IN, "$opt_i") or die "error reading $opt_i for reading";
