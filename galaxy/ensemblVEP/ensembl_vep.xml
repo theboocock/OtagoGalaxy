@@ -15,8 +15,8 @@
     <option value="protein">Display Protein output</option>
     <option value="hgnc">Display HGNC output</option>
     <option value="most_severe">Display Most Severe output</option>
-    <option value="most_severe">Display summary output</option>
-    <option value="per_gene">Display per-gene output</option>
+    <option value="most_severe">Display Summary output</option>
+    <option value="per_gene">Display Per-gene output</option>
     <option value="coding_only">Display Coding Region Only</option>
     <option value="check_existing">Check Existing Snps</option>
     <option value="check_alleles">When checking for existing variants, only report a co-located variant if none of the alleles supplied are novel</option>
@@ -51,10 +51,6 @@ Add the Ensembl protein identifier to the output where appropriate.
 -- HGNC --
 
 Adds the HGNC gene identifer (where available) to the output.
-
--- Canonical --
-
-Adds a flag indicating if the transcript is the canonical transcript for the gene.
 
 -- Most Severe --
 
