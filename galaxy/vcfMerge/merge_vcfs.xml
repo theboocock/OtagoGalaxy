@@ -1,4 +1,4 @@
-<tool id="merge_vcfs" name="Merge Vcf files" version="0.1">
+<tool id="merge_vcfs" name="Merge Vcf files" version="1.0">
 <description>and output into a new VCF file</description>
 
 <command interpreter="bash">

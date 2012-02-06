@@ -1,4 +1,4 @@
-<tool id="vcf_to_csv" name="VCF To CSV converter" version="0.0.1">
+<tool id="vcf_to_csv" name="VCF To CSV converter" version="1.0.0">
 
 <command>
 java -jar ${__root_dir__}/tool-data/shared/jars/vcf_to_csv/VcfToCsv.jar $vcf_file > $csv_file

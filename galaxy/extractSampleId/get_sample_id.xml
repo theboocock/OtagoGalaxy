@@ -1,4 +1,4 @@
-<tool id="get_sample_ids" name="Extract Sample IDS" version="0.1">
+<tool id="get_sample_ids" name="Extract Sample IDS" version="1.0">
 <description>from a VCF file</description>
 
 <command interpreter="bash">

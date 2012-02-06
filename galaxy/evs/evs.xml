@@ -1,4 +1,4 @@
-<tool id="evs" name="Query Exome Variant Server" version="0.9">
+<tool id="evs" name="Query Exome Variant Server" version="1.0">
 <description>based on position, gene name or id</description>
 	<command interpreter="bash">
        <!-- java -jar ${__root_dir__}/tool-data/shared/jars/evs/evsClient.jar -t ${input} -f vcf -->

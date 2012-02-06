@@ -1,4 +1,4 @@
-<tool id="get_af" name="Get Allele Frequencies" version="0.1">
+<tool id="get_af" name="Get Allele Frequencies" version="1.0">
 <description>from your VCF</description>
 
 <command>

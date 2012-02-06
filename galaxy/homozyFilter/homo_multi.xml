@@ -1,4 +1,4 @@
-<tool id="homo_multi" name="Homozygous Variant Filter" version="1.0.0">
+<tool id="homo_multi" name="Homozygous Variant Filter" version="1.0">
 <description>Filters out homozygous variants which are present in more than a certain number of samples</description>
 <command>
 	cat $input_vcf | java -jar ${__root_dir__}/tool-data/shared/jars/snpEff/SnpSift.jar filter "(countHom() >= ${count})" > $output
