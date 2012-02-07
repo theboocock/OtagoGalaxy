@@ -3,7 +3,7 @@
 # Date: 29/11/11
 #
 # This script will find the first line that does not contain a # comment
-# and echo out the chromosome followed by a : followed by a - separated
+# and echo out the chromosome followed by a : followed by a .. separated
 # pair of regions. ie chromosome:startRegion-endRegion.
 #
 # Example use is cat inputFile.vcf | ./getRegion inputFile.vcf
