@@ -1,0 +1,27 @@
+<tool id="rare_variant_filter" label="Filter to remove variants based on rarity amoung certain populations" version="1.0">
+<command interpreters="bash">
+	rare_variant_filter.sh $input_vcf $threshold $population
+</command>
+
+<inputs>
+	<param name="input_vcf" format="vcf" type="data" label="VCF file to perform rare variant filtering upon"/>
+	<param name="threshold" type="text" value="100" label="Occurence of variants within population in percentage" help="percentage after which the occurence is not rare enough and will be discarded" />
+	<param name="populations" type="select" display="radio" label="Populations to filter rare variants from" >
+	<!--option name="all_1000">All 1000 genomes</option>
+	<option name="1000_all">1000 genomes - African</option>
+	<option name="1000_europe">1000 genomes - Europe</option>
+	<option name="1000_easta">1000 genome - East Asia</option>
+	<option name="1000_america">1000 genome - America</option--!>
+	<option name="evs_all">All EVS</option>
+	<option name="evs_euaw">EVS European American EVS</option>
+	<option name="evs_afaw">EVS African Amercian EVS</option>
+	</param>
+</inputs>
+
+<outputs>
+	<data name="output_vcf" format="vcf">
+<outputs>
+
+<help>
+</help>
+</tool>
