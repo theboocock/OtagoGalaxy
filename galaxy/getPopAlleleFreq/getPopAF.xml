@@ -1,4 +1,4 @@
-<tool id="get_pop_af" name="Get Population Specific Allele Frequencies" version="0.1">
+<tool id="get_pop_af" name="Get Population Specific Allele Frequencies" version="1.0">
 <description>for a given region</description>
 
 <command interpreter="bash">

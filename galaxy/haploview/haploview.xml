@@ -1,4 +1,4 @@
-<tool id="ldplot_haplo" name="Create LD Plot" description="with HaploView from a Hapmap file and view it." version="0.0.1">
+<tool id="ldplot_haplo" name="Create LD Plot" description="with HaploView from a Hapmap file and view it." version="1.0">
 <command interpreter="bash">
     ./haploview.sh ${input_hapmap} ${html_output}
 </command>
