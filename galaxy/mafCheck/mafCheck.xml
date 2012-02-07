@@ -1,0 +1,21 @@
+<tool id="maf_check" name="Check Minor Allele Frequency" version="1.0">
+<description>from your VCF</description>
+
+<command>
+./mafCheck.sh ${input} ${threshold}
+</command>
+
+<inputs>
+    <param name="input" type="data" format="vcf" label="Select VCF" />
+    <param name="threshold" type="text" label="Threshold" />
+</inputs>
+
+<outputs>
+<data format="vcf" name="output"/>
+</outputs>
+
+<help>
+This tool calculates Alt allele count / Total Allele Count to see if the minor allele is more common than that of the reference allele and returns all SNPs that have the 'minor' allele more common than that of the reference.
+</help>
+
+</tool>
