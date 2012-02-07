@@ -14,20 +14,21 @@ THRESHOLD=$2
 
 if [ "$3" ~= /^1000/ ]; then
 	if [ "$3" == "all_1000" ]; then
-
+		AF 
 	elif [ "$3" == "all_europe" ]; then
-
+		EUR_AF
 	elif [ "$3" == "all_easta" ]; then
-
+		ASN_AF
 	else
-	
+		AMR_AF
 	fi
 else
 	if [ "$3" == "evs_all" ]; then
-			
-	elif [ "$3" == ]; then
-
+		
+		TAC
+	elif [ "$3" == "evs_euaw"]; then
+		EU_AC
 	else
-	
+		AA_AC
 	fi
 fi
