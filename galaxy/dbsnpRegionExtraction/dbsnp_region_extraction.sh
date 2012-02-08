@@ -1,9 +1,10 @@
 #!/bin/bash
 # Author: Edward Hills & James Boocock
-# Date: 30/11/11
+# Date: 30/11/11 - Updated: 8/2/12
 #
-# A wrapper that wraps all the functions that need to be called by 
-# dbsnp_region_extraction.xml for Galaxy.
+# Finds the region (either specified or calculted), tabix's the dbsnp
+# region with the region found, and then has its rsids annotated onto
+# the input file given.
 #
 # Params:
 # $1 = input1
@@ -34,8 +35,7 @@ else
 
 fi
 
-
+# cleanup
 rm -f ~tmp.tmp
 rm -f ~tmpReg.tmp
-rm -f ~head.tmp
 rm -f ~reg.tmp

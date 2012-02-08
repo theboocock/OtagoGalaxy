@@ -1,6 +1,6 @@
 #!/bin/bash
 # Author: Edward Hills
-# Date: 29/11/11
+# Date: 8/2/12
 #
 # GetRegion will return all start and end positions for each chromosome
 # in the file given. The file must be sorted by chromosome as it will
@@ -15,12 +15,6 @@
 #
 # Inputs 
 # $1 = input_file
-
-awk '
-    {if ($1 ~ /'#'/)
-        {print $0}
-    }
-    ' $1 >> ~head.tmp
 
 count=1
 curr_chr=""
