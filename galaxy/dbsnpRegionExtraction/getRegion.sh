@@ -18,9 +18,9 @@
 
 awk '
     {if ($1 ~ /'#'/)
-        {print $1}
+        {print $0}
     }
-    ' $1 > ~head.tmp
+    ' $1 >> ~head.tmp
 
 count=1
 curr_chr=""
@@ -42,13 +42,13 @@ do
 
     if [ $count != 1 -a "$curr_chr" != "$prev_chr" ]
     then
-        echo $firstReg..$prev_pos >> ~reg.tmp
+        echo "$firstReg..$prev_pos" >> ~reg.tmp
         count=1
     fi
 
     if [ $count == 1 ]
     then
-        firstReg=$curr_chr:$curr_pos
+        firstReg="$curr_chr:$curr_pos"
     fi
    
     prev_chr=$curr_chr
@@ -62,4 +62,4 @@ do
 done < $1
     
 # print final line as it wont be printed above
-echo $firstReg..$prev_pos >> ~reg.tmp
+echo "$firstReg..$prev_pos" >> ~reg.tmp
