@@ -18,7 +18,7 @@
 <tests>
 	<test>
 		<param name="input" value="SOER1000genes/calcTsTv/in1.vcf" />
-		<output name="output" value="SOER1000genes/calcTsTv/out1.txt"/>
+		<output name="output" file="SOER1000genes/calcTsTv/out1.txt"/>
 	</test>
 
 

@@ -1,34 +1,23 @@
 #!/bin/bash
 #
+# Performs EVS / 1000 genome rare variant filtering
+# Should be reasonably flexible for adding information in the future
+#
 # @author James Boocock
 #
-# Rare variant filter removes variants
-# that are present above a certain percentage threshhold
-#
-#$1 input_vcf 
-#$2 threshold
-#$3 population
-#
+# $1 input.vcf
+# $2 EVS data or 1000 genomes data evs
+# $3 column to find rare variants
+#  
 
-THRESHOLD=$2
-
-if [ "$3" ~= /^1000/ ]; then
-	if [ "$3" == "all_1000" ]; then
-		AF 
-	elif [ "$3" == "all_europe" ]; then
-		EUR_AF
-	elif [ "$3" == "all_easta" ]; then
-		ASN_AF
-	else
-		AMR_AF
-	fi
-else
-	if [ "$3" == "evs_all" ]; then
+if [ "$2" == "EVS" ]; then
+	while read line
+	do
 		
-		TAC
-	elif [ "$3" == "evs_euaw"]; then
-		EU_AC
-	else
-		AA_AC
-	fi
+	done < $1
+elif [ "$2" == "1000" ]; then
+while read line
+	do 
+		
+	done < $1
 fi

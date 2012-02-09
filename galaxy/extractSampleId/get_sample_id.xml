@@ -16,11 +16,11 @@
 
 	<test>
 		<param name="vcfinput" value="SOER1000genes/extractSampleId/multi_sample.vcf"/>
-		<output name="output" value="SOER1000genes/extractSampleId/multi_out.txt" />
+		<output name="output" file="SOER1000genes/extractSampleId/multi_out.txt" />
 	</test>
 	<test>
 		<param name="vcfinput" value="SOER1000genes/extractSampleId/single_sample.vcf" />
-		<output name="output" value="SOER1000genes/extractSampleId/single_out.txt"/>
+		<output name="output" file="SOER1000genes/extractSampleId/single_out.txt"/>
 	</test>
 
 </tests>
