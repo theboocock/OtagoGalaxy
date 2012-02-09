@@ -37,14 +37,21 @@ do
     then
         COL_CHECK_COUNT=1
         AN=$((AN/2))
-        if [ "$AC" > "$AN" ] 
-        then
-            echo $orig_line >> $2
-        fi
+        NUM=`echo $AC | awk -F[\,] '{print NF}'`
+        AC_PART=$AC
+        for ((i=1; i<=$NUM; i++)) 
+        do
+            AC_PART=`echo $AC | awk -F[\,] -v i=$i '{print $i}'`
+            if [ "$AC_PART" -gt "$AN" ] 
+            then
+                echo $orig_line >> $2
+                break
+            fi
+        done
     fi
 done < $1
 
 if [ $COL_CHECK_COUNT == 0 ]
 then
-    echo "Please check there is AC and AN columns present in the VCF. Alternatively there may not be any cases where the ALT allele is more frequent than the REF allele"
+    echo "Please check there is an AC and AN columns present in the VCF. Alternatively there may not be any cases where the ALT allele is more frequent than the REF allele"
 fi
