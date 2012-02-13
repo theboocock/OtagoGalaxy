@@ -169,13 +169,16 @@ sudo adduser galaxy
 
 sudo apt-get --force-yes install openssh-client 
 
+#Run tool install script
+
+./tool_install.sh
+
 # log into galaxy user
 
 sudo su galaxy -c 'cd ~;  hg clone https://bitbucket.org/galaxy/galaxy-dist/;
 wget http://bitbucket.org/ianb/virtualenv/raw/tip/virtualenv.py;
 /usr/bin/python2.6 virtualenv.py --no-site-packages galaxy_env;
-. ./galaxy_env/bin/activate;
-hg clone https://bitbucket.org/galaxy/galaxy-dist/;'
+. ./galaxy_env/bin/activate;'
 
 #Install SQL data base
 sudo apt-get --force-yes install postgresql
@@ -218,7 +221,7 @@ sudo apt-get --force-yes install apache2
 # Install TABIX
 
 wget http://downloads.sourceforge.net/project/samtools/tabix/tabix-0.2.5.tar.bz2
-gunzip tabix-0.2.5.tar.bz2
+bunzip2 tabix-0.2.5.tar.bz2
 tar -xf tabix-0.2.5.tar
 cd tabix-0.2.5
 sudo make

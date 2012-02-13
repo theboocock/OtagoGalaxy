@@ -88,7 +88,7 @@ sudo mkdir $GALAXY_INSTALLATION/tools/SOER1000genes/data
 sudo mv -f 00-All.vcf.gz $GALAXY_INSTALLATION/tools/SOER1000genes/data/dbSNP.vcf.gz
 sudo tabix -p vcf $GALAXY_INSTALLATION/tools/SOER1000genes/data/dbSNP.vcf.gz
 
-# Setup BioPerl
+# Setup BioPerl w/ ensembl cache
 echo Downloading ensembl cache, ~1.8gb...
 delete a line from a file bash
 wget ftp://ftp.ensembl.org/pub/release-65/variation/VEP/homo_sapiens/homo_sapiens_vep_65_sift_polyphen.tar.gz
@@ -96,20 +96,28 @@ wget ftp://ftp.ensembl.org/pub/release-64/variation/VEP/homo_sapiens/homo_sapien
 
 sudo mkdir /usr/local/ensembl_cache
 
+
+#extract VEP 65 ensembl variant effect predictor database
+
 tar -xzf homo_sapiens_vep_65_sift_polyphen.tar.gz
 mv homo_sapiens /usr/local/ensembl_cache/
 rm -f homo_sapiens_vep_65_sift_polyphen.tar.gz
 
+#extract VEP 64 ensembl variant effect predictor database
 tar -xzf homo_sapiens_vep_64_sift_polyphen.tar.gz
 mv homo_sapiens /usr/local/ensembl_cache/
 rm -f homo_sapiens_vep_64_sift_polyphen.tar.gz
 
+
+#mv bioperl to usr/local
 sudo cp -fR ../src/bioperl-live /usr/local/
 sudo cp -fR ../src/ensembl /usr/local/
 sudo cp -fR ../src/ensembl-compara /usr/local/
 sudo cp -fR ../src/ensembl-variation /usr/local/
 sudo cp -fR ../src/ensembl-functgenomics /usr/local/
 sudo cp -fR ../src/ensembl_cache /usr/local
+
+#add the perl5 exports to the galaxy home bashrc
 
 echo 'PERL5LIB=$PERL5LIB:/usr/local/bioperl-live' >> $GALAXY_HOME/.bashrc
 echo 'PERL5LIB=$PERL5LIB:/usr/local/ensembl/modules' >> $GALAXY_HOME/.bashrc 
