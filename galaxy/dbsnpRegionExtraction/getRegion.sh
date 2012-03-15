@@ -36,7 +36,7 @@ do
 
     if [ $count != 1 -a "$curr_chr" != "$prev_chr" ]
     then
-        echo "$firstReg..$prev_pos" >> ~reg.tmp
+        echo "$firstReg-$prev_pos" >> ~reg.tmp
         count=1
     fi
 
@@ -56,4 +56,4 @@ do
 done < $1
     
 # print final line as it wont be printed above
-echo "$firstReg..$prev_pos" >> ~reg.tmp
+echo "$firstReg-$prev_pos" >> ~reg.tmp

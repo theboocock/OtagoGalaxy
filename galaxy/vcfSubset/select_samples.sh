@@ -14,10 +14,11 @@ NUM_SAMPLES=$#
 
 for ((i=1; i<NUM_SAMPLES; i++))
 do
-    eval INPUT=\$${i}
+    eval INPUT=\${$i}
     SAMPLE_LIST="${SAMPLE_LIST}$INPUT,"
 done
-eval INPUT=\$${#}
+
+eval INPUT=\${$#}
 bgzip -c $INPUT > $INPUT.gz
 perl ~/galaxy-dist/tool-data/shared/vcfperltools/vcf-subset -c $SAMPLE_LIST $INPUT.gz
 

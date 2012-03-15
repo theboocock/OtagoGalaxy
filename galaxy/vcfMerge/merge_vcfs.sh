@@ -24,7 +24,7 @@ if [ $# > 2 ]
 then
     for ((i=3; i <= $#; i++))
     do
-        eval EXTRA_FILE=\$${i}
+        eval EXTRA_FILE=\${$i}
         cat $EXTRA_FILE | bgzip -c > ~tmp${i}.vcf.gz
         tabix -p vcf ~tmp${i}.vcf.gz
         FILE_LIST="${FILE_LIST} ~tmp${i}.vcf.gz"

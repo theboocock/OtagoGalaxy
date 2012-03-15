@@ -19,9 +19,7 @@
 	seperated list from a VCF file and returns a new VCF containing only 
 	these samples.
 
-
 	Credits
-
 
 	VCFtools is used for sample selection. The Variant Call Format and VCFtools, Petr Danecek, Adam Auton, Goncalo Abecasis, Cornelis A. Albers, Eric Banks, Mark A. DePristo, Robert Handsaker, Gerton Lunter, Gabor Marth, Stephen T. Sherry, Gilean McVean, Richard Durbin and 1000 Genomes Project Analysis Group, Bioinformatics, 2011  
 </help>
