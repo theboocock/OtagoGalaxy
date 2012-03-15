@@ -119,7 +119,7 @@ sudo cp -fR ../src/ensembl_cache /usr/local
 
 #add the perl5 exports to the galaxy home bashrc
 
-echo 'PERL5LIB=$PERL5LIB:/usr/local/bioperl-live' >> $GALAXY_HOME/.bashrc
+echo 'PERL5LIB=/usr/local/bioperl-live' >> $GALAXY_HOME/.bashrc
 echo 'PERL5LIB=$PERL5LIB:/usr/local/ensembl/modules' >> $GALAXY_HOME/.bashrc 
 echo 'PERL5LIB=$PERL5LIB:/usr/local/ensembl-compara/modules' >> $GALAXY_HOME/.bashrc
 echo 'PERL5LIB=$PERL5LIB:/usr/local/ensembl-variation/modules' >> $GALAXY_HOME/.bashrc

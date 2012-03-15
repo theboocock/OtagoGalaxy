@@ -288,7 +288,9 @@ sudo cp -f start_webapp.sh /home/galaxy/galaxy-dist/
 sudo cp -f universe_wsgi.ini /home/galaxy/galaxy-dist/
 sudo cp -f universe_wsgi.runner.ini /home/galaxy/galaxy-dist/
 sudo cp -f universe_wsgi.webapp.ini /home/galaxy/galaxy-dist/
+
 # Setup tool_conf.xml
+#TODO James get tool_conf working
 
 #Migrate data
 
