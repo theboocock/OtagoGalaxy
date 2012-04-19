@@ -1,0 +1,22 @@
+<tool id="snap" name="Get snps then go to SNAP" version="1.0">
+<description>from a txt file</description>
+
+<command interpreter="bash">
+    getSNPs.sh $snplist $column > $output
+</command>
+
+<inputs>
+<param name="snplist" type="data" format="txt" label="Select txt file containing snps" />
+<param name="column" type="text" label="Please enter the number of the column your snps are in" />
+</inputs>
+
+<outputs>
+<data format="txt" name="output" />
+</outputs>
+
+<help>
+	Extract sample IDs obtains the list of sample IDs from a given
+	vcf file and returns a line seperated file containing them all.
+</help>
+
+</tool>
