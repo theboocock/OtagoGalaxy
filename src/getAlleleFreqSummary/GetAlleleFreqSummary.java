@@ -52,8 +52,7 @@ public class GetAlleleFreqSummary{
 	}
 
 	public static void usage(){
-		System.out.println("Program: Returns Allele Frequency formatted 
-				output\n");
+		System.out.println("Program: Returns Allele Frequency formatted output\n");
 		System.out.println("Usage: java GetAlleleFreqSummary <IN.vcf>");
 	}
 
@@ -81,7 +80,7 @@ public class GetAlleleFreqSummary{
 					if(infoColumnA.contains(bothParts[0])){
 						int headerIndex = 
 							infoColumnA.indexOf(bothParts[0]);
-						if(bothParts[0].matches("^.*AF.*")){
+						if(bothParts[0].matches(".*AF.*")){
 							listInfo[headerIndex] = 
 								bothParts[1];						
 						}
@@ -112,7 +111,7 @@ public class GetAlleleFreqSummary{
 					columnName += line.charAt(i);	
 					i++;
 				}
-				if(columnName.matches("^.*AF.*")){
+				if(columnName.matches(".*AF.*")){
 					infoColumnA.add(columnName);
 				}
 			}
@@ -136,7 +135,6 @@ public class GetAlleleFreqSummary{
 							DELIMITTER;
 					}
 					countC++;	
-
 				}
 				System.out.println(infoColumn);
 				return;
