@@ -4,6 +4,10 @@
 # date: 09/01/2011
 #
 # $1 Input File to extract the ids from.
+#
+# Uses grep to find the header line from a VCF file.
+# Then from that extracts all the sample ids from that VCF file.
+#
 
 echo "Sample IDs from file ${2}"
 OUTPUT=`grep "^#[^#]" -m 1 $1`
