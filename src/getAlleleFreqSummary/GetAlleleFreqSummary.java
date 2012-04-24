@@ -80,7 +80,7 @@ public class GetAlleleFreqSummary{
 					if(infoColumnA.contains(bothParts[0])){
 						int headerIndex = 
 							infoColumnA.indexOf(bothParts[0]);
-						if(bothParts[0].matches(".*AF.*")){
+						if(bothParts[0].matches(".*AF")){
 							listInfo[headerIndex] = 
 								bothParts[1];						
 						}
@@ -111,7 +111,7 @@ public class GetAlleleFreqSummary{
 					columnName += line.charAt(i);	
 					i++;
 				}
-				if(columnName.matches(".*AF.*")){
+				if(columnName.matches(".*AF")){
 					infoColumnA.add(columnName);
 				}
 			}
@@ -127,12 +127,10 @@ public class GetAlleleFreqSummary{
 					if(columnName.matches("INFO")){
 						offSet=countC;
 						for(String temp: infoColumnA){
-							infoColumn += temp + 
-								DELIMITTER;
+		    				infoColumn += temp + DELIMITTER;
 						}
 					}else{
-						infoColumn += columnName + 
-							DELIMITTER;
+						infoColumn += columnName + DELIMITTER;
 					}
 					countC++;	
 				}
