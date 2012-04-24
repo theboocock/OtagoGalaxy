@@ -9,12 +9,16 @@
 #														Pablo Cingolani
 #-------------------------------------------------------------------------------
 
-$pngFile = "smoothScatter.png";
-$txtFile = "smoothScatter.txt";
-
 #-------------------------------------------------------------------------------
 # Main
 #-------------------------------------------------------------------------------
+
+# Parse command line option (file base name)
+$base = 'smoothScatter';
+if( $ARGV[0] ne '' )	{ $base = $ARGV[0]; }
+
+$pngFile = "$base.png";
+$txtFile = "$base.txt";
 
 # Read STDIN and create an R table
 open TXT, "> $txtFile" or die "Cannot open output file '$txtFile'\n";

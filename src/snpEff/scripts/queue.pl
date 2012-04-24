@@ -25,6 +25,7 @@ $| = 1;									# Don't use buffers for STDIN/STDOUT
 # Check some conditions before trying to run the next process
 #-------------------------------------------------------------------------------
 sub shouldRun() {
+	if( $maxUptime < 0 )	{ return 1; }	# Always true if $maxUptime is negative
 	my($utRes) = `$uptimeCmd`;
 	my($ut) = 0;
 	if( $utRes =~ /load average:\s+(\d+\.\d+),/ ) { $ut = $1; }
@@ -50,7 +51,7 @@ if( $file eq '' ) {
 	print "Usage: queue.pl maxNumProc maxUptime sleepTime file\n";
 	print "Where:\n";
 	print "\tnumProc    Number of simultaneous processes\n";
-	print "\tmaxUptime  Maximum allowed uptime (otherwise, pause before launching the next process)\n";
+	print "\tmaxUptime  Maximum allowed uptime (otherwise, pause before launching the next process). Negative means don't care.\n";
 	print "\tsleepTime  Number of seconds to sleep after running a process (zero means no sleep)\n";
 	print "\tfile       File containing all commands to be executed (one per line)\n";
 	exit(10);

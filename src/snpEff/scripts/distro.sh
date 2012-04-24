@@ -7,8 +7,9 @@
 #                                      Pablo Cingolani 2010
 #------------------------------------------------------------------------------
 
-VERSION="2_0_5b"
-DIR=$HOME/snpEff_$VERSION
+VERSION="2_1"
+VERSION_REV=$VERSION"a"
+DIR=$HOME/snpEff_$VERSION_REV
 rm -rvf $DIR
 mkdir $DIR
 
@@ -22,9 +23,9 @@ cd -
 
 # Create 'core' zip file
 cd $HOME
-ZIP="snpEff_v"$VERSION"_core.zip"
+ZIP="snpEff_v"$VERSION_REV"_core.zip"
 rm -f $ZIP 2> /dev/null
-zip -r $ZIP snpEff_$VERSION
+zip -r $ZIP snpEff_$VERSION_REV
 cd -
 
 # Create ZIP file for each database
@@ -37,3 +38,10 @@ do
 	ZIP="snpEff_v"$VERSION"_"$GEN".zip"
 	zip -r $ZIP data/$GEN/*.bin
 done
+
+# Look for missing genomes
+echo Missing genomes:
+ls -d data/*/snpEffectPredictor.bin | grep -v genomes | cut -f 2 -d / | sort > genomes_bins.txt
+ls -d data/* | grep -v genomes | cut -f 2 -d / | sort > genomes_dirs.txt
+diff genomes_dirs.txt genomes_bins.txt | grep "^<"
+

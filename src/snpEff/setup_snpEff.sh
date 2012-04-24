@@ -15,6 +15,8 @@ cp -f snpEff.config /home/galaxy/galaxy-dist/tool-data/shared/jars/snpEff/
 
 # Move snpEff.xml into its rightful place
 cp -f galaxy/snpEff.xml /home/galaxy/galaxy-dist/tools/snpEff
+cp -f galaxy/snpSift_annotate.xml /home/galaxy/galaxy-dist/tools/snpEff
+cp -f galaxy/snpSift_filter.xml /home/galaxy/galaxy-dist/tools/snpEff
 
 # Move scripts folder to jar location
 cp -fR scripts/ /home/galaxy/galaxy-dist/tool-data/shared/jars/snpEff

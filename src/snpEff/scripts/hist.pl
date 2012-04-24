@@ -9,12 +9,16 @@
 #														Pablo Cingolani
 #-------------------------------------------------------------------------------
 
-$pngFile = "hist.png";
-$txtFile = "hist.txt";
-
 #-------------------------------------------------------------------------------
 # Main
 #-------------------------------------------------------------------------------
+
+# Parse command line option (file base name)
+$base = 'hist';
+if( $ARGV[0] ne '' )	{ $base = $ARGV[0]; }
+
+$pngFile = "$base.png";
+$txtFile = "$base.txt";
 
 # Read STDIN and create an R vector
 open TXT, "> $txtFile" or die "Cannot open output file '$txtFile'\n";

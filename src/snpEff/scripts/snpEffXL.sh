@@ -1,8 +1,9 @@
 #!/bin/sh
 
 DIR=$HOME/snpEff/
+LIB=$HOME/snpEff/lib
 
 java -Xmx20G \
-	-classpath "$DIR/lib/charts4j-1.2.jar:$DIR/lib/flanagan.jar:$DIR/lib/freemarker.jar:$DIR/lib/junit.jar:$DIR/lib/trove-2.1.0.jar:$DIR" \
+	-classpath "$LIB/charts4j-1.2.jar:$LIB/flanagan.jar:$LIB/freemarker.jar:$LIB/junit.jar:$LIB/trove-3.0.2.jar:$LIB/akka-actor-2.0-M4.jar:$LIB/scala-library.jar:$DIR" \
 	ca.mcgill.mcb.pcingola.snpEffect.commandLine.SnpEff \
 	$*
