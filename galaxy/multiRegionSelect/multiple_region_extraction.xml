@@ -6,10 +6,10 @@ ${__root_dir__}/tools/SOER1000genes/galaxy/multiRegionSelect/multiple_region_ext
 </command>
 
 <inputs>
-<param name="input_vcf" type="data" format="vcf" label="VCF file to ektract regions from"/>
+<param name="input_vcf" type="data" format="vcf" label="VCF file to extract regions from"/>
 
-<param name="input_region" type="data" format="txt" label="Region text file. In format chr:regionFrom-regionTo line seperated" />
-<param name="dbsnp_annotation" label="Perform dbsnp annotation" type="boolean"  falsevalue="False" truevalue="True" help="The regions will be annotated with RSIDs from dbSNP if no region is selected."/>
+<param name="input_region" type="data" format="txt" label="Region text file" help="In format chr:regionFrom-regionTo line seperated" />
+<param name="dbsnp_annotation" label="Perform dbsnp annotation" type="boolean"  falsevalue="False" truevalue="True" help="All regions will be annotated with RSIDs from dbSNP if no region is selected."/>
 
 </inputs>
 
