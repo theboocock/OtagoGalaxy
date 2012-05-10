@@ -1,16 +1,26 @@
 <tool_id="ouda_vcf_beagle" name="VCF to Beagle" version="1.0"\>
 <description>Beagle Software Analysis</description>
 <command interpreter="bash">
-
+    vcf_to_beagle.sh ${input_vcf} ${missing} ${output_marker} ${output_bgl} $output_gprobs} ${output_like} ${output_int}
 </command>
 
 <inputs>
     <param name="input_vcf" type="data" help="Input VCF" format="vcf" label="Input VCF" />
+    <param name="missing" type="text" help="If your vcf is missing an allele what is the 'missing' value? E.g. -1,   (blank), NA, etc" label="Input 'missing' allele notation" />
 </inputs>
-<outputs>
-    <data name="output" type="text"/>
-</outputs>
-<help>
 
+<outputs>
+    <data name="output_marker" type="text"/>
+    <data name="output_bgl" type="text"/>
+    <data name="output_gprobs" type="text"/>
+    <data name="output_like" type="text"/>
+    <data name="output_int" type="text"/>
+</outputs>
+
+<help>
+If any of the GT, GP, or GL formats are not present for a VCF record, the marker is omitted from the corresponding output file.
+Markers that do not have exactly one alternate allele are omitted from the output files.
+Markers with a reference or alternate allele identifier longer than one character will retain the integer allele identifiers found in the VCF FORMAT fields and will have the first five VCF record fields (CHROM, POS, ID, REF, ALT) written to the ".int" output file.
 </help>
+
 </tool>
