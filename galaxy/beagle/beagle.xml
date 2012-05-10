@@ -1,0 +1,54 @@
+<tool_id="beagle" name="Beagle" version="1.0"\>
+<description>Beagle Software Analysis</description>
+<command interpreter="bash">
+
+
+</command>
+
+<inputs>
+<conditional name="beagle_use_type_param">
+    <param name="beagle_use_type" type="select" label="Phasing and Imputting or IBD and HBD analyisis or Association testing">
+    <option value="imputting" selected="True">Phasing and Imputting</option>
+    <option value="ibd_hbd">IBD and HBD analysis</option>
+    <option value="assoc_test">Association testing</option>
+    </param>
+    <when value="imputting">
+          
+    </when>
+    <when value="ibd_hbd">
+        <param name= "ibd_input" type="data" format="text" label="IBD pairs File"/>
+        <param name="hbd" type="boolean" truevalue="true" falsevalue="false" value="false" label="Estimate HBD"/>
+        <param name="nonbd2hd" type="float" value="0.0001" label="non-HBD to HBD transition rate"/>
+        <param name="hbderror" type="float" value="1.0" label="Genotype Error rate"/>
+        <param name="ibdscale" type="float" value="2.0" label="IDB, HBD and fastIBD tuning parameter"/>
+        <param name="idberror" type="float" value="0.005" label="Genotype error rate"/>
+        <param name="nonibd2ibd" type="float" value="0.0001" label="non-IBD to IBD transition rate"/>
+        <param name="ibd2nonibd" type="float" label="IBD to non-IBD transition rate" value="1.0"/>
+        <param name="fastibd" type="boolean" truevalue="true" falsevalue="false"    value="false" label="Fast IBD"/>
+        <param name="fastibdthreshold" type="float" label="Score threshold for fast ibd" value="0.0000001" />
+    </when>
+    <when value="assoc_test">
+        <param name="phased_bgl" type="data" label="phased Beagle file"/>
+        <conditional="trait_param">
+        <param ="trait_specified" type="boolean" truevalue="true"
+        falsevalue="false" label="Specify Trait">
+        <when value="true">
+        <param name="trait" type="text" label="Affection status identifier" value="T2D"/>
+        </when>
+        </conditional>
+        <param name="nperms" type="integer" value="1000" label="Number of permutations"/>
+        <param name="test"  type="text" value="a" label="Association tests"/>
+        <param name="diplotypes" type="boolean" truevalue="true" falsevalue="false" value="true" label="Diplotypes"/>
+        <param name="seed" type="integer" value="-99999" label="Random seed"/>
+        <param name="scale" type="float" value="4.0" label="Threshold scale"/>
+        <param name="shift" type="float"  value="0.2" label="Threshold shift"/>
+    </when>
+</conditional>
+</inputs>
+<outputs>
+    <data name="output" type="text"/>
+</outputs>
+<help>
+
+</help>
+</tool>

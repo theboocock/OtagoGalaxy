@@ -15,8 +15,9 @@
 </outputs>
 
 <help>
-	Extract sample IDs obtains the list of sample IDs from a given
-	vcf file and returns a line seperated file containing them all.
+	This tool will find all the snps from the colum that you have specified and then take you to the snap website:
+
+    http://www.broadinstitute.org/mpg/snap/ldsearch.php
 </help>
 
 </tool>

@@ -1,0 +1,16 @@
+<tool_id="ouda_vcf_beagle" name="VCF to Beagle" version="1.0"\>
+<description>Beagle Software Analysis</description>
+<command interpreter="bash">
+
+</command>
+
+<inputs>
+    <param name="input_vcf" type="data" help="Input VCF" format="vcf" label="Input VCF" />
+</inputs>
+<outputs>
+    <data name="output" type="text"/>
+</outputs>
+<help>
+
+</help>
+</tool>
