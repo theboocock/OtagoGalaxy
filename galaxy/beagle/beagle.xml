@@ -1,5 +1,6 @@
 <tool_id="beagle" name="Beagle" version="1.0"\>
 <description>Beagle Software Analysis</description>
+
 <command interpreter="bash">
 
 

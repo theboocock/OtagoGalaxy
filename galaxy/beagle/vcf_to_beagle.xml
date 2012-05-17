@@ -1,7 +1,8 @@
-<tool_id="ouda_vcf_beagle" name="VCF to Beagle" version="1.0"\>
-<description>Beagle Software Analysis</description>
+<tool id="ou_vcf_beagle" name="VCF to Beagle" version="1.0">
+    <description>Beagle Software Analysis</description>
+
 <command interpreter="bash">
-    vcf_to_beagle.sh ${input_vcf} ${missing} ${output_marker} ${output_bgl} $output_gprobs} ${output_like} ${output_int}
+vcf_to_beagle.sh ${input_vcf} ${missing} ${output_marker} ${output_bgl} $output_gprobs} ${output_like} ${output_int}
 </command>
 
 <inputs>
