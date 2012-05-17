@@ -1,0 +1,25 @@
+<tool id="find_and_replace" name="Find and Replace" description="Performs find and replace operations on a file" version="1.0">
+<command interpreter="bash">
+	./find_and_replace.sh $find $replace $inputfile $output
+</command>
+
+<inputs>
+	<param name="inputfile" type="data" format="text" label="Input File" />
+	<param name="find" type="text" label="Find String"/>
+	<param name="replace" type="text" label="Replace With"/>
+
+</inputs>
+	
+<outputs>
+	<data name="output" format="text"/>
+</outputs>
+<help>
+Finds one string and replaces it with another and gives
+output which is a file which has had that operation performed.
+
+To seperate by escape characters e.g. tab.
+
+To seperate by tab just type TAB.
+</help>
+
+</tool>
