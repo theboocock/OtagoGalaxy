@@ -11,8 +11,38 @@
     <option value="ibd_hbd">IBD and HBD analysis</option>
     <option value="assoc_test">Association testing</option>
     </param>
-    <when value="imputting"> 
+    <when value="imputting">
+    <repeat name="unphased" title="Add Unphased Unrelated File/s">
+	<param name="unphased_unrelated_data" type="data" format="text" label="Unphased Unrelated file"/>
+    </repeat>
+    <repeat name="phased" title="Add Phased Unrelated File/s">
+    	<param name="phased_unrelated_data" type="data" format="text" label="Phased Unrelated file"/>
+    </repeat>
+    <repeat name="trios" title="Add Unphased Trios File/s">
+    <param name="trios_data" type="data" format="text" label="Unphased Trios File"/>
+    </repeat>
+    <repeat name="pairs" title="Add Unphased Pairs File/s">
+    <param name="pairs_data" type="data" format="text" label="Unphased Pairs File"/>
+    </repeat>
+    <repeat name="like" title="Add Unphased Likelihood data file" >
+    <param name="like_data" type="data" format="text" label="Unphased Likelihood File"/>
+    </repeat>
+    <conditional name="markers_param">
+	<param name="markers_file" type="boolean" truevalue="true" falsevalue="false" value="false" label="Specify Markers File"/>
+	<when value="true">
+		<param name="marker_data" type="data" format="text" label="Markers File"/>
+	</when>
+    </conditional>
+    <param name="missing_code" value="-1" type="text" label="Missing Allele Code"/>
+    <param name="max_lr" type="float" Label="Max Likelihood Ratio" value="500"/>
+    <param name="g_probs" type="boolean" value="false" label="Produce Genotype Probability Files" truevalue="true" falsevalue="false" />
+    <param name="n_imputations" type="integer" value="0" label="Number of Imputations"/>
+    <param name="n_samples" type="integer" value="4" label="Number of Samples/Individuals"/>
+    <param name="n_iteration" type="integer" value="10" label="Number of Iterations"/>
+    <param name="seed_impute" type="integer" value="-9999" label="Random Seed"/>
+    <param name="verbose" type="boolean" value="false" truevalue="true" false="false"/>
     </when>
+
     <when value="ibd_hbd">
         <param name= "ibd_input" type="data" format="text" label="IBD pairs File"/>
         <param name="hbd" type="boolean" truevalue="true" falsevalue="false" value="false" label="Estimate HBD"/>
@@ -28,8 +58,7 @@
     <when value="assoc_test">
         <param name="phased_bgl" type="data" label="phased Beagle file"/>
         <conditional name="trait_param">
-        <param name="trait_specified" type="boolean" truevalue="true"
-        falsevalue="false" label="Specify Trait"/>
+        <param name="trait_specified" type="boolean" truevalue="true"   falsevalue="false" label="Specify Trait"/>
         <when value="true">
         <param name="trait" type="text" label="Affection status identifier" value="T2D"/>
         </when>
