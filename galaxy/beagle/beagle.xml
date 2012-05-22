@@ -35,7 +35,11 @@
     <param name="missing_code" value="-1" type="text" label="Missing Allele Code"/>
     <param name="max_lr" type="float" Label="Max Likelihood Ratio" value="500"/>
     <param name="g_probs" type="boolean" value="false" label="Produce Genotype Probability Files" truevalue="true" falsevalue="false" />
-    <param name="nimputations" type="integer" "/>
+    <param name="n_imputations" type="integer" value="0" label="Number of Imputations"/>
+    <param name="n_samples" type="integer" value="4" label="Number of Samples/Individuals"/>
+    <param name="n_iteration" type="integer" value="10" label="Number of Iterations"/>
+    <param name="seed_impute" type="integer" value="-9999" label="Random Seed"/>
+    <param name="verbose" type="boolean" value="false" truevalue="true" false="false"/>
     </when>
 
     <when value="ibd_hbd">
@@ -53,8 +57,7 @@
     <when value="assoc_test">
         <param name="phased_bgl" type="data" label="phased Beagle file"/>
         <conditional name="trait_param">
-        <param name="trait_specified" type="boolean" truevalue="true"
-        falsevalue="false" label="Specify Trait"/>
+        <param name="trait_specified" type="boolean" truevalue="true"   falsevalue="false" label="Specify Trait"/>
         <when value="true">
         <param name="trait" type="text" label="Affection status identifier" value="T2D"/>
         </when>
