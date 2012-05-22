@@ -11,14 +11,16 @@
 # $6 = output_like
 # $7 = output_int
 
-PREFIX="galaxy"
+PREFIX=`date '+%s'`
 
-cat $1 | ~/galaxy-dist/tool-data/shared/jars/beagle/vcf2beagle.jar $2 $PREFIX
+PWD=`pwd`
 
-gunzip *.gz
+cat $1 | java -jar ~/galaxy-dist/tool-data/shared/jars/beagle/vcf2beagle.jar $2 $PREFIX
 
-mv -f *.markers $3
-mv -f *.bgl $4
-mv -f *.gprobs $5
-mv -f *.like $6
-mv -f *.int $7
+gunzip $PWD/$PREFIX.*.gz
+
+mv -f $PWD/$PREFIX.markers $3
+mv -f $PWD/$PREFIX.bgl $4
+mv -f $PWD/$PREFIX.gprobs $5
+mv -f $PWD/$PREFIX.like $6
+mv -f $PWD/$PREFIX.int $7

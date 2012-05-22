@@ -2,7 +2,7 @@
     <description>Beagle Software Analysis</description>
 
 <command interpreter="bash">
-vcf_to_beagle.sh ${input_vcf} ${missing} ${output_marker} ${output_bgl} $output_gprobs} ${output_like} ${output_int}
+vcf_to_beagle.sh ${input_vcf} ${missing} ${output_marker} ${output_bgl} ${output_gprobs} ${output_like} ${output_int}
 </command>
 
 <inputs>
@@ -11,11 +11,11 @@ vcf_to_beagle.sh ${input_vcf} ${missing} ${output_marker} ${output_bgl} $output_
 </inputs>
 
 <outputs>
-    <data name="output_marker" type="text"/>
-    <data name="output_bgl" type="text"/>
-    <data name="output_gprobs" type="text"/>
-    <data name="output_like" type="text"/>
-    <data name="output_int" type="text"/>
+    <data name="output_marker" format="txt" label="markers"/>
+    <data name="output_bgl" format="txt" label="bgl"/>
+    <data name="output_gprobs" format="txt" label="gprobs"/>
+    <data name="output_like" format="txt" label="likelihood"/>
+    <data name="output_int" format="txt" label="int"/>
 </outputs>
 
 <help>
