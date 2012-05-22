@@ -17,6 +17,8 @@ PWD=`pwd`
 
 cat $1 | java -jar ~/galaxy-dist/tool-data/shared/jars/beagle/vcf2beagle.jar $2 $PREFIX
 
+echo "$2"
+
 gunzip $PWD/$PREFIX.*.gz
 
 mv -f $PWD/$PREFIX.markers $3

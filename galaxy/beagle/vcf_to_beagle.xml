@@ -7,7 +7,7 @@ vcf_to_beagle.sh ${input_vcf} ${missing} ${output_marker} ${output_bgl} ${output
 
 <inputs>
     <param name="input_vcf" type="data" help="Input VCF" format="vcf" label="Input VCF" />
-    <param name="missing" type="text" help="If your vcf is missing an allele what is the 'missing' value? E.g. -1,   (blank), NA, etc" label="Input 'missing' allele notation" />
+    <param name="missing" type="text" value="\t" help="If your vcf is missing an allele what is the 'missing' value? E.g. -1,(blank), NA, etc. Default is \t" label="Input 'missing' allele notation" />
 </inputs>
 
 <outputs>
