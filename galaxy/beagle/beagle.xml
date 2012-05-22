@@ -1,7 +1,7 @@
 <tool id="beagle" name="Beagle" version="1.0">
 <description>Beagle Software Analysis</description>
-<command interpreter="bash">
- time
+<command> 
+
 </command>
 <inputs>
 <conditional name="beagle_use_type_param">
@@ -33,15 +33,26 @@
 	</when>
     </conditional>
     <param name="missing_code" value="-1" type="text" label="Missing Allele Code"/>
-    <param name="max_lr" type="float" Label="Max Likelihood Ratio" value="500"/>
+    <param name="max_lr" type="float" label="Max Likelihood Ratio" value="501"/>
     <param name="g_probs" type="boolean" value="false" label="Produce Genotype Probability Files" truevalue="true" falsevalue="false" />
     <param name="n_imputations" type="integer" value="0" label="Number of Imputations"/>
     <param name="n_samples" type="integer" value="4" label="Number of Samples/Individuals"/>
     <param name="n_iteration" type="integer" value="10" label="Number of Iterations"/>
     <param name="seed_impute" type="integer" value="-9999" label="Random Seed"/>
     <param name="verbose" type="boolean" value="false" truevalue="true" false="false"/>
+    <conditional name="exclude_markers_param">
+   	<param name="exclude_markers" type="boolean" value="false" falsevalue="false" true="true" label="Specify Excluded Markers File"/>
+	<when value="true">
+		<param name="exclude_markers_file" type="data" format="text" label="Excluded Markers File"/>
+	</when>
+    </conditional>
+    <conditional name="exclude_columns_param">
+    	<param name="exclude_columns" type="boolean" value="data" format="text" label="Specify Excluded Columns File" truevalue="true" falsevalue="false"/>
+	<when value="true">
+		<param name="exclude_columns_file" type="data" format="text" label="Excluded Columns File"/>
+	</when>
+    </conditional>
     </when>
-
     <when value="ibd_hbd">
         <param name= "ibd_input" type="data" format="text" label="IBD pairs File"/>
         <param name="hbd" type="boolean" truevalue="true" falsevalue="false" value="false" label="Estimate HBD"/>
@@ -56,6 +67,12 @@
     </when>
     <when value="assoc_test">
         <param name="phased_bgl" type="data" label="phased Beagle file"/>
+	<param name="association_tests" value="a" type="select" display="checkboxes" label="Tests to be performed (please make sure to tick atleast one)" multiple="true">
+		<option value="a">Allelic test</option>
+		<option value="r">Recessive test</option>
+		<option value="d">Dominant test</option>
+		<option value="o">Overdominant test</option>
+	</param>
         <conditional name="trait_param">
         <param name="trait_specified" type="boolean" truevalue="true"   falsevalue="false" label="Specify Trait"/>
         <when value="true">
