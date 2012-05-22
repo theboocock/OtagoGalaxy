@@ -1,9 +1,14 @@
 #!/bin/bash
 
 # $1 = my vcf
-# $2 = 1kg vcf (bgziped and tabixed)
+# $2 = <= || >=
 # $3 = value for grep in myvcf
-# $4 = value for grep in 1kg
+# $4 = <= || >=
+# $5 = value for grep in 1kg
+# $6 = SNPs or Indels (not yet implemented)
+#TODO ^^
+
+ONEKG_VCF=`ls ~/galaxy-dist/tools/SOER1000genes/data/1kg/vcf/ALL.*.gz`
 
 while read line
     do
@@ -23,8 +28,6 @@ while read line
         echo $line | grep "AF=${3}" >> filtered_myVCF.vcf
     done < $1
 
-#cat $1 | grep "AF=${3}" > filtered_myVCF.vcf
-    
 
 # get positions from filtered original
 awk '{print $1":"$2"-"$2}' < filtered_myVCF.vcf >| pos1.txt
@@ -32,12 +35,12 @@ awk '{print $1":"$2"-"$2}' < filtered_myVCF.vcf >| pos1.txt
 # gets position from my filtered vcf
 while read line
     do
-        tabix -f $2 "$line" >> filtered.1kg.vcf
+        tabix -f $ONEKG_VCF "$line" >> filtered.1kg.vcf
     done < pos1.txt
 
 
 #filter 1kg vcf
-cat filtered.1kg.vcf | grep "AF=${4}" > final_filtered_1kg.vcf
+cat filtered.1kg.vcf | grep "AF=${5}" > final_filtered_1kg.vcf
  
 
 awk '{print $1":"$2"-"$2}' < final_filtered_1kg.vcf >| pos2.txt
