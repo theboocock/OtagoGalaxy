@@ -1,7 +1,7 @@
 <tool id="beagle" name="Beagle" version="1.0">
 <description>Beagle Software Analysis</description>
-<command> 
-
+<command interpreter="bash">
+ time
 </command>
 <inputs>
 <conditional name="beagle_use_type_param">
