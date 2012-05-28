@@ -1,0 +1,24 @@
+<tool id="ou_vcf_to_tped" name="Convert VCF to TPED" version="1.0">
+<description>and put into a new VCF file</description>
+
+<command interpreter="bash">
+    vcf_to_tped.sh ${input} ${output} ${output2}
+</command>
+
+<inputs>
+
+<param name="input" type="data" format="vcf" label="VCF to convert" />
+
+</inputs>
+
+<outputs>
+<data format="tped" name="output"/>
+<data format="fped" name="output2"/>
+</outputs>
+<help>
+    This tool converts a given VCF into a tped file. Will only work with one sample at a time.
+
+	VCFtools is used for sample selection. The Variant Call Format and VCFtools, Petr Danecek, Adam Auton, Goncalo Abecasis, Cornelis A. Albers, Eric Banks, Mark A. DePristo, Robert Handsaker, Gerton Lunter, Gabor Marth, Stephen T. Sherry, Gilean McVean, Richard Durbin and 1000 Genomes Project Analysis Group, Bioinformatics, 2011  
+</help>
+
+</tool>
