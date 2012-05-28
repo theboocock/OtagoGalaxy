@@ -3,19 +3,26 @@
 
     <command interpreter="bash">
 
-    ./compare1kg.vcf
+        ./split.sh ${inputVCF} ${high_or_low1} ${filter_af1} ${high_or_low2} {filter_af2} ${select_by} > ${outputVCF} 
 
     </command>
 
     <inputs>
         <param name="inputVCF" label="VCF to compare" type="data" format="vcf" help="This is your vcf you wish to compare against 1000 Genomes"/>
-        <param name="filterAF1" label="Filter your VCF by AF less than or equal to" type="text" help="Filter your VCF by Allele Frequencies less than or equal to some number" />
-        <param name="select_by" type="select" display="checkboxes" multiple="True" optional="true" value ="" label="Select what to filter by" help="You can select all, just SNPs or just INDELs">
-        <option value="snp">Filter just SNPs</option>
-        <option value="indel">Filter just INDELs</option>
-        <option value="both">Filter both</option>
+        <param name="high_or_low1" label="Less than or qual to OR greater than or equal to?" type="select" display="radio">
+        <option value="less">Less than or equal to</option>
+        <option value="more">Greater than or equal to</option>
         </param>
-        <param name="filterAF2" label="Filter end VCF by AF less than or equal to" type="text" help="Filter end VCF by Allele Frequencies less than or equal to some number" />
+        <param name="filter_af1" label="Filter your VCF by AF less than or equal to" type="text" help="Filter your VCF by Allele Frequencies less than or equal to some number" />
+        <param name="select_by" type="select" display="checkboxes" multiple="True" optional="true" value ="" label="Select what to filter by" help="You can select all, just SNPs or just INDELs">
+        <option value="snp">Filter SNPs</option>
+        <option value="indel">Filter INDELs</option>
+        </param>
+        <param name="high_or_low2" label="Less than or qual to OR greater than or equal to?" type="select" display="radio">
+        <option value="less">Less than or equal to</option>
+        <option value="more">Greater than or equal to</option>
+        </param>
+        <param name="filter_af2" label="Filter end VCF by AF less than or equal to" type="text" help="Filter end VCF by Allele Frequencies less than or equal to some number" />
 
     </inputs>
 
