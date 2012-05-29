@@ -1,0 +1,30 @@
+<tool id="ou_ihs_calc" name="Calculate iHS" version="1.0">
+<description>(integrated Haplotype Score)</description>
+
+<command>
+    ./iHS/ihs ${input_map} ${input_hap} > ${output}
+</command>
+
+<inputs>
+
+<param name="input_map" type="data" format="map" label="Map file" />
+<param name="input_hap" type="data" format="hap" label="Haplotype file" />
+
+</inputs>
+
+<outputs>
+<data format="txt" name="output" label="iHS Scores"/>
+</outputs>
+<help>
+
+Calculates the Integrated Haplotype Score (iHS) for a given map and haplotype file.
+
+The input haplotype format is one haplotype per line, with derived alleles coded as 0 and ancestral alleles coded as 1. 
+
+The map file has the columns rs#, physical position, genetic position, and the alleles that correspond to 0 and 1.
+
+Original tool written by Sridhar Kudaravalli (skudarav@uchicago.edu)
+
+</help>
+
+</tool>

@@ -1,0 +1,20 @@
+Documentation for iHS executable amd source
+
+This tarball contains a (64-bit) executable for computing iHS, along with
+sample input files and source code. The input haplotype format is one haplotype per
+line, with derived alleles coded as 0 and ancestral alleles coded as
+1. The map file has the columns rs#, physical position, genetic
+position, and the alleles that correspond to 0 and 1.
+
+To run the program, the command is ./ihs <map file> <haplotype file>,
+or for the example:
+./ihs sample.ihsmap sample.ihshap
+
+Output is to standard out, and the relevant columns are 1,2,3 and 6,
+which are the rs#, physical position, allele frequency, and
+unstandardized iHS, respectively. The iHS scores should then be
+normalized in derived allele frequency bins as in Voight et al. (2005)
+
+To compile, use the following commands:
+g++ -c Ehh.cc PData.cc
+g++ Ehh.o PData.cc -o ihs 
