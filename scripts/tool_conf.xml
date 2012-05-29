@@ -69,6 +69,8 @@
    <tool file="SOER1000genes/galaxy/compare1kg/compare1kg.xml"/>
    <label text="Query Databases" id="ou_db" />
    <tool file="SOER1000genes/galaxy/evs/evs.xml" />
+   <label text="Text Manipulation" id="ou_tm"/>
+   <tool file="SOER1000genes/galaxy/findreplace/find_and_replace.xml"/>
 </section>
   <section name="ENCODE Tools" id="EncodeTools">
     <tool file="encode/gencode_partition.xml" />
