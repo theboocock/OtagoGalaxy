@@ -13,10 +13,10 @@
 
 <outputs>
 <data format="tped" name="output"/>
-<data format="fped" name="output2"/>
+<data format="tfam" name="output2"/>
 </outputs>
 <help>
-    This tool converts a given VCF into a tped file. Will only work with one sample at a time.
+    This tool converts a given VCF into a tped and tfam file.
 
 	VCFtools is used for sample selection. The Variant Call Format and VCFtools, Petr Danecek, Adam Auton, Goncalo Abecasis, Cornelis A. Albers, Eric Banks, Mark A. DePristo, Robert Handsaker, Gerton Lunter, Gabor Marth, Stephen T. Sherry, Gilean McVean, Richard Durbin and 1000 Genomes Project Analysis Group, Bioinformatics, 2011  
 </help>
