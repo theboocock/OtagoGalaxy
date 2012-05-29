@@ -1,8 +1,42 @@
 <tool id="beagle" name="Beagle" version="1.0">
 <description>Beagle Software Analysis</description>
-
-<command interpreter="bash">
- time
+<command>
+java -jar ${__tool_data_path__}/shared/jars/beagle/beagle.jar
+out=$output
+#if ($beagle_use_type_param.beagle_use_type) == "imputting":
+#for $i, $s in enumerate( $beagle_use_type_param.unphased )
+  unphased=${s.unphased_unrelated_data}
+#end for
+#for $i, $s in enumerate( $beagle_use_type_param.phased):
+  phased=${s.phased_unrelated_data}
+#end for
+#for $i, $s in enumerate( $beagle_use_type_param.trios):
+  trios=${s.trios_data}
+#end for
+#for $i, $s in enumerate( $beagle_use_type_param.pairs):
+  pairs=${s.pairs_data}
+#end for
+#for $i, $s in enumerate($beagle_use_type_param.like):
+  like=${s.like_data}
+#end for
+#if  ($beagle_use_type_param.markers_param.markers_file):
+  markers=$beagle_use_type_param.markers_param.marker_data
+#end if
+missing=$beagle_use_type_param.missing_code
+maxlr=$beagle_use_type_param.max_lr
+g_probs=$beagle_use_type_param.g_probs
+nimputations=$beagle_use_type_param.n_imputations
+nsamples=$beagle_use_type_param.n_samples
+niterations=$beagle_use_type_param.n_iteration
+seed=$beagle_use_type_param.seed_impute
+#if ($beagle_use_type_param.exclude_markers_param.exclude_markers):
+excludemarkers=$beagle_use_type_param.exclude_markers_param.exclude_markers_file
+#end if
+#if ($beagle_use_type_param.exclude_columns_param.exclude_columns):
+excludecolumns=$beagle_use_type_param.exclude_columns_param.exclude_columns_file
+#end if
+verbose=$beagle_use_type_param.Verbose
+#end if
 </command>
 <inputs>
 <conditional name="beagle_use_type_param">
@@ -13,36 +47,47 @@
     </param>
     <when value="imputting">
     <repeat name="unphased" title="Add Unphased Unrelated File/s">
-	<param name="unphased_unrelated_data" type="data" format="text" label="Unphased Unrelated file"/>
+    	<param name="unphased_unrelated_data" type="data" format="Beagle" label="Unphased Unrelated file"/>
     </repeat>
     <repeat name="phased" title="Add Phased Unrelated File/s">
-    	<param name="phased_unrelated_data" type="data" format="text" label="Phased Unrelated file"/>
+    	<param name="phased_unrelated_data" type="data" format="bgl" label="Phased Unrelated file"/>
     </repeat>
     <repeat name="trios" title="Add Unphased Trios File/s">
-    <param name="trios_data" type="data" format="text" label="Unphased Trios File"/>
+    <param name="trios_data" type="data" format="bgl" label="Unphased Trios File"/>
     </repeat>
     <repeat name="pairs" title="Add Unphased Pairs File/s">
-    <param name="pairs_data" type="data" format="text" label="Unphased Pairs File"/>
+    <param name="pairs_data" type="data" format="bgl" label="Unphased Pairs File"/>
     </repeat>
     <repeat name="like" title="Add Unphased Likelihood data file" >
-    <param name="like_data" type="data" format="text" label="Unphased Likelihood File"/>
+    <param name="like_data" type="data" format="bgl" label="Unphased Likelihood File"/>
     </repeat>
     <conditional name="markers_param">
-	<param name="markers_file" type="boolean" truevalue="true" falsevalue="false" value="false" label="Specify Markers File"/>
+	<param name="markers_file" type="boolean" truevalue="true" falsevalue="false" label="Specify Markers File"/>
 	<when value="true">
 		<param name="marker_data" type="data" format="text" label="Markers File"/>
 	</when>
     </conditional>
     <param name="missing_code" value="-1" type="text" label="Missing Allele Code"/>
-    <param name="max_lr" type="float" Label="Max Likelihood Ratio" value="500"/>
-    <param name="g_probs" type="boolean" value="false" label="Produce Genotype Probability Files" truevalue="true" falsevalue="false" />
+   <param name="max_lr" type="float" label="Max Likelihood Ratio" value="5000.0"/>
+    <param name="g_probs" type="boolean" falsevalue="false" truevalue="true" label="Produce Genotype Probability Files"  />
     <param name="n_imputations" type="integer" value="0" label="Number of Imputations"/>
     <param name="n_samples" type="integer" value="4" label="Number of Samples/Individuals"/>
     <param name="n_iteration" type="integer" value="10" label="Number of Iterations"/>
     <param name="seed_impute" type="integer" value="-9999" label="Random Seed"/>
-    <param name="verbose" type="boolean" value="false" truevalue="true" false="false"/>
+    <param name="Verbose" type="boolean" value="false" truevalue="true" false="false"/>
+    <conditional name="exclude_markers_param">
+   	<param name="exclude_markers" type="boolean" value="false" falsevalue="false" truevalue="true" label="Specify Excluded Markers File"/>
+	<when value="true">
+		<param name="exclude_markers_file" type="data" format="text" label="Excluded Markers File"/>
+	</when>
+    </conditional>
+    <conditional name="exclude_columns_param">
+    	<param name="exclude_columns" type="boolean" value="data" format="text" label="Specify Excluded Columns File" truevalue="true" falsevalue="false"/>
+	<when value="true">
+		<param name="exclude_columns_file" type="data" format="text" label="Excluded Columns File"/>
+	</when>
+    </conditional>
     </when>
-
     <when value="ibd_hbd">
         <param name= "ibd_input" type="data" format="text" label="IBD pairs File"/>
         <param name="hbd" type="boolean" truevalue="true" falsevalue="false" value="false" label="Estimate HBD"/>
@@ -57,6 +102,12 @@
     </when>
     <when value="assoc_test">
         <param name="phased_bgl" type="data" label="phased Beagle file"/>
+	<param name="association_tests" value="a" type="select" display="checkboxes" label="Tests to be performed (please make sure to tick atleast one)" multiple="true">
+		<option value="a">Allelic test</option>
+		<option value="r">Recessive test</option>
+		<option value="d">Dominant test</option>
+		<option value="o">Overdominant test</option>
+	</param>
         <conditional name="trait_param">
         <param name="trait_specified" type="boolean" truevalue="true"   falsevalue="false" label="Specify Trait"/>
         <when value="true">

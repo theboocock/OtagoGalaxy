@@ -1,0 +1,23 @@
+<tool id="ou_calc_ld" name="Calcuate LD from tped" version="1.0">
+<description>using tfam file</description>
+<command interpreter="bash">
+    calc_ld.sh ${input_tped} ${input_tfam} ${input_rs} ${input_size} ${input_threshold} ${output}
+</command>
+
+<inputs>
+    <param name="input_tped" type="data" format="tped" label="Transposed PED File"/>
+    <param name="input_tfam" type="data" format="tfam" label="Transposed FAM File"/>
+    <param name="input_rs" type="text" label="SNP RSID"/>
+    <param name="input_size" type="integer" value="100" label="Size of LD Window"/>
+    <param name="input_threshold" type="float" value="0.8" label="Display only LD values above this number"/>
+</inputs>
+<outputs>
+    <data name="output" format="txt" type="data"/>
+</outputs>
+
+<help>
+This tool calcuates the Linkage Disequilibrium from a transposed PED and FAM file.
+</help>
+
+</tool>
+
