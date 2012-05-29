@@ -37,6 +37,7 @@
    <label text="Selection Tools" id="ou_selection" />
    <tool file="SOER1000genes/galaxy/calc_ld/calc_ld.xml" />
    <tool file="SOER1000genes/galaxy/beagle/beagle.xml" />
+   <tool file="SOER1000genes/galaxy/ihs/ihs_calc.xml" />
    <label text="Variant Effect Predictors" id="ou_vep" />
    <tool file="SOER1000genes/galaxy/ensemblVEP/ensembl_vep.xml"/>
    <tool file="SOER1000genes/galaxy/dbsnpRegionExtraction/dbsnp_region_extraction.xml" />
@@ -69,8 +70,6 @@
    <tool file="SOER1000genes/galaxy/compare1kg/compare1kg.xml"/>
    <label text="Query Databases" id="ou_db" />
    <tool file="SOER1000genes/galaxy/evs/evs.xml" />
-   <label text="Text Manipulation" id="ou_tm"/>
-   <tool file="SOER1000genes/galaxy/findreplace/find_and_replace.xml"/>
 </section>
   <section name="ENCODE Tools" id="EncodeTools">
     <tool file="encode/gencode_partition.xml" />
