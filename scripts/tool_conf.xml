@@ -38,6 +38,7 @@
    <tool file="SOER1000genes/galaxy/calc_ld/calc_ld.xml" />
    <tool file="SOER1000genes/galaxy/beagle/beagle.xml" />
    <tool file="SOER1000genes/galaxy/ihs/ihs_calc.xml" />
+   <tool file="SOER1000genes/galaxy/lamarc/lamarc.xml" />
    <label text="Variant Effect Predictors" id="ou_vep" />
    <tool file="SOER1000genes/galaxy/ensemblVEP/ensembl_vep.xml"/>
    <tool file="SOER1000genes/galaxy/dbsnpRegionExtraction/dbsnp_region_extraction.xml" />
