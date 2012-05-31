@@ -1,0 +1,129 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<BODY>
+<pre>
+&ltlamarc-converter-cmd&gt
+    &ltlamarc-header-comment&gttraitExample: generated with theta=0.1 rec=0.1 trait at position 906&lt/lamarc-header-comment&gt
+    &ltoutfile&gtlamarc-trait-input.xml&lt/outfile&gt
+    &lttraits&gt
+        &lttrait-info&gt
+            &ltname&gtfunny-nose&lt/name&gt
+            &ltallele&gtnormal&lt/allele&gt
+            &ltallele&gtaffected&lt/allele&gt
+        &lt/trait-info&gt
+        &ltphenotype&gt
+            &ltname&gtstraight&lt/name&gt
+            &ltgenotype-resolutions&gt
+                &lttrait-name&gtfunny-nose&lt/trait-name&gt
+                &lthaplotypes&gt
+                    &ltalleles&gt normal normal &lt/alleles&gt
+                    &ltpenetrance&gt 1.0 &lt/penetrance&gt
+                &lt/haplotypes&gt
+            &lt/genotype-resolutions&gt
+        &lt/phenotype&gt
+        &ltphenotype&gt
+            &ltname&gtbent&lt/name&gt
+            &ltgenotype-resolutions&gt
+                &lttrait-name&gtfunny-nose&lt/trait-name&gt
+                &lthaplotypes&gt
+                    &ltalleles&gt normal affected &lt/alleles&gt
+                    &ltpenetrance&gt 1.0 &lt/penetrance&gt
+                &lt/haplotypes&gt
+                &lthaplotypes&gt
+                    &ltalleles&gt affected normal &lt/alleles&gt
+                    &ltpenetrance&gt 1.0 &lt/penetrance&gt
+                &lt/haplotypes&gt
+            &lt/genotype-resolutions&gt
+        &lt/phenotype&gt
+        &ltphenotype&gt
+            &ltname&gtbroken&lt/name&gt
+            &ltgenotype-resolutions&gt
+                &lttrait-name&gtfunny-nose&lt/trait-name&gt
+                &lthaplotypes&gt
+                    &ltalleles&gt affected affected &lt/alleles&gt
+                    &ltpenetrance&gt 1.0 &lt/penetrance&gt
+                &lt/haplotypes&gt
+            &lt/genotype-resolutions&gt
+        &lt/phenotype&gt
+    &lt/traits&gt
+    &ltregions&gt
+        &ltregion&gt
+            &ltname&gtregion1&lt/name&gt
+            &lteffective-popsize&gt1&lt/effective-popsize&gt
+            &lttrait-location&gt
+                &lttrait-name&gtfunny-nose&lt/trait-name&gt
+            &lt/trait-location&gt
+            &ltsegments&gt
+                &ltsegment datatype="dna"&gt
+                    &ltname&gtlocus_1&lt/name&gt
+                    &ltmarkers&gt1000&lt/markers&gt
+                    &ltfirst-position-scanned&gt1&lt/first-position-scanned&gt
+                    &ltmap-position&gt1&lt/map-position&gt
+                &lt/segment&gt
+            &lt/segments&gt
+        &lt/region&gt
+    &lt/regions&gt
+    &ltpopulations&gt
+        &ltpopulation&gtpop1&lt/population&gt
+    &lt/populations&gt
+    &ltindividuals&gt
+        &ltindividual&gt
+            &ltname&gts0_s1&lt/name&gt
+            &ltsample&gt&ltname&gts0&lt/name&gt&lt/sample&gt
+            &ltsample&gt&ltname&gts1&lt/name&gt&lt/sample&gt
+            &lthas-phenotype&gtbroken&lt/has-phenotype&gt
+        &lt/individual&gt
+        &ltindividual&gt
+            &ltname&gts2_s3&lt/name&gt
+            &ltsample&gt&ltname&gts2&lt/name&gt&lt/sample&gt
+            &ltsample&gt&ltname&gts3&lt/name&gt&lt/sample&gt
+            &lthas-phenotype&gtbroken&lt/has-phenotype&gt
+        &lt/individual&gt
+        &ltindividual&gt
+            &ltname&gts4_s5&lt/name&gt
+            &ltsample&gt&ltname&gts4&lt/name&gt&lt/sample&gt
+            &ltsample&gt&ltname&gts5&lt/name&gt&lt/sample&gt
+            &lthas-phenotype&gtbroken&lt/has-phenotype&gt
+        &lt/individual&gt
+        &ltindividual&gt
+            &ltname&gts6_s7&lt/name&gt
+            &ltsample&gt&ltname&gts6&lt/name&gt&lt/sample&gt
+            &ltsample&gt&ltname&gts7&lt/name&gt&lt/sample&gt
+            &lthas-phenotype&gtbent&lt/has-phenotype&gt
+        &lt/individual&gt
+        &ltindividual&gt
+            &ltname&gts10_s11&lt/name&gt
+            &ltsample&gt&ltname&gts10&lt/name&gt&lt/sample&gt
+            &ltsample&gt&ltname&gts11&lt/name&gt&lt/sample&gt
+            &lthas-phenotype&gtstraight&lt/has-phenotype&gt
+        &lt/individual&gt
+        &ltindividual&gt
+            &ltname&gts12_s13&lt/name&gt
+            &ltsample&gt&ltname&gts12&lt/name&gt&lt/sample&gt
+            &ltsample&gt&ltname&gts13&lt/name&gt&lt/sample&gt
+            &lthas-phenotype&gtstraight&lt/has-phenotype&gt
+        &lt/individual&gt
+        &ltindividual&gt
+            &ltname&gts14_s15&lt/name&gt
+            &ltsample&gt&ltname&gts14&lt/name&gt&lt/sample&gt
+            &ltsample&gt&ltname&gts15&lt/name&gt&lt/sample&gt
+            &lthas-phenotype&gtstraight&lt/has-phenotype&gt
+        &lt/individual&gt
+        &ltindividual&gt
+            &ltname&gts8_s9&lt/name&gt
+            &ltsample&gt&ltname&gts8&lt/name&gt&lt/sample&gt
+            &ltsample&gt&ltname&gts9&lt/name&gt&lt/sample&gt
+            &lthas-phenotype&gtstraight&lt/has-phenotype&gt
+        &lt/individual&gt
+    &lt/individuals&gt
+    &ltinfiles&gt
+        &ltinfile format="migrate" datatype="dna" sequence-alignment="sequential"&gt
+            &ltname&gttraitData.mig&lt/name&gt
+            &ltpopulation-matching type="single"&gtpop1&lt/population-matching&gt
+            &ltsegments-matching type="single"&gtlocus_1&lt/segments-matching&gt
+        &lt/infile&gt
+    &lt/infiles&gt
+&lt/lamarc-converter-cmd&gt
+</pre>
+</BODY>
+</HTML>

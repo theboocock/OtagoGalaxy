@@ -1,0 +1,122 @@
+<lamarc-converter-cmd>
+    <lamarc-header-comment>traitExample: generated with theta=0.1 rec=0.1 trait at position 906</lamarc-header-comment>
+    <outfile>lamarc-trait-input.xml</outfile>
+    <traits>
+        <trait-info>
+            <name>funny-nose</name>
+            <allele>normal</allele>
+            <allele>affected</allele>
+        </trait-info>
+        <phenotype>
+            <name>straight</name>
+            <genotype-resolutions>
+                <trait-name>funny-nose</trait-name>
+                <haplotypes>
+                    <alleles> normal normal </alleles>
+                    <penetrance> 1.0 </penetrance>
+                </haplotypes>
+            </genotype-resolutions>
+        </phenotype>
+        <phenotype>
+            <name>bent</name>
+            <genotype-resolutions>
+                <trait-name>funny-nose</trait-name>
+                <haplotypes>
+                    <alleles> normal affected </alleles>
+                    <penetrance> 1.0 </penetrance>
+                </haplotypes>
+                <haplotypes>
+                    <alleles> affected normal </alleles>
+                    <penetrance> 1.0 </penetrance>
+                </haplotypes>
+            </genotype-resolutions>
+        </phenotype>
+        <phenotype>
+            <name>broken</name>
+            <genotype-resolutions>
+                <trait-name>funny-nose</trait-name>
+                <haplotypes>
+                    <alleles> affected affected </alleles>
+                    <penetrance> 1.0 </penetrance>
+                </haplotypes>
+            </genotype-resolutions>
+        </phenotype>
+    </traits>
+    <regions>
+        <region>
+            <name>region1</name>
+            <effective-popsize>1</effective-popsize>
+            <trait-location>
+                <trait-name>funny-nose</trait-name>
+            </trait-location>
+            <segments>
+                <segment datatype="dna">
+                    <name>locus_1</name>
+                    <markers>1000</markers>
+                    <first-position-scanned>1</first-position-scanned>
+                    <map-position>1</map-position>
+                </segment>
+            </segments>
+        </region>
+    </regions>
+    <populations>
+        <population>pop1</population>
+    </populations>
+    <individuals>
+        <individual>
+            <name>s0_s1</name>
+            <sample><name>s0</name></sample>
+            <sample><name>s1</name></sample>
+            <has-phenotype>broken</has-phenotype>
+        </individual>
+        <individual>
+            <name>s2_s3</name>
+            <sample><name>s2</name></sample>
+            <sample><name>s3</name></sample>
+            <has-phenotype>broken</has-phenotype>
+        </individual>
+        <individual>
+            <name>s4_s5</name>
+            <sample><name>s4</name></sample>
+            <sample><name>s5</name></sample>
+            <has-phenotype>broken</has-phenotype>
+        </individual>
+        <individual>
+            <name>s6_s7</name>
+            <sample><name>s6</name></sample>
+            <sample><name>s7</name></sample>
+            <has-phenotype>bent</has-phenotype>
+        </individual>
+        <individual>
+            <name>s10_s11</name>
+            <sample><name>s10</name></sample>
+            <sample><name>s11</name></sample>
+            <has-phenotype>straight</has-phenotype>
+        </individual>
+        <individual>
+            <name>s12_s13</name>
+            <sample><name>s12</name></sample>
+            <sample><name>s13</name></sample>
+            <has-phenotype>straight</has-phenotype>
+        </individual>
+        <individual>
+            <name>s14_s15</name>
+            <sample><name>s14</name></sample>
+            <sample><name>s15</name></sample>
+            <has-phenotype>straight</has-phenotype>
+        </individual>
+        <individual>
+            <name>s8_s9</name>
+            <sample><name>s8</name></sample>
+            <sample><name>s9</name></sample>
+            <has-phenotype>straight</has-phenotype>
+        </individual>
+    </individuals>
+    <infiles>
+        <infile format="migrate" datatype="dna" sequence-alignment="sequential">
+            <name>traitData.mig</name>
+            <population-matching type="single">pop1</population-matching>
+            <segments-matching type="single">locus_1</segments-matching>
+        </infile>
+    </infiles>
+</lamarc-converter-cmd>

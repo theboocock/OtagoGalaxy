@@ -1,0 +1,576 @@
+<XML-summary-file>
+<!-- Lamarc v. 2.1.8
+     Please do not modify. -->
+<chainpack>
+	<number> 0 0 0 </number>
+	<chainout>
+		<badtrees> 0 </badtrees>
+		<tinytrees> 0 </tinytrees>
+		<stretchedtrees> 0 </stretchedtrees>
+		<zerodltrees> 0 </zerodltrees>
+		<accrate> 0.599999999999999978 </accrate>
+		<llikemle> 1.90107652637508018 </llikemle>
+		<llikedata> -1531.22692202612234 </llikedata>
+		<starttime> 1338317288 </starttime>
+		<endtime> 1338317289 </endtime>
+		<rates> <map> Haplotype-Arranger 185 188 </map> <map> Tree-Arranger 45 182 </map> <map> Tree-Size-Arranger 10 30 </map> </rates>
+		<estimates>
+			<thetas> 0.0140045543987855348 </thetas>
+		</estimates>
+	</chainout>
+</chainpack>
+<chainpack>
+	<number> 0 0 1 </number>
+	<chainout>
+		<badtrees> 0 </badtrees>
+		<tinytrees> 0 </tinytrees>
+		<stretchedtrees> 0 </stretchedtrees>
+		<zerodltrees> 0 </zerodltrees>
+		<accrate> 0.510000000000000009 </accrate>
+		<llikemle> 2.00607271911580964 </llikemle>
+		<llikedata> -1223.59185792918424 </llikedata>
+		<starttime> 1338317289 </starttime>
+		<endtime> 1338317290 </endtime>
+		<rates> <map> Haplotype-Arranger 178 182 </map> <map> Tree-Arranger 20 173 </map> <map> Tree-Size-Arranger 6 45 </map> </rates>
+		<estimates>
+			<thetas> 0.0198010394672644731 </thetas>
+		</estimates>
+	</chainout>
+</chainpack>
+<chainpack>
+	<number> 0 0 2 </number>
+	<chainout>
+		<badtrees> 0 </badtrees>
+		<tinytrees> 0 </tinytrees>
+		<stretchedtrees> 0 </stretchedtrees>
+		<zerodltrees> 0 </zerodltrees>
+		<accrate> 0.479999999999999982 </accrate>
+		<llikemle> 0.3157907228474926 </llikemle>
+		<llikedata> -1144.89455037797165 </llikedata>
+		<starttime> 1338317290 </starttime>
+		<endtime> 1338317291 </endtime>
+		<rates> <map> Haplotype-Arranger 168 170 </map> <map> Tree-Arranger 22 191 </map> <map> Tree-Size-Arranger 2 39 </map> </rates>
+		<estimates>
+			<thetas> 0.0237103739556533341 </thetas>
+		</estimates>
+	</chainout>
+</chainpack>
+<chainpack>
+	<number> 0 0 3 </number>
+	<chainout>
+		<badtrees> 0 </badtrees>
+		<tinytrees> 0 </tinytrees>
+		<stretchedtrees> 0 </stretchedtrees>
+		<zerodltrees> 0 </zerodltrees>
+		<accrate> 0.542499999999999982 </accrate>
+		<llikemle> 0.0629701176915088146 </llikemle>
+		<llikedata> -1045.63872658027321 </llikedata>
+		<starttime> 1338317291 </starttime>
+		<endtime> 1338317292 </endtime>
+		<rates> <map> Haplotype-Arranger 196 199 </map> <map> Tree-Arranger 16 165 </map> <map> Tree-Size-Arranger 5 36 </map> </rates>
+		<estimates>
+			<thetas> 0.0222229921859648204 </thetas>
+		</estimates>
+	</chainout>
+</chainpack>
+<chainpack>
+	<number> 0 0 4 </number>
+	<chainout>
+		<badtrees> 0 </badtrees>
+		<tinytrees> 0 </tinytrees>
+		<stretchedtrees> 0 </stretchedtrees>
+		<zerodltrees> 0 </zerodltrees>
+		<accrate> 0.474999999999999978 </accrate>
+		<llikemle> 0.145888709955695972 </llikemle>
+		<llikedata> -988.502230441417169 </llikedata>
+		<starttime> 1338317292 </starttime>
+		<endtime> 1338317293 </endtime>
+		<rates> <map> Haplotype-Arranger 173 178 </map> <map> Tree-Arranger 14 197 </map> <map> Tree-Size-Arranger 3 25 </map> </rates>
+		<estimates>
+			<thetas> 0.0242750236526722424 </thetas>
+		</estimates>
+	</chainout>
+</chainpack>
+<chainpack>
+	<number> 0 0 5 </number>
+	<chainout>
+		<badtrees> 0 </badtrees>
+		<tinytrees> 0 </tinytrees>
+		<stretchedtrees> 0 </stretchedtrees>
+		<zerodltrees> 0 </zerodltrees>
+		<accrate> 0.482499999999999984 </accrate>
+		<llikemle> 0.00676027254048549263 </llikemle>
+		<llikedata> -852.329276925133399 </llikedata>
+		<starttime> 1338317293 </starttime>
+		<endtime> 1338317293 </endtime>
+		<rates> <map> Haplotype-Arranger 165 166 </map> <map> Tree-Arranger 23 196 </map> <map> Tree-Size-Arranger 5 38 </map> </rates>
+		<estimates>
+			<thetas> 0.0238188990942800084 </thetas>
+		</estimates>
+	</chainout>
+</chainpack>
+<chainpack>
+	<number> 0 0 6 </number>
+	<chainout>
+		<badtrees> 0 </badtrees>
+		<tinytrees> 0 </tinytrees>
+		<stretchedtrees> 0 </stretchedtrees>
+		<zerodltrees> 0 </zerodltrees>
+		<accrate> 0.522499999999999964 </accrate>
+		<llikemle> 0.014441425822049353 </llikemle>
+		<llikedata> -810.23647721130817 </llikedata>
+		<starttime> 1338317293 </starttime>
+		<endtime> 1338317294 </endtime>
+		<rates> <map> Haplotype-Arranger 192 197 </map> <map> Tree-Arranger 11 172 </map> <map> Tree-Size-Arranger 6 31 </map> </rates>
+		<estimates>
+			<thetas> 0.023159943201709686 </thetas>
+		</estimates>
+	</chainout>
+</chainpack>
+<chainpack>
+	<number> 0 0 7 </number>
+	<chainout>
+		<badtrees> 0 </badtrees>
+		<tinytrees> 0 </tinytrees>
+		<stretchedtrees> 0 </stretchedtrees>
+		<zerodltrees> 0 </zerodltrees>
+		<accrate> 0.505000000000000004 </accrate>
+		<llikemle> 0.0975247797368335445 </llikemle>
+		<llikedata> -743.664623692001555 </llikedata>
+		<starttime> 1338317294 </starttime>
+		<endtime> 1338317295 </endtime>
+		<rates> <map> Haplotype-Arranger 187 188 </map> <map> Tree-Arranger 14 191 </map> <map> Tree-Size-Arranger 1 21 </map> </rates>
+		<estimates>
+			<thetas> 0.0214844741036189155 </thetas>
+		</estimates>
+	</chainout>
+</chainpack>
+<chainpack>
+	<number> 0 0 8 </number>
+	<chainout>
+		<badtrees> 0 </badtrees>
+		<tinytrees> 0 </tinytrees>
+		<stretchedtrees> 0 </stretchedtrees>
+		<zerodltrees> 0 </zerodltrees>
+		<accrate> 0.502499999999999947 </accrate>
+		<llikemle> 0.0191225884609427209 </llikemle>
+		<llikedata> -716.659600790623927 </llikedata>
+		<starttime> 1338317295 </starttime>
+		<endtime> 1338317296 </endtime>
+		<rates> <map> Haplotype-Arranger 180 181 </map> <map> Tree-Arranger 19 185 </map> <map> Tree-Size-Arranger 2 34 </map> </rates>
+		<estimates>
+			<thetas> 0.0221707791918490035 </thetas>
+		</estimates>
+	</chainout>
+</chainpack>
+<chainpack>
+	<number> 0 0 9 </number>
+	<chainout>
+		<badtrees> 0 </badtrees>
+		<tinytrees> 0 </tinytrees>
+		<stretchedtrees> 0 </stretchedtrees>
+		<zerodltrees> 0 </zerodltrees>
+		<accrate> 0.469999999999999973 </accrate>
+		<llikemle> 0.0190512003002608968 </llikemle>
+		<llikedata> -696.976980946530375 </llikedata>
+		<starttime> 1338317296 </starttime>
+		<endtime> 1338317297 </endtime>
+		<rates> <map> Haplotype-Arranger 173 173 </map> <map> Tree-Arranger 14 186 </map> <map> Tree-Size-Arranger 1 41 </map> </rates>
+		<estimates>
+			<thetas> 0.0214760006724358625 </thetas>
+		</estimates>
+	</chainout>
+</chainpack>
+<chainpack>
+	<number> 0 0 10 </number>
+	<chainout>
+		<badtrees> 0 </badtrees>
+		<tinytrees> 0 </tinytrees>
+		<stretchedtrees> 0 </stretchedtrees>
+		<zerodltrees> 0 </zerodltrees>
+		<accrate> 0.450000000000000011 </accrate>
+		<llikemle> 0.0574094588085992674 </llikemle>
+		<llikedata> -693.380384625162037 </llikedata>
+		<starttime> 1338317297 </starttime>
+		<endtime> 1338317299 </endtime>
+		<rates> <map> Haplotype-Arranger 422 423 </map> <map> Tree-Arranger 28 483 </map> <map> Tree-Size-Arranger 0 94 </map> </rates>
+		<estimates>
+			<thetas> 0.020318803741329744 </thetas>
+		</estimates>
+	</chainout>
+</chainpack>
+<chainsum>
+	<reg_rep> 0 0 </reg_rep>
+	<treesum>
+		<ncopy> 1 </ncopy>
+		<shortforce> coalesce short
+			<shortpoint> 39 </shortpoint>
+			<shortwait> 0.792605537315372755 </shortwait>
+		</shortforce>
+	</treesum>
+	<treesum>
+		<ncopy> 1 </ncopy>
+		<shortforce> coalesce short
+			<shortpoint> 39 </shortpoint>
+			<shortwait> 0.792605537315372755 </shortwait>
+		</shortforce>
+	</treesum>
+	<treesum>
+		<ncopy> 1 </ncopy>
+		<shortforce> coalesce short
+			<shortpoint> 39 </shortpoint>
+			<shortwait> 0.792605537315372755 </shortwait>
+		</shortforce>
+	</treesum>
+	<treesum>
+		<ncopy> 1 </ncopy>
+		<shortforce> coalesce short
+			<shortpoint> 39 </shortpoint>
+			<shortwait> 0.792605537315372755 </shortwait>
+		</shortforce>
+	</treesum>
+	<treesum>
+		<ncopy> 1 </ncopy>
+		<shortforce> coalesce short
+			<shortpoint> 39 </shortpoint>
+			<shortwait> 0.792605537315372755 </shortwait>
+		</shortforce>
+	</treesum>
+	<treesum>
+		<ncopy> 1 </ncopy>
+		<shortforce> coalesce short
+			<shortpoint> 39 </shortpoint>
+			<shortwait> 0.810790144765409893 </shortwait>
+		</shortforce>
+	</treesum>
+	<treesum>
+		<ncopy> 1 </ncopy>
+		<shortforce> coalesce short
+			<shortpoint> 39 </shortpoint>
+			<shortwait> 0.810790144765409893 </shortwait>
+		</shortforce>
+	</treesum>
+	<treesum>
+		<ncopy> 1 </ncopy>
+		<shortforce> coalesce short
+			<shortpoint> 39 </shortpoint>
+			<shortwait> 0.805781948314666763 </shortwait>
+		</shortforce>
+	</treesum>
+	<treesum>
+		<ncopy> 1 </ncopy>
+		<shortforce> coalesce short
+			<shortpoint> 39 </shortpoint>
+			<shortwait> 0.821100062248226181 </shortwait>
+		</shortforce>
+	</treesum>
+	<treesum>
+		<ncopy> 1 </ncopy>
+		<shortforce> coalesce short
+			<shortpoint> 39 </shortpoint>
+			<shortwait> 0.801216856634282326 </shortwait>
+		</shortforce>
+	</treesum>
+	<treesum>
+		<ncopy> 1 </ncopy>
+		<shortforce> coalesce short
+			<shortpoint> 39 </shortpoint>
+			<shortwait> 0.789385419923617437 </shortwait>
+		</shortforce>
+	</treesum>
+	<treesum>
+		<ncopy> 1 </ncopy>
+		<shortforce> coalesce short
+			<shortpoint> 39 </shortpoint>
+			<shortwait> 0.789385419923617437 </shortwait>
+		</shortforce>
+	</treesum>
+	<treesum>
+		<ncopy> 1 </ncopy>
+		<shortforce> coalesce short
+			<shortpoint> 39 </shortpoint>
+			<shortwait> 0.789385419923617437 </shortwait>
+		</shortforce>
+	</treesum>
+	<treesum>
+		<ncopy> 1 </ncopy>
+		<shortforce> coalesce short
+			<shortpoint> 39 </shortpoint>
+			<shortwait> 0.789385419923617437 </shortwait>
+		</shortforce>
+	</treesum>
+	<treesum>
+		<ncopy> 1 </ncopy>
+		<shortforce> coalesce short
+			<shortpoint> 39 </shortpoint>
+			<shortwait> 0.789385419923617437 </shortwait>
+		</shortforce>
+	</treesum>
+	<treesum>
+		<ncopy> 1 </ncopy>
+		<shortforce> coalesce short
+			<shortpoint> 39 </shortpoint>
+			<shortwait> 0.789385419923617437 </shortwait>
+		</shortforce>
+	</treesum>
+	<treesum>
+		<ncopy> 1 </ncopy>
+		<shortforce> coalesce short
+			<shortpoint> 39 </shortpoint>
+			<shortwait> 0.789385419923617437 </shortwait>
+		</shortforce>
+	</treesum>
+	<treesum>
+		<ncopy> 1 </ncopy>
+		<shortforce> coalesce short
+			<shortpoint> 39 </shortpoint>
+			<shortwait> 0.8002249276197273 </shortwait>
+		</shortforce>
+	</treesum>
+	<treesum>
+		<ncopy> 1 </ncopy>
+		<shortforce> coalesce short
+			<shortpoint> 39 </shortpoint>
+			<shortwait> 0.807640030274727194 </shortwait>
+		</shortforce>
+	</treesum>
+	<treesum>
+		<ncopy> 1 </ncopy>
+		<shortforce> coalesce short
+			<shortpoint> 39 </shortpoint>
+			<shortwait> 0.807640030274727194 </shortwait>
+		</shortforce>
+	</treesum>
+	<treesum>
+		<ncopy> 1 </ncopy>
+		<shortforce> coalesce short
+			<shortpoint> 39 </shortpoint>
+			<shortwait> 0.807175881646565396 </shortwait>
+		</shortforce>
+	</treesum>
+	<treesum>
+		<ncopy> 1 </ncopy>
+		<shortforce> coalesce short
+			<shortpoint> 39 </shortpoint>
+			<shortwait> 0.807175881646565396 </shortwait>
+		</shortforce>
+	</treesum>
+	<treesum>
+		<ncopy> 1 </ncopy>
+		<shortforce> coalesce short
+			<shortpoint> 39 </shortpoint>
+			<shortwait> 0.783867789383589808 </shortwait>
+		</shortforce>
+	</treesum>
+	<treesum>
+		<ncopy> 1 </ncopy>
+		<shortforce> coalesce short
+			<shortpoint> 39 </shortpoint>
+			<shortwait> 0.796500430275619342 </shortwait>
+		</shortforce>
+	</treesum>
+	<treesum>
+		<ncopy> 1 </ncopy>
+		<shortforce> coalesce short
+			<shortpoint> 39 </shortpoint>
+			<shortwait> 0.816307850282119718 </shortwait>
+		</shortforce>
+	</treesum>
+	<treesum>
+		<ncopy> 1 </ncopy>
+		<shortforce> coalesce short
+			<shortpoint> 39 </shortpoint>
+			<shortwait> 0.803527589520701579 </shortwait>
+		</shortforce>
+	</treesum>
+	<treesum>
+		<ncopy> 1 </ncopy>
+		<shortforce> coalesce short
+			<shortpoint> 39 </shortpoint>
+			<shortwait> 0.803527589520701579 </shortwait>
+		</shortforce>
+	</treesum>
+	<treesum>
+		<ncopy> 1 </ncopy>
+		<shortforce> coalesce short
+			<shortpoint> 39 </shortpoint>
+			<shortwait> 0.798356412000855498 </shortwait>
+		</shortforce>
+	</treesum>
+	<treesum>
+		<ncopy> 1 </ncopy>
+		<shortforce> coalesce short
+			<shortpoint> 39 </shortpoint>
+			<shortwait> 0.798256933216647036 </shortwait>
+		</shortforce>
+	</treesum>
+	<treesum>
+		<ncopy> 1 </ncopy>
+		<shortforce> coalesce short
+			<shortpoint> 39 </shortpoint>
+			<shortwait> 0.808032639249511297 </shortwait>
+		</shortforce>
+	</treesum>
+	<treesum>
+		<ncopy> 1 </ncopy>
+		<shortforce> coalesce short
+			<shortpoint> 39 </shortpoint>
+			<shortwait> 0.795375033951906563 </shortwait>
+		</shortforce>
+	</treesum>
+	<treesum>
+		<ncopy> 1 </ncopy>
+		<shortforce> coalesce short
+			<shortpoint> 39 </shortpoint>
+			<shortwait> 0.747442685905288617 </shortwait>
+		</shortforce>
+	</treesum>
+	<treesum>
+		<ncopy> 1 </ncopy>
+		<shortforce> coalesce short
+			<shortpoint> 39 </shortpoint>
+			<shortwait> 0.741662279740677666 </shortwait>
+		</shortforce>
+	</treesum>
+	<treesum>
+		<ncopy> 1 </ncopy>
+		<shortforce> coalesce short
+			<shortpoint> 39 </shortpoint>
+			<shortwait> 0.747849161412921126 </shortwait>
+		</shortforce>
+	</treesum>
+	<treesum>
+		<ncopy> 1 </ncopy>
+		<shortforce> coalesce short
+			<shortpoint> 39 </shortpoint>
+			<shortwait> 0.747849161412921126 </shortwait>
+		</shortforce>
+	</treesum>
+	<treesum>
+		<ncopy> 1 </ncopy>
+		<shortforce> coalesce short
+			<shortpoint> 39 </shortpoint>
+			<shortwait> 0.747849161412921126 </shortwait>
+		</shortforce>
+	</treesum>
+	<treesum>
+		<ncopy> 1 </ncopy>
+		<shortforce> coalesce short
+			<shortpoint> 39 </shortpoint>
+			<shortwait> 0.824990538930289286 </shortwait>
+		</shortforce>
+	</treesum>
+	<treesum>
+		<ncopy> 1 </ncopy>
+		<shortforce> coalesce short
+			<shortpoint> 39 </shortpoint>
+			<shortwait> 0.853050760459042046 </shortwait>
+		</shortforce>
+	</treesum>
+	<treesum>
+		<ncopy> 1 </ncopy>
+		<shortforce> coalesce short
+			<shortpoint> 39 </shortpoint>
+			<shortwait> 0.853050760459042046 </shortwait>
+		</shortforce>
+	</treesum>
+	<treesum>
+		<ncopy> 1 </ncopy>
+		<shortforce> coalesce short
+			<shortpoint> 39 </shortpoint>
+			<shortwait> 0.854846892448356543 </shortwait>
+		</shortforce>
+	</treesum>
+	<treesum>
+		<ncopy> 1 </ncopy>
+		<shortforce> coalesce short
+			<shortpoint> 39 </shortpoint>
+			<shortwait> 0.853006191542226455 </shortwait>
+		</shortforce>
+	</treesum>
+	<treesum>
+		<ncopy> 1 </ncopy>
+		<shortforce> coalesce short
+			<shortpoint> 39 </shortpoint>
+			<shortwait> 0.853006191542226455 </shortwait>
+		</shortforce>
+	</treesum>
+	<treesum>
+		<ncopy> 1 </ncopy>
+		<shortforce> coalesce short
+			<shortpoint> 39 </shortpoint>
+			<shortwait> 0.853006191542226455 </shortwait>
+		</shortforce>
+	</treesum>
+	<treesum>
+		<ncopy> 1 </ncopy>
+		<shortforce> coalesce short
+			<shortpoint> 39 </shortpoint>
+			<shortwait> 0.853006191542226455 </shortwait>
+		</shortforce>
+	</treesum>
+	<treesum>
+		<ncopy> 1 </ncopy>
+		<shortforce> coalesce short
+			<shortpoint> 39 </shortpoint>
+			<shortwait> 0.853006191542226455 </shortwait>
+		</shortforce>
+	</treesum>
+	<treesum>
+		<ncopy> 1 </ncopy>
+		<shortforce> coalesce short
+			<shortpoint> 39 </shortpoint>
+			<shortwait> 0.853006191542226455 </shortwait>
+		</shortforce>
+	</treesum>
+	<treesum>
+		<ncopy> 1 </ncopy>
+		<shortforce> coalesce short
+			<shortpoint> 39 </shortpoint>
+			<shortwait> 0.853006191542226455 </shortwait>
+		</shortforce>
+	</treesum>
+	<treesum>
+		<ncopy> 1 </ncopy>
+		<shortforce> coalesce short
+			<shortpoint> 39 </shortpoint>
+			<shortwait> 0.853006191542226455 </shortwait>
+		</shortforce>
+	</treesum>
+	<treesum>
+		<ncopy> 1 </ncopy>
+		<shortforce> coalesce short
+			<shortpoint> 39 </shortpoint>
+			<shortwait> 0.853275325203173396 </shortwait>
+		</shortforce>
+	</treesum>
+	<treesum>
+		<ncopy> 1 </ncopy>
+		<shortforce> coalesce short
+			<shortpoint> 39 </shortpoint>
+			<shortwait> 0.853275325203173396 </shortwait>
+		</shortforce>
+	</treesum>
+</chainsum>
+<chainpack>
+	<number> 0 0 11 </number>
+	<chainout>
+		<badtrees> 0 </badtrees>
+		<tinytrees> 0 </tinytrees>
+		<stretchedtrees> 0 </stretchedtrees>
+		<zerodltrees> 0 </zerodltrees>
+		<accrate> 0.475999999999999979 </accrate>
+		<llikemle> 0.00834775005777513811 </llikemle>
+		<llikedata> -687.920714973015038 </llikedata>
+		<starttime> 1338317299 </starttime>
+		<endtime> 1338317300 </endtime>
+		<rates> <map> Haplotype-Arranger 438 448 </map> <map> Tree-Arranger 32 473 </map> <map> Tree-Size-Arranger 6 79 </map> </rates>
+		<estimates>
+			<thetas> 0.0207558381083275713 </thetas>
+		</estimates>
+	</chainout>
+</chainpack>
+<!-- End summary file
+	 Generated from run that started at: Tue May 29 11:48:08 2012
+	 and ended at: Tue May 29 11:48:20 2012 -->
+</XML-summary-file>

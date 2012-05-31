@@ -1,0 +1,277 @@
+<!-- header fragment for html documentation -->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+
+<META NAME="description" CONTENT="Estimation of population parameters using
+genetic data using a maximum likelihood approach with Metropolis-Hastings
+Monte Carlo Markov chain importance sampling"> 
+<META NAME="keywords" CONTENT="MCMC, Markov chain, Monte Carlo,
+Metropolis-Hastings, population, parameters, migration rate, population
+size, recombination rate, maximum likelihood">
+
+<TITLE>LAMARC Documentation: Tutorial Conclusion</title>
+</HEAD>
+
+
+<BODY BGCOLOR="#FFFFFF">
+<!-- coalescent, coalescence, Metropolis-Hastings, Markov chain Monte Carlo
+ simulation, migration rate, effective population size, recombination rate,
+ maximum likelihood -->
+
+
+(<A HREF="bayes_howto.html">Previous</A> | <A HREF="index.html">Contents</A> | <A
+HREF="parallel.html">Next</A>)
+<H2>LAMARC Tutorial, Conclusion:  Analyzing the Rest of Your Data</H2>
+
+<P>At this point, you should have been able to coax some of your data
+through the whole LAMARC process, from the converter to actual estimates of
+parameters.  If not, you should read through the <A
+HREF="tutorial.html">basic tutorial</a> so you can do so.  But after having
+done the work for a subset of your data, you now need to figure out what to
+do for <b>all</b> your data.  While the majority of the tutorial so far has
+been fairly universal, this is where it must by necessity diverge, since
+everyone's data are different.  But we'll try to keep the advice as generic
+as possible, and sectioned so that you'll know which bits to skip.
+<P>
+<UL>
+<LI><A HREF="tutorial2.html#data">How much data do I need/want</A></LI>
+<LI><A HREF="tutorial2.html#pops">How many populations do I need/want</A></LI>
+<LI><A HREF="tutorial2.html#bvsl">Should I do a Bayesian or likelihood run? </A></LI>
+<LI><A HREF="tutorial2.html#working">How do I tell if LAMARC is working correctly?</a></li>
+<LI><A HREF="tutorial2.html#curves">How do I view curve files? </A></LI>
+<LI><A HREF="tutorial2.html#notrunning">What do I do if LAMARC is failing?</A></LI>
+<LI><A HREF="tutorial2.html#ref">What is the correct LAMARC reference? </A></LI>
+</ul>
+<h3><A NAME="data">How much data do I need and/or want?</h3>
+
+<p> There are several areas you can focus on to expand your data set.  You
+can collect data from more <b>individuals</b>, you can collect data from
+<b>new genomic regions</b>, and you can <b>extend your sequencing runs off
+the end of your current genomic regions</b>.  All have their advantages and
+disadvantages. </P>
+
+<h4>Individuals</h4>
+<P> We recommend that you collect data from about 15 to 20 individuals per
+population.  Too many less than that, and you might end up with idiosyncratic
+results, but as you add more individuals, the increase in power gets smaller
+and smaller, while the increase in the volume of tree-space you need to
+search goes up greater than polynomially.  So, as you add more and more
+individuals, LAMARC must work harder and harder for less and less
+payoff.</P>
+
+<h4>New genomic regions</h4>
+<p> If you're bursting at the seams to collect new data, this is probably
+your best bet.  Each new genetic region for which you collect data will
+contain an essentially identical amount of unique information.  In addition,
+the time it takes to analyze a new genetic region is the same as it takes to
+analyze any other region.  The upshot of this is that as you add regions
+linearly, your estimates are informed by a linear amount of new information,
+and it takes a linear amount more time to process.  Also note that
+data collected for new genomic regions need not be from the same individuals
+for which you collected data for your original genomic regions.
+</p>
+
+<h4>Extending the sequences of current genomic regions</h4>
+<P> In general, the problem with adjacent sequences is that they are very
+likely to have the same genetic heritage as the sequence you already had. 
+So, while you'll increase the resolution of your picture of your current
+set of trees, you won't get a whole new set of trees as you would if you had
+spent the same amount of effort sequencing an entirely new genetic
+region.</P>
+
+<P>The exception to this rule is when you are interested in estimating
+the recombination rate.  In this case, the longer the sequence, the better. 
+The only practical limit is the size of your computer's memory--as more and
+more recombinations get added to the trees, the tree itself takes up more
+and more memory, and your computer might slow down as it has a hard time
+accessing the whole tree at once, and begins to have to store data in less
+accessible places.</P>
+
+<P> Also remember that LAMARC's current recombination model is to have a
+single recombination rate over the entire genome.  If your organism has, in
+truth, recombination 'hot spots', and some of your regions have higher
+recombination rates than others, the reported joint estimate over all
+regions may be suspect.  LAMARC does report the estimated recombination
+rates for each region, which should help confirm or deny your suspicions
+about any such hot spots.  We are working on incorporating a hot spot model
+for recombination into future versions of LAMARC and Recombine.</p>
+
+
+<h3>It looks like I have too many individuals.  How about I just pick
+the interesting ones and use them?</h3>
+
+<P>Remember LAMARC expects randomly selected individuals. If by 'interesting' you mean, 'have unique sequences' <font color="#FF0000"><u>DON'T DO THAT!!!</u></font>. It will hopelessly bias your
+results.  The identical sequences are <b>crucial</b> for accurately
+determining the population size. If you choose to winnow your data, you must pick those to remove randomly (20-sided gamer dice work well, but there are plenty of other sources of random numbers).</P>
+
+<h3><A NAME="pops">How many populations do I need/want</h3>
+
+<P>If you have lots of populations (more than, say, about 5), you will
+probably have so many parameters to estimate that LAMARC cannot estimate
+any individual parameter very well.  If you can constrain your migration
+model or population size estimates so that not as many independent
+parameters need be estimated at once, you can start to relax this
+restriction.  Also, collecting more data from multiple regions can also help
+(keeping in mind that DNA or SNP data is more informative per region than
+microsatellite data).  As a single data point, we have found that 10 
+unlinked DNA regions generally contain enough information to get reasonable 
+migration estimates from a suite of 5 populations, all exchanging migrants.  
+You can constrain individual migration rates to be constant (and zero, if you wish), 
+or to be equal to one another.  One popular constrained migration
+models is the stepping-stone model where only adjacent populations
+exchange migrants.  You can use LAMARC's menu to set these; see the <A
+HREF="menu.html#constraints">'constraints'</a> section of the menu
+documentation for more details. </P>
+
+<h3>Can I have too few populations? </h3>
+
+<P> The possibility for error here is if there are populations in real life
+for which you have no samples, that are significant nodes in the overall
+migration pattern of your species.  One way to combat this problem is to
+assign a 'ghost population'--a population which you include in your
+analysis, but which has no individuals.  In the analysis, then, migrants
+are free to move through this otherwise unknown population.  Peter
+Beerli, who has worked on LAMARC and is currently working on MIGRATE, has
+found this technique to have moderate but limited effectiveness (see
+Beerli, P.  "Effect of unsampled populations on the estimation of
+population sizes and migration rates between sampled populations."  Mol
+Ecol. 2004 Apr;13(4):827-36.)  However, we have not had good success with
+it in LAMARC, and currently it is disallowed.  If you feel strongly that
+you need a 'ghost population' analysis in LAMARC, please let us know;
+we can re-enable the capability, and consider whether it is a good addition
+to the program in general.</P>
+
+<h3> What happens if I get assignments wrong? </h3>
+
+<P> The most problematic of misassignments is when you have claimed that
+two groups of individuals come from distinct populations when in reality,
+they come from a single population.  In these cases, the estimated
+migration rates between the two skyrocket, and the trees become a 
+mass of migrations, making the search very inefficient.  If you see LAMARC
+assign very high migration rates between two populations, you may wish to
+revisit your data and determine if it's possible that what you classified
+as two populations is in reality a single interbreeding population. 
+Re-analyzing your data with this assumption may then help your
+analysis.  The program <A HREF="http://pritch.bsd.uchicago.edu/software.html">STRUCTURE</A>
+can also be helpful in diagnosing
+whether two populations are sufficiently distinct or not.  Remember that
+even if two populations are exchanging no migrants today, if they did
+so in the fairly recent past, they may be genetically homogenized.</p>
+
+<h3> <A NAME="bvsl">Should I do a Bayesian or likelihood run?</h3>
+
+<P> That is a difficult question. It highly depend on
+your particular data set.  Some of our simulated data sets have worked well
+on both types of analysis, some data sets work with one and not the other,
+and some don't seem to work well no matter how you try to analyze them.  
+General Bayesian vs. likelihood issues are detailed in the <A
+HREF="bayes.html">Bayes tutorial</a>. </p>
+
+<h3> <A NAME="working">How do I tell if LAMARC is working correctly?</h3>
+
+<P> Your best test is to track run-to-run variability.  One way to 
+do this is to simply run LAMARC more than once and compare the output, 
+making sure to use a different <a href="menu.html#data">random number 
+seed</a> each time.  Another way is to increase the number of <a 
+href="menu.html#chains">replicates</a> you perform.  This has the 
+advantage of allowing you to 'save' the effort LAMARC spent on the 
+individual replicates so it can use it for its joint estimate over 
+replicates.  (Of course, if you have already determined that you needed 
+replicates, the only way to compare your joint estimate over replicates is 
+to run LAMARC more than once.)</P>
+
+<P> In a likelihood run, you will be able to compare the point estimates of
+your parameters, plus their confidence intervals (if you have profiling
+turned on).  If LAMARC is succeeding, 95% of your point estimates should
+fall within each other's confidence intervals.  If you didn't turn on
+profiling, you can at least check the standard deviation of your point
+estimates, and determine their percentage of the average.</P>
+
+<P> In a Bayesian run, the best way to tell if LAMARC is succeeding is by
+looking at the produced curvefiles.  The simplest way to view the
+curvefiles is in a spreadsheet program like Excel or a plotting package like R.  There's discussion of
+what to look for in individual curvefiles in the <A
+HREF="bayes.html#curvefiles">Bayes tutorial</a>, but in general, multiple
+peaks generally mean that LAMARC may not have been run long enough.</p>
+
+<h3> <A NAME="curves">How do I view these curvefiles, and how would I compare curvefiles from
+different runs?</h3>
+
+<P> We have included a sample spreadsheet (<A
+HREF="comparing_curvefiles.xls">comparing_curvefiles.xls</a> for the
+Microsoft Excel version; <A
+HREF="comparing_curvefiles.sxc">comparing_curvefiles.sxc</a> for the
+OpenOffice version) from a run with simulated data.  The first three sheets
+are the original curvefiles,  imported into the document using the 'tab'
+delimiter (seed1005, seed401, and seed17, each from the random number seed
+used to generate that data).  The fourth sheet ('Lined_up') is that exact
+data, copied and pasted into sequential columns, with inserted cells for
+two of the pairs of columns such that  the data for any given Ln(Theta1)
+are lined up with each other.  Then, in the next sheet ('Combined'), the
+Ln(Theta1) column is filled out with enough values for all three sets of
+data, and the extra Ln(Theta1) columns are deleted.  Finally, the last
+sheet ('Graph') shows a graph that was created by highlighting the first
+four columns, selecting 'add graph', choosing the X-Y Scatter Plot graph
+type, and filling in the axes labels.  As you can see, the resulting graph
+shows that the estimates of Theta 1 are nicely reproducible. </P>
+
+<P>
+You can also generate nice plots of curvefiles using the
+<a href="http://www.r-project.org/">R</a> programming language and environment.
+</P>
+
+<h3> <A NAME="notrunning">What do I do if LAMARC is failing? </h3>
+
+<P> More detail is given in the <A HREF="search.html">Search Strategies for
+LAMARC</a> article, but in brief, your options are:
+</P>
+
+<UL>
+<LI> Increase the number of 'Initial' chains that collect data before the 
+'Final' chain(s).
+<LI> Run LAMARC longer in the 'Final' chain by either increasing the number 
+of samples (collecting more trees) or increasing the sampling interval 
+(allowing the trees to evolve more between successive samples).
+<LI> Tweak the relative amount of time spent on each of the <A
+HREF="menu.html#rearrangers">rearrangers</a>.
+<LI> Turn on Replication.
+<LI> Turn on Heating.
+<LI> Collect more genomic data for your organisms.
+<LI> Switch your analysis mode from likelihood to Bayesian, or vice versa.
+<LI> Do some/all of the above.
+</ul>
+
+<h3> Once LAMARC is succeeding, what do I do? </h3>
+
+<P> If you have the computational resources for it, once you get a good idea
+of how long LAMARC will take to crunch your data, we recommend doing one
+final particularly-long run so you get the best possible estimates.  If
+you've done a likelihood analysis, your estimates will be found at the
+beginning of the output file.  If you've done a Bayesian analysis, your
+point estimates will be found at the beginning of the output file, but
+you'll probably want to look at the produced curvefiles, if only because
+they give you pretty graphs to display.  But in general, you're done!  Go
+publish.  LAMARC's job is complete.  </P>
+
+<h3> <A NAME="ref">What is the correct LAMARC reference? </h3>
+
+<P>The recommended citation is our announcement paper in Bioinformatics for
+version 2.0 of LAMARC:</P>
+
+<P><A
+HREF="http://bioinformatics.oxfordjournals.org/cgi/content/abstract/22/6/768">
+Kuhner, M. K., 2006  <i>"LAMARC 2.0: maximum likelihood and Bayesian estimation  of
+population parameters."</i>  Bioinformatics 22(6): 768-770.</a> </P>
+
+<p>
+(<A HREF="bayes_howto.html">Previous</A> | <A HREF="index.html">Contents</A> | <A
+HREF="parallel.html">Next</A>)
+
+<!--
+//$Id: tutorial2.html,v 1.18 2011/06/23 21:00:36 jmcgill Exp $
+-->
+</BODY>
+</HTML>
+
+

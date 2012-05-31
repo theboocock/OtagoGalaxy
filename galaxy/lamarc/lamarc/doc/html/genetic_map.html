@@ -1,0 +1,385 @@
+<!-- header fragment for html documentation -->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+
+<META NAME="description" CONTENT="Estimation of population parameters using genetic data usi
+ng a maximum likelihood approach with Metropolis-Hastings Monte Carlo Markov chain importanc
+e sampling">
+<META NAME="keywords" CONTENT="MCMC, Markov chain, Monte Carlo, Metropolis-Hastings, populat
+ion, parameters, migration rate, population size, recombination rate, maximum likelihood">
+
+<TITLE>LAMARC Documentation:
+Modeling Linkage Properties and Relative Mutation Rates of Your Data</title>
+</HEAD>
+
+
+<BODY BGCOLOR="#FFFFFF">
+<!-- coalescent, coalescence, Markov chain Monte Carlo simulation, migration rate, effective
+ population size, recombination rate, maximum likelihood -->
+
+<P>(<A HREF="converter.html">Back</A> | <A HREF="index.html">Contents</A>
+| <A HREF="migration_matrix.html">Next</A>)</P>
+<h2>Modeling Linkage Properties and Relative Mutation Rates of Your Data</h2>
+
+<p>
+<em>(Note: it is recommended that you be familiar with the material
+in the <a href="converter.html">data file conversion</a>
+section before reading this section.)</em>
+</p>
+
+
+<p>
+LAMARC is a coalescent analysis program.
+It constructs and analyzes many different possible genealogies
+(trees) representing the common ancestor relationships among the
+data sequences sampled. You will need to guide LAMARC's search by
+specifying how samples from different portions of your organism's
+genome are related.
+For example,
+<ul>
+<li>
+data from different chromosomes (or from sufficiently
+distant portions of the same chromosome)
+should be modeled with independent genealogies, and
+</li>
+<li>
+samples with known differences in relative mutation rate (such as
+introns and exons within a single sequence)
+should be subdivided into portions corresponding to those
+different mutation rates.
+</li>
+</ul>
+</p>
+
+<p>
+In order to guide LAMARC's search through appropriate
+genealogies, you will need to be able to partition your data samples into
+<ul>
+<li><a href="#coherent-segment">coherent segments</a> (closely linked data )
+<li><a href="#region-coord">linked segment regions</a> (loosely linked 
+data), and
+<li>populations (groups of inter-breeding individuals).
+</ul>
+</p>
+
+<P> Modeling these different properties
+will allow you to do an analysis with multiple chromosomal regions and/or
+multiple populations. You can combine several files together into a
+single LAMARC input file.  These input files do not need to be in the same
+file format, as long as they are all files the converter can read (i.e. you
+can stick together two PHYLIP files and a MIGRATE file into a single LAMARC
+dataset).</P>
+
+<P>Older versions of LAMARC only allowed one to mix different data types
+only when they were unlinked from each other (i.e. in different linked
+segment regions).
+As of LAMARC 2.1, we have relaxed even this restriction, allowing you to
+mix and match different data types even when they are linked.  So, for
+example, the increasingly-popular data type of 
+<a href="#microsat-snp">microsatellite next to a SNP</a>
+may now be modeled in LAMARC and will be analyzed appropriately.</P>
+
+<h3><a name="coherent-segment">Coherent Segments</a></h3>
+
+<p>
+A coherent segment (or 'segment' for short) is:
+<ul>
+<li>one or more genetic markers, </li>
+<li>all of the same data type, </li>
+<li>arranged in sequence order as on the genome, </li>
+<li>with (almost) no missing or omitted data, and </li>
+<li>(in most cases) having similar mutation rates. </li>
+</ul>
+</p>
+
+<h4>Missing Data</h4>
+<p>
+Note that &quot;missing data&quot; is defined differently for different
+data types. For example, SNPs
+come as markers and a series
+of spacings.
+However, a set of SNPs count as a 'coherent segment' --
+while we don't know what the sequence is between the
+SNPs, we do know that it doesn't vary.
+Linked microsattelite data is similar -- the number of microsat
+repeats and their relative locations are relevant, not the sequences
+between them.
+</p>
+<p>
+Occasional missing or corrupted data is represented in the input
+files with a &quot;<tt>?</tt>&quot; character.
+</p>
+
+<h4>Similar Mutation Rates</h4>
+<P>
+LAMARC's default assumption is that sampled locations within a single
+segment have the same mutation rate. This assumption can be changed
+with the <a href="data_models.html#rateCategories">rate categories</a>
+feature in the lamarc menu. However, that feature has LAMARC identify
+different mutation rates for each site.</p>
+<p>
+When you have sections within a stretch of sampled data for which you know
+that the mutation rates differ, it may be more appropriate to model them as
+different coherent segments within the same linked segment region.
+For example, if you have sequenced a gene with multiple
+introns and exons, you can include each intron and exon as a coherent
+segment, each with an appropriate relative mutation rate, and then combine
+them all into a single linked segement region.</P> 
+
+<!---LS NOTE:  if we test and provide a
+way to allow 'wobble base' overlapped segments, we can talk about this here.
+It would probably work with an unmodified 2.1, but we should test it
+first.-->
+
+<p>
+<em>
+Note:
+As of LAMARC 2.1, 
+<a href="data_models.html">relative mutation rates</a>
+can only be set from the
+<a href="menu.html#data">data model menu</a>
+of the lamarc program.
+If you wish to model introns and exons with separate relative
+mutation rates, place them in separate coherent segments
+during the conversion process, and set the relative mutation
+rates from the lamarc program itself.
+A more complete discussion of the many ways you can accomodate
+data with different mutation rates is found in section
+<a href="gamma.html">Combining Data with Different Mutation Rates</a>.
+</em>
+</p>
+
+
+
+<h4><a name="segment-coord">Length and Spacing Information with
+Segment Coordinates</a></h4>
+
+<p>
+Below is a screen shot from the lamarc converter showing the
+detail panel for coherent segment <tt>chrom2-segment1</tt> that
+results when <a href="converter_cmd.html">command file</a>
+<a href="batch_converter/sample-conv-cmd.html">sample-conv-cmd.xml</a> 
+(actual xml is <a href="batch_converter/sample-conv-cmd.xml">here</a>)
+is read into the lamarc converter.
+</p>
+
+<img src="batch_converter/images/lam_conv_chrom2_segment1.png" alt="xxx"/>
+
+<p>
+The second column from the left displays the following quantities,
+which together specify the relative spacing of data within a segment.
+<ul>
+<li><em>Number of Markers</em> -- the number of sites with data. For
+    DNA it is the number of sites sequences; for SNPs it is the number
+    of SNPs; for Kallele and Microsattelite data it is the number of 
+    distinct sites at which kallele/msat data was found</li>
+<li><em>Total Length</em> -- total number of bases searched for data</li>
+<li><em>First Position Scanned</em> --
+    the location of the first sampled location in your data
+    </li>
+<li><em>Locations of sampled markers</em> --
+    the location of each particular marker of your data, in the same
+    coordinates as the first position scanned.
+    </li>
+</ul>
+</p>
+
+<p>
+The last two of these quantities are measured in 
+&quot;segment coordinates&quot;: they are local to the appropriate
+segment.  Thus, if your first position scanned is -5 and your first 
+location is 2, your first SNP is the 7th position scanned.
+<em>
+(If you're wondering why it isn't the 8th position, see question
+<A HREF="troubleshooting.html#Q14">Does LAMARC use 'site 0'? Do I?</a>.)
+</em>
+</p>
+<p>
+See also <a href="#region-coord">Region Coordinates.</a>
+</p>
+
+
+<h3><a name="region-coord">Linked Segment Regions and Region Coordinates</a></h3>
+
+<P>Once your data is divided up into coherent segments, if any of these are
+genetically linked to one another, you can combine them into a linked
+segment region (or 'region' for short).  Unrelated coherent segments
+each belong in their own region.
+</p>
+
+<p>
+The Segment Panel pictured above for <tt>chrom2-segment1</tt>
+displays a <tt>Map Position</tt> of <tt>1000</tt>.
+Whenever you have more than one coherent segment in a region, you
+will need to know their relative spacing. This is entered as the
+&quot;map position&quot; and is required to:
+<ul>
+<li>verify that the segments are non-overlapping, and</li>
+<li>model intervening recombinations correctly.</li>
+</ul>
+</p>
+
+<p>
+All Map Positions are given using a single coordinate
+system for the region, the &quot;regional coordinates&quot;
+system.
+If you wish to use region-wide coordinates within segments as
+well, you may. Your <tt>first position scanned</tt> would be
+identical to your <tt>map position</tt> and all <tt>location</tt>
+values should have values between your <tt>map position</tt>
+value and the <tt>map position</tt> plus the <tt>length</tt>.
+</p>
+
+<P> Do not put samples together in a region if you have reason to
+believe they are actually unlinked.  
+This will result in wrong answers.
+If you put unlinked markers together in a region and also estimate
+recombination, you will get wrong answers and the program will bog down
+horribly as it tries to estimate an infinite recombination rate. 
+</P>
+
+<p>
+The total length of genome that can
+be included in a single region when estimating recombination has an upper
+limit of about a centimorgan, though an extensive study with many samples of
+that length might bog down LAMARC considerably and run very slowly.  A more
+reasonable length is probably half of that.  As a quick rule of thumb, we've
+found that LAMARC runs smoothly for runs where Theta times the recombination
+rate times the total length of a region is 10 or less.</P>
+
+
+<h3><a name="microsat-snp">A Multi-Segment Example: Microsatellite next to SNP</a></h3>
+
+<P>If you have data with a microsatellite next to a SNP, you
+want the microsatellite as one coherent segment, the SNP as another coherent
+segment, and both segments as part of the same linked segment region. 
+This section of the documentation walks you through creating such a
+file with the converter in GUI mode.
+</P>
+
+<p>
+Below is a picture of the converter after you have read in the files
+<a href="batch_converter/chrom3microsat.mig">chrom3microsat.mig</a> and
+<a href="batch_converter/chrom3snp.mig">chrom3snp.mig</a>, and have
+set the data types appropriately.
+</p>
+
+
+<img src="batch_converter/images/lam_conv_chrom3_input.png" alt="xxx"/>
+
+<p>
+Since we are modeling an adjacent microsat and SNP, we need to place
+them in the same region. Otherwise, LAMARC will analyze them separatedly.
+To do this, double click the text inside either of the boxes
+labeled <tt>region</tt> within the <tt>Data Partitions</tt>.
+</p>
+<p>
+You'll see a panel similar to this:
+</p>
+
+<img src="batch_converter/images/lam_conv_chrom3_region_panel.png" alt="xxx"/>
+
+<p>
+Select the single box within the <tt>Merge with selected Region</tt>
+area and click <tt>Apply</tt>. When you return to the main GUI window,
+you will notice that the two coherent segments are now included in
+one region like this:
+</p>
+
+<img src="batch_converter/images/lam_conv_chrom3_region_table.png" alt="xxx"/>
+
+<p>
+Unfortunately the two data files name their samples in different ways:
+the SNP file names each haploid sample while the Microsattelite data
+names each individual. If you try to write a lamarc file at this point,
+you will get this error:
+</p>
+
+<img src="batch_converter/images/lam_conv_chrom3_error_phase_file_needed.png" alt="xxx"/>
+
+<p>
+The solution is to write a 
+<a href="converter_cmd.html#phase">phase information file</a>
+like this:
+</p>
+
+
+<pre>
+    &lt;lamarc-converter-cmd&gt;
+        &lt;individuals&gt;
+            &lt;individual&gt;
+                &lt;name&gt;n_ind0&lt;/name&gt;
+                &lt;sample&gt;&lt;name&gt;n_ind0_a&lt;/name&gt;&lt;/sample&gt;
+                &lt;sample&gt;&lt;name&gt;n_ind0_b&lt;/name&gt;&lt;/sample&gt;
+            &lt;/individual&gt;
+            &lt;individual&gt;
+                &lt;name&gt;n_ind1&lt;/name&gt;
+                &lt;sample&gt;&lt;name&gt;n_ind1_a&lt;/name&gt;&lt;/sample&gt;
+                &lt;sample&gt;&lt;name&gt;n_ind1_b&lt;/name&gt;&lt;/sample&gt;
+            &lt;/individual&gt;
+            &lt;individual&gt;
+                &lt;name&gt;n_ind2&lt;/name&gt;
+                &lt;sample&gt;&lt;name&gt;n_ind2_a&lt;/name&gt;&lt;/sample&gt;
+                &lt;sample&gt;&lt;name&gt;n_ind2_b&lt;/name&gt;&lt;/sample&gt;
+            &lt;/individual&gt;
+            &lt;individual&gt;
+                &lt;name&gt;s_ind0&lt;/name&gt;
+                &lt;sample&gt;&lt;name&gt;s_ind0_a&lt;/name&gt;&lt;/sample&gt;
+                &lt;sample&gt;&lt;name&gt;s_ind0_b&lt;/name&gt;&lt;/sample&gt;
+            &lt;/individual&gt;
+            &lt;individual&gt;
+                &lt;name&gt;s_ind1&lt;/name&gt;
+                &lt;sample&gt;&lt;name&gt;s_ind1_a&lt;/name&gt;&lt;/sample&gt;
+                &lt;sample&gt;&lt;name&gt;s_ind1_b&lt;/name&gt;&lt;/sample&gt;
+            &lt;/individual&gt;
+        &lt;/individuals&gt;
+    &lt;/lamarc-converter-cmd&gt;
+</pre>
+
+<p>
+You can also find the actual xml  
+<a href="batch_converter/chrom3_phase_cmd.xml">chrom3_phase_cmd.xml</a> here
+<br>Read it in using the menu commands <tt>File &gt; Read Command File</tt>.
+</p>
+
+<p>
+Alas, we are still not ready to write a Lamarc file. Attempting to do so results
+in this error:
+</p>
+
+<img src="batch_converter/images/lam_conv_chrom3_error_map_position.png" alt="xxx"/>
+
+<p>
+The problem is that we don't know how close together the microsattelite and
+the SNP are. To solve this problem you'll need to edit fields on the 
+segment panels for each coherent segment.
+</p>
+
+<p>
+Begin by setting the map position of the microsatelite segment to 500.
+Then edit the snp segment as shown here.
+</p>
+
+<img src="batch_converter/images/lam_conv_chrom3_segment_snp.png" alt="xxx"/>
+
+<p>
+<ul>
+<li> map position -- 501 -- in global co-ordinates, the location of the
+    start of the area scanned for SNPs,
+<li> total length -- 100 -- the total length scanned for SNPS
+<li> first postion scanned -- 1 -- establishes a 
+<li> locations of sampled markers -- 23 -- in the segment coordinates, where the
+        SNP was found
+</ul>
+You should now be able to write the Lamarc file.
+</p>
+
+<P>(<A HREF="converter.html">Back</A> | <A HREF="index.html">Contents</A>
+| <A HREF="migration_matrix.html">Next</A>)</P>
+
+<!--
+//$Id: genetic_map.html,v 1.12 2011/12/09 17:14:03 jmcgill Exp $
+-->
+</BODY>
+</HTML>

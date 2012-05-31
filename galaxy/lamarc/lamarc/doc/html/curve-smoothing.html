@@ -1,0 +1,113 @@
+<!-- header fragment for html documentation -->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+
+<META NAME="description" CONTENT="Estimation of population parameters using genetic data using a maximum likelihood approach with Metropolis-Hastings Monte Carlo Markov chain importance sampling">
+<META NAME="keywords" CONTENT="MCMC, Markov chain, Monte Carlo, Metropolis-Hastings, population, parameters, migration rate, population size, recombination rate, maximum likelihood">
+
+(<A HREF="index.html">Previous</A> | <A HREF="index.html">Contents</A> | <A HREF="compiling.html">Next</A>)
+<TITLE>LAMARC Documentation: Bayesian curve smoothing</title>
+</HEAD>
+
+
+<BODY BGCOLOR="#FFFFFF">
+<!-- coalescent, coalescence, Metropolis-Hastings, Markov chain Monte Carlo
+ simulation, migration rate, effective population size, recombination rate,
+ maximum likelihood -->
+
+
+<H2>Bayesian-LAMARC tutorial:  Curve smoothing</H2>
+
+<h3>If I wanted to take the same data and smooth it myself, how would I
+reproduce your results?</h3>
+
+<P> After collecting a set of parameters (and Bayesian LAMARC will soon be
+able to output 'summary files', which would contain this information), the
+information is divvied into groups on a per-parameter and per-replicate
+basis.  The data for each parameter is then smoothed using a Biweight 
+kernel of the form:
+</P>
+
+<P><center>(15/16)(1-t<sup>2</sup>)<sup>2</sup> for abs(t) &lt; 1.0
+</center></P>
+
+<P> The width of this kernel is set as:</P>
+
+<P><center>2.5 * &sigma; * n<sup>-1/5</sup>
+</center></P>
+
+<P>where n is the number of points in the data set, and &sigma; is the
+smaller of the inter-quartile distance divided by 1.34, or the standard
+deviation of the data set.  (If this value falls to zero or near-zero, we
+substitute an arbitrary minimum to allow the program to continue).</P>
+
+<P> After the data for one parameter from one replicate and one region are
+smoothed, multi-replicate curves are created by averaging the individual
+curves, while multi-region curves are created by multiplying and
+re-normalizing the single-region curves.  (Multiple replicates are
+different views of the same data, and are therefore averaged.  Multiple
+regions are independent views using independent data, and are therefore
+multiplied.)
+</P>
+
+<h3>Where did these numbers come from?</h3>
+
+<P>The biweight kernel was chosen primarily because it is bounded and quick
+to calculate.  A bounded kernel (unlike a Gaussian kernel) ensures that the
+the resulting probability density curve has defined boundaries, which better
+matches the priors for the parameters we estimate.  (An even better kernel
+would be additionally constrained to not spread out over the bounds of the
+prior, but this works for a basic attempt at analysis.)  Silverman (1986)
+has demonstrated that the choice of kernels does not make an appreciable
+difference in accuracy otherwise, so the biweight kernel was chosen over
+other bounded kernels simply because it was simple to calculate.
+</P>
+
+<P>The formula for the kernel width was taken from Silverman (1986) as
+modified for use for the biweight kernel.  The formula for figuring out the
+optimal kernel weight (h<sub>opt</sub>) is:
+</P>
+
+<P>
+<center>h<sub>opt</sub> = [&int;t<sup>2</sup>k(t)dt]<sup>-2/5</sup>
+[&int;k(t)<sup>2</sup>dt]<sup>1/5</sup> [f"(x)dx]<sup>-1/5</sup>
+n<sup>-1/5</sup>
+</center>
+</P>
+
+<P>where k(t) is the kernel function, f(x) is the function you wish to
+estimate, and n is the number of data points.  If a Gaussian is used as an
+estimate of f(x), and the biweight kernel is used for k(t), this reduces
+to:</P>
+
+<P>
+<center>h<sub>opt</sub> = [1/7]<sup>-2/5</sup> [5/7]<sup>1/5</sup> [3/8
+&pi;<sup>-1/2</sup>&sigma;<sup>-5</sup>]<sup>-1/5</sup> n<sup>-1/5</sup>
+</center>
+</P>
+
+<P>or</P>
+
+<P>
+<center>h<sub>opt</sub> = 2.78&sigma;n<sup>-1/5</sup></center>
+</P>
+
+<P>Silverman argues that you can account for the fact that your function is
+unknown (instead of definitely Gaussian, as we assumed in the initial
+calculation), by reducing the coefficient slightly (which is why we use 2.5
+instead of 2.78), and use the lesser of the inter-quartile distance divided
+by 1.34 and the standard deviation of the data for &sigma;.  Using both of
+these substitutions, we arrive at the equation listed at the beginning:
+</P>
+
+<P><center>2.5 * &sigma; * n<sup>-1/5</sup>
+</center></P>
+
+
+(<A HREF="index.html">Previous</A> | <A HREF="index.html">Contents</A> | <A HREF="compiling.html">Next</A>)
+<!--
+//$Id: curve-smoothing.html,v 1.5 2007/05/02 00:44:25 lpsmith Exp $
+-->
+</BODY>
+</HTML>

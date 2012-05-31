@@ -1,0 +1,24 @@
+<tool id="ou_lamarc" name="Run LAMARC Analysis" version="1.0">
+<description>(L..A..M..A..R..C..)</description>
+
+<command interpreter="bash">
+    lamarc.sh ${input_file} ${output} ${output2}
+</command>
+
+<inputs>
+
+<param name="input_file" type="data" format="txt" label="Input File" />
+
+</inputs>
+
+<outputs>
+<data format="txt" name="output"/>
+<data format="xml" name="output2"/>
+</outputs>
+<help>
+
+This tool runs LAMARC analysis on the file you have provided.
+
+</help>
+
+</tool>

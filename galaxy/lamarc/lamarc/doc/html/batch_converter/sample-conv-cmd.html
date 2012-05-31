@@ -1,0 +1,351 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<BODY>
+<pre>
+
+&lt!--
+    Place this command file and all input files in the same directory
+    along with executable lam_conv and execute like this to
+    automatically convert
+
+        ./lam_conv -b -c lamarc-converter-commands.xml
+
+    Or like this to explore in the GUI
+
+        ./lam_conv -c lamarc-converter-commands.xml
+--&gt
+
+&ltlamarc-converter-cmd&gt
+
+    &lt!--
+         You can specify the lamarc input file you will produce
+         here. If not present, it defaults to infile.xml
+    --&gt
+    &ltoutfile&gtlamarc-input.xml&lt/outfile&gt
+
+    &lt!--
+        The comment below will be at the top of the outfile produced.
+        This is a useful way to distinguish different lamarc infiles
+    --&gt
+    &ltlamarc-header-comment&gtExample output for 3 chromosomes, some with multiple segments&lt/lamarc-header-comment&gt
+
+    &lt!-- ********************************************************* --&gt
+    &lt!--
+        The &ltregions&gt section is where you specify both the type of
+        data you have and its relative location (and therefore
+        likeliness to be co-inherited).
+    --&gt
+    &ltregions&gt
+
+        &lt!--
+            Each region contains a specification of data types and
+            relative locations of data which are "close enough" to
+            each other to be modeled as co-inherited.
+
+            As a rule of thumb, data samples should be in the same
+            region if:
+                (a) they are within 1/1000 of a centimorgan, or
+                (b) they are within 1 centimorgan and you plan
+                    to estimate recombination.
+        --&gt
+        &ltregion&gt
+
+            &lt!--
+                all region, segment, and population names must be unique
+            --&gt
+            &ltname&gtchrom1&lt/name&gt
+
+            &lt!--
+                 The effective population size defaults to 1. You can
+                 probably ignore it unless you're working with
+                 sex chromosomes or mixing mtDna with chromosomal
+            --&gt
+            &lteffective-popsize&gt1&lt/effective-popsize&gt
+
+            &lt!--
+                Within a region, different segments will occur where
+                    (a) data types are different,
+                    (b) mutation rates are different, or
+                    (c) the samples are separated by unsampled stretches
+                        of the genome
+            --&gt
+            &ltsegments&gt
+                &lt!--
+                    The region for chrom 1 is not terribly interesting.
+                    It contains only a single stretch of DNA data,
+                    the easiest and simplest to model in lamarc.
+
+                    Allowed datatypes are "snp" "dna" "microsat" and "kallele"
+                --&gt
+                &ltsegment datatype="dna"&gt
+                    &ltname&gtchrom1-segment&lt/name&gt
+
+                    &lt!--
+                        For DNA data, the number of markers is the number
+                        of sites in the data.
+                    --&gt
+                    &ltmarkers&gt9&lt/markers&gt
+                &lt/segment&gt
+            &lt/segments&gt
+        &lt/region&gt
+
+        &ltregion&gt
+            &lt!--
+                Region "chrom2" models two sets of snp data on the
+                same chromosome, separated by other unknown data.
+            --&gt
+
+            &ltname&gtchrom2&lt/name&gt
+            &lteffective-popsize&gt1&lt/effective-popsize&gt
+
+            &ltsegments&gt
+
+                &lt!--
+                    A SNP segment requires that we provide more information
+                    in order to model it correctly.
+                --&gt
+                &ltsegment datatype="snp"&gt
+
+                    &ltname&gtchrom2-segment1&lt/name&gt
+
+                    &lt!--
+                        For SNP data, the number of markers is the number
+                        of SNP sites in the data.
+                    --&gt
+                    &ltmarkers&gt5&lt/markers&gt
+
+                    &lt!--
+                        Using a region-wide scale, the position of this 
+                        segment within region chrom2. Lamarc needs this
+                        information to model recombination events occuring
+                        between segments.
+                    --&gt
+                    &ltmap-position&gt1000&lt/map-position&gt
+
+                    &lt!--
+                        where you started scanning for SNPS, assuming
+                        "1" in segment co-ordinates is identical to 
+                        &ltmap-position&gt in region co-ordinates
+                    --&gt
+                    &ltfirst-position-scanned&gt-5&lt/first-position-scanned&gt
+
+                    &lt!--
+                        total data length (in nucleotides) scanned, staring
+                        at &ltfirst-position-scanned&gt
+                    --&gt
+                    &ltlength&gt500&lt/length&gt
+
+                    &lt!-- 
+                        relative locations of snp markers using
+                        segment coordinates.
+                    --&gt
+                    &ltlocations&gt 2 88 125 173 443 &lt/locations&gt
+
+                &lt/segment&gt
+
+                &ltsegment datatype="snp"&gt
+                    &ltname&gtchrom2-segment2&lt/name&gt
+                    &ltmarkers&gt7&lt/markers&gt
+                    &ltmap-position&gt5000&lt/map-position&gt
+                    &ltfirst-position-scanned&gt-5&lt/first-position-scanned&gt
+                    &ltlength&gt250&lt/length&gt
+                    &ltlocations&gt 13 19 35 77 102 112 204&lt/locations&gt
+                &lt/segment&gt
+            &lt/segments&gt
+        &lt/region&gt
+
+        &ltregion&gt
+            &lt!--
+                Here we have a microsat next to a SNP.  The SNP was found
+                in a 100-base region at the 23rd site after the microsat
+            --&gt
+
+            &ltname&gtchrom3&lt/name&gt
+            &ltsegments&gt
+                &ltsegment datatype="microsat"&gt
+                    &ltname&gtchrom3-micro&lt/name&gt
+                    &ltmarkers&gt1&lt/markers&gt
+                    &ltmap-position&gt500&lt/map-position&gt
+                    &ltfirst-position-scanned&gt1&lt/first-position-scanned&gt
+                &lt/segment&gt
+                &ltsegment datatype="snp"&gt
+                    &ltname&gtchrom3-snp&lt/name&gt
+                    &ltmarkers&gt1&lt/markers&gt
+                    &ltmap-position&gt501&lt/map-position&gt
+                    &ltlength&gt100&lt/length&gt
+                    &ltlocations&gt 23 &lt/locations&gt
+                    &ltfirst-position-scanned&gt1&lt/first-position-scanned&gt
+                &lt/segment&gt
+            &lt/segments&gt
+        &lt/region&gt
+    &lt/regions&gt
+
+    &lt!-- ********************************************************* --&gt
+    &lt!--
+        If you want to make sure your populations have nice names,
+        here is the place to do it.
+    --&gt
+    &ltpopulations&gt
+        &ltpopulation&gtNorth&lt/population&gt
+        &ltpopulation&gtSouth&lt/population&gt
+    &lt/populations&gt
+
+    &lt!-- ********************************************************* --&gt
+    &lt!--
+        You may need to include the &ltindividuals&gt tag if you:
+            (a) have samples which include unresolved haplotypes, or
+            (b) you are combining both allelic and nucleotide 
+                segments in a single region, or
+            (c) you are doing trait mapping
+    --&gt
+
+    &ltindividuals&gt
+        &ltindividual&gt
+            &lt!-- 
+                if you have specified diploid (or higher ploidy) data
+                in a migrate microsat or kallele file, your individual
+                names are probably the sequence name labels from that file
+            --&gt
+            &ltname&gtn_ind0&lt/name&gt
+
+            &lt!-- 
+                if you have dna or snp data from a phylip or migrate
+                file, your sample names are probably the sequence
+                name labels from that file
+            --&gt
+            &ltsample&gt&ltname&gtn_ind0_a&lt/name&gt&lt/sample&gt
+
+            &ltsample&gt&ltname&gtn_ind0_b&lt/name&gt&lt/sample&gt
+
+            &lt!--
+                use the &ltphase&gt tag to indicate when you don't know
+                which haploid (or greater ploidy) sample has which
+                marker. The scale here is the same as the 'locations'
+                tag, i.e. relative to the numbering system in the
+                segment in question.  The first valid position is the 
+                first-position-scanned value, and can be as higher than 
+                that as the length of the segment.  
+                
+                The specification below indicates that for
+                this individual, we're not sure which of the two
+                haplotypes we should assign the first and second
+                data sample values to.
+            --&gt
+            &ltphase&gt
+                &ltsegment-name&gtchrom2-segment2&lt/segment-name&gt
+                &ltunresolved-markers&gt 13 19 &lt/unresolved-markers&gt
+            &lt/phase&gt
+
+        &lt/individual&gt
+        &ltindividual&gt
+            &ltname&gtn_ind1&lt/name&gt
+            &ltsample&gt&ltname&gtn_ind1_a&lt/name&gt&lt/sample&gt
+            &ltsample&gt&ltname&gtn_ind1_b&lt/name&gt&lt/sample&gt
+        &lt/individual&gt
+        &ltindividual&gt
+            &ltname&gtn_ind2&lt/name&gt
+            &ltsample&gt&ltname&gtn_ind2_a&lt/name&gt&lt/sample&gt
+            &ltsample&gt&ltname&gtn_ind2_b&lt/name&gt&lt/sample&gt
+        &lt/individual&gt
+        &ltindividual&gt
+            &ltname&gts_ind0&lt/name&gt
+            &ltsample&gt&ltname&gts_ind0_a&lt/name&gt&lt/sample&gt
+            &ltsample&gt&ltname&gts_ind0_b&lt/name&gt&lt/sample&gt
+        &lt/individual&gt
+        &ltindividual&gt
+            &ltname&gts_ind1&lt/name&gt
+            &ltsample&gt&ltname&gts_ind1_a&lt/name&gt&lt/sample&gt
+            &ltsample&gt&ltname&gts_ind1_b&lt/name&gt&lt/sample&gt
+        &lt/individual&gt
+    &lt/individuals&gt
+
+    &lt!-- ********************************************************* --&gt
+    &lt!--
+        Use the &ltinfiles&gt tag to tell the converter how your data
+        corresponds to the &ltregion&gt and &ltsegment&gt elements
+    --&gt
+    &ltinfiles&gt
+
+        &lt!--
+            All attributes given for the &ltinfile&gt tag are required.
+            The legal values are given below
+
+            format              : "migrate", "phylip"
+            datatype            : "dna", "snp", "kallele", "microsat"
+            sequence-alignment  : "sequential" or "interleaved"
+        --&gt
+        &ltinfile format="migrate" datatype="dna" sequence-alignment="sequential"&gt
+
+            &lt!--
+                File name is relative to the directory the converter
+                was invoked from
+            --&gt
+            &ltname&gtchrom1.mig&lt/name&gt
+
+            &lt!--
+                The &ltpopulation-matching&gt tag tells the converter how
+                to assign data samples to populations.
+
+                legal types are:
+                    "single"    : assign all data to the single population
+                                  whose name is enclosed within this tag
+                    "byList"    : a list of population names appears, enclosed
+                                  in &ltpopulation-name&gt tags. Assign populations
+                                  in the file to the named populations in order
+                    "byName"    : use the name in the comment of the infile
+            --&gt
+            &ltpopulation-matching type="byName"/&gt
+
+            &lt!--
+                The &ltsegments-matching&gt tag tells the converter how
+                to assign data samples to segments.
+
+                legal types are:
+                    "single"    : assign all data to the single segment
+                                  whose name is enclosed within this tag
+                    "byList"    : a list of segment names appears, enclosed
+                                  in &ltsegment-name&gt tags. Assign segments
+                                  in the file to the named segments in order
+            --&gt
+            &ltsegments-matching type="byList"&gt
+                &lt!-- assigned to segments from input file in the order given here --&gt
+                &ltsegment-name&gtchrom1-segment&lt/segment-name&gt
+            &lt/segments-matching&gt
+
+        &lt/infile&gt
+
+        &ltinfile format="migrate" datatype="snp" sequence-alignment="sequential"&gt
+            &ltname&gtchrom2.mig&lt/name&gt
+            &ltpopulation-matching type="byName"/&gt
+            &ltsegments-matching type="byList"&gt
+                &ltsegment-name&gtchrom2-segment1&lt/segment-name&gt
+                &ltsegment-name&gtchrom2-segment2&lt/segment-name&gt
+            &lt/segments-matching&gt
+        &lt/infile&gt
+
+        &lt!--
+            note that while both segments in chrom2 could be specified
+            in a single file, the segments of chrom3 are in different
+            files since they have different data types.
+        --&gt
+        &ltinfile format="migrate" datatype="snp" sequence-alignment="sequential"&gt
+            &ltname&gtchrom3snp.mig&lt/name&gt
+            &ltpopulation-matching type="byName"/&gt
+            &ltsegments-matching type="byList"&gt
+                &ltsegment-name&gtchrom3-snp&lt/segment-name&gt
+            &lt/segments-matching&gt
+        &lt/infile&gt
+
+        &ltinfile format="migrate" datatype="microsat" sequence-alignment="sequential"&gt
+            &ltname&gtchrom3microsat.mig&lt/name&gt
+            &ltpopulation-matching type="byName"/&gt
+            &ltsegments-matching type="byList"&gt
+                &ltsegment-name&gtchrom3-micro&lt/segment-name&gt
+            &lt/segments-matching&gt
+        &lt/infile&gt
+    &lt/infiles&gt
+
+&lt/lamarc-converter-cmd&gt
+</pre>
+</BODY>
+</HTML>

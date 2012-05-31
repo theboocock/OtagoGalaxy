@@ -1,0 +1,575 @@
+<!-- header fragment for html documentation -->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+
+<META NAME="description" CONTENT="Estimation of population parameters using genetic data usi
+ng a maximum likelihood approach with Metropolis-Hastings Monte Carlo Markov chain importanc
+e sampling">
+<META NAME="keywords" CONTENT="MCMC, Markov chain, Monte Carlo, Metropolis-Hastings, populat
+ion, parameters, migration rate, population size, recombination rate, maximum likelihood">
+
+<TITLE>LAMARC Documentation: Frequently asked Questions and Answers</title>
+</HEAD>
+
+
+<BODY BGCULOR="#FFFFFF" TEXT="#000000">
+<!-- coalescent, coalescence, Markov chain Monte Carlo simulation, migration rate, effective
+ population size, recombination rate, maximum likelihood -->
+
+
+<P>(<A HREF="upcoming.html">Previous</A> | <A HREF="index.html">Contents</A>
+| <A HREF="messages.html">Next</A>)</P>
+
+<H2>Troubleshooting LAMARC </H2>
+
+<P> This article lists some common sources of trouble, and suggestions on
+how to fix them.</P>
+
+<H3> LIST OF FAQS: </H3>
+<OL>
+<LI> <A HREF="troubleshooting.html#Q1"> The program will not compile on my machine.</A></LI>
+<LI> <A HREF="troubleshooting.html#Q2"> The program says it can't find my data file, but it's right here.</A></LI>
+<LI> <A HREF="troubleshooting.html#Q3"> My data file can't be read at all.</A></LI>
+<LI> <A HREF="troubleshooting.html#Q3.1"> The data converter mangles my file.
+</A></LI>
+<LI> <A HREF="troubleshooting.html#Q4"> The program crashes early or complains about lack of memory.</A></LI>
+<LI> <A HREF="troubleshooting.html#Q5"> The program runs much too slowly.</A></LI>
+<LI> <A HREF="troubleshooting.html#Q6"> How can I tell if I've run the program long enough?</A></LI>
+<LI> <A HREF="troubleshooting.html#Q7"> Some of my parameter estimates are ridiculously high--ten or twenty digits.  This can't be right.</A></LI>
+<LI> <A HREF="troubleshooting.html#Q8"> My estimates have enormous error bars.</A></LI>
+<LI> <A HREF="troubleshooting.html#Q9"> What does Theta mean if I have mtDNA (mitochondrial DNA) instead of nuclear DNA?  Do I need to divide it by four?</A></LI>
+<LI> <A HREF="troubleshooting.html#Q10"> The program works when I use a small or low-polymorphism data set, but crashes on a larger or higher-polymorphism data set.</A></LI>
+<LI> <A HREF="troubleshooting.html#Q10.0.1"> I get a long warning message stating that my 'data may be difficult to model'--what does this mean?</A></LI>
+<LI> <A HREF="troubleshooting.html#Q10.0.2"> My profile likelihood tables look ragged rather than smoothly curved--is something wrong?</A></LI>
+<LI> <A HREF="troubleshooting.html#Q10.1"> The program stops with a message 'Unable to create initial tree. Starting parameter values may be too extreme;'--what does this mean?</A></LI>
+<LI><A HREF="troubleshooting.html#Q10.2"> Which microsatellite model should I use?</A></LI>
+<LI> <A HREF="troubleshooting.html#Q11"> How can I do a likelihood ratio test using LAMARC?</A></LI>
+<LI> <A HREF="troubleshooting.html#Q12"> Why can't the program use other data types, other data models, or other evolutionary forces?</A></LI>
+<LI> <A HREF="troubleshooting.html#Q13"> What happened to the 'Normalize' option in previous versions of LAMARC?</A></LI>
+<LI> <A HREF="troubleshooting.html#Q14"> Does LAMARC use 'site 0'? Do I?</A></LI>
+<LI> <A HREF="troubleshooting.html#QLAST"> How can I report a bug or inadequacy of the program or documentation?</A></LI>
+</OL>
+
+<OL>
+<LI> <A NAME="Q1"><B> "The program will not compile on my machine."</B></A> </LI>
+
+<P> This is covered in a separate article, "<A
+HREF="compiling.html">Compiling LAMARC</A>".  You may also want to see if
+one of our <A
+HREF="http://evolution.gs.washington.edu/lamarc/download.html">pre-made
+executables</A> will work for you.</P>
+
+<LI> <A NAME="Q2"><B> "The program says it can't find my data file, but it's right here."
+</B></A></LI>
+
+<P> Check to see if your filename has an invisible extension.  LAMARC
+does not think that "infile.xml" and "infile" are the same.  Also
+check to make sure your file is in the folder or directory you think
+it is.</P>
+
+<LI> <A NAME="Q3"><B> "My data file can't be read at all; the program
+crashes immediately or prints errors that have nothing to do with anything
+in my file."</B></A></LI>
+
+<P> Did you save your input file as a Word document, RTF, or some other
+fancy format?  It needs to be plain unformatted text.</P>
+
+<P> An early crash may also be a symptom of lack of memory; see the
+<A HREF="troubleshooting.html#Q4"> out of memory</A> section.</P>
+
+<LI> <A NAME="Q3.1"><B> "The data converter mangles my file." </B></A> </LI>
+
+<P>Check to see if you are using the correct option for "interleaved"
+versus "sequential" data in conversion.  Interleaved data presents
+the first line of sequence 1, then the first line of sequence 2...
+and eventually the second line of sequence 1, sequence 2, etc.
+Sequential data presents all of sequence 1, then all of sequence
+2, and so forth.  Misrepresenting one as the other will cause your
+sequence names to be treated as nucleotides and vice versa, with
+disastrous results.</P>
+
+<LI> <A NAME="Q4"><B> "The program crashes early or complains about lack of
+memory." </B></A></LI>
+
+<P> On many Macintosh systems you can use the Finder to allocate more
+memory to a specific program, and you'll probably need to do this
+for LAMARC; the defaults are too low.</P>
+
+<P> In general, if you suspect that there's not enough memory, try a
+smaller subset of your data for a trial run.  <B>Important:</B>  if you
+decide that you need to produce your final results based on a
+subsample of your data, the subsample <B>must</B> be random.  It is
+allowable to leave out whole genetic regions or populations, but
+if you decide instead to leave out individual sequences or sites,
+choose them randomly.  Leaving out the "boring" invariant sites
+or identical sequences will severely distort the results.  Similarly,
+if you leave out genetic regions, choose them at random; don't
+preferentially choose the least polymorphic ones.</P>
+
+<P> Decreasing the number of sampled genealogies will reduce memory
+demands somewhat, at a cost in accuracy.  You will want to
+increase the interval between samples at the same time, so as to
+make each sample as independent (and thus informative) as possible.</P>
+
+<P> LAMARC is a large program and realistic cases will require a computer
+with generous memory.  Our development machines have about 2 gigabytes
+of RAM.  Probably under about 500 megabytes the program
+will not work except for toy cases.</P>
+
+<P> You may also want to consider whether you are asking for too many
+populations and parameters; see below.</P>
+
+<LI><A NAME="Q5"><B> "The program runs much too slowly."</B></A></LI>
+
+<P> If you compiled LAMARC yourself from source code, optimization may
+help (though some optimizers produce buggy code, so use at your
+own risk).  The executables we supply are optimized to the best
+of our ability.</P>
+
+<P> Running a smaller case may help.  Please note that you cannot safely
+leave out "boring" data such as invariant sites or identical individuals <A
+HREF="troubleshooting.html#Q4">(details here)</A>.  We find that the
+information value of additional individuals is quite low beyond twenty
+individuals, so if you are running 50 individuals per population you can
+probably cut them randomly down to 20 and get good results.</P>
+
+<P> If the program has barely enough memory it may "thrash", wasting
+a lot of time on memory management.  (You can often tell if
+thrashing is occurring by listening to your computer; many will
+whirr or rattle from the constant hard disc access.)  Adding
+more memory may help.</P>
+
+<P> If you are estimating recombination, and the program runs well
+at first but then slows down, it may be adding more and more
+recombinations to the genealogies.  You can set the
+"maximum number of events" parameter lower, but doing so risks
+a downward bias in your estimate.  It's a good solution to rare
+slow-down periods, but not a good solution to a whole run full
+of highly recombinant trees.  The latter may indicate that
+your sequence spans too long a region and the ends are essentially
+unlinked.  LAMARC is not able to meaningfully estimate the
+recombination rate across unlinked sequences, and will bog down
+if asked to try.  You can diagnose this problem by noticing
+high "dropped" counts in the runtime reports.  (The "runtime 
+reports" are given at the very end of your output file.  These 
+contain information about possibly interesting things that 
+happened while the program was running.)</P>
+
+<P> Similarly, if you are estimating migration and the program bogs
+down, you may have identified two groups as separate populations
+which are really one panmictic population.  LAMARC cannot usefully
+estimate the migration rate in this situation, and will bog down
+trying.  Consolidating the problematic populations together may
+get better results.  The program 
+<a href="http://pritch.bsd.uchicago.edu/software.html">STRUCTURE</a> 
+can be useful for
+detecting non-differentiated populations.</P>
+
+<P> Profiling is expensive, and switching to fixed-point rather than
+percentile profiles, or eliminating profiles for some or all
+parameters, will help considerably.  (But be sure you aren't
+eliminating information that you really need.)  You should also
+be aware that some profiles take longer than others, and the
+estimate of time to finish profiling is very rough--it is not
+unusual for profiling to take two or three times as long as
+predicted, if the prediction happens to come from an easy
+profile and there are several hard profiles in the set.</P>
+
+<P> Setting the output file verbosity to "concise" should drastically
+reduce the amount of time profiling takes, since the number of
+profiles calculated for each parameter is two instead of eleven.  If you 
+are writing a tree summary file, you will be able to re-load that file
+and run with different profiling options later.</P>
+
+<P> LAMARC is a computationally intensive approach and simply won't
+succeed with really complex problems.  For example, if you have
+twenty populations all exchanging migrants, you are trying to
+estimate 400 parameters.  The amount of data required to do this
+would be very high; the amount of computation would be staggering.
+Try breaking your problem into subproblems.  Constraining sets
+of these parameters to be zero, or to be identical, can greatly
+reduce the complexity of the problem and increase your chance of
+a good solution.  </P>
+
+<P> Finally, it's worth asking yourself how long the data took to
+collect.  If they took several years to collect, an analysis which
+takes several weeks shouldn't seem too long.  Run small pilot
+cases first to get an idea of the scale of the problem.</P>
+
+<P> Some useful rules of thumb:</P>
+
+<P> Adding more sequence length slows the program down, but less than
+linearly with the amount of sequence.  This is the best way to
+refine an estimate of recombination rate in a single region.</P>
+
+<P> Adding more individuals slows the program down linearly with the
+number of individuals, and you will also need to run more steps in
+your chains to get equivalently refined results, as the search
+space is bigger.  We find that 20 individuals per population is
+usually enough, and we have never seen a use for more than 100.</P>
+
+<P> Adding more genetic regions (loci) slows the program down linearly
+with the number of regions.  This is far and away the most effective
+at improving estimation of Theta or migration.  If you can choose
+between adding more individuals or adding more regions, always add
+more regions once you have 20 individuals per population.</P>
+
+<P>If you have microsatellite data, the Brownian-motion approximation
+is much faster than the stepwise model.  It is also a very good 
+approximation except when population size is low.  The usual symptom
+of breakdown in the Brownian model is data log-likelihood estimates
+of 0.0.  If you see many of these, especially in the final chains of
+your search, the Brownian approximation is not safe for your data and
+will produce an upwards bias.  In all other cases, however, we
+recommend it.</P>
+
+<LI><A NAME="Q6"><B> "How can I tell if I've run the program long enough?" 
+</B></A></LI>
+
+<P> This is covered in a separate article, <A HREF="search.html">
+"Search Strategy."</A></P>
+
+<LI><A NAME="Q7"><B> "Some of my parameter estimates are ridiculously high--ten
+or twenty digits.  This can't be right." </B></A></LI>
+
+<P> It is possible for a data set to be so uninformative with
+regard to migration (or, more rarely, recombination) that
+the likelihood surface is flat, or almost flat.  This can
+lead to an almost infinite estimate of the
+parameter.</P>
+
+<P> This is particularly common in migration cases where you are
+trying to estimate too many parameters from a small amount of
+data.  Consider a case where you have only 1 individual from
+a certain population, and he turns out to have been a recent
+migrant.  How big is that population?  What are its migration
+rates to other populations?  LAMARC really can't tell, and this
+is reflected by a flat likelihood surface.  You can verify
+this by examining the profiling results.</P>
+
+<P> If you think that some parameter really cannot be estimated,
+holding it fixed at a reasonable value can rescue your ability
+to estimate other parameters.</P>
+
+<P> A second possible explanation is that you've run too few chains
+or chains that are too short.  You can try running longer ones.</P>
+
+<P> A third explanation, particularly for huge estimates of Theta,
+is that your data aren't correctly aligned and so appear
+much more variable than they should.  It can be helpful to
+ask the program to echo back the input data, and examine it
+for alignment problems.</P>
+
+<P> If some of your estimates are huge, the rest may be all right,
+but it is not wise to rely on this.  It's better to reduce
+the problem until all estimates are reasonable.</P>
+
+<P> LAMARC's strange behavior with inadequate data is not a program
+bug; if the likelihood surface for the given data really is
+flat, there's nothing the program can do to get an intelligent
+estimate.  Running LAMARC in Bayesian analysis mode will produce text
+files containing <A HREF="bayes.html#LnLpictures">portraits</A> of the likelihood surface; these files
+can confirm whether the surface is flat.</P>
+
+<LI><A NAME="Q8"> <B>"My estimates have enormous error bars."</B></A></LI>
+
+<P> While this might possibly improve with a longer run, it is usually
+an accurate reflection of your data.  (In fact, a too-short run
+more often produces error bars that are narrower than they should
+be.)  You might also try re-running with multiple replicates or
+heating.</P>
+
+<P> If possible, add more genetic regions.  If you can't do that, add
+additional data to the regions (longer sequences) or more individuals.
+In some cases (e.g. HIV sequences) additional individuals are the
+only possible way to improve your data set, and you'll have to
+be aware that you may never be able to get a really tight estimate.</P>
+
+<P> Please do not ignore the error bars.  They are there for a reason.</P>
+
+<LI> <A NAME="Q9"><B> "What does Theta mean if I have mtDNA (mitochondrial
+DNA) instead of nuclear DNA?  Do I need to divide it by four?"</B></A></LI>
+
+<P> Theta is always "number of heritable copies in the population * 2 * mu".
+If you put in mtDNA, the value that comes out will be 2N<sub>f</sub> * mu,
+where N<sub>f</sub> is the effective number of females.
+You do <B>not</B> need to divide it by four.  A similar argument applies
+to Y chromosome DNA.</P>
+
+<P> If you have both mtDNA and nuclear DNA, be sure to indicate
+to the program that they have different effective population sizes, either
+by setting the effective population size of the mtDNA region to 1 and of the
+nuclear DNA region(s) to 4, or by setting the effective population size of the
+mtDNA region to .25 and of the nuclear DNA region(s) to 1.</P>
+
+<P>Also note that if you collected data from different sections of the
+mitochondrion, all data should be put in the same genomic region.  If the
+relative mutation rates are different, you can put them in different
+segments, but then put both segments together in the same region.  You will
+seriously underestimate your support intervals if you claim that each
+section is its own region.</P>
+
+<LI><A NAME="Q10"><B> "The program works when I use a small or low-polymorphism data
+set, but crashes on a larger or higher-polymorphism data set." </B></A></LI>
+
+<P> This may be a symptom of running out of memory (see previous
+questions).  You should also check whether your data are aligned correctly;
+improperly aligned data will look like excessive polymorphism.</P>
+
+<LI><A NAME="Q10.0.1"><B> "I get a long warning message stating that my
+'data may be difficult to model'--what does this mean?"</B></A></LI>
+
+<P>Some of the above items have discussed consequences of
+<A HREF="troubleshooting.html#Q7">telling LAMARC that your data comes from
+two populations when it really comes from one</A>,
+<A HREF="troubleshooting.html#Q7">providing LAMARC with an inadequate amount
+of data</A>, and <A HREF="troubleshooting.html#Q10">analyzing highly
+polymorphic data</A>. These high-level, big-concept problems can trigger
+low-level numerical problems which the program cannot relate to the
+big picture; the best it can do is describe the low-level problem.</P>
+
+<P>When performing a maximum-likelihood analysis, 
+LAMARC searches the likelihood surface for its maximum height.
+It does this once after each Markov chain, and several times 
+more if parameter profiles are turned on.  In rare cases,
+two shapes of surface can arise that are intractable and lead to warning
+messages.</P>
+
+<P>One problem case is a flat surface (discussed
+<A HREF="troubleshooting.html#Q7">above</A>), or a surface that continues 
+to rise beyond a reasonable value for one or more parameters.  This 
+implies that your data has insufficient power to accurately estimate
+the population parameters.  The following warning message may appear:
+</P>
+
+<P><PRE>
+Warning!  Encountered a region of the log-likelihood surface in which the
+log-likelihood increases steadily, seemingly without an upper bound.
+This implies that your data is difficult to model.  The problematic
+parameter is parameter &lt;your parameter name&gt;; it has been increased
+or decreased to a value of  &lt;some number&gt;, and the maximum lnL,
+if one exists, seems to lie beyond this value.  The maximization routine
+is terminating....
+</PRE></P>
+
+<P>Another type of problem surface is very spiky with multiple
+peaks and valleys.
+This can result when combinations of
+parameter values exceed some machine-specific threshold; for example, their
+product can become too large to store in the allotted amount of memory, or
+their quotient or difference can become too small to be distinguishable
+from zero.  The following warning message
+may appear:</P>
+
+<P><PRE>
+Warning!  Calculated a log-likelihood of &lt;some number&gt; for the
+parameter vector p = (&lt;some numbers...&gt;), and determined that
+a greater log-likelihood could be found in a certain direction, but
+no greater log-likelihood was found in that direction.  This implies
+that your data may be difficult to model, or that there is a problem
+with lamarc.  The maximization routine is terminating....
+</PRE></P>
+
+<P>(Those interested in the math may like to know that the problem is
+detected when the surface's gradient becomes inconsistent with the
+surface's height.)</P>
+
+<P>If you receive either of these warning messages, or a message very
+similar to these, you may be able to ignore it if it only within one or two
+of the earlier Markov chains in your series of chains.  The more reasonable
+the ultimate results are, the safer it is to ignore warnings appearing early
+or infrequently in your run.  If you receive this type of message late or
+frequently in a run, then the ultimate results should be considered
+dubious.</P>
+
+<P>If you receive the "... increases steadily, seemingly without an
+upper bound ..." warning, then you may be able to achieve better
+results by reducing the number of parameters you are estimating,
+or analyzing a subset of your data.  If you receive the "... no greater
+log-likelihood was found in that direction ..." warning, then you can
+try proceeding in the same manner, but troubleshooting is much more
+difficult in this case.  We encourage you to contact us
+and provide us with a copy of your data if you encounter this latter
+warning: doing so would help us as we continue to research ways of
+cleanly coping with these computational challenges.</P>
+
+<LI><A NAME="Q10.0.2"><B> "My profile likelihood tables look ragged rather than smoothly curved--is something wrong?"</B></A></LI>
+
+<P> Occasionally LAMARC, run in likelihood mode, encounters a likelihood
+surface it simply can't maximize reliably, often because it has more
+than one maximum.  One symptom of this is ragged profile tables where
+the values of the parameters jump around from line to line rather
+than increasing or decreasing smoothly.  When you see this, none of
+your estimates, even the MLE, are completely reliable.  Ideas for
+improving the situation include running the program longer (more
+chains, longer chains or both) or reducing the number of parameters
+you are trying to estimate.</P>
+
+<P> The Bayesian mode of LAMARC, which maximizes its parameters one
+at a time rather than jointly, is less prone to this but you may
+see the very similiar symptom of curvefiles with multiple spikes in
+them.  Again, collecting more samples by running LAMARC longer, or
+simplifying the problem so that fewer samples are needed, are your
+best bets.</P> 
+
+<LI><A NAME="Q10.1"><B> "The program stops with a message
+'Unable to create initial tree.  Starting parameter values may be too extreme; try using more conservative ones.'
+--what does this mean?"</B></A></LI>
+
+
+<P>The initial tree for the search (also called the "de novo tree")
+is created based on the starting parameters (either calculated from
+the data or provided by the user).  Attempts to make a de novo
+tree may fail because too many migrations or recombinations are
+put in.  The program will try 100 times to make a de novo tree,
+but if every one of them has too many events it will give up in
+order to avoid an infinite loop.</P>
+
+<P>This error suggests that the current starting values for recombination
+or migration are far too high, given the currently specified upper limits
+on recombination or migration events.  A common cause is breakdown
+of the FST calculation for migration rate.  Check the starting
+values and make sure they are reasonable.  When in doubt, try
+a slightly lower value; the program can adjust it upwards if
+necessary.  Don't use extremely low values for migration (below 0.001) however;
+these can cause the program to become stuck at low values for
+a very long time.</P>
+
+<LI><A NAME="Q10.2"><B> "Which microsatellite model should I use?" </B></A></LI>
+
+<P> Try the Brownian-motion model first, since it is much faster.
+Consider switching to the stepwise-mutation model if you see signs,
+in the runtime reports, of failure of the Brownian approximation.
+These take the form of data log-likelihoods of 0.0.  If many of these
+appear, or any appear in the final chains, switch to the stepwise model.
+You may want to start with the stepwise model if you know that your
+population size(s) are very small, since this is the weak point of
+the Brownian approximation.</P>
+
+<LI><A NAME="Q11"><B> "How can I do a likelihood ratio test using LAMARC?" </B></A></LI>
+
+<P> The short answer is that you can't.  The "likelihoods" produced
+by the program are relative likelihoods, and they are meaningful
+only within one run--there is no way to compare them across runs.
+(They represent the answer to the question "How much better do
+the sampled trees fit the maximum likelihood values than the
+values they were sampled from?")</P>
+
+<P> However, approximate confidence intervals based on the shape of
+the curve are possible.  LAMARC presents these in two ways:  as
+the percentile profiling in the MLE tables, and as full
+profile-likelihood tables (if requested).  These should enable you
+to get a picture of the uncertainty in your analysis.</P>
+
+<LI><A NAME="Q12"><B> "Why can't the program use other data types, other data
+models, or other evolutionary forces?" </B></A></LI>
+
+<P> For version 2.0 we have included almost all of the 
+commonly available mutational models.  We do not have provision for
+RFLP or protein sequence data, because the existing maximum 
+likelihood algorithms for these are agonizingly slow, or for 
+AFLP data, because no one has
+yet developed an AFLP maximum likelihood algorithm.  (If you succeed
+in doing so, and it runs at a reasonable speed, we will be happy
+to add it to LAMARC.)  Most other data
+types can be accomodated with the K-Allele model.</P>
+
+<P> New evolutionary forces are more difficult, but we will
+be slowly increasing the number of forces supported.   Our
+next major project is natural selection.  </P>
+
+<P> If you are a programmer, you may also want to consider adding
+new data types or models yourself.  We have tried to write LAMARC
+in a modular fashion that will accommodate additions fairly well.
+Only time will tell if we've succeeded.  Feel free to write
+and ask questions about possible additions.  </P>
+
+<LI><A NAME="Q13"><B> "What happened to the 'Normalize' option in previous
+versions of LAMARC?"</B></A></LI>
+
+<P> The program now automatically checks to see if normalization is needed,
+and turns it on if so.  Normalization will not be needed for the majority of
+data sets, and since it causes a significant decrease in speed if on (and
+because the option was confusing to many of our users), we made control of
+this option automatic.  If "verbose" runtime reports are selected, LAMARC
+will note when this occurs.  If you feel that normalization is necessary
+for your data, the option remains to turn it on in the <A HREF="xmlinput.html#normalize">XML</A>.</P>
+
+<LI><A NAME="Q14"><B> "Does LAMARC use 'site 0'?  Do I?" </B></A></LI>
+
+<P> To our consternation, we recently discovered that the common biological
+naming convention is to call the site that's to the left of site 1, "site
+-1" instead of site 0.  All versions of LAMARC prior to v2.1 do *not* follow
+this convention, so if you claimed that one of your SNPs was at site -5, and
+another SNP was at site 5, LAMARC would assume those SNPs were 11
+nucleotides apart, and not 10.  This probably doesn't make a huge
+difference, but it's probably worth fixing once you know.</P>
+
+<P>As of version 2.1, the converter program lam_conv examines your data, and
+if you never use a '0' for a 'map position' or a 'first position scanned'
+(aka 'offset'), it assumes that you fall in the majority case, and that all
+your negative sites are one base closer to the positive ones than we
+previously believed.  When it creates a LAMARC input file, it adds one to
+all your negative numbers, so if you tell the converter you have a SNP at
+site -5, and then examine the LAMARC input file, you will see '-4' in the
+list instead.</P>
+
+<P>Because LAMARC usually doesn't report its results in terms of actual
+sites, this change will likely be invisible to you, and the only difference
+will be that LAMARC will now be a bit more precise.</P>
+
+<P>However, if you're using our 2.1-introduced mapping feature, these
+results are reported in terms of the sites where the trait has been mapped. 
+As such, it's more important to know whether there is a 'site 0' or not,
+assuming you have any negative map positions.  Here, we let you have it both
+ways:  in the XML, under the 'format' tag, the converter writes a
+'convert-output-to-eliminate-zero' tag, which is set to 'true' unless (as
+noted) you ever used a '0' for a map position or first-position-scanned. 
+When this is set 'true', LAMARC will assume you are following traditional
+biologist convention, and convert its values to the 'non-zero' scale before
+displaying them.  This means that if it tells you that your trait might be
+mapped to sites "-1:1", it is talking about two sites, and not three.  It
+also means that the final list of sites in the output file will skip
+directly from -1 to 1:</P>
+
+<pre>
+-3         0.00079395
+-2         0.00079395
+-1         0.00078690
+1          0.00078688
+2          0.00078688
+</pre>
+
+<P>So, how can you tell if you yourself are using a system that includes a 0
+or not?  If all you have are positive numbers, it makes no difference, and
+you can safely ignore it.  If you got your numbers from a genome browser or
+the like, it probably does not include a 0.  In fact, you probably only have
+0's in your site lists if a) you made a mistake, b) you made up your own
+system, or c) you are a tireless crusader for the forces of justice, with a
+penchant for attaching yourself to Sisyphean challenges.  If you fall in the
+latter category, we'd love to hear from you, if only to commiserate.  Which
+brings us to...</P>
+
+
+<LI><A NAME="QLAST"><B> "How can I report a bug or inadequacy of the program
+or documentation?"
+</B></A></LI>
+
+<P> The easiest method is email to <A
+HREF="mailto:lamarc@u.washington.edu">lamarc@u.washington.edu</a>. Please
+tell us the exact symptoms of the bug, the operating system you're using,
+and if possible, send a copy of the data file that produces the problem.  We
+also appreciate questions that the documentation doesn't adequately address
+or is unclear or hard to find, as this allows us to improve the
+documentation for the next release.
+</P>
+
+</OL> <P>(<A HREF="upcoming.html">Previous</A> | <A
+HREF="index.html">Contents</A> | <A HREF="messages.html">Next</A>)</P>
+
+<!--
+//$Id: troubleshooting.html,v 1.34 2012/05/14 19:55:38 ewalkup Exp $
+-->
+</BODY>
+</HTML>

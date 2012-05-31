@@ -1,0 +1,564 @@
+<!-- header fragment for html documentation -->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+
+<META NAME="description" CONTENT="Estimation of population parameters using genetic data usi
+ng a maximum likelihood approach with Metropolis-Hastings Monte Carlo Markov chain importanc
+e sampling">
+<META NAME="keywords" CONTENT="MCMC, Markov chain, Monte Carlo, Metropolis-Hastings, populat
+ion, parameters, migration rate, population size, recombination rate, maximum likelihood">
+
+<TITLE>LAMARC Documentation: Data file conversion</title>
+</HEAD>
+
+
+<BODY BGCOLOR="#FFFFFF">
+<!-- coalescent, coalescence, Markov chain Monte Carlo simulation, migration rate, effective
+ population size, recombination rate, maximum likelihood -->
+<P>(<A HREF="panels.html">Back</A> | <A HREF="index.html">Contents</A>
+| <A HREF="xmlinput.html">Next</A>)</P>
+<H2> <A NAME="command-file">Converter Command File Reference</A></H2>
+<UL>
+<LI><A HREF="converter_cmd.html#intro">Converter Command File Introduction</A></LI>
+<LI> <A HREF="converter_cmd.html#cmd_overview">Command File Overview</a></LI>
+<LI> <A HREF="converter_cmd.html#traits">Traits</a></LI>
+<LI> <A HREF="converter_cmd.html#inherit">Tags Specifying Inheritance and Mutation Models</a></LI>
+<LI> <A HREF="converter_cmd.html#regions">Regions</a></LI>
+<LI> <A HREF="converter_cmd.html#segments">Segments</a></LI>
+<LI> <A HREF="converter_cmd.html#populations">Populations</a></LI>
+<LI> <A HREF="converter_cmd.html#panels">Panels</a></LI>
+<LI> <A HREF="converter_cmd.html#infiles">Data files</a></LI>
+<LI> <A HREF="converter_cmd.html#outfile">Specifying the Name of the Produced Lamarc file</a></LI>
+<LI> <A HREF="converter_cmd.html#comment">Miscellaneous Tags</a></LI>
+<LI> <A HREF="converter_cmd.html#phase">Specifying Relationships Between Individuals and Data Samples</a></LI>
+</UL>
+
+<h3><A NAME="intro">Converter Command File Introduction</A></h3>
+
+<P>The converter command file is an 
+<A HREF="xmlinput.html#overview">XML-format</a> text file
+which can be used to bypass the <a href="converter.html">converter</a>
+GUI interface and
+directly provide information to the converter.
+</p>
+
+<h4>When to use a Converter Command File</h4>
+
+<P>
+For most LAMARC users, running the lamarc file converter in GUI mode
+will be the quickest and most intuitive way to convert data files
+for use in LAMARC. However, there are a few situations in which 
+it may be necessary to write a converter command file.
+These situations include:
+</P>
+<ul>
+<li>automating conversion for use in simulation studies,</li>
+<li>using a new converter feature for which there is not yet
+a GUI interface, and</li>
+<li>reading in information that is tedious and error prone to
+enter by hand (such as 
+<a href="genetic_map.html#segment-coord">locations</a> for SNP data).</li>
+</ul>
+<P>
+If a command file is needed to access a particular feature,
+it can be read into the converter either in batch mode or
+from the GUI.
+</P>
+
+<h4>An Example Converter Command File</h4>
+
+<p>
+An example converter command file with matching MIGRATE
+data files is provided in the <A
+HREF="batch_converter/">batch_converter/</a> directory.  The file <A
+HREF="batch_converter/sample-conv-cmd.html">sample-conv-cmd.xml</a> (actual xml is is <A HREF="batch_converter/sample-conv-cmd.xml">here</a>)
+ annotated with comments, and should be a good guide to what's going on.
+</p>
+
+<h4>How to Create a Converter Command File</h4>
+
+<p>
+The simplest way to create your own file is probably a combination of:
+</P>
+<ul>
+<li>copying the
+<a href="batch_converter/sample-conv-cmd.xml">provided example</a>,</li>
+<li>preparing an example in the GUI and then using the
+<tt>File &gt; Write Batch Command File</tt> menu command, and </li>
+<li>editing a final version based on the above two items.
+</ul>
+
+<P>
+The rest of this section is provided as a reference should copying 
+from examples is not sufficient for your needs.
+</P>
+
+<h4>How to Use a Converter Command File</h4>
+
+<P>
+You can use your converter command file by:
+</P>
+<ul>
+<li>Reading it in from the GUI with the 
+    <tt>&quot;File &gt;Read Command File&quot;</tt> menu item</li>
+<li>Providing it using the <tt>-c</tt> command line
+argument to the converter in either
+<a href="converter.html#gui-mode">GUI</a>
+or <a href="converter.html#batch-mode">batch</a> mode.</li>
+</ul>
+
+<H3 style="page-break-before: always"><A NAME="cmd_overview">Command File Overview</A></H3>
+
+<P>The top level tag of the file is a
+<b><tt>&lt;lamarc-converter-cmd&gt;</tt></b> tag. 
+Its possible immediate children are listed in the table below.
+Note that none of these child tags are required. This is because,
+generally speaking, fragments of complete converter command files are
+allowed to be read in from the GUI.
+</P>
+
+<table border=1 >
+<tr><th colspan=4>Top Level Tags in Lamarc Converter Command File</th></tr>
+<tr><th>parent tag</th><th>child tag</th><th>child required</th><th>child instances allowed</th></tr>
+<tr><td rowspan=8>&lt;lamarc-converter-cmd&gt;</td>
+        <td><a href="#traits">&lt;traits&gt;</a></td>
+        <td>optional</td><td>SINGLE</td></tr>
+<tr><td><a href="#regions">&lt;regions&gt;</a></td>
+        <td>optional</td><td>SINGLE</td></tr>
+<tr><td><a href="#populations">&lt;populations&gt;</a></td>
+        <td>optional</td><td>SINGLE</td></tr>
+<tr><td><a href="#phase">&lt;individuals&gt;</a></td>
+        <td>optional</td><td>SINGLE</td></tr>
+<tr><td><a href="#panels">&lt;panels&gt;</a></td>
+        <td>optional</td><td>SINGLE</td></tr>
+<tr><td><a href="#infiles">&lt;infiles&gt;</a></td>
+        <td>optional</td><td>SINGLE</td></tr>
+<tr><td><a href="#outfile">&lt;outfile&gt;</a></td>
+        <td>optional</td><td>SINGLE</td></tr>
+<tr><td><a href="#comment">&lt;lamarc-header-comment&gt;</a></td>
+        <td>optional</td><td>SINGLE</td></tr>
+</table>
+
+<H3> <A NAME="traits">Traits</A></H3>
+
+<p>The <tt>&lt;traits&gt;</tt> tag is used only when <a href="mapping.html">trait mapping</a>.
+If you are not mapping traits, you may skip ahead to the <a href="#regions">regions</a> section.
+</p>
+
+<p>
+The &lt;traits&gt; tag contains definitions of one or more
+of the following objects.
+</p>
+<ul>
+<li>&lt;trait-info&gt;, used to specify a trait name and associated alleles, and</li>
+<li>&lt;phenotype&gt; definitions, used to specify a model for an observed
+trait manifestation.</li>
+</ul>
+Below is 
+<a href="#table-trait">a table discribing the relevant XML tags</a>.
+You can also find an
+<a href="mapping.html#trait-info-defs">examples trait-info definition</a>
+and
+<a href="mapping.html#phenotype-defs">examples of phenotype definitions</a>
+in the <a href="mapping.html">section on trait mapping</a>.</p>
+
+<h4 style="page-break-before: always"><a name="table-trait">Table of Sub-Tags of &lt;traits&gt;</a></h4>
+<table border=1 >
+<tr><th colspan=4>Tags Describing Traits in Lamarc Converter Command File</th></tr>
+<tr><th>parent tag</th><th>child tag</th><th>child required</th><th>child instances allowed</th></tr>
+<tr>
+    <td rowspan=2>&lt;traits&gt;</td>
+            <td>&lt;trait-info&gt;</td>
+                <td>optional</td><td>multiple</td></tr>
+        <tr><td>&lt;phenotype&gt;</td>
+                <td>optional</td><td>multiple</td></tr>
+<tr>
+    <td rowspan=2>&lt;trait-info&gt;</td>
+            <td>&lt;name&gt;</td>
+                <td>REQUIRED</td><td>SINGLE</td>
+        <tr><td>&lt;allele&gt;</td>
+                <td>REQUIRED</td><td>multiple</td></tr>
+<tr>
+    <td rowspan=2>&lt;phenotype&gt;</td>
+            <td>&lt;name&gt;</td>
+                <td>REQUIRED</td><td>SINGLE</td>
+        <tr><td>&lt;genotype-resolutions&gt;</td>
+                <td>REQUIRED</td><td>multiple</td></tr>
+<tr>
+    <td rowspan=2>&lt;genotype-resolutions&gt;</td>
+            <td>&lt;trait-name&gt;</td>
+                <td>REQUIRED</td><td>SINGLE</td></tr>
+        <tr><td>&lt;haplotypes&gt;</td>
+                <td>REQUIRED</td><td>multiple</td></tr>
+<tr>
+    <td rowspan=2>&lt;haplotypes&gt;</td>
+            <td>&lt;alleles&gt;</td>
+                <td>REQUIRED</td><td>SINGLE</td></tr>
+        <tr><td>&lt;penetrance&gt;</td>
+                <td>REQUIRED</td><td>SINGLE</td></tr>
+<tr> <th>tag</th><th colspan=3>contents</th></tr>
+<tr><td >&lt;allele&gt;</td>
+        <td colspan=3><em>unique name; should not contain spaces</em></td></tr>
+<tr><td >&lt;alleles&gt;</td>
+        <td colspan=3><em>ordered list of names (from &lt;allele&gt; tags of corresponding trait), separated by spaces</em></td></tr>
+<tr><td >&lt;penetrance&gt;</td>
+        <td colspan=3><em>value between 0 and 1; indicates the chance that an individual with these specific alleles will display the enclosing trait</em></td></tr>
+<tr><td >&lt;name&gt;</td>
+        <td colspan=3><em>unique name; should not contain spaces</em></td></tr>
+<tr><td >&lt;trait-name&gt;</td>
+        <td colspan=3><em>unique name; should not contain spaces</em></td></tr>
+</table>
+
+<H3> <A NAME="inherit">Tags Specifying Inheritance and Mutation Models:
+&lt;regions&gt; and &lt;segments&gt;</A></H3>
+
+
+<p>
+In section <a href="genetic_map.html">
+Modeling Linkage Properties and Relative Mutation Rates of Your Data</a>
+of the documentation
+</p>
+
+
+<H3> <A NAME="regions">Regions</A></H3>
+
+<table style="page-break-before: always" border=1 >
+<tr><th colspan=4>Specifying Inheritance Relationships</th></tr>
+<tr><th>parent tag</th><th>child tag</th><th>child required</th><th>child instances allowed</th></tr>
+<tr>
+    <td>&lt;regions&gt;</td>
+            <td>&lt;region&gt;</td><td>REQUIRED</td><td>multiple</td></tr>
+<tr>
+    <td rowspan=4>&lt;region&gt;</td>
+            <td>&lt;name&gt;</td>
+                <td>REQUIRED</td><td>SINGLE</td></tr>
+        <tr><td>&lt;effective-popsize&gt;</td>
+                <td>optional</td><td>SINGLE</td></tr>
+        <tr><td><a href="#segments">&lt;segments&gt;</a></td>
+                <td>optional</td><td>SINGLE</td></tr>
+        <tr><td>&lt;trait-location&gt;</td>
+                <td>optional</td><td>multiple</td></tr>
+<tr><td>&lt;trait-location&gt;</td><td>&lt;trait-name&gt;</td>
+                <td>REQUIRED for mapping<br>optional for others</td><td>SINGLE</td></tr>
+<tr> <th>tag</th><th colspan=3>contents</th></tr>
+<tr><td >&lt;effective-popsize&gt;</td>
+        <td colspan=3><em>value greater than 0; defaults to 1;
+            the relative <a href="glossary.html#effpopsize">effective population size
+            of samples from this region.</em></td></tr>
+<tr><td >&lt;trait-name&gt;</td>
+        <td colspan=3><em>unique name; should not contain spaces</em></td></tr>
+</table>
+
+<H3> <A NAME="segments">Segments</A></H3>
+
+
+<table style="page-break-before: always" border=1 >
+<tr><th colspan=4>Specifying Properties of Data Samples</th></tr>
+<tr><th>parent tag</th><th>child tag or <em>attribute</em></th><th>child required</th><th>child instances allowed</th></tr>
+<tr><td>&lt;segments&gt;</td><td>&lt;segment&gt;</td>
+                <td>REQUIRED</td><td>multiple</td></tr>
+<tr>
+    <td rowspan=9>&lt;segment&gt;</td>
+            <td><em>datatype</em></td>
+                <td>REQUIRED</td><td><em>-</em></td></tr>
+        <tr><td><em>marker-proximity</em></td>
+                <td>optional</td><td><em>-</em></td></tr>
+        <tr><td>&lt;name&gt;</td>
+                <td>REQUIRED</td><td>SINGLE</td></tr>
+        <tr><td>&lt;markers&gt;</td>
+                <td>REQUIRED</td><td>SINGLE</td></tr>
+        <tr><td>&lt;map-position&gt;</td>
+                <td>optional</td><td>SINGLE</td></tr>
+        <tr><td>&lt;length&gt;</td>
+                <td>optional</td><td>SINGLE</td></tr>
+        <tr><td>&lt;locations&gt;</td>
+                <td>optional</td><td>SINGLE</td></tr>
+        <tr><td>&lt;first-position-scanned&gt;</td>
+                <td>optional</td><td>SINGLE</td></tr>
+        <tr><td>&lt;unresolved-markers&gt;</td>
+                <td>optional</td><td>SINGLE</td></tr>
+<tr> <th>tag</th><th colspan=3>contents</th></tr>
+<tr><td >&lt;markers&gt;</td>
+        <td colspan=3><em>number of sites with data; for dna this is 
+            the number of sites sequenced; for snp data it is the number 
+            of snps; for kallele and microsat data it is the number
+            of distinct sites at which kallele/msat data was collected.</em></td></tr>
+<tr><td >&lt;map-position&gt;</td>
+        <td colspan=3><em>location of &lt;first-position-scanned&gt; in 
+        <a href="genetic_map.html#region-coord">region-wide coordinates</a></em></td></tr>
+<tr><td >&lt;length&gt;</td>
+        <td colspan=3><em>total number of bases searched for data</em></td></tr>
+<tr><td >&lt;locations&gt;</td>
+        <td colspan=3><em>the location of each particular data site of
+        your data in <a href="genetic_map.html#segment-coord">segment coordinates</a></em></td></tr>
+<tr><td >&lt;first-position-scanned&gt;</td>
+        <td colspan=3><em>the location of the first sampled location in
+        your data in <a href="genetic_map.html#segment-coord">segment coordinates</a></em></td></tr>
+<tr><th>attribute</th><th>value</th><th colspan=2>meaning</th></tr>
+<tr><td rowspan=4><em>datatype</em></td>
+        <td>dna</td><td colspan=2>DNA data</td></tr>
+    <tr><td>snp</td><td colspan=2>SNP data</td></tr>
+    <tr><td>kallele</td><td colspan=2>k-allele data</td></tr>
+    <tr><td>microsat</td><td colspan=2>microsattelite data</td></tr>
+<tr><td rowspan=2><em>marker-proximity</em></td>
+        <td>linked</td><td colspan=2>individual data markers likely to be inherited together</td></tr>
+    <tr><td>unlinked</td><td colspan=2>individual data markers are independently inherited</td></tr>
+</table>
+
+<P><H3> <A NAME="populations">Populations</A></H3>
+
+<P>
+The <tt>&lt;populations&gt;</tt> tag is used to name distinct
+<a href="glossary.html#population">populations</a>.
+If your data files have named populations, the population names here
+should match the names that are in your files.</P>
+
+<table border=1 >
+<tr><th colspan=4>Specifying population names with the &lt;populations&gt; tag</th></tr>
+<tr><th>parent tag</th><th>child tag</th><th>child required</th><th>child instances allowed</th></tr>
+<tr>
+    <td>&lt;populations&gt;</td>
+        <td>&lt;population&gt;</td>
+        <td>Y</td><td>Y</td>
+        </tr>
+<tr> <th>tag</th><th colspan=3>contents</th></tr>
+    <tr><td>&lt;population&gt;</td>
+        <td colspan=3><em>a name unique among all populations, regions, and segments</em></td></tr>
+</table>
+
+
+
+<h3 style="page-break-before: always"> <A NAME="infiles">Data files</A></H3>
+
+<P>The <tt>&lt;infiles</tt>&gt; tag will tell the converter where to find
+your data, and how to associate each file with the previously-defined
+regions, segments, and populations.
+</p>
+
+<table border=1>
+<tr><th colspan=4>Tags Describing Input Files in Lamarc Converter Command File</th></tr>
+<tr><th>parent tag</th><th>child tag or <em>attribute</em></th><th>child required</th><th>child instances allowed</th></tr>
+<tr><td>&lt;infiles&gt;</td><td>&lt;infile&gt;</td>
+                <td>REQUIRED</td><td>multiple</td></tr>
+<tr>
+    <td rowspan=7>&lt;infile&gt;</td>
+            <td><em>datatype</em></td>
+                <td>REQUIRED</td><td><em>-</em></td></tr>
+        <tr><td><em>format</em></td>
+                <td>optional</td><td><em>-</em></td></tr>
+        <tr><td><em>sequence-alignment</em></td>
+                <td>optional</td><td><em>-</em></td></tr>
+        <tr><td>&lt;name&gt;</td>
+                <td>REQUIRED</td><td>SINGLE</td></tr>
+        <tr><td>&lt;segments-matching&gt;</td>
+                <td>REQUIRED</td><td>SINGLE</td></tr>
+        <tr><td>&lt;pop-matching&gt;</td>
+                <td>optional</td><td>SINGLE</td></tr>
+        <tr><td>&lt;individuals-from-samples&gt;</td>
+                <td>optional</td><td>SINGLE</td></tr>
+    <td>&lt;individuals-from-samples&gt;</td>
+            <td><em>type</em></td>
+                <td>REQUIRED</td><td><em>-</em></td></tr>
+    <td rowspan=2>&lt;population-matching&gt;</td>
+            <td><em>type</em></td>
+                <td>REQUIRED</td><td><em>-</em></td></tr>
+        <tr><td>&lt;population-name&gt;</td>
+                <td>depends on value of <em>type</em> attribute</td><td>multiple</td></tr>
+    <td rowspan=2>&lt;segments-matching&gt;</td>
+            <td><em>type</em></td>
+                <td>REQUIRED</td><td><em>-</em></td></tr>
+        <tr><td>&lt;segment-name&gt;</td>
+                <td>depends on value of <em>type</em> attribute</td><td>multiple</td></tr>
+<tr> <th>tag</th><th colspan=3>contents</th></tr>
+<tr><td>&lt;individuals-from-samples&gt;</td>
+    <td colspan=3>the number of adjacent samples to bundle into a single individual</td></tr>
+<tr><th>attribute</th><th>value</th><th colspan=2>meaning</th></tr>
+    <tr><td rowspan=4><em>datatype</em></td>
+        <td>dna</td><td colspan=2>DNA data</td></tr>
+    <tr><td>snp</td><td colspan=2>SNP data</td></tr>
+    <tr><td>kallele</td><td colspan=2>k-allele data</td></tr>
+    <tr><td>microsat</td><td colspan=2>microsattelite data</td></tr>
+    <tr><td rowspan=2><em>format</em></td>
+        <td>migrate</td><td colspan=2>input file is a migrate file</td></tr>
+    <tr><td>phylip</td><td colspan=2>input file is a phylip file</td></tr>
+    <tr><td rowspan=2><em>sequence-alignment</em></td>
+        <td>interleaved</td><td colspan=2>the first line of each sequence appears, followed 
+        by all second lines, then all third lines, etc.</td></tr>
+    <tr><td>sequential</td><td colspan=2>each entire sequence appears
+        in the file before the next one starts.</td></tr>
+    <tr><td><em>type</em> for &lt;individuals-from-samples&gt;</td>
+        <td>byAdjacency</td>
+        <td colspan=2>bundle adjacent samples into individuals</td></tr>
+    <tr><td rowspan=3><em>type</em> for &lt;population-matching&gt;</td>
+        <td>byList</td><td colspan=2>
+            Each population referred to in the file is to be
+            assigned to a particular population defined in this file.  If this type
+            is used, sub-tags of the type <tt>&lt;population-name</tt>&gt; should be
+            used to define those populations (each should have a name that matches a
+            population defined in the <tt>&lt;populations</tt>&gt; tag, above).
+            </td></tr>
+        <tr><td>byName</td><td colspan=2>
+            The file itself contains information about what
+            populations the data refers to.  These names must match the names given
+            in the 'population' tag, above.
+            </td></tr>
+        <tr><td>single</td><td colspan=2>
+            All individuals in the file are to be assigned to a
+            single population.  That population must then be defined by a
+            <tt>&lt;population-name</tt>&gt; subtag.
+            </td></tr>
+    <tr><td rowspan=2><em>type</em> for &lt;segments-matching&gt;</td>
+        <td>byList</td><td colspan=2>
+            Each segment referred to in the file is to be
+            assigned to a particular segment defined in this file.  If this type
+            is used, sub-tags of the type <tt>&lt;segment-name</tt>&gt; should be
+            used to define those segment (each should have a name that matches a
+            defined segment).
+            </td></tr>
+        <tr><td>single</td><td colspan=2>
+            All individuals in the file are to be assigned to a
+            single segment.  That segment must then be defined by a
+            <tt>&lt;segment-name</tt>&gt; subtag.
+            </td></tr>
+</table>
+
+
+
+<H3> <A NAME="outfile">Specifying the Name of the Produced Lamarc file</A></H3>
+
+<P>
+<tt>&lt;outfile</tt>&gt;, where you can specify the name of the file that
+you want the converter to produce,
+</P>
+
+<table border=1>
+<tr><th colspan=4>Tags Describing Output Files in Lamarc Converter Command File</th></tr>
+<tr><th>tag</th><th>contents</th></tr>
+<tr><td>&lt;outfile&gt;</td>
+    <td><em>name of outfile to produce; defaults to <tt>infile.xml</tt></em></td></tr>
+</table>
+
+
+<H3> <A NAME="comment">Miscellaneous Tags</A></H3>
+
+<table border=1>
+<tr><th colspan=4>Miscellaneous Tags in Lamarc Converter Command File</th></tr>
+<tr><th>tag</th><th>contents</th></tr>
+<tr><td>&lt;lamarc-header-comment&gt;</td>
+    <td><em>text of comment to be inserted in lamarc file</em></td></tr>
+</table>
+
+<H3 style="page-break-before: always">
+<A NAME="phase">Specifying Relationships Between Individuals and Data Samples</A> </H3>
+
+<p>For most LAMARC analyses, it is not necessary to specify which
+pairs (or more) of data sequences belong to the same individual. 
+However, there are a few cases where it may be necessary, including:
+</p>
+<ul>
+<li><a href="mapping.html">Trait mapping</a>, since traits are observed
+    for individuals.</li>
+<li>When haplotypes are incompletely resolved from individuals.</li>
+<LI>When combining nucleotide data (defined by sample) and microsats
+(defined by individuals).
+</ul>
+<p>
+Assigning samples to individuals, and optionally assigning trait
+phenotypes or information about haplotype resolution to them
+is done with the &lt;individuals&gt; tag.
+An example can be found in section
+<a href="mapping.html#pheno-to-ind">Assigning Phenotypes to Individuals</a>
+of the
+<a href="mapping.html">Trait Mapping</a> documentation.
+</p>
+
+<table border=1>
+<tr><th colspan=4>Specifying Relationships between Individuals and Sample Data in Converter Command File</th></tr>
+<tr><th>parent tag</th><th>child tag</th><th>child required</th><th>child instances allowed</th></tr>
+<tr><td>&lt;individuals&gt;</td><td>&lt;individual&gt;</td>
+                <td>optional</td><td>multiple</td></tr>
+<tr>
+    <td rowspan=5>&lt;individual&gt;</td>
+            <td>&lt;name&gt;</td>
+                <td>REQUIRED</td><td>SINGLE</td>
+    <tr><td>&lt;sample&gt;</td>
+            <td>REQUIRED</td><td>multiple</td></tr>
+    <tr><td>&lt;phase&gt;</td>
+            <td>optional</td><td>multiple</td></tr>
+    <tr><td>&lt;has-phenotype&gt;</td>
+            <td>optional</td><td>multiple</td></tr>
+    <tr><td>&lt;genotype-resolutions&gt;</td>
+            <td>optional</td><td>multiple</td></tr>
+<tr>
+    <td>&lt;sample&gt;</td>
+            <td>&lt;name&gt;</td>
+                <td>REQUIRED</td><td>SINGLE</td></tr>
+<tr>
+    <td rowspan=2>&lt;phase&gt;</td>
+            <td>&lt;segment-name&gt;</td>
+                <td>REQUIRED</td><td>SINGLE</td></tr>
+            <tr><td>&lt;unresolved-markers&gt;</td>
+                <td>REQUIRED</td><td>SINGLE</td></tr>
+<tr> <th>tag</th><th colspan=3>contents</th></tr>
+    <tr><td>&lt;name&gt;</td>
+        <td colspan=3><em>a name unique among all individuals and samples</em></td></tr>
+    <tr><td>&lt;has-phenotype&gt;</td>
+        <td colspan=3><em>a &lt;phenotype&gt;name already defined in the
+        <a href="#table-trait">&lt;traits&gt;</a> section</em></td></tr>
+    <tr><td>&lt;genotype-resolution&gt;</td>
+        <td colspan=3><em>an &quot;anonymous&quot; phenotype belonging to the enclosing individual only.
+            See <a href="#table-trait">&lt;traits&gt; subtags table</a> for definition</em></td></tr>
+    <tr><td>&lt;segment-name&gt;</td>
+        <td colspan=3><em>the name of the segment to which this set of phase information applies</em></td></tr>
+    <tr><td>&lt;unresolved-markers&gt;</td>
+        <td colspan=3><em>sites for which data markers are unresolved for this individual and segment</em></td></tr>
+</table>
+
+<p>To see an example of the &lt;phase&gt;, &lt;segment-name&gt; and
+&lt;unresolved-markers&gt; tags in use, see the file <a
+HREF="batch_converter/sample-conv-cmd.html">sample-conv-cmd.xml</a> (actual xml is <a HREF="batch_converter/sample-conv-cmd.xml">here</a>)
+
+<P>The values for the 'unresolved-markers' tag should be site labels.  The
+first valid site in a segment is the value of the 'first-position-scanned'
+tag for that segment, and the last valid site is determined by the length of
+the segment.  If the segment does not have as many markers in it as valid
+sites (as for SNP data), the values here should match the values in the
+'locations' tag for the segment.  In the example file, the second segment of
+the second chromosome has SNP data with markers at positions 13, 19, 35, 77,
+102, 112, and 204.  These are therefore the only valid values for the
+'phase' tag for this segment.</P>
+
+<H3 style="page-break-before: always">
+<A NAME="panels">Specifying Panel Correction Information</A> </H3>
+
+<p>Panel member counts should be entered only if the user wishes to invoke Panel Correction. They need not be specified for all regions, only those for which one has the number of sequences used to create the panel. 
+</p>
+<p>WARNING: Do not estimate the number of sequences used to create a panel, it will make your results indefensible. If you do not have the actual number of sequences, you should not use Panel Correction. Your mutation rates will be lower, but that's the best you can do without knowing more about how the panel was created. 
+</p>
+<table border=1>
+<tr><th colspan=4>Specifying Panel Correction Information in Converter Command File</th></tr>
+<tr><th>parent tag</th><th>child tag</th><th>child required</th><th>child instances allowed</th></tr>
+<tr><td>&lt;panels&gt;</td><td>&lt;panel&gt;</td>
+                <td>optional</td><td>multiple</td></tr>
+<tr>
+    <td rowspan=4>&lt;panel&gt;</td>
+            <td>&lt;panel-name&gt;</td>
+                <td>optional</td><td>SINGLE</td>
+    <tr><td>&lt;panel-region&gt;</td>
+            <td>REQUIRED</td><td>SINGLE</td></tr>
+    <tr><td>&lt;panel-pop&gt;</td>
+            <td>REQUIRED</td><td>SINGLE</td></tr>
+    <tr><td>&lt;panel-size&gt;</td>
+            <td>REQUIRED</td><td>SINGLE</td></tr>
+</table>
+
+
+<P>(<A HREF="panels.html">Back</A> | <A HREF="index.html">Contents</A>
+| <A HREF="xmlinput.html">Next</A>)</P>
+
+<!--
+//$Id: converter_cmd.html,v 1.18 2012/05/14 19:55:38 ewalkup Exp $
+-->
+</BODY>
+</HTML>

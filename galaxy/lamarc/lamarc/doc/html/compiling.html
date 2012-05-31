@@ -1,0 +1,466 @@
+<!-- header fragment for html documentation -->
+<!--$Id: compiling.html,v 1.36 2012/05/25 23:28:10 ewalkup Exp $ -->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+
+<META NAME="description" CONTENT="Estimation of population parameters using genetic data usi
+ng a maximum likelihood approach with Metropolis-Hastings Monte Carlo Markov chain importanc
+e sampling">
+<META NAME="keywords" CONTENT="MCMC, Markov chain, Monte Carlo, Metropolis-Hastings, populat
+ion, parameters, migration rate, population size, recombination rate, maximum likelihood">
+
+<TITLE>LAMARC Documentation: Compiling LAMARC</title>
+</HEAD>
+
+
+<BODY BGCOLOR="#FFFFFF">
+<!-- coalescent, coalescence, Markov chain Monte Carlo simulation, migration rate, effective
+ population size, recombination rate, maximum likelihood -->
+
+<P>(<A HREF="mapping.html">Previous</A> | <A
+HREF="index.html">Contents</A> | <A HREF="converter.html">Next</A>)</P>
+<H2>Compiling LAMARC</H2>
+
+<P> We provide executables of LAMARC for many systems, but if you cannot use
+these, or wish to compile the program yourself, we provide source code as well.
+This article discusses our experience compiling LAMARC.  We welcome
+your comments on the use of other compilers and computing environments.</P>
+
+<P> LAMARC is written in C++.  We tried to avoid advanced or new features of
+the language, but very old compilers will probably not work.  We
+recommend the use of GNU g++ on any machine which supports it; this is 
+the compiler we used to develop LAMARC, and it works well on most systems.</P>
+
+<h3>Compilation and Testing of Released Executables</h3>
+
+<P> Here is a list of machine/compiler combinations we have tried, with
+comments on our success or lack of it.</P>
+<TABLE BORDER="3" CELLSPACING="1" CELLPADDING="1">
+<TR>
+<TD width=13%><b>OS Family</b></TD>
+<TD          ><b>Compiler Used</b></TD>
+<TD width=13%><b>Compiled On</b></TD>
+<TD width=13%><b>Tested On</b></TD>
+<TD width=39%><b>Notes</b></TD>
+</TR>
+
+<TR>
+<TD rowspan=4>Linux</TD>       
+<TD>GNU g++ 4.5.1</TD>
+    <!-- lamarc bleeding edge -->
+    <TD colspan=2>red hat<br>2.6.18-128.1.1.el5<br>x86_64</TD>
+    <TD rowspan=4>
+        <!-- add info on cluster and special systems -->
+        Our code should compile on any Linux- or Unix-based system.
+        If you are using a compiler other than g++, the GNU C++
+        compiler, you may need to <a href="#advanced">give our configure script 
+        and makefiles some extra help</a>
+        <br>
+        <br>
+        Previous releases have successfully compiled on 32 bit red hat
+        machines, but we did not have one at our disposal for this
+        release.
+    </TD>
+    </TR>
+<TR><TD>GNU g++ 4.3.3<br><em>(released 64-bit executables)</em></TD>
+    <!-- lamarc modules -->
+    <TD colspan=2>red hat<br>2.6.18-128.1.1.el5<br>x86_64</TD>
+</TR>
+<TR><TD>GNU g++ 4.1.2</TD>
+    <!-- lamarc old -->
+    <TD colspan=2>red hat<br>2.6.18-128.1.1.el5<br>x86_64</TD>
+</TR>
+<TR><TD>GNU g++ 4.3.2</TD>
+    <!-- kingman -->
+    <TD colspan=2>debian<br>2.6.18-4-k7<br>32 bit i686</TD></TR>
+</TR>
+
+<TR>
+<TD rowspan=2>Windows</TD>
+    <TD>MinGW cross compile<br><br>
+        GNU g++ 3.4.2<br>
+        MinGW runtime 3.7 <br>
+        w32 API 3.2 <br>
+        <em>(released 32-bit lam_conv executable)</em>
+        </TD>
+    <TD>red hat<br>2.6.18-128.1.1.el5<br>x86_64</TD>
+    <!-- check the windows version -->
+    <TD rowspan=2>64-bit<br>Windows 7 Professional</TD>
+    <TD rowspan=2>
+        We create our Windows executables by cross compiling from 
+        Linux and/or Windows using a Mingw-w64 toolchain
+        of g++.
+</TR>
+<TR><TD>MinGW64 cross compile<br><br>
+        GNU g++ 4.5.1<br>
+        i686 Cygwin 1.7.7<br>
+        <em>(released 64-bit lamarc executable)</em>
+        </TD>
+    <TD>64-bit<br>Windows 7 Professional</TD>
+</TR>
+
+
+<TR>
+<TD rowspan=4>MacOS X</TD>
+    <TD rowspan=2>GNU g++ 4.0.1<br></TD>           
+    <TD rowspan=2>32 bit intel-mac<br>
+        OS X 10.4.11<br>
+        Darwin Kernel 8.11.1</TD>
+    <TD>32 bit intel-mac<br>
+        OS X 10.4.11<br>
+        Darwin Kernel 8.11.1</TD>
+    <TD rowspan=4>
+        As of Lamarc version 2.0, we have stopped supporting the Mac OS 9 platform.
+        <br>
+        <br>
+        We no longer distribute 32-bit executables for the Mac
+        but are still able to compile them.  If you have a 32-bit 
+        machine, and cannot compile your
+        own executables, please contact us at
+        <A HREF="mailto:lamarc@u.washington.edu">lamarc@u.washington.edu</A>
+        and we'll see if we can get you an executable that works for you.
+        <br>
+        <br>
+        The distributed wxWidgets code will not compile with g++ 4.0.0.
+        <br>
+        <br>
+        <tt>lam_conv</tt>, the lamarc file converter does not compile on
+        Mac OS X 10.6 in its current form. However, <tt>lamarc</tt> will.
+        We recommend you use a copy of <tt>lam_conv</tt> provided in the
+        .dmg file and compile <tt>lamarc</tt> to run on your
+        newer Mac. The <tt>lamarc</tt> in the .dmg should also run on
+        your machine, but a natively compiled version may be faster.
+    </TD>
+    </TR>
+<TR><TD>32 bit powerpc<br>
+        OS X 10.4.11<br>
+        Darwin Kernel 8.11.0</TD></TR>
+<TR><TD rowspan=2>GNU g++ 4.0.1<br><em>(released 64-bit executables)</em></TD>
+    <!-- elizabeth's mac -->
+    <TD rowspan=2>64 bit intel-mac<br>
+                  OS X 10.5.8<br>
+                  Kernel 9.8.0</TD>
+    <TD>64 bit intel-mac<br>
+                  OS X 10.5.8<br>
+                  Kernel 9.8.0</TD></TR>
+<TR><TD>64 bit intel-mac<br>
+                  OS X 10.6.2<br>
+                  Kernel 10.2.0</TD></TR>
+</TABLE>
+
+<h3><a name="basic">Basic Instructions for Compiling and Installing LAMARC on *-nix Systems</a></h3>
+
+<p>
+Here are basic instructions for compiling on Linux/Unix/Mac OSX
+systems.
+</p>
+
+
+<p>
+Begin by un-taring the distribution and creating a sub-directory
+to compile in. This will keep your object files 
+from cluttering up a listing of the top level of the distribution.
+
+    <pre>
+    tar xfvz lamarc-2.1.8-src.tar.gz
+    cd lamarc-2.1.8
+    mkdir release
+    cd release
+    </pre>
+</p>
+
+
+<p>
+The configure script queries your system and produces a
+Makefile tailored to your computing environment. Try invoking it
+like this:
+    <pre>
+    ../configure
+    </pre>
+or, if that doesn't work, like this:
+    <pre>
+    sh ../configure
+    </pre>
+</p>
+
+<p>
+The configure script will probably complain that you don't have 
+<a href="http://www.wxwidgets.org">wxWidgets</a> installed.
+(wxWidgets is a free, open source toolkit for GUI applications.
+Through it, we provide native look-and-feel Linux, Mac OS X, and 
+Windows GUI interfaces to our file converter using a single code
+base.)
+If you already have wxWidgets, you can invoke <tt>configure</tt> like this:
+
+    <pre>
+    sh ../configure --with-wx-config=/path/to/wx-config
+    </pre>
+
+If you don't have wxWidgets, or your current version is too old,
+the following invocation should build
+a wxWidgets distribution for you. (Be warned that this may take
+some time.)
+    <pre>
+    ../configure --enable-buildwx
+    </pre>
+</p>
+
+<p>If none of these variations for invoking the configure
+script worked for you, skip ahead to
+<a href="#advanced">Advanced Configuration Options</a>.
+</p>
+
+<p>
+You are now ready to make lamarc. (It is recommended that you use
+the GNU make utility.  On some systems it may be called gmake.)
+
+    <pre>
+    make
+    </pre>
+
+This will produce executables lamarc and lam_conv if you're running
+on a Unix or Linux system. If you're running under Mac OS X, you
+should get clickable executables.
+</p>
+
+<p>
+To install the executables and html documentation (you may
+need sysadmin privilidges to do this, and it is not required
+to use the program) type either
+
+    <pre>
+    make install
+    </pre>
+
+or
+
+    <pre>
+    make install-strip
+    </pre>
+</p>
+
+<p>
+Either of these should install the executables in /usr/local/bin and
+the documentation under /usr/local/html/lamarc. Executables installed
+either way have the same compute time performance. The install-strip
+versions are smaller but provide no debugging information, should
+you run into problems.
+</p>
+
+
+
+<h3><a name="advanced">Advanced Configuration Options</a></h3>
+
+<p>
+For most users,
+the configure script provided with the distribution should work
+as <a href="#basic">described above</a>. 
+However, there are several situations in which you may wish
+to change the behavior of the configure script. These include
+when:
+<ul>
+<li>the configure declares it <a href="#ostype">cannot proceed without 
+LAMARC_CODE_OSTYPE</a>,</li>
+<li>the configure declares it <a href="#gui">cannot proceed without 
+GUI_TOOLKIT</a>, or</li>
+<li>you wish to <a href="#special">use a non-default compiler, or override
+variables such as CXXFLAGS and LDFLAGS</a>.</li>
+</ul>
+</p>
+
+<p>
+If these techniques are not adequate to solve your problems, you
+may wish to:
+<ul>
+<li>compile a <a href="#batchOnly">batch only version of the lamarc converter</a>,</li>
+<li>default to an <a href="#ancientConverter">ancient version of the lamarc converter</a>, or</li>
+<li><a href="#selfEdit">edit the configure script and Makefile yourself</a>.</li>
+</ul>
+</p>
+
+<h4><a name="ostype">Setting LAMARC_CODE_OSTYPE</a></h4>
+
+<p>
+While most of the lamarc code is not dependent on the user's operating system,
+there are a few minor differences in I/O handling and standard library headers.
+These differences require the setting of the variable <b>LAMARC_CODE_OSTYPE</b>
+so that appropriate code can be exercised for each operating system.
+</p>
+<p>
+Under normal circumstances, the configure script should be able to
+guess the correct value for LAMARC_CODE_OSTYPE. If it cannot, you
+may set the value by including an assignment to it when you
+invoke the configure script.
+For example
+    <pre>
+    ../configure LAMARC_CODE_OSTYPE=LAMARC_COMPILE_MACOSX
+    make
+    </pre>
+The assignment to LAMARC_CODE_OSTYPE should come after any other arguments
+to the configure script, for example:
+    <pre>
+    ../configure --enable-debug LAMARC_CODE_OSTYPE=LAMARC_COMPILE_LINUX
+    make
+    </pre>
+Legal values for LAMARC_CODE_OSTYPE are:
+<ul>
+<li>LAMARC_COMPILE_LINUX</li>
+<li>LAMARC_COMPILE_MACOSX</li>
+<li>LAMARC_COMPILE_WINDOWS</li>
+</ul>
+</p>
+
+
+<h4><a name="gui">Setting GUI_TOOLKIT</a></h4>
+
+<p>
+Under normal circumstances, the configure script should be able to
+guess the correct value for GUI_TOOLKIT. If it cannot, or you wish
+to use a different toolkit, you should set the value for GUI_TOOLKIT.
+As with <a href="#ostype">setting LAMARC_CODE_OSTYPE</a>, the assignment
+is made at the end of the invocation of configure.
+For example:
+    <pre>
+    ../configure GUI_TOOLKIT=gtk2
+    make
+    </pre>
+The assignment to GUI_TOOLKIT should come after any other arguments
+to the configure script, and is most likely to be needed when
+you are also setting LAMARC_CODE_OSTYPE. For example:
+    <pre>
+    ../configure --enable-debug LAMARC_CODE_OSTYPE=LAMARC_COMPILE_MACOSX GUI_TOOLKIT=mac
+    make
+    </pre>
+</p>
+
+<p>
+Tested values for GUI_TOOLKIT are:
+<ul>
+<li>gtk2 -- tested on linux systems</li>
+<li>mac -- tested on OS X systems</li>
+<li>msw -- tested on a Windows system</li>
+</ul>
+It is possible that other toolkit values supported by wxWidgets work, 
+including x11, Motif, and OS/2. If you wish to build for one of
+these toolkits, we suggest you start with wxWidget's
+<a href="http://wiki.wxwidgets.org/Supported_Platforms">
+information on supported platforms
+(http://www.wxwidgets.org/docs/platform.htm)</a>.
+</p>
+
+<h4><a name="special">Specifying non-standard compiler and/or build flags</a></h4>
+
+<p>
+The configure script is designed to allow you to
+specify a compiler or to pass options to the compiler
+or preprocessor. For example, if you are testing out
+a new C++ compiler you might invoke it like this:
+
+    <pre>
+    ../configure CXX=/path/to/my/compiler CXXFLAGS=&quot;I /path/to/my/include/files&quot;
+    make
+    </pre>
+</p>
+
+<p>
+For more information on options and environment 
+variables that effect the configure script type
+
+    <pre>
+    ../configure --help
+    </pre>
+</p>
+
+<h4><a name="batchOnly">Compiling a batch only version of the converter</a></h4>
+
+<p>
+If you cannot successfully build for any GUI_TOOLKIT,
+or if you wish to run the lamarc file converter as
+part of a batch process, you can build a batch only
+version of the converter with the following commands
+(add CXX and CXXFLAGS, etc at the end if you need them):
+
+    <pre>
+    ../configure --disable-gui --enable-buildwx
+    make
+    </pre>
+</p>
+
+<h4><a name="ancientConverter">Compiling a wxWidgets-less converter</a></h4>
+
+<p>
+We recommend the following step only as a <b>last resort</b>.
+If you are going to attempt it, we recommend that you
+email us at
+<A HREF="mailto:lamarc@u.washington.edu">lamarc@u.washington.edu</A>.
+to make sure there isn't a better solution.
+</p>
+
+<p>
+If you unable to build wxWidgets at all (and therefore not 
+have access to the converter) you may instead configure and make as 
+follows:
+
+    <pre>
+    ../configure --disable-converter
+    make old_lam_conv
+    make
+    </pre>
+
+You must explicitly give the argument to &quot;make old_lam_conv&quot; --
+it will not otherwise be built.
+Please be warned that <b>old_lam_conv</b> is <b>no longer maintained</b>
+and will not have all features of the new converter.
+</p>
+
+<h4><a name="selfEdit">Editing the configure script and Makefile yourself</a></h4>
+
+<p>
+If none of the above techniques allows you to build the lamarc
+programs, you have one further option -- edit the configure
+script and Makefiles yourself.
+</p>
+
+<p>
+The easiest way to do this is to edit them the same way we do,
+using autoconf and automake.
+These tools are available at the following locations:
+   <ul>
+   <li><a href="http://www.gnu.org/software/autoconf/">http://www.gnu.org/software/autoconf/</a>
+   <li><a href="http://www.gnu.org/software/automake/">http://www.gnu.org/software/automake/</a>
+   </ul>
+</p>
+
+<p>
+You may also wish to read additonal documentation
+available at
+</p>
+   <ul>
+   <li><a href="http://sources.redhat.com/autobook/">http://sources.redhat.com/autobook/</a>
+   <li><a href="http://seul.org/docs/autotut/">http://seul.org/docs/autotut/</a>
+   </ul>
+
+<p>
+Make any edits you need to Makefile.am or configure.ac
+and then issue the following series of commands
+</p>
+
+    <pre>
+    aclocal
+    autoconf
+    autoheader
+    automake --add-missing
+    </pre>
+
+<p>
+You may then proceed to configure and make as in the section
+<a href="#basic">Basic Instructions...</a> above.
+</p>
+
+
+<P>(<A HREF="mapping.html">Previous</A> | <A
+HREF="index.html">Contents</A> | <A HREF="converter.html">Next</A>)</P>
+
+</BODY>
+</HTML>

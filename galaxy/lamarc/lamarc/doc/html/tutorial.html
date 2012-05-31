@@ -1,0 +1,603 @@
+<!-- header fragment for html documentation -->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+
+<META NAME="description" CONTENT="Estimation of population parameters using genetic data using a maximum likelihood approach with Metropolis-Hastings Monte Carlo Markov chain importance sampling">
+<META NAME="keywords" CONTENT="MCMC, Markov chain, Monte Carlo, Metropolis-Hastings, population, parameters, migration rate, population size, recombination rate, maximum likelihood">
+
+<TITLE>LAMARC Documentation: Tutorial</title>
+</HEAD>
+
+
+<BODY BGCOLOR="#FFFFFF">
+<!-- coalescent, coalescence, Metropolis-Hastings, Markov chain Monte Carlo
+ simulation, migration rate, effective population size, recombination rate,
+ maximum likelihood -->
+
+
+(<A HREF="data_required.html">Previous</A> | <A
+HREF="index.html">Contents</A> | <A HREF="bayes_howto.html">Next</A>)
+
+<H2>LAMARC tutorial</H2>
+<P>This tutorial is designed to be read from beginning to end, but if you
+like you can jump straight to:</P>
+
+<UL>
+<LI><A HREF="tutorial.html#why">Why should I use LAMARC?</A></LI>
+<LI><A HREF="tutorial.html#what">What do I need to use LAMARC?</A></LI>
+<LI><A HREF="tutorial.html#nowwhat">Got my data, now what? </A></LI>
+<LI><A HREF="tutorial.html#converter">The converter made a file for me, what next?</A></LI>
+<LI><A HREF="tutorial.html#bayesian">What about Bayesian.  How does that work?</A></LI>
+<LI><A HREF="tutorial.html#hitrun">So... that's it?  Enter the filename and hit 'run'?</A></LI>
+<LI><A HREF="tutorial.html#counting">It's running, can you explain this counting thing?</A></LI>
+<LI><A HREF="tutorial.html#screen_output">It gave me a lot of information and
+started counting again.  What does all this mean?</A></LI>
+<LI><A HREF="tutorial.html#finalchain"> LAMARC got to something called
+'Final Chain 1' and it's taking a lot longer.  What's happening?</A></LI>
+<LI><A HREF="tutorial.html#profile"> It finished Final Chain 2, and now it's stuck.</A></LI>
+<LI><A HREF="tutorial.html#restart"> It finished profiling, but then started up
+again?</A></LI>
+<LI><A HREF="tutorial.html#output"> What can I tell from this 'outfile' it produced?</A></LI>
+<LI><A HREF="tutorial.html#whyagain"> Remind me why am I looking at all this?</A></LI>
+</UL>
+
+<h3><A NAME="why">Why should I use LAMARC?</h3>
+
+<P>
+Lamarc is a tool for studying populations.  It can estimate:
+<UL>
+  <LI> Effective population size
+  <LI> Migration rates between populations
+  <LI> Changes to population size with time (growth rates)
+  <LI> Recombination rates
+  <LI> Variations of mutation rates across genomic regions (gamma)
+  <LI> Fine-scale mapping of trait data
+</UL>
+It can estimate them all at once or hold some of them fixed while estimating
+the rest.  If this is the sort of information you're after, LAMARC can help.
+</P>
+
+<h3><A NAME="what">What do I need to use LAMARC?</h3> 
+
+<p> First off, you need genetic data.  This might be standard genetic data
+like DNA or SNP sequences, or microsatellite counts, or it could (with
+version 2.0) be observations with genetic underpinnings, like phenotypic
+observations or electrophoretic data.  More data will result in more
+accurate results, but it's important to note that the addition of more
+<i>individuals</i>, after a certain point (10-15 per population), is much less helpful than the
+addition of more independent genetic <i>regions</i>.  The history of a known region in
+an additional individual is probably similar to that of its cohorts.  The
+history of a new unlinked region from the same (or new) set of individuals is
+almost certainly very different from that of the old region, and therefore
+more likely to hold new information. </P>
+
+<P> Secondly, you need a computer.  In particular, you probably need a
+computer with a lot of memory.  A good LAMARC work-out can use hundreds of
+megabytes of RAM, and for particularly ambitious analyses with lots of
+data, gigabytes are probably called for.  For learning purposes, LAMARC can
+run on more limited computers, if you're careful to give it a limited data
+set and not allow it to record too many observations. 
+</P>
+
+<P> Finally, you need some time.  The total amount of time can vary from
+data set to data set, but it's not unusual for a complete, solid run of
+LAMARC to take a week or two.  Larger data sets requiring full error
+analysis (profiling) can take a month or longer.  However, it would be a
+mistake to throw all your data at LAMARC in January, then write to us in
+May asking when you could expect results.  The answer would probably be a
+tragic, "LAMARC ran out of memory, and inexplicably failed to crash."  Much
+better, instead, to test LAMARC on subsets of your data and get preliminary
+results in a day, which will then help you determine how best to analyze your
+full data set.  This tutorial is designed to help you do just that.
+</P>
+
+<P> One caveat:  some enterprising souls, having lots of computers and
+little time, may think, 'Aha!  I can solve my problem of having no time by
+running the parallelized version of LAMARC!'  Which would be a great idea,
+if such a thing existed.  There is a parallel version of <A
+href="http://popgen.sc.fsu.edu/Migrate/Migrate-n.html">
+MIGRATE</a>, so if you only want to estimate effective population sizes and
+migration rates, that option is open to you.  
+If your LAMARC run contains multiple <a href="regions.html">regions</a>
+or does multiple <a href="search.html#advanced">replicates</a>, 
+you can separate them into different files, run with
+<a href="menu.html#summary">summary files</a> turned on
+and recombine them using
+<A HREF="parallel.html">poor man's parallelization</a> .
+But if those options
+don't appeal to you, you're stuck waiting for single runs to finish. 
+Sorry. </P>
+
+<h3> <A NAME="nowwhat">OK, I got my data.  Now what? </h3>
+
+<P> Hang on, let's take this slowly.  If this is your first time using
+LAMARC, I strongly recommend using only a subset of your data, to get a
+feel for how the program works, first. </P>
+
+<P> If you have multiple populations, let's select two of them to start
+with.  If you know something about the migration patterns of the populace
+already, pick two populations you know share migrants.  Then select around
+10 individuals from each population.  If you're only studying one
+population, pick 10-15 individuals.  If you want accurate results, it's
+vitally important that you pick these individuals <font color="#FF0000"><u>randomly</u></font> from your data
+set, and not on the basis of them being the 'most different' or 'most
+interesting'.  You can grossly distort your results should you rely on such
+a scheme.
+</P>
+
+<P> Next, pick one region to analyze.  If you have DNA or SNP data, that
+means one continuous stretch of sequence.  If you have microsat data, that
+probably means just one microsatellite, though if you happen to have linked
+microsat data, it could be those linked microsats. </P>
+
+<P> Armed with the knowledge of which data you want to analyze, it's now
+time to assault the converter.  Lamarc 2.1's file conversion program
+can be used in both a batch mode and as a graphical tool.
+You can 
+<A HREF="converter.html"> read about how to use the converter here.</a>
+</p>
+
+<h3><A NAME="converter"> OK, the converter made a file for me.  What next? </h3>
+
+<P> You are ready to run LAMARC.  The very first thing LAMARC asks you for
+is the name of a file, and the converter-created file is what it wants.  You
+can edit the contents of that file if you wish (it's all XML), but it's
+probably much easier to change things in the menu.  If you like, you can
+even enter the name of your file at the command line ('lamarc
+yourfile.xml'), and if you don't want to do anything in the menu, you can
+run LAMARC in 'batch mode' by adding a '-b' flag ('lamarc yourfile.xml -b').
+</P>
+
+<h3> <A NAME="bayesian">What about Bayesian.  How does that work?</h3>
+
+<P> You can read about the Bayesian capabilities of
+LAMARC in <A HREF="bayes.html">why you might want
+to run Bayesian-LAMARC</A> and <A HREF="bayes_howto.html">how you would do
+so.</A>  The latter picks up from right here.   From here on, this tutorial focuses on the Likelihood-LAMARC path.
+</P>
+
+<h3> <A NAME="hitrun">So... that's it?  Enter the filename and hit 'run'? </h3>
+
+<P> For a first crack at your data, yes.  It'll use a lot of default values
+that are perhaps not the best choice for your data set, but they'll work for
+now.  After you see how it runs, we'll get around to changing the defaults.
+</P>
+
+<h3> OK, hang on, I'm going to go try it. </h3>
+
+<P> I'll be here.
+</P>
+
+<h3> <A NAME="counting">It's running!  Um, can you explain this counting thing? </h3>
+
+<P> After creating a tree, LAMARC is rearranging it to see if it can find
+better ones.  Each time it does so, it increments the counter.  Using the
+defaults, it first counts to zero from -1000 without sampling
+anything (this is the phase known as 'burn-in'), then it starts counting up
+to 10,000, sampling every 20th tree.  Those trees will be used to estimate
+parameters, which you'll see in a moment.
+</p>
+
+<h3> OK, it finished counting and now it's stopped. </h3>
+
+<P> It's busy calculating the max--
+</p>
+
+<A NAME="screen_output"><h3> No, never mind, there we go.  OK, it gave me a lot of information and
+started counting again.  What does all this mean?</h3>
+
+<P> OK, your screen probably looks something like this: </P>
+
+<pre>
+15:39:34  Initial chain   1:  [====================]        10000 steps
+ 
+15:40:09  Predicted end of chains for this region:  Tue Feb  8 16:06:43
+          2005
+ 
+15:40:09  Accepted  7.39% | Posterior lnL 27.0287215 | Data lnL -627.243228
+Trees discarded due to too many events:        2
+Trees discarded due to too small population sizes:        0
+Trees discarded due to an infinitesimal data likelihood:        0
+Trees discarded due to extremely long branch lengths:        0
+Tree-Arranger accepted            284/8268 proposals
+Tree-Size-Arranger accepted       455/1732 proposals
+  Class                  Theta
+  Population 1          0.039795
+  Population 2          0.065072
+   
+  Population                     Mig
+  Population 1            --------  164.6673
+  Population 2            142.1566  --------
+
+15:40:09  Initial chain   2:  [=|                  ]           35
+</pre>
+
+<P>Let's take a look at each piece in turn.  
+<dl>
+
+<P>
+<DT><b>Predicted end of chains</b></dt>
+  <dd> LAMARC's first estimate of when it will be done.  This
+  estimate gets revised at the end of every chain, and hopefully gets more
+  accurate as it goes.
+
+</P><P>
+<DT><b>Accepted  7.39%</b></dt>
+  <dd> The number of proposed changes to the tree that were accepted by
+  LAMARC.  This number is usually in the 10% range--if it's very low, it
+  means that it's latched on to some form of a tree, and is very reluctant
+  to vary from that, which means that it probably is not exploring
+  tree-space very effectively.  Too high, and it's accepting almost
+  everything that comes its way, which probably means it's not
+  proposing radical-enough changes, or else that your data give it
+  no reason to prefer one tree over another (such data are likely mostly noise, so they aren't very informative about population parameters - if you run into this, go review your input data for obvious problems like missing data).
+  
+</P><P>
+<DT><b>Posterior lnL 27.0287215</b></dt>
+  <dd> The posterior log likelihood.  This number (which should always be
+  positive) indicates how much better the maximized parameters are than the
+  initial, driving set of parameters.  In early chains (like this one), it
+  may be quite high, but it will drop down to the single digits in later
+  chains.  Please note that this is a relative likelihood, valid only
+  within this specific run; it cannot be used in log-likelihood tests
+  or other statistical applications.
+
+</P><P>
+<dt><b>Data lnL -627.243228</b></dt>
+  <dd> The data log likelihood.  This number will probably be very
+  negative, should increase for the first few chains, then level off for
+  the last few chains.  It represents the log of the probability of
+  the data given the currently accepted tree.  Since a large data set
+  is highly improbable on <b>any</b> tree, it's not a problem that this
+  number is so low.  However, if it is still rising rapidly by the end
+  of your run, you haven't yet found the best trees and your run is too
+  short.<br><br>
+  
+  One other thing you should note is that if you're comparing this run to a
+  new run with more of your data, the data log likelihood will go
+  <b>down</b>.  This is due to the fact that a tree with more tips will
+  generally fit the data at those tips more poorly than a tree with fewer
+  tips.
+
+</P><P>
+<dt><b>Trees discarded due to...</b></dt>
+  <dd>Sometimes, LAMARC will discard trees because the trees themselves are
+   inherently too tricky to deal with.  Almost always, these trees would
+   also be rejected from having too low a likelihood, so you shouldn't worry
+   about this too much unless one of these numbers gets very high (say,
+   larger than 5% of the total number of proposed trees).  If that happens,
+   your starting parameters might be too extreme, or you might be calling
+   two populations different when they are actually genetically identical
+   (rejections due to 'too many events' can have this cause).  Generally,
+   though, it's just LAMARC being efficient.<br><br>
+   
+   If absolutely no trees are rejected, you'll see the message "No trees
+   discarded due to limit violations." which means you're fine.
+   
+  
+</P><P>
+<dt><b>Arranger accepted</b></dt>
+  <dd>This is a more detailed breakdown of the 'Accepted 7.39%', above. 
+  The two arrangers on by default in LAMARC are the Tree-Arranger, which
+  breaks a branch of a tree and then re-attaches it, and the
+  Tree-Size-Arranger, which preserves the topology of the tree but picks
+  new sizes for some or all of the branches.  The Tree-Arranger is
+  absolutely required, since it's the only one to change tree topologies. 
+  The Tree-Size-Arranger is more of a helper function, which is why (by
+  default) it is only attempted 1/5 as often as the Tree-Arranger.<br><br>
+  
+  These numbers can vary fairly widely, but pay attention if they get
+  too large or too small, just as you would to the overall 'Accepted X%'
+  line, above.
+
+</P><P>
+<dt><b>Theta</b> and <b>Mig</b></dt>
+  <dd>These are the parameters LAMARC is trying to estimate.  You will be
+  estimating one theta value for every population in your data, and two
+  migration rates for every pair of populations in your data.  In this case,
+  with two populations, that means a theta for each (0.039795 for population
+  1 and 0.065072 for population 2), and two migration rates (164.6673 for
+  the rate from pop2 to pop1, and 142.1566 for the rate from pop1 to pop2). 
+  These are LAMARC's best estimates of the parameters, as judged from one
+  'chain'-worth of trees.  They will be used as driving values for the next
+  chain, as will the last tree sampled in the chain.  These reported values
+  for the <b>last</b> chain will be reported as LAMARC's estimates of your
+  parameters.
+
+</P><P>
+<dt><b>Initial Chain 2</b></dt>
+  <dd>LAMARC is starting over, essentially.  Except that this time, it
+  hopefully has a halfway-decent tree to start with, and better driving
+  values than it did the first time.  It'll repeat this process (by default)
+  until it's done it 10 times.
+</P>
+</dl>
+
+<h3><A NAME="finalchain">Great!  While you were explaining that, LAMARC got to something called
+'Final Chain 1' and it's taking a lot longer.  What's happening?</h3>
+
+<P>By default, LAMARC runs 10 'Initial' chains and 2 'Final' chains.  The
+initial chains take 10,000 steps, and the final chains take 200,000 steps. 
+This is LAMARC's attempt to solve a basic problem in likelihood analysis:  
+LAMARC does a great search in the area right around the driving values, but
+not so great a search elsewhere.  By using multiple chains, LAMARC moves to
+driving values as close to the true maximum as possible, so that it can
+find that maximum efficiently.  The first 10 chains are an attempt to find
+the right neighborhood, and the first final chain is an attempt to narrow
+it down even further.  The last final chain is used to actually estimate
+your parameters, and to provide support intervals for those estimates.
+</P>
+
+<h3><A NAME="profile">Yay, it finished Final Chain 2!  And, er, now it's stuck.</h3>
+
+<P>If you can see the message "Beginning profiling, please be patient", it
+means that LAMARC has entered a computationally-intense phase where it
+calculates the support intervals for its point estimates.  We call this
+phase 'Profiling', since it provides profiles of the likelihood surface as
+seen from the perspective of each parameter in turn.  After a while, your
+screen will look something like this:
+</P>
+
+<pre>
+03:44:15  Beginning profiling, please be patient
+04:06:09  Finished profile 1 of 7.  Predicted end of this set of profiles:
+          Sat Apr  9 06:17:33 2005
+ 
+04:36:23  Finished profile 2 of 7.  Predicted end of this set of profiles:
+          Sat Apr  9 06:46:43 2005
+ 
+04:37:26  Finished profile 3 of 7.  Predicted end of this set of profiles:
+          Sat Apr  9 05:48:20 2005
+</pre>
+
+<P> It can take an extremely variable amount of time to finish profiling, but a
+good rule of thumb is 'about half again as long as it's taken so far'. 
+LAMARC provides estimates of when it expects to be done as it finishes each
+profile in turn, predicting that each profile it has to go will take about
+as long as the the average profile so far.  For an exploratory run like
+we've assembled here, a few hours is not unreasonable.
+</P>
+
+<h3><A NAME="restart">[extra credit] Wait a minute--it finished profiling, but then started up
+again?  What's going on?</h3>
+
+<P>If you have more than one genetic region in your data, it first goes
+through the chains for the first region, then calculates the profiles for
+that region, then goes on to the next region.  So what you're seeing is the
+beginnings of LAMARC calculating the data from the second region.  Back
+when we were getting started, I suggested only using data from one region,
+and this is why--each region goes through the same process, which can be
+rather lengthy.  But, no harm done--it just means a longer wait.
+</p>
+
+<A NAME="output"><h3>OK, it's finally done.  So, what can I tell 
+from this 'outfile' it produced?</h3>
+
+<P> Let's go through the outfile a section at a time.  More information on
+outfiles can be found in <A HREF="output.html">this section</a>.
+</P>
+
+<h4>Maximum Likelihood Estimates (MLEs) of Parameters</h4>
+<P> This first section contains the bulk of the most critical information
+about your parameters:  their best estimates and their support intervals.
+ Your outfile might look something like:
+</P>
+
+<pre>
+                       Theta        |    Migration Rate
+Population       Theta1     Theta2  |   M21        M12
+Best Val (MLE)  0.005697   0.002163 | 716.8337   1478.605
+    Percentile                      |
+   99%   0.005  0.003973   0.001279 | 213.8190   551.3366
+   95%   0.025  0.004314   0.001424 | 301.2110   718.4079
+   90%   0.050  0.004503   0.001518 | 355.3201   816.1701
+   75%   0.125  0.004824   0.001706 | 451.1927   987.5201
+   50%   0.250  0.005162   0.001903 | 553.9211   1174.315
+           MLE  0.005697   0.002163 | 716.8337   1478.605
+   50%   0.750  0.006309   0.002432 | 902.0924   1832.927
+   75%   0.875  0.006793   0.002636 | 1047.330   2115.421
+   90%   0.950  0.007349   0.002867 | 1211.883   2438.987
+   95%   0.975  0.007735   0.003025 | 1324.255   2661.947
+   99%   0.995  0.008568   0.003364 | 1561.403   3136.894
+Theta1:  Theta for Pop1
+Theta2:  Theta for Pop2
+M21:  Migration rate into Pop1 from Pop2
+M12:  Migration rate into Pop2 from Pop1
+</pre>
+
+<P> There are four parameters LAMARC is estimating: two Thetas (population
+sizes) and two migration rates.  The estimate can be read across the first
+line of numbers:  the theta for population one is .005697, and is .002163
+for population two.  The migration rate estimate into population one is 
+716.8337, and is 1478.605 for the rate into population two. </P>
+
+<P> The rest of the table is a result of choosing percentile profiling, and
+is what LAMARC was doing after the end of 'Final Chain 2'.  Each line
+represents a percentile, or, values for which the true value of a parameter
+is that percentage likely to be lower than.  So, for example, since the
+.025 percentile for Theta 1 is 0.004314, the true value for Theta 1 is 2.5%
+likely to be lower than that value, and 97.5% likely to be higher than that
+value.  To find the 95% support interval, then, we take the lower 2.5% and
+the upper 2.5% percentiles, and report the spread between them--in this
+case, LAMARC is 95% certain that Theta 1 lies between .004314 and .007735. 
+Similar confidence intervals can be found using this table for the 99%,
+90%, 75%, and 50% confidence intervals, and can give you a better idea of
+LAMARC's picture of the data. </P>
+
+
+<h4>Profile Likelihoods</h4>
+
+<P> In this section, you are given many more details about the profiles
+listed in the 'Maximum Likelihood Estimates' section.  The first section
+will always be "Overall Profile Tables", and since in this example we only
+used one genetic region, that's all we have.  If we had used more than one
+region, we would start with this "Overall Profile Tables" again, which would
+be followed by "Regional Profile Tables", containing the same sort of
+information considering each genetic region separately in turn.
+</P>
+
+<P> The first swath of data will look something like this: </P>
+
+<pre>
+Log Likelihoods:
+
+Percentile  Theta1   |   Ln(L)   
+  0.005    0.003973  | -3.158082 
+  0.025    0.004314  | -1.761258 
+  0.050    0.004503  | -1.193397 
+  0.125    0.004824  | -0.502098 
+  0.250    0.005162  | -0.068077 
+   MLE     0.005697  |  0.159471 
+  0.750    0.006309  | -0.068013 
+  0.875    0.006793  | -0.502098 
+  0.950    0.007349  | -1.193396 
+  0.975    0.007735  | -1.761353 
+  0.995    0.008568  | -3.157959 
+</pre>
+
+<P> The first two columns we have seen before, in the first section.  Now,
+however, we are given the actual values for the posterior log likelihoods
+when that parameter (Theta 1, in this case) is constrained to be held at
+each particular value.  The log likelihoods here are actually what
+determine the percentiles, instead of the other way around.  If you assume
+a gamma distribution of probability, and know that your point of maximum
+likelihood has a log value of 0.159471 (as it does in the above table), then
+the points at which the likelihood has a log value of approximately -1.761 
+will be your .025 and .975 percentiles.
+</P>
+
+<P> The next section gives us information about parameter correlation:
+</P>
+
+<pre>
+Best fit parameters with Theta1 held constant:
+
+Percentile  Theta1   |   Theta2     M21       M12    
+  0.005    0.003973  |  0.002155  722.4041  1475.974 
+  0.025    0.004314  |  0.002157  721.1656  1476.671 
+  0.050    0.004503  |  0.002158  720.5119  1477.008 
+  0.125    0.004824  |  0.002159  719.4664  1477.540 
+  0.250    0.005162  |  0.002161  718.4165  1478.015 
+   MLE     0.005697  |  0.002163  716.8337  1478.605 
+  0.750    0.006309  |  0.002165  715.0486  1479.142 
+  0.875    0.006793  |  0.002166  713.6108  1479.514 
+  0.950    0.007349  |  0.002167  711.9080  1479.921 
+  0.975    0.007735  |  0.002166  710.6590  1480.219 
+  0.995    0.008568  |  0.002164  707.7885  1480.974 
+</pre>
+
+<P> Once again, the first two columns are repeats of what we've seen before.
+But now, we get to see what happens to the rest of the parameters if we
+modify the first one.  The basic idea here is that we hold Theta1 to a
+particular value, then allow our other parameters to vary as we find a new
+point of joint maximum likelihood (and it is this maximum likelihood that we
+report in the above table).  In other words, LAMARC asks the data, "OK, I
+know that the best value for Theta1 is .005697.  But if I was wrong, and the
+best value was at .003973, what would Theta2, M21, and M12 be?"  In this
+case, the answer is "Not very different."  There's a slight correlation
+between Theta1 and all three other parameters, but it's not very strong. 
+Contrast the above table with this, taken from the same example file:
+</P>
+
+<pre>
+Percentile   M21     |   Theta1    Theta2     M12    
+  0.005    213.8190  |  0.005733  0.001852  1545.118 
+  0.025    301.2110  |  0.005727  0.001907  1525.316 
+  0.050    355.3201  |  0.005721  0.001960  1508.983 
+  0.125    451.1927  |  0.005711  0.002050  1487.323 
+  0.250    553.9211  |  0.005704  0.002113  1479.440 
+   MLE     716.8337  |  0.005697  0.002163  1478.605 
+  0.750    902.0924  |  0.005692  0.002191  1480.951 
+  0.875    1047.330  |  0.005689  0.002203  1482.800 
+  0.950    1211.883  |  0.005685  0.002213  1484.520 
+  0.975    1324.255  |  0.005683  0.002218  1485.435 
+  0.995    1561.403  |  0.005678  0.002226  1486.743 
+</pre>
+
+<P> Here, we see how varying the migration rate M21 affects the estimation
+of the other three parameters.  In contrast with varying Theta1, which only
+caused variation in the third or fourth significant digit, we can see here
+that varying M21 causes variation in the second or third significant digit
+of the other parameters.  Again, not huge, but more noticeable.
+
+<h3><A NAME="whyagain">Wait, wait, wait, I'm lost already.  Why am I looking at all this?</h3>
+
+<p> Sorry.  OK, here's the basic questions these sections answer: </p>
+<dl>
+<dt><b>What are the values for my parameters?</b></dt>
+
+  <dd>The values for your parameters are the first row of the 'Maximum
+  Likelihood Estimates' tables; the ones labeled 'MLE'.
+
+<dt><b>What are the confidence intervals for my parameters?</b></dt>
+  <dd>Technically for this kind of analysis they're called 'support
+  intervals', so the standard 95% support intervals can be found by
+  looking for the rows that start with '95%'.  So, in our Theta1 example
+  above, the lower 95% point is at 0.004314, the upper is at 0.007735, and
+  the MLE is at 0.005697.  One way to write this is: </P> 
+
+  <center>0.005697 +.002083/-.001383 </center>
+
+  <P>Since this is clearly too many digits of precision, you might round off
+  to:</P>
+
+  <center>0.0057 +.0021/-.0013</center>
+
+  <P>If you thought this was confusing and were willing to sacrifice
+  precision, you could average this error to:
+  </P>
+  <center>0.0057 +/-.0017</center>
+
+  <P>even though it's, you know, wrong.  Also keep in mind that results
+  from likelihood LAMARC are believed to estimate too-narrow confidence
+  intervals due to its reliance on the driving values.  Runs with
+  replication get away from this problem.</P> </dd>
+
+<dt><b>What else can I say about my estimated parameters?</b></dt>
+
+  <dd>You can comment on parameter correlations by looking for trends in
+  the 'Profile Likelihoods' section.  For example, you could look at M21 as
+  compared to M12, and if a high M21 correlated with a low M12 and vice
+  versa, you could talk about the total amount of migration between those
+  two populations.</dd>
+
+</dl>
+
+<h3>OK, I think I get it.  Let's go to the next sections.</h3>
+
+<P> Gladly!  Actually the next bits don't need a lot of explanation--the
+next section ("User Specified Options") is a summary of your starting
+values, search strategy, and filenames.  The next section ("Data summary")
+is an overview of what your data looked like, what data models you used, and
+an actual copy of the raw data.  And the final section ("Run Reports by
+Region") is a copy of most of what was sent to the screen during the LAMARC
+run (sans the progress bar, of course).
+</p>
+
+<h3>OK, then!  I'm ready to publish!</h3>
+
+<p> Ha ha.</p>
+
+<h3>Er, right.  So, what do I do next?</h3>
+
+<P>Now you have decisions to make, and since these decisions will be based
+on your data, which I don't have with me just now, so you're going to have
+to make the majority of these decisions on your own.  If you're up for
+another question and answer session, though, skip ahead to <A
+HREF="tutorial2.html">Analyzing the Rest of Your Data</a>.  Or if you're keen
+to discover how to do a Bayesian run, <A HREF="bayes_howto.html">read
+on</a>.
+</P>
+
+
+(<A HREF="data_required.html">Previous</A> | <A
+HREF="index.html">Contents</A> | <A HREF="bayes_howto.html">Next</A>)
+
+<!--
+//$Id: tutorial.html,v 1.23 2012/05/14 19:55:38 ewalkup Exp $
+-->
+</BODY>
+</HTML>
+
+

@@ -1,0 +1,182 @@
+<!-- header fragment for html documentation -->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+
+<META NAME="description" CONTENT="Estimation of population parameters using genetic data using a maximum likelihood approach with Metropolis-Hastings Monte Carlo Markov chain importance sampling">
+<META NAME="keywords" CONTENT="MCMC, Markov chain, Monte Carlo, Metropolis-Hastings, population, parameters, migration rate, population size, recombination rate, maximum likelihood">
+
+<TITLE>LAMARC Documentation: Bayesian Tutorial</title>
+</HEAD>
+
+
+<BODY BGCOLOR="#FFFFFF">
+<!-- coalescent, coalescence, Metropolis-Hastings, Markov chain Monte Carlo
+ simulation, migration rate, effective population size, recombination rate,
+ maximum likelihood -->
+
+
+(<A HREF="forces.html">Previous</A> | <A HREF="index.html">Contents</A> | <A HREF="search.html">Next</A>)
+<H2>What do the population parameters mean?</H2>
+
+<P> This page explains what each of the population parameters
+estimated by LAMARC means, and what its units are.  The same information
+is available elsewhere in the documentation but it is collected here for
+convenience.</P>
+<UL>
+<LI><A HREF="parameters.html#theta">Theta</A></LI>
+<LI> <A HREF="parameters.html#m">M (migration rate)</a></LI>
+<LI> <A HREF="parameters.html#e">Epoch boundary time </a></LI>
+<LI> <A HREF="parameters.html#r">r (recombination rate)</a></LI>
+<LI> <A HREF="parameters.html#g">g (exponential growth rate)</a></LI>
+<LI> <A HREF="parameters.html#alpha">alpha (shape parameter of gamma distribution)</a></LI>
+</UL>
+
+<H3><A NAME="theta"> Theta </H3>
+
+<P> Theta is two times the mutation rate (per site per generation) times the
+number of heritable units in the population.  Thus, if you are considering
+diploid individuals (with two heritable units each) Theta is 4Nmu.  If
+you have haploids, it is 2Nmu.  For mitochondrial DNA, which is heritable
+only in females, it is Nmu (or 2N(f)mu).</P>
+
+<P> If you wish to combine genes with different copy numbers, be sure to
+set the relative N appropriately or you will get a confused result.  For
+example, if you are combining mitochondrial DNA and nuclear DNA, either
+set the relative N as 1 for mtDNA and 4 for nuclear (you will then estimate
+Theta on the mtDNA scale) or as 0.25 for mtDNA and 1 for nuclear (you will
+then estimate Theta on the nuclear scale).</P>
+
+<P> Similarly, if you are combining data with different mutation rates, be
+sure to set the relative mu appropriately.  Theta will be scaled by whichever
+mutation rate you select to be 1.  So if you believe your microsatellites
+mutate 100 times faster than your DNA, either set the msat rate to 100 and
+the DNA rate to 1 (you will then estimate Theta in the DNA scale) or
+set the msat rate to 1 and the DNA rate to 0.01 (you will then estimate
+Theta in the msat scale).</P>
+
+<P> If you wish to convert Theta to a headcount of individuals, you will
+need both an external estimate of the mutation rate, and an idea of 
+the ratio between headcount population size and effective (breeding)
+population size.  LAMARC cannot help you with either of these issues.</P>
+
+<H3><A NAME="m"> M (migration rate) </H3>
+
+<P> LAMARC measures migration rate as M=m/mu, where m is the chance
+for a lineage to immigrate per generation, and mu is the mutation rate
+per site per generation.  An M of 1 means that it is as likely for
+the sequence to migrate as it is for a site on the sequence to mutate.
+If there are different mutation rates for different genes, M will be
+given relative to the gene (if any) given a mutation rate of 1.0.<P>
+
+<P> Biologists often want to measure migration rate as 4Nm. 
+This is useful because when 4Nm is higher than one,
+the force of migration becomes strong enough to compete with
+genetic drift.
+To get 4Nm, multiply LAMARC's estimate of
+M by its estimate of Theta for the <B> recipient</B> population.  </P>
+
+<P> LAMARC is the wrong tool to estimate migration rates if 4Nm
+is larger than about 5, as it will go crazy trying to keep track of
+so many migration events.  If the program STRUCTURE sees no structure
+in your populations, there is probably too much migration for LAMARC
+to succeed, and you may need to pool your populations together.</P>
+
+<H3><A NAME="e"> Epoch boundary time </H3>
+
+<P> Epoch boundary times are estimated as number of generations 
+back from the present (the time at which the data were collected) to
+the population splitting time, scaled by the mutation rate mu per
+site per generation.  Thus, an epoch boundary time of 1 means
+that on average each site will have accumulated one mutation since
+the populations split, and would represent a very ancient split.  If
+you want to know how many generations or years ago the populations
+split, you will need external information about mu.</P>
+
+<P> Note that not all scenarios will allow inference of epoch boundary
+times, migration rates, and population sizes.  For example, if the
+populations split yesterday there will be no information about their
+post-split sizes, and if they split very long ago there will be
+no information about their pre-split sizes.  If migration between them
+is very high there will be no information about the split time.  It
+is important to compare the Bayesian posteriors with their priors; a
+posterior that closely resembles its prior indicates a parameter about
+which the data can say nothing.</P>
+
+<H3><A NAME="r"> r (recombination rate) </H3>
+
+<P> LAMARC measures recombination rate as r=C/mu, where C is the
+rate of recombination per inter-site link per generation, and mu
+is the mutation rate per site per generation.  An r of 1 means that
+it is as likely for a recombination to occur next to a site as it
+is for that site to mutate, and is a rather high rate of recombination.
+If there are different mutation rates for different genes, r will be
+given relative to the gene (if any) given a mutation rate of 1.0.</P>
+
+<P> LAMARC does not allow r to vary among populations.</P>
+
+<P> For many comparative purposes you will want the recombination rate
+per locus rather than per site; you can obtain this by multiplying
+LAMARC's r by the number of sites minus 1 (as no meaningful recombination 
+can occur rightward of the final site).<P>
+
+<H3><A NAME="g"> g (exponential growth rate)</H3>
+
+<P>  This is the hard one!</P>
+
+<P> The parameter g is the exponent of an exponential growth rate
+formula which gives the Theta at a time t in terms of the modern-day
+Theta and the growth rate:</P>
+
+<P> Theta(t) = Theta(modern) exp(-gt) </P>
+
+<P> Time is measured in mutational units; that is, one unit of time is the
+time needed for each site to experience, on average, one mutation.
+The units of our mutation rate are mutations per generations, so the
+units of g are 1/generations.  Almost no one finds this intuitive.</P>
+
+<P> We define time as increasing into the past (the present is time 0)
+and as a result, a negative value of g indicates that the population has
+been shrinking (it was bigger in the past than it is now) and a positive
+value indicates that it has been growing (it was smaller in the past than
+it is now).  A g of zero indicates constant size.  This much we know
+even without knowing the mutation rate, but to say anything more we
+need to either know the mutation rate, or be comparing two populations
+with the same mutation rate (in which case, the one with higher g is
+growing faster).  If we know the mutation rate, we can plug it into the
+equation above to get a feeling for what this implies in terms of
+Theta or effective population size.</P>
+
+<P> Be aware that LAMARC's estimates of g are biased upwards (due to
+the shape of the likelihood surface) especially with only one or a few
+genes.  If the estimate of g is positive and big, but the confidence
+intervals include zero, it's quite likely that there is in fact little or no
+growth.  If the intervals exclude zero, that finding is generally
+reliable.</P>
+
+<H3><A NAME="alpha"> alpha (shape parameter of gamma distribution) </H3>
+
+<P>  LAMARC can use the gamma distribution to represent the unknown
+variation of mutation rate among genes.  Gamma was chosen because it is
+a simple distribution that ranges from looking rather like an exponential
+(most genes mutate very little, a few mutate much more rapidly) to
+looking rather like a bell curve (there is an average mutation rate and
+genes are spread nearly symmetrically around it).<P>
+
+<P> The gamma distribution has two parameters, but we fix the mean of
+the gamma to 1, which determines one parameter.  This leaves only the shape parameter
+alpha (&alpha;).  Low values of alpha, below 1, describe a gamma distribution
+which looks somewhat exponential.  High values describe a gamma which looks somewhat like
+a normal.  So if you estimate alpha as 0.3, this means that most of your
+genes have a low mutation rate but a few are much higher; if you estimate
+gamma as 20, this means that your genes are tightly clustered around
+their mean mutation rate.  If all your regions mutate at exactly the same
+rate, the proper estimate of alpha would be infinite, but LAMARC will 
+estimate an arbitrary high value that is practically equivalent to infinity.</P>
+
+(<A HREF="forces.html">Previous</A> | <A HREF="index.html">Contents</A> | <A HREF="search.html">Next</A>)
+<!--
+//$Id: parameters.html,v 1.7 2012/05/16 17:14:01 mkkuhner Exp $
+-->
+</BODY>
+</HTML>

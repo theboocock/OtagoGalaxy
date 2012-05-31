@@ -1,0 +1,497 @@
+<!-- header fragment for html documentation -->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+
+<META NAME="description" CONTENT="Estimation of population parameters using genetic data usi
+ng a maximum likelihood approach with Metropolis-Hastings Monte Carlo Markov chain importanc
+e sampling">
+<META NAME="keywords" CONTENT="MCMC, Markov chain, Monte Carlo, Metropolis-Hastings, populat
+ion, parameters, migration rate, population size, recombination rate, maximum likelihood">
+
+<TITLE>LAMARC Documentation: Changes</title>
+</HEAD>
+
+
+<BODY BGCOLOR="#FFFFFF"> 
+<!-- coalescent, coalescence, Markov chain Monte Carlo simulation, migration
+rate, effective population size, recombination rate, maximum likelihood -->
+
+<P>(<A HREF="overview.html">Previous</A> | <A HREF="index.html">Contents</A>
+| <A HREF="upcoming.html">Next</A>)</P>
+
+<H2> Changes between LAMARC version 2.1.8 and 2.1.6 </h2>
+
+<p><b>BUG FIX: corrected major migration bug</b>
+A bug in data summarization for migration parameters reversed the
+direction of migration in some senses bug not others.
+All runs modeling migration parameters not held constant 
+should be re-run.
+</p>
+
+<p><b>BUG FIX: improved handling of extreme negative growth</b>
+A bug in tree generation under extreme negative growth resulted
+in trees with default branch length being accepted.
+If you have seen results (especially in Likelihood runs) where growth
+rates oscillated regularly from negative to positive, that was
+likely this bug.
+All runs modeling growth should be re-run unless they were
+Bayesian runs with exclusively non-negative priors.
+</p>
+
+<p><b>New feature: Divergence:</b>
+LAMARC now models multiple populations 
+<a href="divergence.html">diverging from common ancestors</a>.
+</p>
+
+<p><b>New feature: SNP panel corrections:</b>
+LAMARC can now correct for the loss of recent variation induced
+by using <a href="panels.html">SNP panel chips</a>.
+</p>
+
+<p><b>Enhancement: faster convergence in Likelihood runs:</b>
+Method for checking convergence in LIKELIHOOD runs has been improved, 
+yielding faster convergence.
+</p>
+
+
+<H2> Changes between LAMARC version 2.1.6 and 2.1.5 </h2>
+
+<P><b>BUG FIX: corrected bug in data likelihood in presence of recombination</b>
+A bug in the data likelihood calculation for recombinant trees caused
+increasingly inaccurate data likelihoods as the number of non-recombinant
+sub trees grew. This led to LAMARC preferring trees with fewer recombinations.
+Recombinant analyses run with LAMARC versions 2.1.2 through 2.1.5 should
+be re-run.
+</P>
+
+<P><b>BUG FIX: corrected random number generator</b>
+Corrected a bug in which random values which were supposed to be in the
+open interval (0,1) were sometimes returning 0 or 1. The bug was rare,
+resulting in unexplained crashes every 4 billion or so random number draws.
+There is no need to re-run analyses which did not crash.
+We also updated our random number generators to use the 
+Boost Mersenne twister (boost::mt19937) random number generators.
+</P>
+
+<P><b>BUG FIX: data uncertainty model with SNP data (beta test)</b>
+Data likelihood for the invariant base pairs in SNP data now
+incorporates the per-base error rate.
+Analyses using SNP data with the per-base error rate model should
+be re-run.
+</P>
+
+<H2> Changes between LAMARC version 2.1.5 and 2.1.4 </h2>
+
+<P><b>data uncertainty model (beta test)</b>
+</P>
+
+<P><b>improved output reports</b>
+</P>
+
+<H2> Changes between LAMARC version 2.1.4 and 2.1.3 </h2>
+
+<P><b>compiles with g++ 4.3.3 on Linux</b>
+This release updates the code base to compile with g++ 4.3.3.
+Earlier compilers should still work.</P>
+
+<P><b>minor user experience improvements</b>
+Several error messages from the converter have been improved.
+Converter can now read input files missing the end-of-line
+character.
+Lamarc now records the random seed used. This is useful
+when debugging problems.
+
+<H2> Changes between LAMARC version 2.1.3 and 2.1.2b </h2>
+
+<P><b>Bug fix for haplotype rearranging code</b>
+This release fixes a bug introduced into the code used to guess 
+haplotype resolution.
+Analyses using this feature 
+in LAMARC versions 2.1.2 and 2.1.2b 
+should be re-run.
+Additional improvements include:
+<ul>
+<li>Tracer output now renders step counts as integers instead of reals.
+<li>Mapping output now writable to its own file.
+<li>Upgraded default wxWidgets installation to 2.8.8.
+</ul>
+</P>
+
+<H2> Changes between LAMARC version 2.1.2b and 2.1.2 </h2>
+
+<P><b>Minor changes affecting user experience only</b>
+Removed requirement for user to &quot;press enter to quit&quot; in
+batch mode. Restored missing icons to MSW distribution.
+</P>
+
+<H2> Changes between LAMARC version 2.1.2 and 2.1.1 </h2>
+
+<H3> Additions</H3>
+
+<P><b>Limitations for Recombination relaxed.</b>  LAMARC is now 'final
+coalescent' aware, meaning that individual sites that have coalesced no
+longer induce recombination events.  This means that recombination can be
+estimated for much longer distances--version 2.1.1 had problems when
+theta * r * sequence length (or 4NCl) was any higher than about 5.  2.1.2
+can now handle values of 4NCl up to ~100.  In humans, this translates to
+about .2 centimorgans, or 200 kilobases.  We're working on expanding this
+even further--if you have a data set that needs longer recombination
+lengths, let us know (we're particularly interested in people using LAMARC
+over long distances for trait mapping).</P>
+
+<P><b>Tracer output</b> now includes the probabilities of the sequence data
+on the current genealogy in Bayesian runs as well as in Likelihood runs.</P>
+
+<h3>Corrections</h3>
+
+<P><b>Unknown microsatellite data</b> are now recognized by the
+converter.</P>
+
+<P><b>Maximization</b> has been made somewhat more efficient in some cases,
+particularly in runs that estimate variable mutation rates over regions
+drawn from an unknown gamma distribution.</P>
+
+
+<H2> Changes between LAMARC version 2.1.1 and 2.1. </h2>
+
+<h3>Corrections</h3>
+
+<P><b>Bayesian Tracer files</b> now omit parameters set to be 'invalid'.</P>
+
+<P><b>Bayesian analyses</b> now handle runs with too few unique sampled
+parameter values a bit more robustly, and warn a bit more sternly.</P>
+
+
+<H2> Changes between LAMARC version 2.1 and 2.0.3. </H2>
+
+<H3> Additions</H3>
+
+<P><b>Trait mapping</b>.  Trait data (such as disease status) can be mapped,
+modelling trait changes as K-Allele data, with arbitrary models for
+penetrance.  Mapping can be performed using two approaches, one that
+includes the trait data when rearranging trees, and one that analyzes the
+trees after they are produced and collects the likelihoods of the data being
+produced at each site.  (See the <A HREF="mapping.html">mapping
+documentation</a> for more information.)</P>
+
+<P><b>Multiple data types within a linked genomic region.</b>  LAMARC is now
+able to correctly analyze a genomic region which contains, for example,
+several microsatellite markers and a stretch of single-copy DNA.  The
+researcher will need to provide the expected relative mutation rate of each
+type of data.</P>
+
+<P><b>GUI Converter</b>.  The GUI file conversion utility included with this
+release has been significantly updated, replacing the beta version
+originally released with version 2.0.</P>
+
+<P><b>Batch versions</b>.  LAMARC could previously be compiled in such a way
+as to produce a 'batch' version.  Now, that capability has been extended to
+the normal version:  If you execute lamarc with a '-b' (or '--batch')
+command line option, it will run through and produce output without further
+interaction from the user.  The converter may be run the same way, also with
+a '-b' command-line flag (see the <A HREF="converter.html">converter
+documentation</a>).</P>
+
+<P><b>Input file setting from the command line</b>.  You may now specify a
+LAMARC input file to use at the command line with a command like "lamarc
+new_infile.xml".  This is particularly helpful with the '-b' option, above,
+as it means you can use a different input file than the default
+'infile.xml'.</P>
+
+<h3>Corrections</h3>
+
+<P><b>Bayesian runs with different effective population sizes</b> for
+different regions were producing erroneous output due to a bug in tree
+rearrangement.  (This would most easily manifest as abnormally low
+acceptance rates for theta values in regions with an effective population
+size other than 1.0.)  This has been fixed.</P>
+
+<h3> Incompatibilities</h3>
+
+<P><b>Phase tags in XML input file.</B>  As part of enabling multiple
+data segments of different types within a linked genomic region, we
+have changed the numbering system used to indicate which sites in an
+individual are phase-unknown to match the numbering system used for
+other purposes.  As a result, any previous XML input files which explicitly
+listed the phase-unknown sites for each individual (rather than
+indicating that no sites were phase-known or phase-unknown) will need
+to be hand-edited to use the <A HREF="xmlinput.html#phase">new scheme</a>.  
+LAMARC will generally be able to detect this problem and issue an error
+message.  If you find you have this problem with an old infile, you can
+either recreate the lamarc input with the converter, or edit the infile. 
+If you have all phase-unknown data, the simplest method is to change the
+default (and now incorrect) tags:</P>
+
+<pre>
+     &lt;phase type="unknown"&gt;
+     0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 [...] 
+     &lt;/phase&gt;
+</pre>
+
+<P>To:</P>
+
+<pre>
+     &lt;phase type="known"&gt; &lt;/phase&gt;
+</pre>
+
+<P>The latter will set all of your markers to phase unknown.</P>
+
+
+<br>
+<H2> Changes between LAMARC version 2.0.2 and 2.0.3. </H2>
+
+<P><em>Note:  version 2.0.3 was not released to the general public, but was
+made available for the 2006 <A
+HREF="http://www.molecularevolution.org/">Workshop on Molecular
+Evolution</a> at Woods Hole.</em></p> 
+
+<H3> Additions</H3>
+
+<P> <B> Gamma rates among regions.</B>  Mutation rates can now vary among
+genomic regions according to a gamma distribution; the program will
+attempt to estimate the gamma shape parameter.  This is particularly
+useful for collections of microsatellite regions where little is known
+about the relative mutation rates of each region.  See the document <A
+HREF="gamma.html">"Combining data with different mutation rates"</a> for
+more information.</P>
+
+<P><B> Tracer compatibility.</B>  LAMARC now automatically writes
+files that can be read by the Tracer utility of Drummond and Rambaut.
+In a Bayesian run Tracer can monitor convergence of the parameter
+estimates.  In a likelihood run it can monitor the data likelihood
+of the genealogies.  In both cases, it is useful in determining
+whether the program has been run long enough.  See <A
+HREF="tracer.html">the "Using Tracer with LAMARC" documentation</a> for more information.</P>
+
+<P><B> Newick tree.</B>  LAMARC can now write out the tree of highest
+data likelihood it finds for each region, as a Newick format tree, in cases 
+which do not have migration or recombination.</P>
+
+<H3> Corrections </H3>
+
+<P>Several limitations of the <b>Stepwise and Mixed-KS microsatellite 
+models</b> have been relaxed, allowing runs with widely divergent
+microsatellite counts to run to completion instead of halting partway
+through the program run.  (If an analysis using an earlier version of LAMARC
+ran to completion, it was not affected by this problem; affected runs
+would crash.)</P>
+
+<P>The mixing parameter of the <b>Mixed-KS model</b> could previously be set
+to adjust during the run, but did not actually do so.  Now it does.</P>
+
+<br>
+<H2> Changes between LAMARC version 2.0 and 2.0.2 </H2>
+
+<H3> Additions</H3>
+
+<P><B> Summary file reading and writing </B> can now be used with Bayesian
+as well as likelihood analysis. </P>
+
+<P><B> Maximizer fine-tuning </B> allows likelihood maximization and profiling
+to succeed in some cases where they previously would have failed. </P>
+
+<H3> Corrections </H3>
+
+<P><B> Bayesian multi-region analysis was incorrect </B> in the previous version;
+probability curves representing multiple regions were added rather than
+multiplied.  The resulting MPEs are correct but the confidence limits are 
+unnecessarily wide.  All Bayesian runs with multiple unlinked genomic regions
+should be redone. </P>
+
+<P><B> Likelihood multi-replicate analysis was incorrect </B> in the previous
+version.  Neither MLEs nor confidence limits are accurate.  All likelihood
+runs done using replication from version 2.0 (not from earlier versions) should
+be redone. </P>
+
+<br>
+<H2> Changes between LAMARC version 1.2 and 2.0 </H2>
+
+<H3>Additions</H3>
+
+<P><B> Bayesian analysis.</B>  Lamarc can now make a Bayesian estimation of
+population parameters as an alternative to the original maximum-likelihood
+estimation.  Linear and logarithmic priors with user-specified upper and
+lower bounds are available.  Users are strongly encouraged to set appropriate
+priors.  In our limited experience, the results of Bayesian analysis are
+quite similar to those of likelihood analysis, but the Bayesian approach
+may be superior for estimating parameter values near zero.</P>
+
+<P>As an adjunct to Bayesian analysis, we offer a new genealogy-search
+strategy which reconsiders only branch lengths.  This may allow the
+search to more rapidly react to newly proposed values of Theta.  It can
+also be used in likelihood-based analysis.  It is currently enabled by
+default for all lamarc runs, so attempts to exactly replicate previous
+results will first need to disable this <A HREF="menu.html#rearrangers">strategy</A>.</P>
+
+<P><B>Parameter constraints.</B>  Individual population parameters (such
+as migration or growth rates) may now be constrained to a user-specified
+value, or groups of them may be constrained to be equal.  We especially recommend
+use of constraints to reduce the number of parameters in cases with 
+many subpopulations.</P>
+
+<P><B>Different N<sub>e</sub> and mu among genetic regions.</B>  
+It is now possible to set the relative N<sub>e</sub> (effective 
+population size) and relative mu (neutral
+mutation rate) of each genetic region independently, allowing a correct
+joint estimate over unlike regions such as autosomal and sex-chromosome
+samples or DNA and microsatellite samples.</P>
+
+<P><B>New data types and models.</B>  Data with multiple alleles among
+which no particular relationship is implied, such as elecrophoretic
+alleles, can now be coded as "K-Allele data" and analyzed via a K-Allele
+model.  This model is also available for microsatellites as an 
+alternative to the stepwise mutation models; furthermore, a mixed
+model which attempts to optimize the ratio of stepwise changes and
+K-allele changes can be used for microsatellite data.</P>
+
+<P><B> Graphical user interface for file conversion utility.</B>  File
+conversion from PHYLIP or MIGRATE format files can now be done using
+a GUI interface which is significantly easier than the text-based
+form.  The text-based converter is still available.</P>
+
+<H3> Improvements and bug-fixes </H3>
+
+<P><B>Multiple replicates</B> are now correctly implemented using the method of
+Geyer.</P>
+
+<P><B>Inference on phase-unknown DNA or SNP data</B> had a serious bug in version 1.2
+which is fixed in this version.  Previous analyses of this type should be
+repeated as the bug did not cause a crash, but led to inaccurate results.</P>
+
+<P><B> Effectiveness of the maximizer</B> has been greatly improved; it finds
+correct maxima in a much larger proportion of cases.  (The maximizer is the 
+part of the program that searches the n-dimensional likelihood surface for 
+the maximum height, which is the maximum likelihood.)</P>
+
+<br>
+<H2> Changes between LAMARC version 1.1 and 1.2 </H2>
+
+<H3> Change in XML file format </H3>
+
+<P> Older XML files which use the following tag will need to be modified.  The
+tag &lt;map_position&gt; (with an underscore) has become &lt;map-position&gt;
+(with a dash) for consistency with the other tags. </P>
+
+<H3> Removal</H3>
+
+<P><B> Multiple replicates.</B>  Regrettably, we have disabled the ability to
+do multiple replicates of each chain as an accuracy improving measure.  This
+had not been implemented correctly; it produced approximately correct maximum
+likelihood estimates but too-narrow confidence intervals.  We will re-enable
+this feature as soon as we have correct algorithms for combining results over
+replicates.  (This feature has been corrected and re-enabled in version 2.0.)</P>
+
+<P>Previous multiple-replicate runs may well have too-narrow confidence intervals and
+should be redone.  We regret this problem.  </P
+
+<H3>Additions </H3>
+
+<P><B> Growth.</B>  The program can now estimate an exponential growth rate
+for a single population or for several subpopulations.  This duplicates the
+functionality of FLUCTUATE except that LAMARC can estimate growth in the
+presence of recombination and/or migration as well.</P>
+
+<P><B>General Time-Reversible mutational model.  </B>  For DNA, RNA or
+SNP data, the program can now use a fully-specified form of the GTR mutational
+model.  It is not able to optimize the parameters of this model, but
+other tools such as PAUP*/Modeltest can be used to develop an optimal model 
+to be applied by LAMARC.</P>
+
+
+<P><B>Adaptive heating.</B>  When using the MC^3 or "heated chains"
+strategy to improve searching, the program can now adjust the temperatures
+of the heated chains automatically in an attempt to improve efficiency,
+rather than relying on user-specified fixed temperatures.</P>
+
+<P><B> Menu revision.</B>  The menu has been extensively revised and now
+has the capacity to undo multiple changes.  In addition, a few options on
+the menu have been moved to theoretically more reasonable spots. </P>
+
+<P><B> Saving menu options.</B> The program automatically writes a 
+file, "menusettings_infile.xml", which contains the user's original infile updated
+with the results of all changes made via the menu.  This greatly
+simplifies re-running a complicated case.</P>
+
+<P><B> Saving sampled genealogies. </B>  The program is now capable
+of writing a file containing summaries of its sampled genealogies,
+and can read that file back in and resume a run.  This is useful
+in recovering a run that has crashed, and can also be used to do
+more complex analyses of the same genealogies.  For example, you
+may wish to do a quick run with no profiling in order to find the
+best run parameters, and then re-analyze those genealogies with
+profiling if they are satisfactory.</P>
+
+<P><B>No-menu option.</B>  The program can now be compiled in a no-menu 
+form which takes all of its input from the XML infile.  This is
+useful in designing large simulation studies and other batch runs. </P>
+
+<P> <b>Output</b>  The tables of data have been transposed so that what
+used to be displayed in rows is now displayed in columns.  This puts all
+modified values of the same parameter in the same column, which should make
+it easier to follow the changes.</P>
+
+<H3> Corrections </H3>
+
+<P> <B>File converter.</B>  When input data was presented in Phylip
+"interleaved" format it was truncated in the file converter.  Also,
+if multiple input sequences had the same Phylip-truncated name, the
+converter would silently discard the duplicates.</P>
+
+<P> <B> Maximizer accuracy </B>  The maximization routines which generated
+the maximum likelihood estimates, confidence limits and profiles for
+population parameters were sometimes unsuccessful in finding the true
+maxima, leading to incorrect estimates and inconsistent profiles.
+While we cannot guarantee that the new routines will succeed in all
+cases, they are greatly improved and also provide more feedback when
+they fail.</P>
+
+<br>
+<H2> Changes between LAMARC version 1.0 and 1.1 </H2>
+
+<H3>Additions </H3>
+
+<P><B>Microsatellite data.</B>  Both a stepwise mutational model
+and a Brownian model are provided.  Variable rates at different
+microsatellite regions can be accommodated with a Felsenstein-Churchill
+Hidden Markov model. Warning:  the stepwise model is very slow, 
+and so has not been as thoroughly tested as the others.</P>
+
+<P><B>SNP data.</B>  We implement the "reconstituted DNA" model of
+<A HREF="http://www.genetics.org/cgi/content/abstract/156/1/439">Kuhner et
+al. 2000.</a>  The user must provide map information showing the
+location of the SNPs relative to each other in order to estimate
+recombination rate; unmapped SNPs are usable for population size
+and migration rate estimation only.  </P>
+
+<P><B>Genotypic data.</B>  The program can now use data for which the 
+haplotypes are unknown.  It searches among many different haplotype
+resolutions.  Be sure to use heating if you use this
+option, as otherwise the search tends to become stuck. </P>
+
+<H3> Corrections </H3>
+
+<P><B>Speed.</B>  The version 1.0 release still contained some debugging
+code which slowed it down substantially (all likelihoods were
+calculated twice).  Version 1.1 should be quite a bit faster.</P>
+
+<P><B>Lost data in converter.</B>  The file conversion program silently lost
+the last nucleotide of each sequence.  This will have had a slight
+effect on the results.  If your sequences are very short you may
+wish to re-run previous analyses.</P>
+
+<P><B>Incorrect converter output.</B>  Using the file converter for multiple
+population cases produced defective LAMARC input files which could
+not run successfully.</P>
+
+<P><B>File converter flexibility.</B>  The file converter is now able
+to deal with a much wider array of input data.</P>
+
+<P>(<A HREF="overview.html">Previous</A> | <A HREF="index.html">Contents</A>
+| <A HREF="upcoming.html">Next</A>)</P>
+
+<!--
+//$Id: changes.html,v 1.52 2012/05/25 23:28:10 ewalkup Exp $
+-->
+</BODY>
+</HTML>

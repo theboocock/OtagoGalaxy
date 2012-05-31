@@ -1,0 +1,1123 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<HTML>
+<HEAD>
+	
+    <META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=iso-8859-1">
+    <TITLE>LAMARC Documentation: Error and warning messages in LAMARC</TITLE>
+    <META NAME="description" CONTENT="Estimation of population parameters using genetic data using a maximum likelihood approach with Metropolis-Hastings Monte Carlo Markov chain importanc
+e sampling">
+    <META NAME="keywords" CONTENT="MCMC, Markov chain, Monte Carlo, Metropolis-Hastings, population, parameters, migration rate, population size, recombination rate, maximum likelihood">
+	
+</HEAD>
+<BODY BGCULOR="#FFFFFF" TEXT="#000000">
+
+<P>(<A HREF="troubleshooting.html">Previous</A> | <A
+HREF="index.html">Contents</A> | <A HREF="limitations.html">Next</A>)</P>
+
+    <h2>Error and warning messages in LAMARC</h2>
+    <P> Almost everything LAMARC might tell you unexpectedly should be listed below, alphabetically, along with a further explanation of what might have happened to cause the message to be displayed.  Many are error messages, some are only warnings, and a few are just there to let you know what's going on.  Messages with a plus in the 'XML Errors' column can be produced when reading in a LAMARC input file.  Messages with a plus in the 'Menu' column can be produced when working in the menu before LAMARC starts.  Messages with a plus in the remaining three columns are all produced after the menu phase of a LAMARC run:  'Urgent' messages are always displayed because they're very important for you to know; 'Normal' messages are somewhat important or at least interesting; 'Informal' messages are not critical at all, and are there only to let you know what LAMARC is currently doing.
+<P>
+    <TABLE CELLSPACING=0 CELLPADDING=5 COLS=7 TOP BORDER=0>
+	<COLGROUP><COL WIDTH=25%><COL WIDTH=50%><COL WIDTH=5%><COL WIDTH=5%><COL WIDTH=5%><COL WIDTH=5%><COL WIDTH=5%></COLGROUP>
+	<TBODY>
+		<TR>
+			<TD ALIGN=LEFT><b>Message</b></TD>
+			<TD ALIGN=LEFT><b>Explanation</b></TD>
+			<TD ALIGN=CENTER><b>XML errors</b></TD>
+			<TD ALIGN=CENTER><b>Menu</b></TD>
+			<TD ALIGN=CENTER><b>Urgent</b></TD>
+			<TD ALIGN=CENTER><b>Normal</b></TD>
+			<TD ALIGN=CENTER><b>Informal</b></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>All chain temperatures must be positive.</TD>
+			<TD ALIGN=LEFT>The simultaneous searches are all given temperatures relative to one another, but the ratios must be positive.</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>All parameters are fixed in value, which in a Bayesian run means no estimation is possible.  Please check your xml input file.</TD>
+			<TD ALIGN=LEFT>A Bayesian run needs parameters to vary, or else it's not going to do anything.</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>All of the parameters are set constant or invalid, which means that this Bayesian run has nothing to do.  If you truly want no parameter to vary, set one parameter's prior to be very thin.</TD>
+			<TD ALIGN=LEFT>As above, a Bayesian run needs parameters to vary--this variation is the very thing that makes the parameter estimation possible.</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>All rates for the GTR model must be greater than 0.</TD>
+			<TD ALIGN=LEFT>You may use a very small value for a GTR rate, but it still must be greater than zero.</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+<!-- no simulated data released yet
+	<TR>
+			<TD ALIGN=LEFT>All simulated data was nigh invariant for the source segment, giving us nigh invariant data for the simulated segment [name] as well.</TD>
+			<TD ALIGN=LEFT>For the sort of simulation you're running, the source data is simulated, then a variable site is selected as a 'home' for the segment to be mapped.  However, when this source data was simulated, the mutation rate was low enough that there were no variable sites to select, so an invariant (or nigh-invariant) site was selected instead.</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+-->
+        <TR>
+			<TD ALIGN=LEFT>Arranger timing cannot be &lt; 0.0</TD>
+			<TD ALIGN=LEFT>To turn off an arranger, set this to zero.  To use, set to a positive number, relative to the other arrangers.</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>Base frequencies must be greater than zero</TD>
+			<TD ALIGN=LEFT>Even if a particular base does not show up in your data, it needs to have at least a small positive value for its frequency in order to get the math to work.</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>Cannot add a parameter to a new group because it is already in a group.</TD>
+			<TD ALIGN=LEFT>If you want to change which group a parameter is in, you must first remove it from its current group, and then add it to an existing or new group.</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>Cannot open or read file [filename] for summary file reading.  Check that the name is valid and that the permissions are correct, or simply turn off summary file reading for this run.</TD>
+			<TD ALIGN=LEFT>Summary file reading is for when a previous run of LAMARC produced a summary file, and you wish to pick up where that run left off (or repeat the analysis).  However, the filename you gave LAMARC cannot be found and/or read.</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>Couldn't find a place to wrap columns for output.  Just using the max instead.</TD>
+			<TD ALIGN=LEFT>This is a formatting issue for the output report.  You are unlikely to see it, but if you do, expect slight formatting oddnesses in the resulting output file.</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER>+</TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>Data error--zero populations?  There should be at least one.</TD>
+			<TD ALIGN=LEFT>You don't seem to have any data.  This is a significant problem for a data-analysis program like LAMARC.</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>Debug message:  [message]</TD>
+			<TD ALIGN=LEFT>If LAMARC is compiled in debug mode, you might see messages that begin this way that you wouldn't see otherwise.  You shouldn't run LAMARC on real data in debug mode because it will take probably twice as long.  Any messages you get here should be relatively self-explanatory, but are mainly meant for the programming team.</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER>+</TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>Duplicate locations in marker location list</TD>
+			<TD ALIGN=LEFT>You have told LAMARC that two different markers refer to the same site, which is impossible.</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>Error from the maximizer:  [text]</TD>
+			<TD ALIGN=LEFT>After collecting possible trees, LAMARC searches for the set of parameters that will result in the highest likelihood for that set of trees.  Occasionally, this search simply fails.  There are a variety of potential reasons for this failure, and the particular message will give you a clue about why, but in general, it means LAMARC isn't doing its job and finding the best set of parameters for your data.  The particular message is of less importance than where in the run you get this message; see the 'Warning:  maximization failure for this chain' explanation.</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>Error:  empty vector for input that required [numbers/integers].</TD>
+			<TD ALIGN=LEFT>In the LAMARC input file is a line with nothing but whitespace between an opening and closing tag where we needed some values.  If you just want the defaults, you can often simply delete the tag entirely, and change the values if necessary in the menu.</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>Error:  empty vector for the [name of tag] tag.</TD>
+			<TD ALIGN=LEFT>In the LAMARC input file is a line with nothing but whitespace between the opening and closing tag in question.  If you just want the defaults, you can often simply delete the tag entirely, and change the values if necessary in the menu.</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>Error:  group index value greater than the number of groups.</TD>
+			<TD ALIGN=LEFT>This is an internal error that is supposedly unreachable.  It indicates that something is referring to a group that doesn't exist.</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>Error:  group index value less than zero.</TD>
+			<TD ALIGN=LEFT>This is an internal error that is supposedly unreachable.  It indicates that something is referring to a group that doesn't exist.</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>Error:  The force [force type] was turned off in this run of LAMARC, but was on in the LAMARC run that created this summary file.  Re-run LAMARC with [force type] turned on to accurately continue the old run.</TD>
+			<TD ALIGN=LEFT>When running LAMARC from a summary file, you must reproduce the settings that were used to create that summary file exactly.  Look for the 'menusettings_infile.xml' from the initial run if you changed things in the menu.</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>Error:  The force [force type] was turned on in this run of LAMARC, but was not on in the LAMARC run that created this summary file.  Re-run LAMARC with [force type] turned off to accurately continue the old run.</TD>
+			<TD ALIGN=LEFT>When running LAMARC from a summary file, you must reproduce the settings that were used to create that summary file exactly.  Look for the 'menusettings_infile.xml' from the initial run if you changed things in the menu.</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>Expected a prefix but got &quot;&quot;.</TD>
+			<TD ALIGN=LEFT>You have to define some actual text to use for this prefix for your filenames.  (This error typically occurs when you accidentally hit 'return' in the menu when setting the prefix.)</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>Expected a real number, but got [text]</TD>
+			<TD ALIGN=LEFT>Your input contained letters (or nothing) when it wanted a number.</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>Expected an integer, but got [text]</TD>
+			<TD ALIGN=LEFT>Your input contained letters, punctuation, or nothing when it wanted an integer.</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>Expected the name of a file but got &quot;&quot;.</TD>
+			<TD ALIGN=LEFT>You have to define an actual name for your file.  (This error typically occurs when you accidentally hit 'return' in the menu when setting the filename.)</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>File size exceeded for summary file writing--continuing, but without writing to the summary file any more.  Try the command 'unlimit filesize' if on a UNIX system.</TD>
+			<TD ALIGN=LEFT>Your summary file got too large for your system--we're continuing, but it's possible your disk space has been completely used up.</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>Finished integrating a probability density function.  The total area under the curve should be 1.0; it's actually [value].  The most likely cause of this is having too few data points; consider longer runtimes while collecting data.</TD>
+			<TD ALIGN=LEFT>This message is more important if you get it for your final chain than it would be if you got it for an intermediate chain.  It means that there was a parameter that probably only has 1-5 unique data points, so shouldn't be trusted.  Each probability density curve mentions at the beginning of the file how many unique data points were used in its creation--check that value in your output.</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+<!-- no simulated data released yet
+		<TR>
+			<TD ALIGN=LEFT>Gave up trying to simulate non-invariant data for segment [name].</TD>
+			<TD ALIGN=LEFT>The mutation rate is probably too low--when simulating data, all sites being simulated ended up being nigh-identical to each other.</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+-->
+		<TR>
+			<TD ALIGN=LEFT>GTR rates must be greater than zero</TD>
+			<TD ALIGN=LEFT>For the math to work, rates that are zero must be entered as a very small number instead.</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>Illegal force-type setting [text]</TD>
+			<TD ALIGN=LEFT>Valid forces are 'coalescence', 'migration', 'recombination' and 'growth'</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>Illegal growth-type setting [text]</TD>
+			<TD ALIGN=LEFT>Valid growth-type settings are 'curve' and 'stick'</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>Illegal method-type setting [text]</TD>
+			<TD ALIGN=LEFT>Valid methods (for determining parameter starting values) are 'User', 'FST' (some forces), and 'Watterson' (coalescence only).</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>Illegal model-type setting [text]</TD>
+			<TD ALIGN=LEFT>Valid model settings are 'F84', 'GTR', 'Stepwise', 'Brownian', 'KAllele', and 'MixedKS'.</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>Illegal parameter constraint type [text]</TD>
+			<TD ALIGN=LEFT>Valid parameter constraints are 'unconstrained', 'constant', 'invalid', 'joint', and 'identical'.</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>Illegal prior type [text]</TD>
+			<TD ALIGN=LEFT>Valid prior types are 'logarithmic' or 'linear'.</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>Illegal profile type setting [text]</TD>
+			<TD ALIGN=LEFT>Valid profile types are 'percentile', 'fixed', and 'none'.</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>Illegal verbosity setting [text]</TD>
+			<TD ALIGN=LEFT>Valid verbosity settings are 'none', 'concise', 'normal', and 'verbose'.</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>In function, [function name], file [filename] unexpectedly closed or could not be opened and is no longer valid.  Possible causes of this problem include, but are not limited to: 1) read permissions for this file are not or are no longer enabled.  2) this file was unexpectedly moved, renamed, or deleted.  Continuing, but without writing to the summary file any more.</TD>
+			<TD ALIGN=LEFT>This message is reachable from a variety of summary file writing functions within LAMARC.  If any of them are told by the OS that they cannot write to the file any more, you will see this message.  The problem is almost certainly with something that happened to your computer, as opposed to something that happened within the LAMARC program.</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>Inconsistent number of markers</TD>
+			<TD ALIGN=LEFT>Some of your individuals have different amounts of data (strings of DNA, linked microsats, etc.).  The converter will disallow this--try recreating your LAMARC input file using the converter.</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>Incorrect number of GTR rates:  expected 6, found [#]</TD>
+			<TD ALIGN=LEFT>The six GTR rates are (in order):  AC, AG, AT, CG, CT, and GT.  If the program you use normalizes so that one of these is 1, you must still include '1' on your list.</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>Internal error: defaults::geyeriters needs to be increased.</TD>
+			<TD ALIGN=LEFT>The internal default 'geyeriters' is supposed to be large enough to handle the majority of situations, but yours seems to be an outlier.  If you wish to recompile LAMARC with this value increased, you can find it in control/defaults.cpp.  Or you can write to us with a complaint at lamarc@u.washington.edu</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>Invalid (negative) parameter index in checkIndexValue.</TD>
+			<TD ALIGN=LEFT>Somewhere within the '&lt;force&gt;' tag, you refer to a parameter with a negative index, which is impossible.  Check your group constraints.</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>Invalid (too large) parameter index in checkIndexValue.</TD>
+			<TD ALIGN=LEFT>Somewhere within the '&lt;force&gt;' tag, you refer to a parameter that doesn't exist, because there aren't that many parameters.  Check your group constraints.</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>Invalid parameter indexes in group constraints for force [force]:  The same parameter index is included in more than one group.</TD>
+			<TD ALIGN=LEFT>You have tried to include the same parameter in more than one group for constraining purposes.  This is illegal.</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>Invalid settings for force [forcetype].  Too many parameters are set invalid or have a start value of 0.0.</TD>
+			<TD ALIGN=LEFT>Depending on the force involved, even one parameter with an 'invalid' constraint or a starting value of 0.0 may be too many.  For a force like migration, if too many of the parameters are set to zero, you can make coalescence impossible.  Check your starting values and your constraints.</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>Maximization failed when re-calculating the estimates for this data set.  If that's what happened the last time, at least it's consistent.  The resulting estimates were obtained from the last successfully-maximized chain.</TD>
+			<TD ALIGN=LEFT>You can get this message if running LAMARC from a summary file when the attempted re-maximization of the final chain fails.  If maximization didn't fail in the original LAMARC run, something has gone wrong.  If it failed before, it means something is wrong with the trees themselves.</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>Maximization failure when calculating the best parameters for all replicates in region [name].  Using the mean values for all replicates instead.</TD>
+			<TD ALIGN=LEFT>LAMARC has failed to make any sense of your data, probably because your different regions all say completely different things.  The overall results presented in your output file will be the product of the results from the individual regions.  It's hard to say exactly what went wrong, but check your assumptions, and check to be sure the per-region estimates had reached stationarity--if not, try extending your search with (say) more initial chains.</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>Normalization cannot be set for Brownian Model</TD>
+			<TD ALIGN=LEFT>Normalization must be 'false' for a Brownian microsatellite model.</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>Number of sites in region must be &gt; 0</TD>
+			<TD ALIGN=LEFT>You have defined a region with no space for any data in it.</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>Overflow error:  Attempted to compute [value or exp(value)] [*/-] exp([value]).  Returning [+/-very large value] = [+/-] EXP_OF_EXPMAX.  (Further overflow errors of this type will not be reported.)</TD>
+			<TD ALIGN=LEFT>Overflow errors are more serious than underflow errors, since what should be a ridiculously large number is replaced by a merely monstrosly large number.  A few probably won't hurt, but you may want to check your assumptions to see if you can eliminate these types of errors.  This message is only reported once, but a tally is kept and reported in your output file.  Check that to make sure there weren't too many of them.  EXCEPTION:  When calculating theta over regions using gamma-distributed relative mutation rates, overflow is common.</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>Please enter a valid group index or 'N'.</TD>
+			<TD ALIGN=LEFT>When adding a parameter to a constraint group, you have to use a pre-existing group, or type 'N' to create a new group.</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>Re-calculating best parameter values.  Differences may indicate a true maximum was not found, or that an older version of LAMARC was used to create the original summary file.</TD>
+			<TD ALIGN=LEFT>LAMARC now always re-calculates the best parameter values for the final chain in a region and/or replicate when reading from a summary file.  This ensures that subsequent profiling will be accurate, and in line with the values stored in memory, which might be slightly different from the values stored in memory in the original run, due to rounding errors during translation.</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER>+</TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>Running denovo case--no rearrangement!</TD>
+			<TD ALIGN=LEFT>LAMARC was compiled with the DENOVO flag, which means it will not rearrange trees as it usually does, but instead, each new tree it proposes is unrelated to the previous tree, and generated without regard to the data.</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>Subtree of likelihood 0.0 found:  Turning on normalization and re-calculating.</TD>
+			<TD ALIGN=LEFT>If any subtree has a likelihood of zero, it means the whole tree will also have a likelihood of zero.  This is not very helpful when trying to compare the relative fit of two different trees.  Normalization can help avoid this, so that option is being turned on and LAMARC is continuing.  Normalization used to be a user-settable option, but nobody ever knew what to do with it, so nowadays we just turn it on when you need it.  And we just did.</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER>+</TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>That number is not the index of a grouped parameter.</TD>
+			<TD ALIGN=LEFT>If you want to remove a parameter from a group, it must be in a group in the first place.</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>That number is not the index of an ungrouped parameter.</TD>
+			<TD ALIGN=LEFT>When setting constraints in the menu, you must add ungrouped parameters to the grouped parameters--if you want to change what group a parameter is in, first remove it from its current group, then add it to the new one.</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>The [force name] force estimate [value] was accurately re-calculated from the summary file data.</TD>
+			<TD ALIGN=LEFT>The re-calculated value in this run of LAMARC matches the value stored in the summary file.</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER>+</TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>The autocorrelation must be one or greater.</TD>
+			<TD ALIGN=LEFT>The autocorrelation is the average length of sites that have the same mutation rate.  If the mutation rate for every site is uncorrelated with the next, the autocorrelation is one.</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>The bayesian rearranger frequency must be greater than zero.</TD>
+			<TD ALIGN=LEFT>The rearrangers are all given relative values, but these values must be positive.</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>The data model for region [region], segment [segment] has multiple categories with the same rate, which serves no purpose but to slow the program down considerably.  Please change this before running the program.<BR>[Or:  The global data model for [data type] data, etc.]</TD>
+			<TD ALIGN=LEFT>The purpose of having multiple categories for your data models is so that LAMARC can accomodate the fact that some sites have different mutation rates than other sites.  (For example, the mutation rate differences between coding and non-coding DNA.)  Multiple categories with the same rate, however, do absolutely nothing at considerable computational cost.  So we're assuming you made some sort of mistake in your setup here--either you don't actually want or need multiple categories after all, or you forgot to tell LAMARC what the differences in the rates should be.  You can reach the data model menus by selecting 'D' from the main menu.</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+<!-- no simulated data released yet
+		<TR>
+			<TD ALIGN=LEFT>The do-nothing rearranger frequency must be positive.</TD>
+			<TD ALIGN=LEFT>The do-nothing rearranger does nothing, and is only on when you are simulating data.  If you want LAMARC to only have the true tree, use this arranger instead of the topology rearranger.</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+-->
+		<TR>
+			<TD ALIGN=LEFT>The effective population size must be positive.</TD>
+			<TD ALIGN=LEFT>A population with no members cannot be said to really be a population, now, can it?</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>We assume that because you had no '0's for any map positions, your data follows the traditional biologist convention of not having a site 0, and placing site -1 next to site 1.  If this is incorrect, you must edit your LAMARC input file to set the '<convert_output_to_eliminate_zeroes>' tag to 'false'.</TD>
+			<TD ALIGN=LEFT>Mapping is on the regional scale, which follows the 'map-position' tag values, and include or exclude 0 according to the convert_output_to_eliminate_zeroes tag in the input file.</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>The FST method is only available for data sets with more than one population.</TD>
+			<TD ALIGN=LEFT>The FST method relies on patterns of genetic differentiation between populations.  If you have only one population, it cannot estimate anything.  Use a different method to determine starting values.</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>The haplotype rearranger frequency must be positive.</TD>
+			<TD ALIGN=LEFT>You are allowed to turn off haplotype rearranging by setting this value to zero (which will treat your data as if it was completely resolved), but it must not be negative.</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>The trait location rearranger frequency must be greater than zero.</TD>
+			<TD ALIGN=LEFT>If the trait location rearranger is on at all, it is needed by the mapping analysis, and must be set to greater than zero.</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>The lower bound of the prior must be less than the upper bound of the prior.</TD>
+			<TD ALIGN=LEFT>A prior defines a range of values, and the lower bound must be the, uh, lower.</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>The lower bound of the prior must be less than the upper bound of the prior.  If you wish to hold this parameter constant, go to the constraints menu and set it constant there.</TD>
+			<TD ALIGN=LEFT>A prior defines a range of values, not a single point.  For fixed values for your parameters, do as suggested and constrain the parameter to be constant.</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>The maximizer failed for position [number], without a corresponding catastrophically low likelihood.  Re-setting to -[large number] and continuing.</TD>
+			<TD ALIGN=LEFT>You really shouldn't get this message; if the maximizer fails, the corresponding likelihood should always be the reported value.  However, checking it here and continuing should fix any problems that might have occurred.</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER>+</TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>The maximum number of categories of mutation rates you may set is 10, though the effectiveness of adding more categories drops considerably after about 5.</TD>
+			<TD ALIGN=LEFT>At much more than 5 categories, any signal you may have in your data is almost completely washed out.</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>The maximum number of events must be greater than zero.</TD>
+			<TD ALIGN=LEFT>If you are going to estimate migration, you must allow some migration events,
+and similarly for other forces.  You must always allow some coalescence events, as without them there is no tree.</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>The MLE for a parameter was zero, which means no profiling can be performed below that value.  Normal profiles should result from values greater than the parameter.</TD>
+			<TD ALIGN=LEFT>For all parameters but growth, negative values are disallowed and/or nonsensical.  If the MLE is zero, you have a one-tailed situation instead of the more normal two-tailed situation, so you must change your interpretation of the confidence intervals accordingly.</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER>+</TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>The model [model] may not be used for data type [type] in region [number], segment [number].</TD>
+			<TD ALIGN=LEFT>DNA data may use the F84 and GTR models.  Microsat data may use the Brownian, Stepwise, K-allele, and Mixed K/S models.  K-allele data may only use the K-allele model.</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>The multi-step:single-step ratio for a MixedKS model must be between zero and one.</TD>
+			<TD ALIGN=LEFT>This ratio determines the relative frequencies of multi-step mutation (under the K-Allele model) vs. single-step mutations (under the Stepwise model).  Zero would mean all multi-step, one would mean all single-step (though those values are disallowed--use the K-Allele or Stepwise models directly if that's what you really want), while one-half would model an equal number of each type.</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>The newly-calculated maximum likelihood for region [name] ([value]) is different from the maximum likelihood as read in from the summary file ([value]).  (A difference of [value], which exceeds the recommended minimum difference of [value].)</TD>
+			<TD ALIGN=LEFT>The summary file has a somewhat different maximum likelihood value.  This is probably attributable to precision issues and can be safely ignored, but should be kept in mind as a possible cause of later further divergence.</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>The number of [force] parameters for the read in values differ in number from the calculated values, which probably means the read-in data differs from that used to write out the data.  It is strongly recommended that you exit the program now and correct this.</TD>
+			<TD ALIGN=LEFT>The settings you're using for this run of LAMARC are different from the settings you used when you created the summary file you're trying to use.  This will probably end up failing horribly.</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>The number of replicates must be one or greater.</TD>
+			<TD ALIGN=LEFT>A value of 'one' for replicate number means not 'one repeated analysis' but 'one analysis in total'.  Two replicates means two analyses.</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>The parameter [name] maximized at [value] but is being constrained to [less extreme value].</TD>
+			<TD ALIGN=LEFT>When maximizing, parameters are allowed to be any value.  However, some values for some parameters do not make good driving values for the next chain.  For this reason, we constrain particularly extreme estimates to be less extreme for the purposes of being a driving value for the next chain.  You should not get this message for the final chain in any region or replicate.</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>The relative mutation rate must be greater than zero.</TD>
+			<TD ALIGN=LEFT>You can't have a negative mutation rate.</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>The second value in the range must be larger than the first.</TD>
+			<TD ALIGN=LEFT>When defining a range, the lower value should always come first.  A range of a single point is defined by a single number.</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>The size rearranger frequency must be positive.</TD>
+			<TD ALIGN=LEFT>The size rearranger is an optional rearranger, and will not do anything if set to zero.  It must be positive, however.</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>The summary file was [complete/incomplete] [...]</TD>
+			<TD ALIGN=LEFT>This message tells you how far into the run the summary file went before LAMARC had to start calculating new information.  If this message doesn't match how far you thought you got when creating the summary file, go back and check the file again.</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>The swapping interval must be one or greater.</TD>
+			<TD ALIGN=LEFT>The swapping interval is the number of steps LAMARC takes before checking to see if a higher-temperature chain has found a better tree than a lower-temperature chain.  If you want it to check every step, this number should be  one.  This is probably unwarranted, however, and will slow down your run.  In any case, you can't set it to a negative number or zero.</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>The topology rearranger frequency must be greater than zero.</TD>
+			<TD ALIGN=LEFT>The topology rearranger is the principle arranger that modifies trees.  Since this is what LAMARC was made to do, the frequency at which it does it must be positive.</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>The TT Ratio must be greater than 0.5.</TD>
+			<TD ALIGN=LEFT> Our implementation of the F84 mutational model must have the TT (transition/transversion)
+ratio greater than 0.5.  If you wish to model a Jukes-Cantor where TT should equal 0.5, set it very slightly higher.  If you
+are sure that TT should be lower than 0.5, use an appropriate GTR model instead of F84.  </TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>The upper bound of the prior must be greater than the lower bound of the prior.</TD>
+			<TD ALIGN=LEFT>A prior defines a range of values, and the upper bound must be the greater.</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>The upper bound of the prior must be greater than the lower bound of the prior.  If you wish to hold this parameter constant, go to the constraints menu and set it constant there.</TD>
+			<TD ALIGN=LEFT>A prior defines a range of values, not a single point.  For fixed values for your parameters, do as suggested and constrain the parameter to be constant.</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>The value [your number] is greater than DBL_MAX [large number]</TD>
+			<TD ALIGN=LEFT>The number you input is greater than the precision of the machine you're running LAMARC with.</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>The value [your number] is greater than LONG_MAX [large number]</TD>
+			<TD ALIGN=LEFT>The number you input is greater than the precision of the machine you're running LAMARC with.</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>The value [your number] is greater than LONG_MIN [large negative number]</TD>
+			<TD ALIGN=LEFT>The number you input is greater than the precision of the machine you're running LAMARC with.</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>The value [your number] is less than NEGMAX [large negative number]</TD>
+			<TD ALIGN=LEFT>The number you input is greater than the precision of the machine you're running LAMARC with.</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>There must be a positive number of categories for all mutational models.</TD>
+			<TD ALIGN=LEFT>A single mutation rate means one category--if you want multiple categories, you must define at least two.</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>There must be a positive number of simultaneous searches</TD>
+			<TD ALIGN=LEFT>Defining a number of simultaneous searches (heating) begins with one search for the 'main' search.  'Two simultaneous searches' means two searches happening at once, one with a different temperature than the first.</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>There must be less than 30 multiple searches for a given run.   (A reasonably high number is 5.)</TD>
+			<TD ALIGN=LEFT>If there are too many simultaneous searches, LAMARC will bog down considerably.  5 should be more than enough.</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>Transition/transversion ratio must be &gt; 0.5</TD>
+			<TD ALIGN=LEFT>The transition/transversion ratio is set for a datamodel for DNA.  It must be greater than one-half.</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>Tried to set the chainpack for region [#], replicate [#], and chain [#], but we needed the chainpack for region [#], replicate [#], and chain [#].</TD>
+			<TD ALIGN=LEFT>While reading in a the input summary file, LAMARC encountered a 'chainpack' with a different label than it expected.  You should only get this error if you have been editing the input summary file by hand.  Search your file for the initial set of numbers and either correct it, or correct the surrounding data.</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>Unable to find tip: [text]</TD>
+			<TD ALIGN=LEFT>This error message should be unreachable; something has gone wrong internally with how LAMARC stores and retrieves data.  Send us an error report at <A HREF="mailto:lamarc@u.washington.edu">lamarc@u.washington.edu</A></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>Unable to read or find your file in 3 attempts.  To create a LAMARC input file, please run the converter (lam_conv or gui_lam_conv).</TD>
+			<TD ALIGN=LEFT>LAMARC takes as input a specially formatted XML file which is typically created using the converter.  You either have not done this, or the file you created could be in a different directory, or there could be problems with the permissions of the file.</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>Underflow error:  Attempted to compute [value or exp(value)] [*/-] exp[value]).  Returning 0.  (Further underflow errors of this type will not be reported.)</TD>
+			<TD ALIGN=LEFT>Underflow errors are not extremely serious, since they replace an inordinately small number with zero.  LAMARC should not attempt to divide by the result--if it does, you'll see a completely different error, and the program may well simply crash.  A tally of the number of times this error was seen is kept as the program runs, and reported to the output file at the end.  You can see how often this occurs there.</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>Unknown data type encountered: [tag]</TD>
+			<TD ALIGN=LEFT>The valid data types are:  DNA, MICROSAT, and K-ALLELE.  Your XML has a tag that is none of those.</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>Warning from the maximizer:  [text]</TD>
+			<TD ALIGN=LEFT>After collecting possible trees, LAMARC searches for the set of parameters that will result in the highest likelihood for that set of trees.  This search petered out for some reason; probably because it was taking too long.  There are a variety of potential reasons for this failure, and the particular message will give you a clue about why, but in general, it means LAMARC didn't find the absolute best set of parameters for your data.  The least worrying message to get here is the one that says &ldquo;Warning:  Convergence to the maximum cannot be guaranteed.  Maximization terminated after [number] iterations.  (|gradient| = [number]&rdquo;.  This means that the maximizer thought it could find a better set of parameters if it searched forever, but gave up because it was taking too long.  If the gradient value is low (say, 1 or less), you're almost certainly fine; if it is greater it is somewhat curious, but not too alarming in and of itself.  It's of more importance where in the run you get this message; see the 'Warning:  maximization failure for this chain' explanation.</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>Warning:  A newly-calculated value for force &quot;[force]&quot; ([value]) is different from that read in from the summary file [value] (A difference of [value] which exceeds the recommended minimum difference of 0.1%).</TD>
+			<TD ALIGN=LEFT>The values from the summary file are different from the values from the current maximization.  This can be due to running a different version of LAMARC, running LAMARC on different computers, or precision issues from reading/writing a decimal number but storing it as hex.  In general, it's something to keep in mind--you may want to re-run LAMARC with longer run-times if it's serious.</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>Warning:  attempted to get the maximum of a curve with [value] points when we wanted [value].</TD>
+			<TD ALIGN=LEFT>This is probably an error in LAMARC internally--if you get it, you should contact us at lamarc@u.washington.edu and cite this message in your e-mail.  There's no known way to get this error normally, but that's why they call them 'bugs'.</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+                        <TD ALIGN=LEFT>Warning: calculating FST estimates
+                        for [parameter name(s)]is impossible due to the data
+                        for the populations involved.  If the FST method is
+                        invoked to obtain starting values for those
+                        parameters, defaults will be used instead.</TD>
+
+                        <TD ALIGN=LEFT>LAMARC failed to calculate FST values
+                        from your data.  This might be because FST is
+                        actually impossible to calculate for your data set
+                        (this happens if the variability within a population
+                        is greater than the variabiltiy between
+                        populations), or it might be because LAMARC simply
+                        failed to perform the calculation properly.  In
+                        either event, this will only affect the starting
+                        values for these parameters, and then only if you
+                        explicitly tell LAMARC that you want to use FST to
+                        give it starting values.  If you do, LAMARC will use
+                        defaults instead.  The defaults will almost
+                        certainly work fine; we just don't want you to later
+                        report "we used FST values as our starting
+                        parameters" when in actual fact LAMARC used
+                        defaults.  But the general LAMARC algorithms do not
+                        use FST in any way, shape, or form, and are
+                        therefore immune to irregularities in FST
+                        calculation.</TD>
+
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>Warning:  maximization failure for this chain.  Using the parameter estimates from the previous chain and continuing.</TD>
+			<TD ALIGN=LEFT>LAMARC failed to figure out what the trees produced from this chain mean.  This could be because the chain was too short--if this happens a lot, try increasing the length.  The upshot of this situation is that while the final tree is probably better than the initial tree, the estimated parameters are no better.  Since LAMARC is designed to estimate parameters, not make trees (per se), this can be bad if it happens a lot, especially if it happens at a later chain (and is particularly bad if it happens at the last chain--it means the entire chain was wasted, and that profiling is impossible.)</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>Warning:  the maximizer was unable to find the same maximum likelihood estimates as before for region &quot;[name]&quot;.  The parameter values it found have a log likelihood of [value], which is significantly different from the maximum likelihood of the old set of parameters, [value] (A difference of [value]).  If you were running from older summary files with replication, this is to be expected.  Otherwise, we recommend you re-run this data set with any or all of a) longer run times, b) more replicates, or c) more heating (adaptive or fixed).</TD>
+			<TD ALIGN=LEFT>You can get this message if running LAMARC from a summary file when the attempted re-maximization of the final chain produces a different answer than it did the first time.  Newer versions of LAMARC have a more robust maximizer, so if an older version created the summary file, you should be OK.  In addition, if you extended an old summary file with a newer version of LAMARC, the old values will persist in the summary file (though they will be correct in the output file).  The newer version will almost certainly be more accurate.  Running the same version of LAMARC on different computers can also produce differences due to differences in (say) overflow and underflow.  However, if the computer and LAMARC version that produced the summary file are the same as the computer and LAMARC version that gave you this message, something is odd.  You may wish to contact the LAMARC team (lamarc@u.washington.edu) or you could simply re-run your experiment with a different search scheme.</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>You may not have a negative number of discarded genealogies.</TD>
+			<TD ALIGN=LEFT>The discarded genealogies are the 'burn-in' phase of a chain, and may be zero, but not negative.  Though that would be a great time-saving device if they could be.</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>You may not have a negative number of final chains.</TD>
+			<TD ALIGN=LEFT>You may have zero final chains if you have at least one initial chain, but no cheating to gain extra time by having a negative number of them.</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>You may not have a negative number of final samples.</TD>
+			<TD ALIGN=LEFT>You may have zero final samples, but not a negative number.</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>You may not have a negative number of initial chains.</TD>
+			<TD ALIGN=LEFT>You can have zero initial chains, but not negative.</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>You may not have a negative number of initial samples.</TD>
+			<TD ALIGN=LEFT>You can have zero initial samples, but not negative.</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+<!-- no simulated data released yet
+		<TR>
+			<TD ALIGN=LEFT>You may not use the do-nothing arranger if you are not simulating data.</TD>
+			<TD ALIGN=LEFT>The do-nothing rearranger does nothing, and is only potentially useful when simulating data.</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+-->
+		<TR>
+			<TD ALIGN=LEFT>You must have a positive sampling interval.</TD>
+			<TD ALIGN=LEFT>The sampling interval is the number of steps LAMARC takes before sampling the tree again.  Even if LAMARC is moving backwards in time, it will not realize this fact, so must be given a positive number here.</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>You must leave at least one allowable site for this trait.  The sites may be chosen from the range [range].</TD>
+			<TD ALIGN=LEFT>Since you have declared that this trait is somewhere in this region, you must let it live somewhere in that region.</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>You must set a positive or zero relative rate for each category.</TD>
+			<TD ALIGN=LEFT>A mutation rate of zero means an invariant site, but a negative mutation rate is meaningless.</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>You must set a positive probability to go with each rate.</TD>
+			<TD ALIGN=LEFT>The probabilities are scaled to be relative to one another, but all must be positive.</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT>Your data must consist of numbers, not letters or punctuation.  The Mixed KS model is inappropriate for DNA or RNA data.</TD>
+			<TD ALIGN=LEFT>Some of the data you are using the 'Mixed KS' model for are not numbers (the standard format for microsatelite data).</TD>
+			<TD ALIGN=CENTER>+</TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+			<TD ALIGN=CENTER><BR></TD>
+		</TR>
+	</TBODY>
+</TABLE>
+
+<P>(<A HREF="troubleshooting.html">Previous</A> | <A
+HREF="index.html">Contents</A> | <A HREF="limitations.html">Next</A>)</P>
+
+<!--
+//$Id: messages.html,v 1.13 2008/07/30 22:43:00 ewalkup Exp $
+-->
+</BODY>
+
+</HTML>

@@ -1,0 +1,317 @@
+************************************************************
+     LAMARC:  Maximum Likelihood Parameter Estimation
+    using Hastings-Metropolis Markov Chain Monte Carlo
+************************************************************
+version 2.1.8
+
+
+        Program started on Tue May 29 11:48:08 2012
+                finished on Tue May 29 11:48:20 2012
+
+===========================================================================
+Maximum Likelihood Estimates (MLEs) of Parameters
+===========================================================================
+
+
+                 Theta   
+Population       Theta1  
+Best Val (MLE)  0.020756 
+    Percentile           
+   99%   0.005  0.013896 
+   95%   0.025  0.015231 
+   90%   0.050  0.015979 
+   75%   0.125  0.017250 
+   50%   0.250  0.018600 
+           MLE  0.020756 
+   50%   0.750  0.023245 
+   75%   0.875  0.025235 
+   90%   0.950  0.027541 
+   95%   0.975  0.029154 
+   99%   0.995  0.032670 
+Theta1:  Theta for ZMNE
+
+
+
+===========================================================================
+Profile Likelihoods
+===========================================================================
+
+===========================================================================
+                           Overall Profile Tables                          
+===========================================================================
+
+Overall: Theta for ZMNE (Theta1):
+---------------------------------
+
+Percentile profile: Points shown indicate approximate confidence
+  intervals.
+
+Log Likelihoods:
+
+Percentile  Theta1   |   Ln(L)   
+  0.005    0.013896  | -3.309203 
+  0.025    0.015231  | -1.912364 
+  0.050    0.015979  | -1.344435 
+  0.125    0.017250  | -0.653339 
+  0.250    0.018600  | -0.219110 
+   MLE     0.020756  |  0.008348 
+  0.750    0.023245  | -0.219127 
+  0.875    0.025235  | -0.653311 
+  0.950    0.027541  | -1.344429 
+  0.975    0.029154  | -1.912416 
+  0.995    0.032670  | -3.309210 
+
+
+===========================================================================
+User Specified Options
+===========================================================================
+
+Force specific options:
+-----------------------
+
+Starting Parameters:
+
+Theta (USR)                               0.010000
+
+
+
+Search Strategy:
+----------------
+
+Type of analysis:  Likelihood
+
+Number of replicates:  1
+
+Markov Chain Parameters:
+                           Initial           Final
+  Number of Chains              10               2
+     Trees Sampled              20              50
+Sampling Increment              20              20
+   Trees Discarded             100             100
+
+Random number seed             1005                                    
+
+
+File options:
+-------------
+
+Read data from file:           sample_infile.xml                       
+Wrote summary file:            sample_outsumfile.xml                   
+Wrote to Tracer file(s):       sample_tracefile_coal_1.txt             
+
+
+Output summary options:
+-----------------------
+
+Calculate profile likelihoods? Yes                                     
+
+===========================================================================
+Data summary
+===========================================================================
+
+Number of populations:                                      1
+Number of regions:                                          1
+Total number of samples in all regions                     40
+
+
+Region summary:
+---------------
+
+Population      Variable  Relative  Relative  Pairwise   Sample  
+   Region       markers      Ne     rec rate   theta      size   
+1 ZMNE
+     1 coal        65        1        1.0    0.0152814     40    
+-----------------------------------------------------------------
+
+
+Summary of Data Model Parameters:
+---------------------------------
+
+
+---------------------------------------------------------------------------
+
+Parameters of a Felsenstein '84 model for the #1 segment of the coal region
+2 rate categories with correlated length 1
+Relative rate 0.666669  Frequency 0.5
+Relative rate 1.33333  Frequency 0.5
+Base frequencies: 0.222692, 0.31, 0.163077, 0.304231
+Transition/transversion ratio: 2
+---------------------------------------------------------------------------
+
+Input Genetic Data
+---------------------------------------------------------------------------
+   For the coal region
+---------------------------------------------------------------------------
+                                  #1                                  
+00_0025   TGAAGCCCCAATTATGGTTACCACGACTTACCAGTACCTCTTAGCGACGTGGGCTCTATCTCTCA
+00_0032   TGAAGCCCCAATTATGGTTACCACGACTTACCAGTACCTCTTAGCGACGTGGGCTCTATCTCTCA
+00_0003   CCACATCGTAGACGTTCGTACCGCTTCTTACCAGTACCTCTTAGCGACGTGGGCTCTATCTCTCA
+00_0022   CCACATCGTAGACGTTCGTACCGCTTCTTACCAGTACCTCTTAGCGACGTGGGCTCTATCTCTCA
+00_0000   CCACATCGTAGACGTTCGTGCCGCTTCTTATCAGTACCTCTTAGCGACGTGGGCTCTATCTCTCA
+00_0024   CCACATCGTAGACGTTCGTACCGCTTCTTACCAGTACCTCTTAGCGACGTGGGCTCTATCTCTCA
+00_0013   CCACATCGTAGACGTTCGTGCCGCTTCTTATCAGTACCTCTAAGCGACGTGGGCTCTATCTCTCA
+00_0027   CCACATCGTAGACGTTCGTGGCGCTTCTTATCAGTACCTCTTAGCGACGTGGGCTCTATCTCTAA
+00_0009   CCACATCGTAGACGTTCGTGCCGCTTCTTCTCAGTACCACTTAGCAACGTAGACTCTAACACTCA
+00_0037   CCACATCGTAGACGTTCGTGCCGCTTCTTATCAGTACCTCTTAGCGACGTGGGCTCTATCTCTCA
+00_0034   CCACATCGTAGACGTTCGTACCGCTTCCTCTCAGTACCACTTAGCAACGTAGACTCTATCACTCA
+00_0038   CCACATCGTAGACGTTCGTACCGCTTCCTCTCAGTACCACTTAGCAACGTAGACTCTATCACTCA
+00_0023   CCACATCGTAGACGTTCGTACCGCTTCCTATCGGTACCACTTAGCAACGTAGACCCTATATCTCA
+00_0030   CCACATCGTAGACGTTCGTACCGCTTCTTATCGGTACCACTTAGCAACGTAGACCCTATATCTCA
+00_0002   CCACATCGTAGACGTTCGTACCGCTTCTTATCGGTACCACTTAGCAACGTAGACCCTATATCTCA
+00_0031   CCACATCGTAGACGTTCGTACCGCTTCTTATCGGTACCACTTAGCAACGTAGACCCTATATCTCA
+00_0014   CCACATCGTAGACGTTCGTACCGCTTCTTATCGGTACCACTTAGCAACGTAGACCCTATCTCTCA
+00_0018   CCACATCGTAGACGTTCGTACCGCTTCTTATCGGTACCACTTAGCAACGTAGACCCTATATCTCA
+00_0005   CCACATCGTAGACGTTCGTACCGCTTCTTATCGGTACCACTTAGCAACGTAGACCCTATCTCTCA
+00_0036   CCACATCGTAGACGTTCGTACCGCTTCTTATCGGTACCACTTAGCAACGTAGACCCTATCTCTCA
+00_0001   CCACATCGTTGACATTCGCACTGGTTTTTATCGGTACCACTTAGCAACGTAGACCCTATCTCTCA
+00_0010   CCACATCGTAGACGTTCGTACCGCTTCTTATCGGTACCACTTAGCAACGTAGACCCTATCTCCCA
+00_0004   CCACATCGTTGACATTCGCACTGGTTTTTATCGGTACCACTTAGCAACGTAGACCCTATCTCTCA
+00_0011   CCACATCGTTGACATTCGCACTGGTTTTTATCGGTACCACTTAGCAACGTAGACCCTATCTCTCA
+00_0029   CCACATCGTTGACATTCGCACTGGTTTTTATCGGTACCACTTAGCAACGTAGACCCTATCTCTCA
+00_0033   CCACATCGTTGACATTCGCACTGGTTTTTATCGGTACCACTTAGCAACGTAGACCCTATCTCTCA
+00_0006   CCACATCGTTGACATTCGCACTGGTTTTTATCGGTACCACTTAGCAACGTAGACCCTATCTCTCA
+00_0015   CCACATCGTTGACATTCGCACTGGTTTTTATCGGTACCACTTAGCAACGTAGACCCTATCTCTCA
+00_0028   CCACATCGTTGACATTCGCACTGGTTTTCATTATTACCACATAGTGTCTCAGGTTCATTCTCTCA
+00_0035   CCACATCGTTGACATTCGCACTGGTTTTCATTATTACCACATAGTGTCTCAGGTTCATTCTCTCA
+00_0007   CCGCATCGTTGACATTCGCACTGGTTTTCATTAGCGCCATATAGTGTATCAAGTTCATTCTCTCA
+00_0026   CCACATCGTTGACACTCGCACTGGTTCTCATTAGCGCCATATAGTGTATCAAGTTCATTCTCTCA
+00_0019   CCACATCGTTGACACTCGCACTGGTTCTCATTAGCGCCATATAGTGTATCAAGTTCATTCTCTCA
+00_0020   CCACATCGTTGACACTCGCACTGGTTCTCATTAGCGCCATATAGTGTATCAAGTTCATTCTCTCA
+00_0016   CCACATCGTTGACACTCGCACTGGTTCTCATTAGCGCCATATGGTGTATCAAGTTCATTCTCTCA
+00_0021   CCACATCGTTGACACTCGCACTGGTTCTCATTAGCGCCATATAGTGTATCAAGTTCATTCTCTCA
+00_0017   CCACATCGTTGACATTCGCACTGGTTCTCATTAGCGGCATATGGTGTATCAAGTTCATTCTCTCA
+00_0039   CCACATTGTTGACATTCGCACTGGTTCTCATTAGCGCCATATAATGTATCAAGTTTATTCTCTCA
+00_0008   CCACATCGTTGACATTCGCACTGGTTCTCATTAGCGCCATATAGTGTATCAAGTTCATTCTTTCG
+00_0012   CCACATCGTTGACATTCGCACTGGTTCTCATTAGCGCTATATAGTGTATCAAGTTCATTCTCTCG
+
+
+===========================================================================
+Run Reports by Region
+===========================================================================
+
+"Accepted" is the observed rate at which any change to the proposal trees
+  was accepted.
+
+11:48:08  Beginning region: coal
+Initial Chain 1 of 10:
+11:48:09  Predicted end of chains for this region:  Tue May 29 11:48:22 2012
+
+11:48:09  Accepted    60% | Posterior lnL 1.90107653 | Data lnL -1531.22692
+No trees discarded due to limit violations.
+Haplotype-Arranger accepted       185/188 proposals
+Tree-Arranger accepted             45/182 proposals
+Tree-Size-Arranger accepted        10/30 proposals
+  Theta       0.014005  
+  
+Initial Chain 2 of 10:
+11:48:10  Predicted end of chains for this region:  Tue May 29 11:48:22 2012
+
+11:48:10  Accepted    51% | Posterior lnL 2.00607272 | Data lnL -1223.59186
+No trees discarded due to limit violations.
+Haplotype-Arranger accepted       178/182 proposals
+Tree-Arranger accepted             20/173 proposals
+Tree-Size-Arranger accepted         6/45 proposals
+  Theta       0.019801  
+  
+Initial Chain 3 of 10:
+11:48:11  Predicted end of chains for this region:  Tue May 29 11:48:22 2012
+
+11:48:11  Accepted    48% | Posterior lnL 0.31579072 | Data lnL -1144.89455
+No trees discarded due to limit violations.
+Haplotype-Arranger accepted       168/170 proposals
+Tree-Arranger accepted             22/191 proposals
+Tree-Size-Arranger accepted         2/39 proposals
+  Theta       0.023710  
+  
+Initial Chain 4 of 10:
+11:48:12  Predicted end of chains for this region:  Tue May 29 11:48:22 2012
+
+11:48:12  Accepted 54.25% | Posterior lnL 0.06297012 | Data lnL -1045.63873
+No trees discarded due to limit violations.
+Haplotype-Arranger accepted       196/199 proposals
+Tree-Arranger accepted             16/165 proposals
+Tree-Size-Arranger accepted         5/36 proposals
+  Theta       0.022223  
+  
+Initial Chain 5 of 10:
+11:48:13  Predicted end of chains for this region:  Tue May 29 11:48:22 2012
+
+11:48:13  Accepted  47.5% | Posterior lnL 0.14588871 | Data lnL -988.502230
+No trees discarded due to limit violations.
+Haplotype-Arranger accepted       173/178 proposals
+Tree-Arranger accepted             14/197 proposals
+Tree-Size-Arranger accepted         3/25 proposals
+  Theta       0.024275  
+  
+Initial Chain 6 of 10:
+11:48:13  Predicted end of chains for this region:  Tue May 29 11:48:20 2012
+
+11:48:13  Accepted 48.25% | Posterior lnL 0.00676027 | Data lnL -852.329277
+No trees discarded due to limit violations.
+Haplotype-Arranger accepted       165/166 proposals
+Tree-Arranger accepted             23/196 proposals
+Tree-Size-Arranger accepted         5/38 proposals
+  Theta       0.023819  
+  
+Initial Chain 7 of 10:
+11:48:14  Predicted end of chains for this region:  Tue May 29 11:48:20 2012
+
+11:48:14  Accepted 52.25% | Posterior lnL 0.01444143 | Data lnL -810.236477
+No trees discarded due to limit violations.
+Haplotype-Arranger accepted       192/197 proposals
+Tree-Arranger accepted             11/172 proposals
+Tree-Size-Arranger accepted         6/31 proposals
+  Theta       0.023160  
+  
+Initial Chain 8 of 10:
+11:48:15  Predicted end of chains for this region:  Tue May 29 11:48:20 2012
+
+11:48:15  Accepted  50.5% | Posterior lnL 0.09752478 | Data lnL -743.664624
+No trees discarded due to limit violations.
+Haplotype-Arranger accepted       187/188 proposals
+Tree-Arranger accepted             14/191 proposals
+Tree-Size-Arranger accepted         1/21 proposals
+  Theta       0.021484  
+  
+Initial Chain 9 of 10:
+11:48:16  Predicted end of chains for this region:  Tue May 29 11:48:20 2012
+
+11:48:16  Accepted 50.25% | Posterior lnL 0.01912259 | Data lnL -716.659601
+No trees discarded due to limit violations.
+Haplotype-Arranger accepted       180/181 proposals
+Tree-Arranger accepted             19/185 proposals
+Tree-Size-Arranger accepted         2/34 proposals
+  Theta       0.022171  
+  
+Initial Chain 10 of 10:
+11:48:17  Predicted end of chains for this region:  Tue May 29 11:48:20 2012
+
+11:48:17  Accepted    47% | Posterior lnL 0.01905120 | Data lnL -696.976981
+No trees discarded due to limit violations.
+Haplotype-Arranger accepted       173/173 proposals
+Tree-Arranger accepted             14/186 proposals
+Tree-Size-Arranger accepted         1/41 proposals
+  Theta       0.021476  
+  
+Final Chain 1 of 2:
+11:48:19  Predicted end of chains for this region:  Tue May 29 11:48:20 2012
+
+11:48:19  Accepted    45% | Posterior lnL 0.05740946 | Data lnL -693.380385
+No trees discarded due to limit violations.
+Haplotype-Arranger accepted       422/423 proposals
+Tree-Arranger accepted             28/483 proposals
+Tree-Size-Arranger accepted         0/94 proposals
+  Theta       0.020319  
+  
+Final Chain 2 of 2:
+11:48:20  Accepted  47.6% | Posterior lnL 0.00834775 | Data lnL -687.920715
+No trees discarded due to limit violations.
+Haplotype-Arranger accepted       438/448 proposals
+Tree-Arranger accepted             32/473 proposals
+Tree-Size-Arranger accepted         6/79 proposals
+  Theta       0.020756  
+  
+11:48:20  Beginning profiling, please be patient
+11:48:20  Finished profile 1 of 1.
+
+

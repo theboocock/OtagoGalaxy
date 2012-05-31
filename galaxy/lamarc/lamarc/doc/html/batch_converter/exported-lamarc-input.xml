@@ -1,0 +1,223 @@
+<?xml version="1.0" ?>
+<!--Example output for 3 chromosomes, some with multiple segments-->
+<lamarc version="2.1">
+    <format>
+        <convert-output-to-eliminate-zero>true</convert-output-to-eliminate-zero>
+    </format>
+    <data>
+        <region name="chrom1">
+            <effective-popsize>1.000000</effective-popsize>
+            <spacing>
+                <block name="chrom1-segment" />
+            </spacing>
+            <population name="North">
+                <individual name="n_ind0">
+                    <phase type="unknown"></phase>
+                    <sample name="n_ind0_a">
+                        <datablock type="DNA"> ccccccAcc </datablock>
+                    </sample>
+                    <sample name="n_ind0_b">
+                        <datablock type="DNA"> TcccccAcc </datablock>
+                    </sample>
+                </individual>
+                <individual name="n_ind1">
+                    <phase type="unknown"></phase>
+                    <sample name="n_ind1_a">
+                        <datablock type="DNA"> ccccccTcc </datablock>
+                    </sample>
+                    <sample name="n_ind1_b">
+                        <datablock type="DNA"> TcccccTcc </datablock>
+                    </sample>
+                </individual>
+                <individual name="n_ind2">
+                    <phase type="unknown"></phase>
+                    <sample name="n_ind2_a">
+                        <datablock type="DNA"> ccccccGcc </datablock>
+                    </sample>
+                    <sample name="n_ind2_b">
+                        <datablock type="DNA"> TcccccGcc </datablock>
+                    </sample>
+                </individual>
+            </population>
+            <population name="South">
+                <individual name="s_ind0">
+                    <phase type="unknown"></phase>
+                    <sample name="s_ind0_a">
+                        <datablock type="DNA"> cTccTcccc </datablock>
+                    </sample>
+                    <sample name="s_ind0_b">
+                        <datablock type="DNA"> ccccTcccc </datablock>
+                    </sample>
+                </individual>
+                <individual name="s_ind1">
+                    <phase type="unknown"></phase>
+                    <sample name="s_ind1_a">
+                        <datablock type="DNA"> cTccccccc </datablock>
+                    </sample>
+                    <sample name="s_ind1_b">
+                        <datablock type="DNA"> ccccccccc </datablock>
+                    </sample>
+                </individual>
+            </population>
+        </region>
+        <region name="chrom2">
+            <effective-popsize>1.000000</effective-popsize>
+            <spacing>
+                <block name="chrom2-segment1">
+                    <map-position> 1000 </map-position>
+                    <length> 500 </length>
+                    <offset> -4 </offset>
+                    <locations> 2 88 125 173 443 </locations>
+                </block>
+                <block name="chrom2-segment2">
+                    <map-position> 5000 </map-position>
+                    <length> 250 </length>
+                    <offset> -4 </offset>
+                    <locations> 13 19 35 77 102 112 204 </locations>
+                </block>
+            </spacing>
+            <population name="North">
+                <individual name="n_ind0">
+                    <phase type="unknown"></phase>
+                    <phase type="unknown">13 19</phase>
+                    <sample name="n_ind0_a">
+                        <datablock type="SNP"> Gaaaa </datablock>
+                        <datablock type="SNP"> Caaaaaa </datablock>
+                    </sample>
+                    <sample name="n_ind0_b">
+                        <datablock type="SNP"> aGaaa </datablock>
+                        <datablock type="SNP"> aCaaaaa </datablock>
+                    </sample>
+                </individual>
+                <individual name="n_ind1">
+                    <phase type="unknown"></phase>
+                    <phase type="unknown"></phase>
+                    <sample name="n_ind1_a">
+                        <datablock type="SNP"> aaGaa </datablock>
+                        <datablock type="SNP"> aaCaaaa </datablock>
+                    </sample>
+                    <sample name="n_ind1_b">
+                        <datablock type="SNP"> aaaGa </datablock>
+                        <datablock type="SNP"> aaaCaaa </datablock>
+                    </sample>
+                </individual>
+                <individual name="n_ind2">
+                    <phase type="unknown"></phase>
+                    <phase type="unknown"></phase>
+                    <sample name="n_ind2_a">
+                        <datablock type="SNP"> aaaaG </datablock>
+                        <datablock type="SNP"> aaaaCaa </datablock>
+                    </sample>
+                    <sample name="n_ind2_b">
+                        <datablock type="SNP"> Taaaa </datablock>
+                        <datablock type="SNP"> aaaaaCa </datablock>
+                    </sample>
+                </individual>
+            </population>
+            <population name="South">
+                <individual name="s_ind0">
+                    <phase type="unknown"></phase>
+                    <phase type="unknown"></phase>
+                    <sample name="s_ind0_a">
+                        <datablock type="SNP"> Taaaa </datablock>
+                        <datablock type="SNP"> Gaaaaaa </datablock>
+                    </sample>
+                    <sample name="s_ind0_b">
+                        <datablock type="SNP"> aTaaa </datablock>
+                        <datablock type="SNP"> aGaaaaa </datablock>
+                    </sample>
+                </individual>
+                <individual name="s_ind1">
+                    <phase type="unknown"></phase>
+                    <phase type="unknown"></phase>
+                    <sample name="s_ind1_a">
+                        <datablock type="SNP"> aaTaa </datablock>
+                        <datablock type="SNP"> aaGaaaa </datablock>
+                    </sample>
+                    <sample name="s_ind1_b">
+                        <datablock type="SNP"> aaaTa </datablock>
+                        <datablock type="SNP"> aaaGaaa </datablock>
+                    </sample>
+                </individual>
+            </population>
+        </region>
+        <region name="chrom3">
+            <spacing>
+                <block name="chrom3-micro">
+                    <map-position> 500 </map-position>
+                    <offset> 1 </offset>
+                </block>
+                <block name="chrom3-snp">
+                    <map-position> 501 </map-position>
+                    <length> 100 </length>
+                    <offset> 1 </offset>
+                    <locations> 23 </locations>
+                </block>
+            </spacing>
+            <population name="North">
+                <individual name="n_ind0">
+                    <phase type="unknown"></phase>
+                    <phase type="unknown"></phase>
+                    <sample name="n_ind0_a">
+                        <datablock type="Microsat">  18 </datablock>
+                        <datablock type="SNP"> T </datablock>
+                    </sample>
+                    <sample name="n_ind0_b">
+                        <datablock type="Microsat">  18 </datablock>
+                        <datablock type="SNP"> c </datablock>
+                    </sample>
+                </individual>
+                <individual name="n_ind1">
+                    <phase type="unknown"></phase>
+                    <phase type="unknown"></phase>
+                    <sample name="n_ind1_a">
+                        <datablock type="Microsat">  18 </datablock>
+                        <datablock type="SNP"> c </datablock>
+                    </sample>
+                    <sample name="n_ind1_b">
+                        <datablock type="Microsat">  19 </datablock>
+                        <datablock type="SNP"> c </datablock>
+                    </sample>
+                </individual>
+                <individual name="n_ind2">
+                    <phase type="unknown"></phase>
+                    <phase type="unknown"></phase>
+                    <sample name="n_ind2_a">
+                        <datablock type="Microsat">  18 </datablock>
+                        <datablock type="SNP"> A </datablock>
+                    </sample>
+                    <sample name="n_ind2_b">
+                        <datablock type="Microsat">  20 </datablock>
+                        <datablock type="SNP"> c </datablock>
+                    </sample>
+                </individual>
+            </population>
+            <population name="South">
+                <individual name="s_ind0">
+                    <phase type="unknown"></phase>
+                    <phase type="unknown"></phase>
+                    <sample name="s_ind0_a">
+                        <datablock type="Microsat">  19 </datablock>
+                        <datablock type="SNP"> G </datablock>
+                    </sample>
+                    <sample name="s_ind0_b">
+                        <datablock type="Microsat">  20 </datablock>
+                        <datablock type="SNP"> c </datablock>
+                    </sample>
+                </individual>
+                <individual name="s_ind1">
+                    <phase type="unknown"></phase>
+                    <phase type="unknown"></phase>
+                    <sample name="s_ind1_a">
+                        <datablock type="Microsat">  19 </datablock>
+                        <datablock type="SNP"> c </datablock>
+                    </sample>
+                    <sample name="s_ind1_b">
+                        <datablock type="Microsat">  21 </datablock>
+                        <datablock type="SNP"> c </datablock>
+                    </sample>
+                </individual>
+            </population>
+        </region>
+    </data>
+</lamarc>

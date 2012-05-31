@@ -1,0 +1,97 @@
+<!-- header fragment for html documentation -->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+
+<META NAME="description" CONTENT="Estimation of population parameters using genetic data using a maximum likelihood approach with Metropolis-Hastings Monte Carlo Markov chain importance sampling">
+<META NAME="keywords" CONTENT="MCMC, Markov chain, Monte Carlo, Metropolis-Hastings, population, parameters, migration rate, population size, recombination rate, maximum likelihood">
+
+<TITLE>LAMARC Documentation: Limitations of LAMARC</title>
+</HEAD>
+
+
+<BODY BGCOLOR="#FFFFFF">
+<!-- coalescent, coalescence, Markov chain Monte Carlo simulation, migration rate, effective
+ population size, recombination rate, maximum likelihood -->
+
+
+<P>(<A HREF="messages.html">Previous</A> | <A HREF="index.html">Contents</A>
+| <A HREF="glossary.html">Next</A>)</P>
+
+<H2> Limitations of LAMARC </H2>
+
+<P> This documentation has a lot to say about what LAMARC can do.
+Here is a concise guide to what it cannot do, with some suggestions
+for other approaches.</P>
+
+<H3> Some combinations of analyses are not possible. </H3>
+
+<P> Due to program or mathematical limitations, some combinations
+of analyses are not possible and will be rejected if attempted:</P>
+
+<LI> Gamma-distributed variation in mutation rate among regions is
+not compatible with estimation of growth, nor can it currently be
+used in a Baysian run.</LI>
+
+<LI> Newick trees cannot be written out if migration or recombination
+are allowed.  </LI>
+
+<LI> Migration rate estimation requires at least two populations.</LI>
+
+<LI> Recombination estimation requires at least two linked markers. </LI>
+
+<LI> Mapping requires recombination.</LI>
+
+<LI> Divergence can only be inferred in a Bayesian run, not a likelihood
+run.</LI>
+
+<H3> Some cases cannot be well modelled by LAMARC. </H3>
+
+LAMARC has a wide range of evolutionary models but not all possible
+ones by any means.  Some significant omissions:
+
+<LI> Samples from multiple time points in a fast-evolving population. 
+Consider the <A HREF="http://beast.bio.ed.ac.uk/Main_Page">BEAST</a> 
+program of Drummond and Rambaut for this.</LI>
+
+<LI> Multiple population divergence cases where the population tree
+is not known.  Consider the *BEAST program of Drummond and Rambaut
+when it is available.
+
+<LI> RFLP, AFLP, or insertion/deletion data.  You may be able to use the
+<A HREF="http://cmpg.unibe.ch/software/arlequin3/">ARLEQUIN</A> program of Excoffier; 
+we know of no full coalescent likelihood or
+Bayesian analysis which can handle these data. </LI>
+
+<LI> Growth models other than simple exponential growth or decline. Consider
+the <A HREF="http://beast.bio.ed.ac.uk/Main_Page">BEAST</a> program of
+Drummond and Rambaut.</LI>
+
+<LI> Geographic isolation as a function of distance, rather than
+via separation into distinct subpopulations.  Consider the Dancing
+Trees algorithm of <A
+HREF="http://ib.berkeley.edu/labs/moritz/research/theory.html">Baird</a>,
+if an implementation becomes available.</LI>
+
+<LI> Combining data which have recombination and data which do not
+(i.e. nuclear and mitochondrial DNA) in the same recombination-aware
+analysis.  We know of no alternative.  You may want to do two separate
+analyses with LAMARC. </LI>
+
+<LI> Sequences from multi-gene families.  The underlying coalescent
+model in LAMARC is not correct for such data.  Consider the gene-families
+ML algorithm of Dubb, if an implementation becomes available.</LI>
+
+<LI> Recombination rates which vary among regions or across the sequence.
+Consider the <A HREF="http://www.stats.ox.ac.uk/~mcvean/LDhat/">LDHAT</A>
+program of McVean.</LI>
+
+<P>(<A HREF="messages.html">Previous</A> | <A HREF="index.html">Contents</A>
+| <A HREF="glossary.html">Next</A>)</P>
+
+<!--
+//$Id: limitations.html,v 1.10 2012/05/16 17:14:01 mkkuhner Exp $
+-->
+</BODY>
+</HTML>
+

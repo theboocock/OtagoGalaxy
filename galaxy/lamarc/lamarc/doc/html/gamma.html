@@ -1,0 +1,169 @@
+<!-- header fragment for html documentation -->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+
+<META NAME="description" CONTENT="Estimation of population parameters using genetic data usi
+ng a maximum likelihood approach with Metropolis-Hastings Monte Carlo Markov chain importanc
+e sampling">
+<META NAME="keywords" CONTENT="MCMC, Markov chain, Monte Carlo, Metropolis-Hastings, populat
+ion, parameters, migration rate, population size, recombination rate, maximum likelihood">
+
+<TITLE>LAMARC Documentation: Mutation Rate Variation</title>
+</HEAD>
+
+
+<BODY BGCOLOR="#FFFFFF">
+<!-- coalescent, coalescence, Markov chain Monte Carlo simulation, migration rate, effective
+ population size, recombination rate, maximum likelihood -->
+
+<P>(<A HREF="data_models.html">Previous</A> | <A
+HREF="index.html">Contents</A> | <A HREF="forces.html">Next</A>)</P>
+
+<H2>Combining data with different mutation rates</H2>
+
+<P> LAMARC offers three ways to handle variation in mutation rate
+among markers.  
+<UL>
+<LI><A HREF="gamma.html#contiguous">Variation within a contiguous segment</A></LI>
+<LI> <A HREF="gamma.html#known">Known variation among segments, regions, and/or data types.</a></LI>
+<LI> <A HREF="gamma.html#unknown">Unknown variation among regions.</a></LI>
+<LI> <A HREF="gamma.html#bottom">Bottom line.</a></LI>
+</UL>
+
+
+This file describes all three and gives some guidelines
+on their correct use.  Note that we will use the term 'segment' for a
+contiguous stretch of sites with markers of the same data type, and 'region'
+to indicate one or more linked segments of the same or different data types.
+</P>
+
+<P><A NAME="contiguous"><B> Variation within a contiguous segment.</B>  If the mutation
+rate (or fixation rate) may vary from site to site within a single
+contiguous genetic segment, such as a DNA sequence or group of
+linked microsatellites, the best approach is to use the "Multiple
+rate categories" option of the appropriate data model.  This
+option is described in the <A HREF="data_models.html">data models</a>
+section of the documentation.</P>
+
+<P><A NAME="known"><B> Known variation among segments, regions, and/or data types.</B>
+If you know in advance
+that one region has, say, a tenfold higher mutation rate than
+another, the best approach is to set the "Relative mutation
+rate" option of the appropriate data model.  Choose one region
+as the standard, and set its relative mutation rate to 1.0;
+set the others proportionally.  This is a good approach if you
+have, for example, a DNA sequence and some microsatellites, and are
+fairly sure that microsatellite shift mutations are about 1000
+times more common than single base pair substitutions.  The
+unit of comparison is the single marker:  one microsatellite,
+one base pair of DNA, one SNP.</P>
+
+<P>This approach can also be used for areas where the mutation rate
+variation is known for a contiguous stretch of markers, for example a DNA
+sequence containing both introns and exons.  If each intron and exon is
+assigned to a unique segment, the known relative mutation rates can be set
+explicitly.</P>
+
+<P> Even if you are not perfectly sure of the ratio between
+your data, using a reasonable guess will still be better than
+allowing the default of identical rates everywhere.  If you
+are not sure whether microsatellites mutate 1000x or only
+100x faster than DNA, pick an intermediate value.  Assuming
+that they mutate at the same rate will definitely give bad
+results.</P>
+
+<P><A NAME="unknown"><B> Unknown variation among regions.</B> If you suspect that
+your regions vary in mutation rate, but you don't have any
+information on their specific rates, you can assume that 
+these rates are drawn from a gamma distribution.  The
+gamma distribution is a somewhat arbitrarily-chosen, flexible statistical
+distribution which varies from looking exponential when its
+scaled shape parameter &alpha; is low, to looking like an increasingly narrow
+bell curve as &alpha; increases.  Low values of &alpha; correspond
+to cases in which most regions are nearly invariant, and a few
+evolve rapidly.  High values of &alpha; correspond
+to cases in which the single-region mutation rates are approximately
+normally distributed about the mean single-region mutation rate.
+(The gamma distribution actually has two parameters, a "shape
+parameter" &alpha; and a "scale parameter" &beta;, but LAMARC
+sets &beta; = 1/&alpha; to avoid overparameterization, and to
+allow it to work with a distribution whose mean, the product &alpha;&beta;,
+is 1.)</P>
+
+<P> LAMARC can estimate &alpha; if you have no prior conception of what a
+good value here would be (though a reasonable starting guess will speed up
+maximization).  In practice, it needs more than two or three regions to make
+a reasonable estimate of &alpha;.  If you have only 2-3 regions, it is best
+to guess at their ratio, or fix &alpha; to a value you find reasonable;
+estimation of &alpha; is likely to fail because not enough information is
+available.  (With only one region, &alpha; cannot be estimated and will not
+be used.) Information on setting this option is available in the
+<a href="menu.html#gamma">gamma parameter</a> section of the
+<a href="menu.html">LAMARC menu documentation</a>.
+</P>
+
+<P> If your data consist of several microsatellites and
+several DNA or SNP regions, the real distribution of mutation
+rates probably resembles a two-humped camel and not a
+gamma distribution at all.  You can try fitting a gamma
+anyway, but be aware that you are fitting an inappropriate
+model.  A better alternative is to guess the relative
+mutation rates:  the large difference between microsatellites
+and DNA data probably trumps any differences among each
+group.  You can even do both, giving a mutation rate constant
+for each region and then adding a gamma on top.  We believe
+that this has the effect of drawing the different regions from
+versions of the same gamma but with its mean shifted by
+the given mutation rate ratio.  However, this combination
+has not been extensively tested:  use it at your own risk. 
+It assumes that &alpha; is the same for DNA and microsatellites,
+which is probably not the case, but sometimes a shaky
+assumption is better than nothing.</P>
+
+<P>Please note that Lamarc can only apply a gamma distribution
+to single-region relative mutation rates if all populations
+are assumed to remain constant in their respective sizes.
+This is due to a mathematical complication in the way Lamarc
+implements the gamma distribution (in this case, Lamarc does
+<i>not</i> approximate the gamma distribution by a histogram of
+relative rates).  This means that Lamarc cannot simultaneously
+model the gamma "force" and the force of exponential population
+growth, even for fixed values of &alpha; or <i>g</i>.  If you
+believe one or more of your populations is rapidly growing or
+shrinking, and you think the single-region relative mutation
+rates are approximately gamma-distributed for your data,
+then your best bet is to estimate the relative rates by some
+other method and supply these to Lamarc as constants, and then
+to proceed to estimate growth rates. </P>
+
+<P>Also, because of the way Lamarc implements this feature,
+it can only be used for maximum-likelihood analyses.
+If you want to perform a Bayesian analysis, and you think
+the single-region relative mutation rates are approximately
+gamma-distributed for your data, then your best bet is to
+estimate the relative rates by some other method and supply
+these to Lamarc as constants, and then
+proceed with your Bayesian analysis.</P>
+
+<P><A NAME="bottom"><B>Bottom line.</B>  If your data has mutation rate
+variation within a segment, use the "Multiple rate categories"
+option of the mutation model.  If it has variation between
+segments and you know the relative rate of each, use the
+"Variable mutation rate" option of the mutation model.
+If it has variation among regions and you don't know the rates
+of individual regions, you can assume that they are drawn
+from a gamma, but this is likely to work well only if you
+have more than 3 regions, and is not ideal if the regions fall
+into large classes with distinctly different rates.  It
+is best suited for large collections of one data type,
+such as multiple regions with DNA.<P>
+
+<P>(<A HREF="data_models.html">Previous</A> | <A HREF="index.html">Contents</A> |
+<A HREF="forces.html">Next</A>)</P>
+<!--
+//$Id: gamma.html,v 1.12 2011/06/23 21:00:36 jmcgill Exp $
+-->
+</BODY>
+</HTML>
+

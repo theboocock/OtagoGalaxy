@@ -1,0 +1,8 @@
+ 2 1 . Example: diploid microsat data from two populations
+3    North
+n_ind0    18.18
+n_ind1    18.19
+n_ind2    18.20
+2    South
+s_ind0    19.20
+s_ind1    19.21

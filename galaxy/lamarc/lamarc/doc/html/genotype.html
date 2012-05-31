@@ -1,0 +1,165 @@
+<!-- header fragment for html documentation -->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+
+<META NAME="description" CONTENT="Estimation of population parameters using genetic data usi
+ng a maximum likelihood approach with Metropolis-Hastings Monte Carlo Markov chain importanc
+e sampling">
+<META NAME="keywords" CONTENT="MCMC, Markov chain, Monte Carlo, Metropolis-Hastings, populat
+ion, parameters, migration rate, population size, recombination rate, maximum likelihood">
+
+<TITLE>LAMARC Documentation: Haplotypes/Diplotypes</title>
+</HEAD>
+
+
+<BODY BGCOLOR="#FFFFFF">
+<!-- coalescent, coalescence, Markov chain Monte Carlo simulation, migration rate, effective
+ population size, recombination rate, maximum likelihood -->
+
+<P>(<A HREF="tracer.html">Previous</A> | <A HREF="index.html">Contents</A> |
+<A HREF="viral_data.html">Next</A>)</P>
+<H2>Using genotypic data</H2>
+
+<P>The LAMARC program is not a tool to infer haplotypes in the sense
+of telling you what the best haplotype resolutions would be.  However,
+it can make estimates using genotypic data with unknown phase,
+by including in its search space many different resolutions of the
+haplotypes.</P>
+
+<P>This process is not slow in itself, but it makes the search space
+enormously larger, so you will need to run many more steps.  You will 
+also almost surely need to use heating; otherwise the search tends to 
+get "stuck" as soon as it finds a reasonably compatible tree and set 
+of haplotypes.</P>
+
+<P>If you can get haplotypes by family studies or experimental methods,
+they will produce more accurate results than LAMARC's process.
+However, if you can only get haplotypes by using some other form of
+haplotype-inference software (such as the EM algorithm), it may be
+better, if you have time, to use LAMARC's process instead (using the
+inferred haplotypes as a starting point will speed up the search).  No
+matter how good the haplotype-inference program, it will introduce
+some bias by using only the "best" haplotypes; if these haplotypes
+are not fully correct they will tend to indicate less recombination
+than has actually occured. </P>
+
+<H3>Input</H3>
+
+<P>The XML format for phase-unknown data includes an extra tag within
+each individual, &lt;phase&gt;.  This tag has an obligatory attribute
+of "type" which can be either "known" or "unknown."  In the "known"
+case, the phase tag encloses a list of all sites whose phase is
+known (and therefore need not be reconsidered during the run).  In
+the "unknown" case, the phase tag encloses a list of all sites
+whose phase is not known (and therefore must be reconsidered).  Use
+whichever is more convenient for your data.</P>
+
+<P>If all sites are known, the phase tag can be omitted, or an empty
+&lt;phase type="unknown"&gt; tag can be used.  If all sites are unknown,
+an empty &lt;phase type="known"&gt; tag can be used.</P>
+
+<P>Only one &lt;phase&gt; tag is allowed per individual.</P>
+
+<P>You do not need to exclude sites which are homozygous, as they will
+not be considered for phase inference anyway; but if any heterozygous
+sites are phase-known, it is much better to indicate them as such
+than to let them be unnecessarily reconsidered.</P>
+
+<P>To indicate that a haplotype-reconsideration arrangement strategy 
+should be used, add a &lt;haplotyping&gt; tag to the &lt;strategy&gt; section, 
+and indicate for each strategy what proportion of the time it should 
+be used.  For example, here is a valid strategy block that will spend 20%
+of its effort on haplotype reconsideration and 80% on tree
+reconsideration:</P>
+
+<PRE>
+ &lt;strategy&gt;
+    &lt;resimulating&gt; 0.8 &lt;/resimulating&gt;
+    &lt;haplotyping&gt; 0.2 &lt;/haplotyping&gt;
+ &lt;/strategy&gt;
+</PRE>
+
+<P>We have used 20% haplotyping with fair success, but you may want
+to experiment.  Note that the resimulating strategy is required;
+100% effort on haplotyping is not a valid option.</P>
+
+<H3>Menu</H3>
+
+<P>To turn haplotype reconsideration on and off, use the Search Strategies
+menu, Rearrangement submenu.  If haplotyping is off, selecting
+its entry will turn it on, and you will be prompted for the 
+frequency of haplotype reconsideration desired (for example, 0.2 
+for 20% effort into reconsideration).  If haplotype reconsideration
+is on, selecting its entry will turn it off.</P>
+
+<P>Note that these options will have no effect unless some
+phase-unknown sites are present in the data set.  Haplotype reconsideration
+is automatically disabled for any region which lacks phase-unknown
+sites.</P>
+
+<H3>Search strategy </H3>
+
+<P>Every step spent reconsidering the haplotypes is time not spent
+reconsidering the tree.  So if you put 20% effort into haplotypes
+you will need at least 20% more steps to get the same tree coverage.
+It will probably be safer to double the number of steps so as to
+allow for the increased search space.</P>
+
+<P>Haplotype steps are quicker than tree-resimulation steps, so you
+can afford to be fairly generous with the number of haplotype
+steps.  However, we don't recommend putting more than 50% effort
+into haplotype reconsideration, because this may end up optimizing 
+the haplotypes of a very suboptimal tree.</P>
+
+<P>Heating is almost essential for genotypic data unless
+very few sites are phase-unknown.  Signs that the haplotype
+sampler is "stuck" include estimates that don't move far from 
+their starting value, or estimates that are nearly constant within 
+one run but vary wildly between runs.
+Stuck haplotyping runs normally overestimate Theta because they
+are using sub-optimal haplotypes.  Unfortunately the error bars in
+such cases may exclude the truth.</P>
+
+<P>If you have access to a haplotype-inference program, using its
+inferred haplotypes as a starting point may produce better estimates
+more quickly.  We prefer this to simply accepting the externally
+inferred haplotypes as correct.  While they may be nearly 
+correct, they will err in a specific direction (corresponding to
+a downward bias in Theta) because they are "too perfect" compared
+to the truth.</P>
+
+<H3> Evaluating the results </H3>
+
+<P>When haplotype reconsideration is in effect, some extra information
+will be printed in the runtime report and output report to let you
+assess whether it is working well.  (The "runtime report" is the set of 
+messages that Lamarc displays while it is running.  If you select
+"verbose" output, these messages will be appended to your output file.)
+Acceptance rates are given for
+each type of "arranger" (rearrangement strategy) separately, so you might
+see:</P>
+
+<P><PRE>
+Tree-Arranger accepted            149/1591 proposals
+Haplotype-Arranger accepted       277/409 proposals
+</PRE></P>
+
+<P> This means that the resimulating arranger is not accepting very
+many proposed trees, whereas the haplotype-reconsidering arranger is
+accepting over half.  If one of the arrangers is accepting few or no
+trees, your search is probably not working even if the overall acceptance
+rate is satisfactory; at the very least, you will need to run the 
+program for a long time to get adequate searching.</P>
+
+<P> If multiple temperatures are in use, the reported acceptance
+rates are for the coldest temperature only.</P>
+
+<P>(<A HREF="tracer.html">Previous</A> | <A HREF="index.html">Contents</A> |
+<A HREF="viral_data.html">Next</A>)</P>
+<!--
+//$Id: genotype.html,v 1.17 2007/04/27 19:43:17 mkkuhner Exp $
+-->
+</BODY>
+</HTML>
+

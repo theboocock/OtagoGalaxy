@@ -1,0 +1,29 @@
+<lamarc-converter-cmd>
+    <individuals>
+        <individual>
+            <name>n_ind0</name>
+            <sample><name>n_ind0_a</name></sample>
+            <sample><name>n_ind0_b</name></sample>
+        </individual>
+        <individual>
+            <name>n_ind1</name>
+            <sample><name>n_ind1_a</name></sample>
+            <sample><name>n_ind1_b</name></sample>
+        </individual>
+        <individual>
+            <name>n_ind2</name>
+            <sample><name>n_ind2_a</name></sample>
+            <sample><name>n_ind2_b</name></sample>
+        </individual>
+        <individual>
+            <name>s_ind0</name>
+            <sample><name>s_ind0_a</name></sample>
+            <sample><name>s_ind0_b</name></sample>
+        </individual>
+        <individual>
+            <name>s_ind1</name>
+            <sample><name>s_ind1_a</name></sample>
+            <sample><name>s_ind1_b</name></sample>
+        </individual>
+    </individuals>
+</lamarc-converter-cmd>

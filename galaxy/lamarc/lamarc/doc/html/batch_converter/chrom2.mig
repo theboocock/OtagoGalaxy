@@ -1,0 +1,24 @@
+   2 2  Example: 2 chromosomes with 2 loci each
+5 7
+6    North
+n_ind0_a  Gaaaa
+n_ind0_b  aGaaa
+n_ind1_a  aaGaa
+n_ind1_b  aaaGa
+n_ind2_a  aaaaG
+n_ind2_b  Taaaa
+n_ind0_a  Caaaaaa
+n_ind0_b  aCaaaaa
+n_ind1_a  aaCaaaa
+n_ind1_b  aaaCaaa
+n_ind2_a  aaaaCaa
+n_ind2_b  aaaaaCa
+4    South
+s_ind0_a  Taaaa
+s_ind0_b  aTaaa
+s_ind1_a  aaTaa
+s_ind1_b  aaaTa
+s_ind0_a  Gaaaaaa
+s_ind0_b  aGaaaaa
+s_ind1_a  aaGaaaa
+s_ind1_b  aaaGaaa

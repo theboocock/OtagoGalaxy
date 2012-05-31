@@ -1,0 +1,95 @@
+<!-- header fragment for html documentation -->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+
+<META NAME="description" CONTENT="Estimation of population parameters using genetic data using a maximum likelihood approach with Metropolis-Hastings Monte Carlo Markov chain importance sampling">
+<META NAME="keywords" CONTENT="MCMC, Markov chain, Monte Carlo, Metropolis-Hastings, population, parameters, migration rate, population size, recombination rate, maximum likelihood">
+
+<TITLE>LAMARC Documentation: Arranging your data into regions and segments</title>
+</HEAD>
+
+
+<BODY BGCOLOR="#FFFFFF">
+<!-- coalescent, coalescence, Markov chain Monte Carlo simulation, migration rate, effective
+ population size, recombination rate, maximum likelihood -->
+
+
+<P>(<A HREF="menu.html">Previous</A> | <A HREF="index.html">Contents</A> | <A HREF="data_models.html">Next</A>)</P>
+
+<H2> Regions and segments </H2>
+
+<P> If anyone can suggest better terms here than "regions" and "segments" we will
+mail them a fine chocolate bar or other confection of their choice.  These are 
+unsatisfactory terms but we have failed to find better ones.</P>
+
+<P> LAMARC can handle either pieces of genetic data which are unlinked, or pieces
+which are pretty tightly linked but perhaps have some recombination.  It does
+not deal well with intermediate cases, several centimorgans apart but still
+linked.  Generally these are better treated as unlinked than as
+linked, but neither approach is perfect.  If you are able to choose the location
+of your samples, choose either definitely linked or definitely unlinked ones.</P>
+
+<P> We call unlinked areas "regions".  Each region represents an independent
+path through evolutionary history, and will be treated as such.  Adding more
+regions is the best way to improve accuracy of your estimates, except for the
+estimate of recombination (a single long region is best for recombination).</P>
+
+<P> If your organism does not have sexual reassortment of its genome, it has
+only one region no matter how many chromosomes it may have.  All parts of the
+genome are inherited as a block.  An example would be tracing the history of
+somatically dividing cells within an organism.</P>
+
+<P>  Some regions need to be treated as containing multiple "contiguous segments" of
+data, often because they need to be modelled differently; for example, a region
+could contain a stretch of DNA and two microsatellites.  These must be treated
+differently as their mutational process and rates are very different; but if they
+are adjacent and linked, they are still in the same region.  We call subunits
+within a region "contiguous segments".  They may be genetic loci, or simply arbitrary bits
+of sequence.  They do not need to be strictly contiguous (there may be gaps between
+them) but they should be close enough together to be fairly tightly linked.</P>
+
+<P> For segments to be included in the same region, they should have been
+sampled from the same haplotypes.  If a few haplotypes have missing data
+for one or more segments, you can supply the missing data as ambiguity
+symbols ('N' for nucleotide data, '?' for allelic data.  The program will
+reject attempts to put segments into the same region if the names of the
+individuals or haplotypes do not correspond.</P>
+
+<P> You should model a collection of sequences as a single region if they cover
+an area no more than a centimorgan or so in length, and you know their relative
+locations.  Each group of sequences which fits this definition should be its
+own region.</P>
+
+<P> If you are going to estimate recombination, you <b> must </b> know how far
+apart the segments within each region are, and what order they appear in.  If
+there is no recombination, this information is not necessary (though providing
+it will do no harm).  Distances should be expressed in base pairs.  Pinpoint
+accuracy is probably not necessary, and you do not have to worry about the fact
+that microsatellites with different repeat numbers are different lengths.
+It's mainly important to get the scale of the map approximately correct.  Clearly
+you will come to different conclusions about the per-site recombination rate
+if you think your two segments are separated by a gap of 100 bp or a gap of
+10,000 bp.</P>
+
+<P> Within a region, you should model as separate segments any sections which are
+definitely evolving in different ways.  This includes not only DNA versus
+SNP versus microsatellite data, but possibly also genic versus intergenic
+stretches of DNA.  Also, if a stretch of DNA is interrupted by a microsatellite,
+it is best to cut the stretch of DNA into a segment before and a segment after
+the microsatellite, rather than trying to embed one segment in another.  (Frankly,
+we are not sure the program can handle embedded segments.)  Breaking a sequence
+into additional segments slows the program a tiny bit, but has no other bad
+consequences as far as we know, so when in doubt, subdivide.  One pitfall to
+watch for, however, is that if your nucleotide segments become very short it
+is unwise to attempt to estimate base frequencies from the data--you may not have
+a large enough sample, and should substitute an overall estimate of your
+organism's base frequencies.</P>
+
+<P>(<A HREF="menu.html">Previous</A> | <A HREF="index.html">Contents</A> | <A HREF="data_models.html">Next</A>)</P>
+<!--
+//$Id: regions.html,v 1.2 2007/02/21 17:53:19 mkkuhner Exp $
+-->
+</BODY>
+</HTML>
+

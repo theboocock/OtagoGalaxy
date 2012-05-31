@@ -1,0 +1,228 @@
+<!-- header fragment for html documentation -->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+
+<META NAME="description" CONTENT="Estimation of population parameters using genetic data using a maximum likelihood approach with Metropolis-Hastings Monte Carlo Markov chain importance sampling">
+<META NAME="keywords" CONTENT="MCMC, Markov chain, Monte Carlo, Metropolis-Hastings, population, parameters, migration rate, population size, recombination rate, maximum likelihood">
+
+<TITLE>LAMARC Documentation: Evolutionary forces</title>
+</HEAD>
+
+
+<BODY BGCOLOR="#FFFFFF">
+<!-- coalescent, coalescence, Markov chain Monte Carlo simulation, migration rate, effective
+ population size, recombination rate, maximum likelihood -->
+
+
+<P>(<A HREF="regions.html">Previous</A> | <A HREF="index.html">Contents</A> |
+<A HREF="gamma.html">Next</A>)</P>
+
+<H2>Data Models (models of the mutational process) </H2>
+
+<P> This article describes available mutational models and how
+to use them. The first section covers basic capabilities shared by
+all models.  Nucleotide models are covered next, followed
+by models suitable for microsatellites and general allelic
+data.</P>
+
+The models supported at this time are:
+
+<UL>
+<LI><A HREF="data_models.html#F84">F84</A></LI>
+<LI><A HREF="data_models.html#GTR">GTR</A></LI>
+<LI><A HREF="data_models.html#stepwise">Stepwise</A></LI>
+<LI><A HREF="data_models.html#brownian">Brownian-Motion</A></LI>
+<LI><A HREF="data_models.html#kallele">K-Allele</A></LI>
+<LI><A HREF="data_models.html#mixed">Mixed Stepwise/K-Allele</A></LI>
+</UL>
+
+<H3>General features of all mutational models</H3>
+
+<P><a name="rateCategories"/>All mutational models offer multiple mutation-rate categories using
+the Hidden Markov Model of Felsenstein and Churchill.  In this
+model, we do not know what rate each site has, but we assume that
+we know how many rates there are, the relative value of each rate,
+and the proportion of sites that are expected to have each rate.
+For example, we might assume that our data has 10% fast-evolving
+sites and 90% slow-evolving sites, and that the fast-evolving sites
+are 5 times faster than the others.</P>
+
+<P>This would be indicated using the "Categories" option of the mutational
+model, giving 2 categories, the first category with a probability of
+0.1 and relative rate of 5, and the second with a probability of 0.9
+and relative rate of 1.</P>
+
+<P>Additionally, you can indicate that the rates at adjacent sites are
+correlated by setting the auto-correlation coefficient.  If you
+expect that, on average, runs of 10 sites will have the same rate,
+set this to 10.  The default is 1--every site chooses its rate
+independently.  Coding sequence has a different kind of 
+correlation--every third site is likely to be much faster than the 
+rest--and unfortunately LAMARC does not yet model this type of correlation.
+Coding sequence is currently best handled by two or three rate
+categories with no correlation.</P>
+
+<P>Programs such as <A HREF="http://paup.csit.fsu.edu/">PAUP*</a> can be useful in fine-tuning the rate model.
+In general, if you suspect your data has multiple rates, a
+multiple-rate model, even if not fully correct, is better than a single-rate
+model which is sure to be wrong.</P>
+
+<P>The program will slow down in proportion to the number of rate
+categories; it is seldom useful to have more than 3-4 categories.</P>
+
+<P>If you use multiple categories, the "mu" in your estimate of
+Theta=4N(mu) will be the weighted average of the rates.  In our
+given example, that would be 1.4 times the slow rate.</P>
+
+<P>Sometimes you will know that an entire region or segment has a significantly
+higher or lower mutation rate than the rest of your data.  This
+is best dealt with by setting that segment's relative mutation rate,
+not by using categories.  (This option is found in the data model
+menu as "R  Relative mutation rate".)  Be aware that the parameter
+estimates produced by LAMARC will be scaled proportional to a
+segment of relative mutation rate 1, even if no such segment is
+included in the data.  That is, if you tell LAMARC that you have 
+two segments, one with a relative mutation rate of 5 and the other 
+with a relative mutation rate of 50, your final estimate of Theta
+will describe a fictional segment with a relative mutation rate
+of 1, and you will need to multiply by 5 or 50 to find the
+Theta of your actual segments.</P>
+
+<br>
+<H3>Nucleotide models</H3>
+
+<P>LAMARC provides two models suitable for nucleotide (DNA, RNA or
+SNP) data.  The F84 model allows transitions and transversions to
+differ in rate, and also allows for different nucleotide frequencies.
+It can be used to emulate simpler models such as the Kimura 2-parameter
+or Jukes-Cantor models.  The GTR model allows every combination of
+bases to have its own rate, and can emulate any simpler model, but
+is much slower and should be used only when it's really necessary.
+The Modeltest utility of Posada, used in conjunction with PAUP*,
+can be used to select the most appropriate model.
+Both models allow the user to specify 
+<a href="glossary.html#data-uncertainty">data uncertainty</a>.
+</P>
+
+<H4><A NAME="F84">F84 Model</A></H4>
+The F84 or Felsenstein 84 nucleotide model distinguishes
+transition mutations (purine to purine, pyrimidine to pyrimidine)
+from transversion mutations and allows them to have different
+rates.  This is controlled by the "ttratio" parameter, which is
+the expected ratio of transitions to transversions.  Due to the way that
+these rates are handled internally, the ttratio must be strictly
+greater than 0.5.  If you want the Jukes-Cantor model, in which
+transitions and transversions are equally probable (because
+there are twice as many possible transversions, this corresponds to
+a ratio of 0.5), set the ttratio to a value such as 0.50001.
+
+<P>PAUP* can be useful in estimating the ttratio.  The value does not
+have to be very precise, but you risk misleading results if
+you analyze, for example, human mtDNA (whose correct ttratio may
+be around 30) using the default ttratio of 2.</P>
+
+<P>The F84 model also allows the frequencies of the four bases to 
+vary.  LAMARC can estimate these frequencies from the data, or
+you can specify values (for example, obtained from PAUP* or from
+a larger data set).  If your data set is very small, it is best
+to specify the values as the ones calculated from the data may
+be misleading.</P>
+
+<H4><A NAME="GTR">GTR (General Time-Reversible) Model</A></H4>
+
+<P>The GTR model is the most complex tractable model of nucleotide
+evolution; it allows for six different rates (each base to each
+other base) and unequal base frequencies.  The combination of
+rates and base frequencies must describe an equilibrium.  We
+recommend use of PAUP* to estimate the rates and base frequencies.
+GTR is a slow model and should only be used if it's really
+necessary, but it frequently is necessary for virus data and
+other high-mutation situations.</P>
+
+<P>Some releases of PAUP* provide only five rates for GTR.  The
+sixth rate is 1 by convention.</P>
+
+<br>
+<H3>Microsatellite models</H3>
+
+<P>The microsatellite models are appropriate for data which is
+expected to vary up and down a ladder.  They can also be
+used for elecrophoretic data.  The K-Allele model is, in addition,
+appropriate for allelic data where nothing is known about the
+expected direction of mutations:  an example would be presence/absence
+of some chromosomal rearrangement.</P>
+
+<H4><A NAME="stepwise">Stepwise Model</A></H4>
+
+<P>The stepwise model assumes that each mutation increases or decreases
+the number of repeats by one; larger changes always result from 
+multiple mutations.  It is suitable for microsatellite or
+electrophoretic data.  Even if the microsatellite does not
+evolve in a perfectly stepwise fashion, this model may be
+adequate unless the violations are fairly common or large.</P>
+
+<P> We allow for the possibility of alleles in the ancestry of
+the sample which were up to 5 repeats larger or smaller than the
+most extreme alleles observed in the data.  Currently this
+cannot be adjusted by the user.</P>
+
+<P>This model offers no user-settable parameters except for the
+rate categories options common to all data models.</P>
+
+<H4><A NAME="brownian">Brownian-Motion Model</A></H4>
+
+<P>The Brownian model is a mathematical approximation of the stepwise
+model.  It considers the mutational process as a continuous random walk
+around the starting point.  This is much faster than the full
+stepwise calculation, but can break down if the number of mutations is
+very low.  Breakdown will be signalled by data likelihoods of
+zero.  We normally try the Brownian model first and resort to the
+Stepwise only if bad data likelihoods are observed.  Results should
+be extremely similar.</P>
+
+<H4><A NAME="kallele">K-Allele Model</A></H4>
+
+<P>This model treats all alleles as equivalent, with mutation from any
+allele to any other allele equally probable.  It is the only model
+LAMARC offers for allelic data which are definitely not stepwise.  The 
+program assumes that the alleles observed in the data are the only possible
+alleles, so that if you present data with three different alleles,
+K=3.  This can be a problem if you know that there are actually 4
+alleles but one failed to occur in your data.  At present there is
+no workaround for this.</P>
+
+<H4><A NAME="mixed">Mixed Stepwise/K-Allele Model</A></H4>
+
+<P>This is a hybrid of the Stepwise and K-Allele models and may be
+appropriate for data in which most mutations are
+stepwise but a few much larger mutations occur. 
+It has a parameter 'percent_stepwise' which controls the
+proportion of Stepwise changes:  percent_stepwise of zero is a K-Allele
+model, percent_stepwise of one is a Stepwise model, and percent_stepwise of 1/2 asserts
+that K-Allele and Stepwise mutations are equally probable.  LAMARC's
+implementation can attempt to optimize percent_stepwise to maximize the
+likelihood of the observed data.</P>
+
+<P>Mixed K/S is a new
+and experimental model with which we have little experience.  One
+difficulty is that the stepwise model generally considers the
+possibility of alleles a bit larger or smaller than any observed,
+but allowing those unobserved alleles in the K-Allele model makes
+K very large and may cause the model to rule out K-Allele type mutations.
+We have allowed the Mixed model to consider only alleles one step larger
+or smaller than the largest or smallest observed alleles.  Even so,
+if the microsatellite being studied has only two, adjacent alleles,
+the Mixed model will consider 4 states whereas a normal K-Allele
+model would consider only 2.  As a result, we expect LAMARC's
+estimates of percent_stepwise to be somewhat higher than the truth.</P>
+
+<P>(<A HREF="regions.html">Previous</A> | <A HREF="index.html">Contents</A> |
+<A HREF="gamma.html">Next</A>)</P>
+
+<!--
+//$Id: data_models.html,v 1.13 2009/12/18 00:27:44 ewalkup Exp $
+-->
+</BODY>
+</HTML>
+

@@ -1,0 +1,14 @@
+   2 1  Example: 2 chromosomes with 2 loci each and phase information
+1
+6    North
+n_ind0_a  T
+n_ind0_b  c
+n_ind1_a  c
+n_ind1_b  c
+n_ind2_a  A
+n_ind2_b  c
+4    South
+s_ind0_a  G
+s_ind0_b  c
+s_ind1_a  c
+s_ind1_b  c

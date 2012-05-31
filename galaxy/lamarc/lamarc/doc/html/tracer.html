@@ -1,0 +1,132 @@
+<!-- header fragment for html documentation -->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+
+<META NAME="description" CONTENT="Estimation of population parameters using genetic data usi
+ng a maximum likelihood approach with Metropolis-Hastings Monte Carlo Markov chain importanc
+e sampling">
+<META NAME="keywords" CONTENT="MCMC, Markov chain, Monte Carlo, Metropolis-Hastings, populat
+ion, parameters, migration rate, population size, recombination rate, maximum likelihood">
+
+<TITLE>LAMARC Documentation: Using Tracer</title>
+</HEAD>
+
+
+<BODY BGCOLOR="#FFFFFF">
+<!-- coalescent, coalescence, Markov chain Monte Carlo simulation, migration rate, effective
+ population size, recombination rate, maximum likelihood -->
+
+<P>(<A HREF="bayes.html">Previous</A> | <A HREF="index.html">Contents</A>
+| <A HREF="genotype.html">Next</A>)</P>
+
+<H2>Using Tracer with LAMARC</H2>
+
+<P>LAMARC can produce output readable by the utility program Tracer,
+written by Andrew Rambaut and Alexei Drummond.  We do not distribute
+Tracer.  It can be found at:
+</P>
+
+<A HREF="http://tree.bio.ed.ac.uk/software/tracer/">
+http://tree.bio.ed.ac.uk/software/tracer/</A>
+
+<P>We thank the authors for producing this useful program.  It is
+written in Java and runs on most systems as long as a Java runtime
+environment is available.  Tracer is mainly intended for Bayesian
+runs.  For each parameter being estimated, it can display summary
+statistics (mean, standard deviation, etc) and a graph of the
+change in that parameter as the run progresses.  It can also
+show the correlation between pairs of parameters.  Finally, it
+produces a statistic, the Effective Sample Size (ESS), meant to
+indicate the size of a set of independent data points with the
+same information as our correlated data points.  A low ESS means
+that even though we may have sampled many data points, due to strong
+correlation between them we have not obtained much real information.
+This can happen if our search is rejecting most of its proposals,
+or if the proposals it accepts are all very close together so that
+it is not moving freely across the surface.</P>
+
+<P>The files that LAMARC outputs for Tracer (as of version 2.1.2) show all
+values ever sampled by the program, including any 
+chains used prior to the last final chain. 
+This means that the subset of the data used for parameter estimation will be
+only the final swath of data, and will not include anything before that.  We
+include it in the Tracer output so you can visualize the entire LAMARC run
+to better see the parameters as they move from their starting values to
+their final values, and then (hopefully) level off.  If you use Tracer to
+give you estimates, be sure to tell it to not use the initial section, as it
+will bias your estimates towards the starting values.  Other than that, the
+estimates Tracer produces should be very similar to the estimates LAMARC
+produces--the two programs use different curve-smoothing algorithms
+(LAMARC's is described <A HREF="curve-smoothing.html">in this article</a>),
+but should be drawn from the same underlying data.
+</P>
+
+<P>In both the Bayesian and Likelihood runs of LAMARC, one of the output
+parameters will be not the estimated parameters, but the data likelihood
+values for the trees (in the Likelihood run, this is the sole output value,
+as it does not sample among other parameter values).  These data likelihoods
+are the log of the probability that the data would be produced on the given
+tree, and will increase from the start of the run and should eventually
+level off, just like all other parameters.</P>
+
+<P>Tracer is
+very useful in diagnosing too-short runs.  If the trace
+graph shows a rising line, rather than a line which plateaus and
+varies around a particular value, the run is too short.  Be aware,
+however, that while a bad-looking trace nearly guarantees a bad
+run, a good-looking trace cannot guarantee a good run.  If there
+is a favorable region of parameter space which was never found, no
+examination of the regions which were found can reveal this.</P>
+
+<P> Here is an example of a Bayesian run whose results for the
+parameter shown (Theta for the first population) are not satisfactory.
+Note the systematic upward trend through most of the run length.
+Even though the trace dips back down at the end, the run has
+clearly not reached a stable state yet, and should be redone with
+many more steps.</P>
+
+<p><IMG SRC="images/tracer_trend.png" ALT="upward trending trace"/></P>
+
+<P>  The authors of Tracer red-flag an Effective Sample Size (ESS)
+statistic under 100 as indicating a run which is definitely too
+short, but in some of their discussion express doubt about runs
+with ESS < 200.  We distrust runs with ESS < 200 for any
+parameter.  Unfortunately higher ESS is not a guarantee of good
+results; note that the ESS of the displayed example is 245.</P>
+ You should check both trace shape and ESS for each parameter,
+and doubt a run in which either one is unsatisfactory.<P>
+
+<P>Do note that the values reported from within a LAMARC run labelled
+"Number of unique sampled values for each parameter" are <b>not</b> ESS
+values, but rather exactly what that title would suggest.  In a sense, they
+could be termed the 'actual sample size', but in addition to this not being
+a useful statistical measure, nobody wants to make an acronym out of it.</P>
+
+<P> Tracer cannot be used to track parameter estimates in a likelihood
+run of LAMARC, as likelihood runs don't make running estimates of
+their parameters (it would be too expensive).  The only
+use of Tracer in a likelihood run is to monitor the fit of the data
+to the genealogy (the "data likelihood").
+Again, a rising line which does not plateau definitely indicates
+a too-short run, whereas a nice plateau suggests but does
+not guarantee a good run.</P>
+
+<P>LAMARC automatically writes a file suitable for Tracer for
+each chromosomal region it analyzes.  The files are called
+"tracefile_regionname_replicate.txt".  So the file containing
+information on the mtDNA region, first replicate, would be
+named "tracefile_mtDNA_1.txt".  This file can be provided to
+Tracer as-is using the "Import" option in Tracer's menu.</P>
+
+<P>We welcome any input on how to make Tracer more useful with
+LAMARC, and visa versa.</P> 
+
+<P>(<A HREF="bayes.html">Previous</A> | <A HREF="index.html">Contents</A>
+| <A HREF="genotype.html">Next</A>)</P>
+
+<!--
+//$Id: tracer.html,v 1.9 2007/10/04 21:02:27 jay Exp $
+-->
+</BODY>
+</HTML>

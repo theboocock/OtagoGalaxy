@@ -1,0 +1,375 @@
+<!-- header fragment for html documentation -->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+
+<META NAME="description" CONTENT="Estimation of population parameters using genetic data using a maximum likelihood approach with Metropolis-Hastings Monte Carlo Markov chain importance sampling">
+<META NAME="keywords" CONTENT="MCMC, Markov chain, Monte Carlo, Metropolis-Hastings, population, parameters, migration rate, population size, recombination rate, maximum likelihood">
+
+<TITLE>LAMARC Documentation: Output</TITLE>
+</HEAD>
+
+
+<BODY BGCOLOR="#FFFFFF">
+<!-- coalescent, coalescence, Markov chain Monte Carlo simulation, migration rate, effective
+ population size, recombination rate, maximum likelihood -->
+
+<P>(<A HREF="search.html">Previous</A> | <A HREF="index.html">Contents</A> |
+<A HREF="bayes.html">Next</A>)</P>
+
+<H2>Interpreting the Output File</H2>
+
+<P> The output file is divided into four main sections, some of which
+will appear only if you ask for them (by setting output to "verbose"): </P>
+
+<UL>
+<LI><A HREF="output.html#mle"> MLE/MPE Estimates of Parameters </A></LI>
+<LI><A HREF="output.html#profile"> Profile Likelihoods </A></LI>
+<LI><A HREF="output.html#user"> User Specified Options </A></LI>
+<LI><A HREF="output.html#runreport"> Run Reports </A></LI>
+</UL>
+
+<P> The output report is best viewed and printed in a monospaced font such
+as Courier.</P>
+
+<H3><A NAME="mle"> Maximum Likelihood Estimates (MLEs) of
+Parameters</A></H3> (or)
+<H3>Most Probable Estimates (MPEs) of Parameters</h3>
+
+<P> This section presents the actual results:  maximum likelihood estimates
+(MLEs) in a likelihood run or most probable estimates (MPEs) in a bayesian
+run of whichever parameters were specified.  Each evolutionary force
+(coalescence, migration, recombination, growth, etc.) used in the analysis
+has its own column or set of columns in the output.</P>
+
+<P> If profiling has been turned on, each parameter
+will be presented with some information about its possible error.
+This information is calculated during profiling.</P>
+
+<P> If you specified "percentile" profiling, you will be given approximate
+confidence intervals around the estimate of each parameter.  These are only
+asymptotically correct, so take them with a grain of salt; in too-short
+runs, particularly, they are likely to be much too narrow. 
+
+For the most
+accurate confidence intervals you will need to run multiple replicates (see
+the <A HREF="search.html">"Search Strategy"</A> article).  
+
+If you selected
+"concise" output with percentile profiling, only the 95% confidence
+intervals will be shown (the .025 and .975 percentiles).  If "normal" or
+"verbose" output was selected, a full range of percentiles will be shown,
+from .005 to .995.  </P>
+
+<P> If you specified "fixed" profiling, no information about the support
+intervals is
+given in this section, but can be deduced from the information in the next
+section (<A HREF="output.html#profile">Profile Likelihoods</A>).
+
+<H4> Theta ("coalescence" force) </H4>
+
+<P>The "Theta" data presents estimates of Theta for each population. Within
+each population an estimate is given for each region, along with an overall
+estimate combining information from all regions.
+
+<P> While most papers describe Theta as 4Nmu, this is true only for
+diploids. If you put haploid data into LAMARC (like that from mtDNA) the
+Theta estimates will be estimates of 2Nf(mu) instead.  It is best to think
+of Theta as "number of heritable copies in population * 2 * mutation rate"
+since this definition works no matter what the ploidy is.  (The "2" comes
+from the fact that two sequences that have diverged for time T are
+different by 2 * mu * T mutations, since both diverging lineages accumulate
+mutations.)</P>
+
+<P> If you have used the "multiple mutation rates" option of the data
+model, then the mu in Theta is relative to the mean mutation rate
+across all your categories, weighted by the probabilities of each
+category.  The categories reported in the output will be normalized
+to have a mean of 1.0.  They may therefore appear different from
+the values you put in.</P>
+
+<P> You can combine regions with different N or different mu, but
+you must know the relative N or mu of each region or segment, and must
+inform the program of this.  If you believe your mu rates to vary over
+regions, you can tell LAMARC these rates were drawn from a gamma
+distribution (see the 'alpha' section, below).</P>
+
+
+<H4> r (recombination force)</H4>
+
+<P> The "Recombination Rate" information presents estimates of r for each
+region. There are no per-population estimates; we model only
+the case where the recombination rate is constant within a phylogenetic
+tree.</P>
+
+<P> The parameter r is C/mu, with C being the per-site recombination rate
+and mu the per-site mutation rate.  Thus r=1 describes a situation where
+the risk of recombination at a site is the same as the risk of
+mutation at that site.  (Values of r as high as this will be difficult
+to estimate, and the program will tend to bog down.)</P>
+
+<H4> g (growth force)</H4>
+
+<P> The "Growth Rate" information presents estimates of the exponential
+growth or shrinkage rate for each population.  </P>
+
+<P> The parameter g shows the relationship between Theta, which is now the
+estimate of modern-day population size, and population size in the past 
+through the equation Theta(t) = Theta(now) exp(-gt) where t is
+a time in the past.  Positive 
+values of g indicate that the population has been growing, and negative 
+values indicate that it has been shrinking. </P>
+
+<P>The units of t in this equation are mutational units; one unit of time is
+the expected time for one mutation to occur.  To interpret the magnitude
+of g (in contrast to its sign, which has a straightforward meaning) you
+will need information about the mutation rate.  When such information
+is unavailable you have two options:  (1) use the values of g only to
+compare among organisms which presumably have the same mutation rate, or
+(2) consider a range of possible values.</P>
+
+<P>If you have information about the mutation rate mu, you can solve for
+values of Theta a given number of generations in the past using the
+relationship:</P>
+
+<P>Theta(T generations in the past) = Theta(now) exp(-gT(mu))</P>
+
+<H4> M (migration force) </H4>
+
+<P> The "Migration Rate" data are more complex, since we estimate the
+immigration rate into each population from every other population.
+There is an estimate for each migration rate parameter.  For example
+if there are three populations we present immigration from 1 to 2,
+from 1 to 3, from 2 to 1, from 2 to 3, from 3 to 1 and from 3 to 2,
+a total of 6 parameters.  If multiple genetic regions are present,
+then each parameter will have a separate estimate for each region
+and a joint "overall" estimate involving all the regions together.</P>
+
+<P> The parameter M is m, the per-generation migration rate, divided by mu,
+the per-site mutation rate.  Be careful in comparing results with other
+studies; there are two common ways to report migration rates, and many
+studies use 4Nm (where N is the population size of the receiving
+population) instead.  To convert the M value into 4Nm, multiply it by the
+Theta value of the recipient population.  For example, to convert a
+migration rate (M) from population 1 into population 3 to 4Nm, multiply by
+the Theta of population 3.</P>
+
+<P> Please bear in mind that we always estimate immigration rates--rates
+at which migrants enter a population.  This may seem backwards if one
+thinks in terms of the fate of individuals, but to a population as a whole
+the individuals entering it are much more significant to its future than
+the individuals leaving it.</P>
+
+<H4> alpha (scaled shape parameter of the best-fit gamma distribution
+of mutation rate over unlinked regions) </H4>
+
+<P>For data collected from multiple unlinked genomic regions, if you enable the
+gamma "force," you can have LAMARC distribute the unknown relative single-region
+mutation rates according to the gamma distribution which best fits your data.
+The general gamma distribution has two parameters, the "shape parameter" alpha
+(&alpha;) and the "scale parameter" beta (&beta;); to avoid overparameterization,
+LAMARC internally sets &beta; = 1/&alpha; so that the mean of the distribution
+is the product &alpha;&beta; = 1.  The value of &alpha; that LAMARC estimates
+is a pure, positive number which best fits the landscape of rate variation among genomic
+regions in your data set.  &alpha; = 1 corresponds to exponentially-distributed
+relative mutation rates; smaller &alpha; values imply most of your regions are
+nearly invariant and one or two are highly variable (data that are completely
+invariant everywhere would have &alpha; = 0).  Large values of &alpha; imply
+your regions are mutating at similar relative rates that are approximately
+distributed according to a normal distribution (data in which each region mutates at
+exactly the same rate would have an infinite value for &alpha;).  Some more
+information is available <A HREF="gamma.html">here</A>.</P>
+
+<P>Because there is very little power available to distinguish between very
+high values of &alpha;, LAMARC might, during the course of its analysis,
+decide to hold &alpha; constant at an arbitrarily high value such as 100,
+to avoid being pulled too close to infinity, where the likelihood calculations
+would become invalid.</P>
+
+<H3><A NAME="profile"> Profile Likelihoods </A> </H3>
+
+<P> This section gives more detailed information about the possible error of
+each estimate, and the relationships between the parameters.</P>
+
+<P> A profile likelihood table is a way of visualizing how change in one
+parameter affects the estimates of the other parameters.  For each table,
+one parameter is set to several interesting values and held constant
+at those values while all other parameters are maximized.  For example,
+we may hold Theta1 constant at 10x its MLE and see how that affects the
+best values of the other parameters.</P>
+
+<P> If varying one parameter causes another to vary wildly, the two are
+correlated.  If varying one parameter leaves another nearly constant,
+the two are uncorrelated.  An example of correlated parameters would
+be the migration rates from North to South America and South to North
+America.  If there are considerable similarities between the North
+and South American populations, then lowering the N->S migration rate
+will force a compensating raising of the S->N rate.  This would be
+visible in profile likelihood tables as a marked curve in the S->N
+rate when the N->S rate is being profiled, and vice versa.</P>
+
+<P> Profiles can be done in two ways, "percentile" or "fixed", but only one
+of those can be used per force.  You can also turn off
+profiling of any individual parameter, perhaps because you already know it
+cannot be sensibly estimated.</P>
+
+<P> "Percentile" profiles are estimated at percentiles of the likelihood
+curve; for example, they may hold Theta1 fixed at the value which could
+just be rejected at the 95% level, and see what happens to the other
+parameters.  These are the most informative kind of profiles, but they
+are expensive to calculate because the program must find the correct
+percentile.</P>
+
+<P> "Fixed" profiles are estimated at multiples of the MLE parameter value;
+for example, they may hold Theta1 fixed at 1/10 of its MLE value and
+at 10x its MLE value.  These are not always as informative (the chosen
+values may be well off the edges of the curve) but they are quick to
+compute.</P>
+
+<P> The "verbose" form of the output report gives profiles for every region
+as well as for the overall results.  Lesser levels of output reporting
+give only the overall profiles.  If you have many parameters and regions, you
+will probably want to avoid "verbose" as the output can be overwhelming. 
+The "normal" form of the output report gives only the overall profiles.  The
+"concise" form of the output report gives only the overall profiles, and
+also only calculates the two percentiles that correspond to a 95% support
+intervals, or, in the case of fixed profiles, only the 1/10X and 10X
+multipliers.</P>
+
+<P>Profiles are very time-consuming, and if you don't want them it's best
+to turn them off.  Be aware, however, that if you don't do any profiling
+there will be no confidence-interval information either.  (The confidence
+intervals presented with the MLEs are, in fact, slices through the profile
+likelihood tables.)</P>
+
+<P> If speed is an issue (and profiling can take up the majority of a LAMARC
+run), one option is to turn on summary file reading and writing (see <A
+HREF="menu.html#io">Input and
+Output related tasks</A>).  Once a summary file has been written, you can
+change the profiling options, read it in again, and get mathematically
+identical results (to a certain degree of precision), but with percentile
+profiling instead of fixed, or normal output instead of concise.
+
+<H3><A NAME="user"> User Specified Options </A></H3>
+
+<P> This section lists the settings under which the program was run.  It is
+useful as a record of what you are doing, and to verify that your
+instructions were interpreted correctly</P>
+
+<H4> Data summary </H4>
+
+<P> This section summarizes details of the input data.  If there are
+multiple linked segments in the data, it provides a table listing all of
+the segments grouped by region.  Each segment shows its type of data and
+the relative mutation rate used for that segment.  The next section
+is a table showing for each region the number of variable markers found
+in that region, the relative Ne and mu of the region,
+and a pairwise estimate of Theta based
+on the method of Watterson or the FST estimator.  It also gives the 
+number of individuals sampled for that region in that population.</P>
+
+<P> This section may provide a useful warning.  If the values of the
+pairwise-estimator Thetas are widely variable and their support intervals do
+not overlap, you could be combining regions that should not be combined, or
+you have mistaken (or omitted) your relative Ne or mu values.  The
+per-region estimates are still valid, but the combined estimate should be
+regarded with suspicion.</P>
+
+<P> You may also see that, for example, it is hopeless to estimate
+recombination in a region because there are no variable sites.</P>
+
+<P> Following the region summary is a summary of the data model(s) used and
+their parameters.  For DNA, the Felsenstein '84 model reports four base
+frequencies and the transition/transversion ratio. The GTR model reports
+the four base frequencies and the six base-base mutation parameters.  For
+microsatellite data, the type of model is listed (Brownian, Stepwise or
+K-Allele).  For Stepwise and K-Allele the number of allele bins 
+is reported, and for the Mixed-KS model the value of the percent_stepwise
+parameter is also reported.</P>
+
+<P> We also report on the use of multiple mutation rate categories (method
+of Churchill and Felsenstein).  If multiple categories are in use, we
+report the number of categories, the (normalized) rate and probability
+of each, and the mean length of autocorrelated regions.</P>
+
+<H4> Input Genetic Data </H4>
+
+<P> If you request normal or verbose output, this section will contain
+a copy of your input data, formatted like PHYLIP's "interleaved" format
+with 60 bases per line.  This is useful to check that your data are
+properly aligned.  It can also be cut and pasted into other programs.</P>
+
+<H3><A NAME="runreport"> Run Reports by Region </A></H3>
+
+<P> If you requested verbose or normal output, the reports normally printed to
+screen during the program run will be repeated here (even if their
+screen printing was suppressed).  This is useful in diagnosing problems
+such as too-short chains.</P>
+
+<P> The reports are organized by region, and within regions by chain.
+They give the following: </P>
+
+<P> "Accepted" indicates the proportion of proposed changes that were
+accepted.  The search is in trouble if this dips below 5% and probably
+not working if it dips below 1%.  Consider heating to remedy this.</P>
+
+<P> "Prior lnL" compares how well the genealogies of this chain fit their
+ending parameter estimates as opposed to their starting parameter
+estimates.  DO NOT use this number in likelihood ratio tests; it
+is a relative likelihood and has no meaning outside of context.  It
+is provided only because very high prior lnLs are a symptom of having too
+few chains, or chains which are too short.  As a rule of thumb, by the
+final chains the prior lnL should be no greater than 2x-3x the number
+of parameters being estimated.</P>
+
+<P> "Data lnL" indicates the likelihood of the genetic data on the last
+genealogy in this chain.  It is in the same units that DNAMLK
+from PHYLIP would produce.  If the Data lnL is improving rapidly from
+chain to chain all the way to the end of the program, you are not
+running the program long enough--it is still finding much better
+trees than it ever found before.</P>
+
+<P> If you are using the Brownian motion approximation of the
+microsatellite likelihood methods, "Data lnL" of zero indicates that your
+population is small enough for the approximation to break down.  One zero,
+in an initial chain, may not be cause for concern but multiple zeros or
+zeros in the final chains suggest that the Brownian method should not be
+used.</P>
+
+<P> For more information on fine-tuning your search, see the documentation
+article on <A HREF="search.html">"Search Strategies."</A> </P>
+
+<P> If genealogies were discarded due to too many migrations or
+recombinations, a line will be printed giving the number of bad
+genealogies.  If this number remains high into the final chains, it
+is cause for concern.</P>
+
+<P> If more than one arrangement strategy was in use (for example, you
+were searching over genotype reconstructions) there will be a summary
+of acceptance rates for each strategy.  It is important to keep an eye
+on these and not simply look at the overall acceptance rates (see
+<A HREF="genotype.html">"Genotypic Data."</A>).  </P>
+
+<P> If multiple temperatures were in use, there will be a table showing
+the rates of swapping between adjacent temperatures.  We feel that optimal
+swapping rates are between 10% and 40%; if your rates are not in this
+range you may wish to adjust the number of temperatures or the
+difference between adjacent temperatures.</P>
+
+<P> When adaptive heating is in use, the temperatures shown are 
+averages over the course of the chain.</P>
+
+<P> Finally, there is a summary of the parameter estimates for this
+chain.</P>
+
+<P> The output file runtime reports differ from the ongoing runtime
+reports in that they omit prognosis of the ending time.</P>
+
+<P>(<A HREF="search.html">Previous</A> | <A HREF="index.html">Contents</A> |
+<A HREF="bayes.html">Next</A>)</P>
+
+<!--
+//$Id: output.html,v 1.30 2011/06/23 21:00:36 jmcgill Exp $
+-->
+</BODY>
+</HTML>
