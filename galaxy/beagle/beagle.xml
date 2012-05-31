@@ -38,7 +38,7 @@ excludecolumns=$beagle_use_type_param.exclude_columns_param.exclude_columns_file
 verbose=$beagle_use_type_param.Verbose
 #end if
 '
-$log $phased $gprobsfile $dosefile
+-l  $log -p $phased -g $gprobsfile -d $dosefile
 </command>
 <inputs>
 <conditional name="beagle_use_type_param">
