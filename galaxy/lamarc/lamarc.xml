@@ -7,7 +7,258 @@
 
 <inputs>
 
-<param name="input_file" type="data" format="txt" label="Input File" />
+<param name="input_file" type="data" format="xml" label="Input File" />
+
+<param name="random_seed" type="integer" value="0" label="Random Seed Value" />
+
+<conditional name="data_model_display">
+    <param name="data_model" type="select" label="Data Model">
+        <option value="F84" selected="True">F84</option>
+        <option value="M">GTR</option>
+    </param>
+        
+        <param name="first_relat_cat_rate" type="integer" value="1" label="First Relative Category Rate" help="Mutation rate should be unique for each category" />
+        <param name="first_relat_cat_prob" type="integer" value="1" label="First Relative Category Probability" />
+
+    <repeat name="add_category" title="Add Category"> 
+        <param name="relat_cat_rate" type="integer" value="2" label="Relative Category Rate" help="Mutation rate should be unique for each category" />
+        <param name="relat_cat_prob" type="integer" value="1" label="Relative Category Probability" />
+    </repeat>
+
+    <param name="auto_correlation" type="integer" value="1" label="Auto-Correlation" />
+
+    <when value="F84">
+
+        <param name="tt_ratio" type="integer" value="2" label="TT Ratio" />
+
+        <conditional name="rel_base_freq">
+
+            <param name="base_frequencies" type="select" label="Base frequencies from computed data">
+                <option value="yes" selected="True">Yes</option>
+                <option value="F">No</option>
+            </param>
+
+            <when value="F">
+
+                <param name="a_freq" type="float" value="0.25" label="Relative Base Frequency of Adenine" />
+                <param name="c_freq" type="float" value="0.25" label="Relative Base Frequency of Cytosine" />
+                <param name="g_freq" type="float" value="0.25" label="Relative Base Frequency of Guanine" />
+                <param name="t_freq" type="float" value="0.25" label="Relative Base Frequency of Thymine" />
+
+            </when>
+
+        </conditional>
+
+    </when>
+
+    <when value="M">
+        <param name="ac_gtr_rate" type="float" value="0.1" label="AC GTR Rates"/>
+        <param name="ag_gtr_rate" type="float" value="0.1" label="AG GTR Rates"/>
+        <param name="at_gtr_rate" type="float" value="0.1" label="AT GTR Rates"/>
+        <param name="cg_gtr_rate" type="float" value="0.1" label="CG GTR Rates"/>
+        <param name="ct_gtr_rate" type="float" value="0.1" label="CT GTR Rates"/>
+        <param name="gt_gtr_rate" type="float" value="0.1" label="GT GTR Rates"/>
+
+        <param name="gtr_a_freq" type="float" value="0.25" label="Relative Base Frequency of Adenine" />
+        <param name="gtr_c_freq" type="float" value="0.25" label="Relative Base Frequency of Cytosine" />
+        <param name="gtr_g_freq" type="float" value="0.25" label="Relative Base Frequency of Guanine" />
+        <param name="gtr_t_freq" type="float" value="0.25" label="Relative Base Frequency of Thymine" />
+    </when>
+
+</conditional>
+
+<param name="per_base_error_rate" type="float" value="0.0" label="Per-base error rate" help="Value must be less than or equal to 0.1" />
+
+<param name="rel_mute_rate" type="integer" value="0" label="Relative Mutation Rate" />
+
+<!-- Analysis options -->
+
+<param name="constraints_for_force" type="select" label="Constraints for Force: Coaslescene Theta for ZMNE" help="'Unconstrained' parameters may vary freely, 'constant' parameters are held at their starting value." >
+    <option value="unconstrained" selected="True">Unconstrained</option>
+    <option value="constant">Constant</option>
+</param>
+
+<conditional name="growth_theta">
+<param name="set_thetas" type="select" label="Set Thetas" help="Theta (Effective pop. size * mutation rate). Values of theta equal the number of inheritable copies of the data in your population times 2mu. If you have nuclear non-sex chromosomal DNA in your data, this works out to 4Nmu, where N is the effective population size, and mu the mutation rate. Data from X chromosomes is 3Nmu, and data from Y chromosomes and mitochondrial DNA is 1Nmu.">
+    <option value="default_theta" selected="True">Default</option>
+    <option value="yes_theta">Use wattersons estimate</option>
+    <option value="manual_theta">Manually set theta</option>
+</param>
+
+<when value="manual_theta">
+
+    <param name="man_set_theta" type="float" value="0.1" label="Enter Theta for ZMNE" help="Enter Theta for ZMNE (between 1e-10 and 100)" />
+
+</when>
+</conditional>
+
+<conditional name="display_growth_options">
+<param name="growth_estimate" type="select" label="Use Growth Estimatation" help="Growth rate: Values of G equal g/mu, where the population size at time t in the past equals the the present population size times exp(-t*g). A shrinking population might have G = -10, while a rapidly growing population might have G = 200" >
+    <option value="yes" selected="True">Yes</option>
+    <option value="no">No</option>
+</param>
+
+<when value="yes">
+
+    <param name="constraints_for_force_growth" type="select" label="Constraints for Force: Growth Estimation" help="'Unconstrained' parameters may vary freely, 'constant' parameters are held at their starting value, and 'invalid' parameters are set to zero and ignored in future output." >
+        <option value="unconstrained" selected="True">Unconstrained</option>
+        <option value="constant">Constant</option>
+        <option value="invalid">Invalid</option>
+    </param>
+
+
+<param name="single_growth_estimate" label="Growth starting estimate for ZMNE" type="float" help="Value must be between -5000 and 15000." value="1" />
+
+</when>
+</conditional>
+
+<conditional name="recombination">
+
+    <param name="use_recombination" label="Recombination" type="select" help="Recombination parameters: Values of r equal C/mu, and thus can be converted to be in terms of population size by multiplying by the appropriate Theta. e.g. if r is 0.1 and Theta is 0.01 for 4N data, this results in 4NC=0.001 C is the recombination rate per generation per site (*not* per locus!)." >
+
+        <option value="disabled" selected="True">Disabled</option>
+        <option value="enabled">Enabled</option>
+
+    </param>
+
+    <when value="enabled">
+
+        <param name="constraints_for_force_recombination" type="select" label="Constraints for Force: Growth Estimation" help="'Unconstrained' parameters may vary freely, 'constant' parameters are held at their starting value, and 'invalid' parameters are set to zero and ignored in future output." >
+            <option value="unconstrained" selected="True">Unconstrained</option>
+            <option value="constant">Constant</option>
+            <option value="invalid">Invalid</option>
+        </param>
+
+        <param name="start_recombo_rate" label="Starting recombination rate" type="float" help="Starting Value must be be between 0 and 100." value="0.01" />
+        <param name="max_recombo_events" label="Maximum number of recombination rates" type="float" help="Starting value must be greater than 0." value="1000" />
+
+    </when>
+
+</conditional>
+
+<!-- Search Strategy Menu -->
+
+<conditional name="type_of_analysis">
+
+    <param name="analysis_type" label="Bayesian or Likelihood analysis" type="select" >
+
+        <option value="likelihood" selected="True">Likelihood</option>
+        <option value="bayesian">Bayesian</option>
+
+    </param>
+
+    <when value="likelihood">
+
+        <conditional name="display_rearrangers">
+            <param name="change_rearrangers" label="Display Rearranger options" type="select" help="Rearrangers Menu: The values set for each arranger indicate the relative amount of time spent performing each type of arrangement. The Tree-size frequency should probably be lower than the the Topology frequency, and in Bayesian runs with multiple parameters, the Bayesian frequency will probably need to be increased." >
+
+                <option value="no" selected="True">No</option>
+                <option value="yes">Yes</option>
+
+            </param>
+
+            <when value="yes">
+
+                <param name="topology_rearranger_freq" label="Topology rearranger frequency" type="float" help="Value must be greater than 0." value="0.454545" />
+                <param name="treesize_rearranger_freq" label="Tree-size rearranger frequency" type="float" help="Value must be greater than or equal to 0." value="0.0909091" />
+                <param name="haplotype_rearranger_freq" label="Haplotype rearranger frequency" type="float" help="Value must be greater than or equal to 0." value="0.454545" />
+                <param name="epochsize_rearranger_freq" label="Epoch size rearranger frequency" type="float" help="Value must be greater than or equal to 0." value="0" />
+
+            </when>
+
+        </conditional>
+
+    </when>
+
+    <when value="bayesian">
+
+        <conditional name="display_priors">
+
+        <param name="change_priors" label="Display Bayesian Priors" type="select">
+
+            <option value="no" selected="True">No</option>
+            <option value="yes">Yes</option>
+
+        </param>
+
+        <when value="yes"> 
+
+            <conditional name="change_priors_caolescence">
+
+            <param name="display_prior_coalescence" label="Change default prior for Coalescence" type="select">
+                <option value="no" selected="True">No</option>
+                <option value="yes">Yes</option>
+
+            </param>
+
+            <when value="yes">
+
+                <param name="prior_shape" label="Shape of the prior" type="select" >
+
+                    <option value="log" selected="True">log</option>
+                    <option value="linear">linear</option>
+
+                </param>
+
+
+
+            </when>
+
+            </conditional>
+
+        </when>
+
+        </conditional>
+
+        <conditional name="display_rearrangers">
+            <param name="change_rearrangers" label="Display Rearranger options" type="select" help="Rearrangers Menu: The values set for each arranger indicate the relative amount of time spent performing each type of arrangement. The Tree-size frequency should probably be lower than the the Topology frequency, and in Bayesian runs with multiple parameters, the Bayesian frequency will probably need to be increased." >
+
+                <option value="no" selected="True">No</option>
+                <option value="yes">Yes</option>
+
+            </param>
+
+            <when value="yes">
+
+                <param name="topology_rearranger_freq" label="Topology rearranger frequency" type="float" help="Value must be greater than 0." value="0.454545" />
+                <param name="treesize_rearranger_freq" label="Tree-size rearranger frequency" type="float" help="Value must be greater than or equal to 0." value="0.0909091" />
+                <param name="haplotype_rearranger_freq" label="Haplotype rearranger frequency" type="float" help="Value must be greater than or equal to 0." value="0.454545" />
+                <param name="bayesian_rearranger_freq" label="Bayesian rearranger frequency" type="float" help="Value must be greater than 0." value="0.454545" />
+                <param name="epochsize_rearranger_freq" label="Epoch size rearranger frequency" type="float" help="Value must be greater than or equal to 0." value="0" />
+
+            </when>
+
+        </conditional>
+
+    </when>
+
+    <conditional name="change_sampling">
+    <param name="display_sampling_options" label="Change sampling strategy" type="select" help="chains and replicates">
+
+        <option value="no" selected="True">No</option>
+        <option value="yes">Yes</option>
+
+    </param>
+
+    <when value="yes">
+
+        <param name="num_replicates" value="1" type="integer" label="Number of replicates" help="Must be greater than 0" />
+
+        <param name="num_chains_initial" value="10" type="integer" label="Number of chains (initial)" help="Must be greater than or equal to 0"/>
+        <param name="num_rec_genealogies_initial" value="20" type="integer" label="Number of recorded genealogies (initial)" help="Must be greater than or equal to 0 "/>
+        <param name="interval_rec_items_initial" value="20" type="integer" label="Interval between recorded items (initial)" help="Must be greater than or equal to 0 "/>
+        <param name="num_samples_discard_initial" value="100" type="integer" label="Number of samples to discard (initial burn-in)" help="Must be greater than or equal to 0 "/>
+
+        <param name="num_chains_final" value="2" type="integer" label="Number of chains (final)" help="Must be greater than or equal to 0"/>
+        <param name="num_rec_genealogies_final" value="50" type="integer" label="Number of recorded genealogies (final)" help="Must be greater than or equal to 0 "/>
+        <param name="interval_rec_items_final" value="20" type="integer" label="Interval between recorded items (final)" help="Must be greater than or equal to 0 "/>
+        <param name="num_samples_discard_final" value="100" type="integer" label="Number of samples to discard (final burn-in)" help="Must be greater than or equal to 0 "/>
+
+    </when>
+
+    </conditional>
+
+</conditional>
 
 </inputs>
 
