@@ -11,7 +11,4 @@
 #
 # Inputs:
 # $1 = Main input file
-# $2 = Main output file
-# $3 = Main output xml file
-# $n = wow this will be tough...
 

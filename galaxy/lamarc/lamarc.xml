@@ -2,29 +2,63 @@
 <description>(L..A..M..A..R..C..)</description>
 
 <command interpreter="bash">
-    lamarc.sh ${input_file} ${output} ${output2}
+    lamarc.sh ${input_file} ${output} ${output2} ${output3} ${output4} ${output5} ${output6}
+    #if ($random_seed) != 1005:
+        D S $random_seed N
+    #if ($data_model_display.data_model) == "GTR": 
+        M
+    C 1 R $first_relat_cat_rate P $first_relat_cat_prob
+    #for $i, $s in enumerate($data_model_display.add_category):
+        $i R ${s.relat_cat_rate} P ${s.relat_cat_prob}
+    enter A ${auto_correlation}
+    #if (data_model_display.data_model) == "F84":
+        T ${tt_ratio} B 
+        #if ($rel_base_freq.base_frequencies == "no"):
+            F A $a_freq C $c_freq G $g_freq T $t_freq
+    #else:
+        G 1 $ac_gtr_rate 2 $ag_gtr_rate 3 $at_gtr_rate 4 $cg_gtr_rate 5 $ct_gtr_rate 6 $gt_gtr_rate enter B A $gtr_a_freq C $gtr_c_freq G $gtr_g_freq T $gtr_t_freq enter
+    E $per_base_error_rate R $rel_mute_rate enter A T
+    #if ($growth_rate.set_thetas == "wattersons"):
+        W
+    #elif ($growth_rate.set_thetas == "manual"):
+        1 $manual_set_theta enter
+    G
+    #if ($display_growth_options.growth_estimate == "yes"):
+        X C $constraints_for_force_growth G $single_growth_estimate enter 
+    #if ($recombination.use_recombination == "enabled"):
+        R X C $constraints_for_force_recombination S $start_recombo_rate M $max_recombo_rate enter
+    enter S
+    #if ($type_of_analysis.analysis_type = "likelihood"):
+        #if ($display_rearrangers.change_rearrangers == "yes"):
+            R T $topology_rearranger_freq S $treesize_rearranger_freq H $haplotype_rearranger_freq E $epochsize_rearranger_freq enter           
+    #else:
+        P B
+        #if ($change_priors_coalescence.display_priors_coalescence == "yes"):
+        <!-- need to re look into this because now there are three options, gah -->    
+
+
 </command>
 
 <inputs>
 
 <param name="input_file" type="data" format="xml" label="Input File" />
 
-<param name="random_seed" type="integer" value="0" label="Random Seed Value" />
+<param name="random_seed" type="integer" value="1005" label="Random Seed Value" />
 
 <conditional name="data_model_display">
     <param name="data_model" type="select" label="Data Model">
         <option value="F84" selected="True">F84</option>
-        <option value="M">GTR</option>
+        <option value="GTR">GTR</option>
     </param>
         
-        <param name="first_relat_cat_rate" type="integer" value="1" label="First Relative Category Rate" help="Mutation rate should be unique for each category" />
-        <param name="first_relat_cat_prob" type="integer" value="1" label="First Relative Category Probability" />
+    <param name="first_relat_cat_rate" type="integer" value="1" label="First Relative Category Rate" help="Mutation rate should be unique for each category" />
+    <param name="first_relat_cat_prob" type="integer" value="1" label="First Relative Category Probability" />
 
     <repeat name="add_category" title="Add Category"> 
         <param name="relat_cat_rate" type="integer" value="2" label="Relative Category Rate" help="Mutation rate should be unique for each category" />
         <param name="relat_cat_prob" type="integer" value="1" label="Relative Category Probability" />
     </repeat>
-
+    
     <param name="auto_correlation" type="integer" value="1" label="Auto-Correlation" />
 
     <when value="F84">
@@ -35,10 +69,10 @@
 
             <param name="base_frequencies" type="select" label="Base frequencies from computed data">
                 <option value="yes" selected="True">Yes</option>
-                <option value="F">No</option>
+                <option value="no">No</option>
             </param>
 
-            <when value="F">
+            <when value="no">
 
                 <param name="a_freq" type="float" value="0.25" label="Relative Base Frequency of Adenine" />
                 <param name="c_freq" type="float" value="0.25" label="Relative Base Frequency of Cytosine" />
@@ -51,7 +85,7 @@
 
     </when>
 
-    <when value="M">
+    <when value="GTR">
         <param name="ac_gtr_rate" type="float" value="0.1" label="AC GTR Rates"/>
         <param name="ag_gtr_rate" type="float" value="0.1" label="AG GTR Rates"/>
         <param name="at_gtr_rate" type="float" value="0.1" label="AT GTR Rates"/>
@@ -69,25 +103,28 @@
 
 <param name="per_base_error_rate" type="float" value="0.0" label="Per-base error rate" help="Value must be less than or equal to 0.1" />
 
-<param name="rel_mute_rate" type="integer" value="0" label="Relative Mutation Rate" />
+<param name="rel_mute_rate" type="integer" value="1" label="Relative Mutation Rate" />
 
 <!-- Analysis options -->
 
+<!-- This is for a group called zmne it turns out.. i think 
 <param name="constraints_for_force" type="select" label="Constraints for Force: Coaslescene Theta for ZMNE" help="'Unconstrained' parameters may vary freely, 'constant' parameters are held at their starting value." >
     <option value="unconstrained" selected="True">Unconstrained</option>
     <option value="constant">Constant</option>
 </param>
+-->
 
 <conditional name="growth_theta">
 <param name="set_thetas" type="select" label="Set Thetas" help="Theta (Effective pop. size * mutation rate). Values of theta equal the number of inheritable copies of the data in your population times 2mu. If you have nuclear non-sex chromosomal DNA in your data, this works out to 4Nmu, where N is the effective population size, and mu the mutation rate. Data from X chromosomes is 3Nmu, and data from Y chromosomes and mitochondrial DNA is 1Nmu.">
-    <option value="default_theta" selected="True">Default</option>
-    <option value="yes_theta">Use wattersons estimate</option>
-    <option value="manual_theta">Manually set theta</option>
+    <option value="default" selected="True">Default</option>
+    <option value="wattersons">Use wattersons estimate</option>
+    <option value="manual">Manually set theta ** (NOT COMPLETE) **</option>
 </param>
 
+<!-- same problem as above with zmne grouping thing.. --> 
 <when value="manual_theta">
 
-    <param name="man_set_theta" type="float" value="0.1" label="Enter Theta for ZMNE" help="Enter Theta for ZMNE (between 1e-10 and 100)" />
+    <param name="man_set_theta" type="float" value="0.1" label="Enter Theta" help="(between 1e-10 and 100)" />
 
 </when>
 </conditional>
@@ -106,8 +143,7 @@
         <option value="invalid">Invalid</option>
     </param>
 
-
-<param name="single_growth_estimate" label="Growth starting estimate for ZMNE" type="float" help="Value must be between -5000 and 15000." value="1" />
+    <param name="single_growth_estimate" label="Single growth starting estimate for all data" type="float" help="Value must be between -5000 and 15000." value="1" />
 
 </when>
 </conditional>
@@ -117,7 +153,7 @@
     <param name="use_recombination" label="Recombination" type="select" help="Recombination parameters: Values of r equal C/mu, and thus can be converted to be in terms of population size by multiplying by the appropriate Theta. e.g. if r is 0.1 and Theta is 0.01 for 4N data, this results in 4NC=0.001 C is the recombination rate per generation per site (*not* per locus!)." >
 
         <option value="disabled" selected="True">Disabled</option>
-        <option value="enabled">Enabled</option>
+        <option value="enabled">Enabled</option>ZMNE
 
     </param>
 
@@ -172,39 +208,27 @@
 
     <when value="bayesian">
 
-        <conditional name="display_priors">
 
-        <param name="change_priors" label="Display Bayesian Priors" type="select">
+        <conditional name="change_priors_coalescence">
 
+        <param name="display_prior_coalescence" label="Change default prior for Coalescence" type="select">
             <option value="no" selected="True">No</option>
             <option value="yes">Yes</option>
 
         </param>
 
-        <when value="yes"> 
+        <when value="yes">
 
-            <conditional name="change_priors_caolescence">
+            <param name="prior_shape" label="Shape of the prior" type="select" >
 
-            <param name="display_prior_coalescence" label="Change default prior for Coalescence" type="select">
-                <option value="no" selected="True">No</option>
-                <option value="yes">Yes</option>
+                <option value="log" selected="True">log</option>
+                <option value="linear">linear</option>
 
             </param>
 
-            <when value="yes">
+            <param name="prior_upper_bound" label="Upper bound of the prior" type="float" value="10" help="between 1e-05 and 100" />
 
-                <param name="prior_shape" label="Shape of the prior" type="select" >
-
-                    <option value="log" selected="True">log</option>
-                    <option value="linear">linear</option>
-
-                </param>
-
-
-
-            </when>
-
-            </conditional>
+            <param name="prior_lower_bound" label="Lower bound of the prior" type="float" value="1e-05" help="between 1e-10 and upper bound" />
 
         </when>
 
@@ -232,7 +256,10 @@
 
     </when>
 
-    <conditional name="change_sampling">
+</conditional>
+
+<conditional name="change_sampling">
+
     <param name="display_sampling_options" label="Change sampling strategy" type="select" help="chains and replicates">
 
         <option value="no" selected="True">No</option>
@@ -256,15 +283,22 @@
 
     </when>
 
-    </conditional>
-
 </conditional>
+
+<param name="num_simulatenous_searches" label="Number of Simultaneous Searches (Heating)" type="integer" help="Higher-temperature searches investigate more possible solutions but spend proportionately more time evaluating poor candidates. Temperatures will be scaled so the lowest is 1.0" value="1" />
 
 </inputs>
 
+<!-- The output really needs to be dependent on the options selected, really need to figure out what makes what and what different output causes what. TODO ask James how he did variable output (if he did do it? and then get more data for this and test etc. -->
+
 <outputs>
-<data format="txt" name="output"/>
-<data format="xml" name="output2"/>
+<data format="txt" name="output" label="Main output"/>
+<data format="xml" name="output2" label="XML Report"/>
+<data format="csv" name="output3" label="Profile Information"/>
+<data format="csv" name="output4" label="Bayesian likelihood curve"/>
+<data format="txt" name="output5" label="Tracefile"/>
+<data format="xml" name="output6" label="XML Summary"/>
+
 </outputs>
 <help>
 
