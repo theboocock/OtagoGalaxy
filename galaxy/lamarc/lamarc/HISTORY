@@ -1,0 +1,90 @@
+History of Lamarc -- the program
+--------------------------------
+
+2012
+May 29        Lamarc-2.1.8: This is a bug fix and new feature release
+                   * FIXED BUG in MIGRATION
+                   * FIXED BUG in negative GROWTH cases
+                   * FASTER convergence in LIKELIHOOD cases
+                   * NEW FEATURE -- panels
+                   * NEW FEATURE -- divergence
+
+2011
+January 21    Lamarc-2.1.6: This is a bug fix release, with the
+                   following changes:
+                   * FIXED data likelihood bug that appears only
+                     in cases with RECOMBINATION turned on. Results
+                     obtained from releases 2.1.2 through 2.1.5
+                     with the recombination force turned on should
+                     be re-run.
+                   * FIXED calculation of invariant data term for
+                     SNP data modeled with a per-base error rate
+                   * UPDATED random number generator to use the
+                     Boost library, and added guards against 
+                     returning values of exactly 0 or 1 for
+                     double values
+
+2009
+December 21   Lamarc-2.1.5: This release includes a beta test version
+                   of "data uncertainty", csv output formats for
+                   curvefile and profile data (to make them easier
+                   to read with R or Excel), and supplemental XML output
+                   file "report.xml" to make it easier to automate
+                   reading lamarc output.
+
+2009
+July 17       Lamarc-2.1.4: This release brings the code base up to
+                   compilability with g++ 4.3.3. Additionally, minor user
+                   experience bugs are fixed. This was used at the 
+                   Woods Hole Molecular Evolution Conference but
+                   not distributed via the Lamarc web site
+
+2008
+July 14       Lamarc-2.1.3: This release fixes a bug introduced into 
+                   the code used to guess haplotype resolution. Analyses
+                   using this feature in LAMARC versions 2.1.2 and 2.1.2b
+                   should be re-run. Additional improvements include:
+                    * Tracer output now renders step counts as integers
+                      instead of reals.
+                    * Mapping output now writable to its own file.
+                    * Upgraded default wxWidgets installation to 2.8.8. 
+
+2007
+October 9     Lamarc-2.1.2b: Minor fixes to 2.1.2 affecting user
+                   experience only
+
+2007
+October 4     Lamarc-2.1.2: Recombination now does not attempt to 
+                   insert recombination events that have no effect on 
+                   present-day data.
+
+2007
+July          Lamarc-2.1.1: Bug fixes 
+
+2007
+May           Lamarc-2.1:  full support for trait mapping, multi-locus data.
+              New GUI for lam_conv; batch modes for lamarc and lam_conv.
+
+2006
+July 24       Lamarc-2.0.3_Woods_Hole_Beta:  Bug fixes, preliminary 
+              support for trait mapping, multi-locus data.
+
+2005
+August 26     Lamarc-2.0.2: bug-fix replication, Bayesian multi-region,
+                  and multi-region effective popsize, version numbers in xml,
+                  Bayesian summary file reading
+2005
+June 1        Lamarc-2.0: Bayes, constraints, models, replicates, max.
+
+2004
+June 25       Lamarc-1.2.2:  bug-fix of growth, improved maximization
+
+2004
+June 1        Lamarc-1.2.1:  added growth, adaptive heating
+
+2002
+June 25       Lamarc-1.1: added microsatellites, SNPs, genotypic data
+
+2001
+December 10   Lamarc-1.0: first (alpha) version of lamarc.
+

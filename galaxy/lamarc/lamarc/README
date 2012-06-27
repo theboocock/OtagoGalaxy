@@ -1,0 +1,57 @@
+Lamarc 2.1.8
+May 29 2012
+===============
+
+A program to estimate population parameters from genetic data.  All
+parameters are estimated jointly.  Currently the program allows estimation
+of population sizes, recombination rate, migration rates, and growth
+rates, and can estimate the location of a trait allele.
+
+This version is a new release and bug fix update to 
+version 2.1.6 (January 2011).
+
+DOCUMENTATION & GETTING HELP
+============================
+
+Extensive documentation is available in the doc/ subdirectory of
+your lamarc distribution.  You will likely wish to begin with
+the HTML documentation available in doc/html/index.html .
+
+Careful reading of the documentation will be necessary to obtain
+a high quality lamarc analysis of your data.  As the program user,
+you will need to make decisions such as
+    * which evolutionary forces to model,
+    * which mutational model to assume for your data, and
+    * how long to run the program.
+Please note that there may be specific documentation sections
+relevant to your particular data type, such as viral data, or
+phase unresolved data.
+
+The most up-to-date information on Lamarc is available at the project
+website http://evolution.gs.washington.edu/lamarc/
+
+If, after reading the relevant documentation, you still have questions,
+please email the lamarc developers at:
+
+    lamarc@u.washington.edu
+
+BINARY DISTRIBUTIONS:
+=====================
+If you have downloaded a binary distribution (executables) you are all 
+set and the programs "lamarc" and "lam_conv" are in the same directory 
+as this README.
+
+Linux users--you may recieve a cryptic sounding error message concerning
+"libstdc++.so.6" or something similar.  In order to run lamarc you
+will need to either get the lamarc source distribution and compile
+it on your computer, or you will need to install some variant of
+version 6 of the standard c++ shared library.  Debian users with
+"apt" installed can use "apt-get install libstdc++6" to get the needed
+library.
+
+SOURCE DISTRIBUTIONS:
+=====================
+If you have downloaded the source and have a *UNIX* system (LINUX,
+BSD, MACOSX, SOLARIS, TRU64, etc) see doc/html/compiling.html for
+directions to build "lamarc" and "lam_conv".
+

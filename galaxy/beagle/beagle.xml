@@ -1,8 +1,8 @@
 <tool id="beagle" name="Beagle" version="1.0">
 <description>Beagle Software Analysis</description>
-<command>
-java -jar ${__tool_data_path__}/shared/jars/beagle/beagle.jar
-out=$output
+<command interpreter="bash">
+./beagle.sh
+'java -jar ${__tool_data_path__}/shared/jars/beagle/beagle.jar
 #if ($beagle_use_type_param.beagle_use_type) == "imputting":
 #for $i, $s in enumerate( $beagle_use_type_param.unphased )
   unphased=${s.unphased_unrelated_data}
@@ -24,7 +24,7 @@ out=$output
 #end if
 missing=$beagle_use_type_param.missing_code
 maxlr=$beagle_use_type_param.max_lr
-g_probs=$beagle_use_type_param.g_probs
+gprobs=$beagle_use_type_param.g_probs
 nimputations=$beagle_use_type_param.n_imputations
 nsamples=$beagle_use_type_param.n_samples
 niterations=$beagle_use_type_param.n_iteration
@@ -37,6 +37,8 @@ excludecolumns=$beagle_use_type_param.exclude_columns_param.exclude_columns_file
 #end if
 verbose=$beagle_use_type_param.Verbose
 #end if
+'
+-l  $log -p $phased -g $gprobsfile -d $dosefile
 </command>
 <inputs>
 <conditional name="beagle_use_type_param">
@@ -56,7 +58,7 @@ verbose=$beagle_use_type_param.Verbose
     <param name="trios_data" type="data" format="bgl" label="Unphased Trios File"/>
     </repeat>
     <repeat name="pairs" title="Add Unphased Pairs File/s">
-    <param name="pairs_data" type="data" format="bgl" label="Unphased Pairs File"/>
+    <param name="beagle galaxy genomepairs_data" type="data" format="bgl" label="Unphased Pairs File"/>
     </repeat>
     <repeat name="like" title="Add Unphased Likelihood data file" >
     <param name="like_data" type="data" format="bgl" label="Unphased Likelihood File"/>
@@ -126,7 +128,16 @@ verbose=$beagle_use_type_param.Verbose
 </conditional>
 </inputs>
 <outputs>
-    <data name="output" type="text"/>
+    <data name="log" format="txt"/>
+    <data name="phased" format="bgl">
+    	<filter> beagle_use_type_param['imputting']</filter>
+	</data>
+    <data name="gprobsfile" format="bgl">
+    </data>
+    <data name="dosefile" format="bgl">
+    	<filter>g_probs== "true"</filter>
+    </data>
+
 </outputs>
 <help>
 

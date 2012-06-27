@@ -1,0 +1,57 @@
+========================================================================
+
+Code, documentation, libraries, and executables included with this 
+distribution are subject to various licenses.
+
+Without the availablilty of other open source projects to draw
+upon, producing Lamarc would be much less satisfying and much
+more difficult. We are greatful to the authors of the software
+projects we have used. Their licenses, and ours are available in
+the subdirectory ./doc/licenses as summarized below.
+
+========================================================================
+
+* the lamarc project, including code, documentation, examples, and images
+  located under ./doc/html ./doc/testfiles ./resources ./scripts ./src
+  is licensed under the Apache License, Version 2.0
+  see ./doc/licenses/lamarc.txt
+
+* MS windows executables were produced using a cross-compiling tool
+  chain that makes use of the MinGW tools. These executables probably
+  contain the mingw w32api library which
+  is licensed under the mingw license,
+  available at ./doc/licenses/mingw.txt
+  See http://www.mingw.org for more info
+
+* the boost library
+  located under ./boost
+  is licensed under the boost license
+  available at ./doc/licenses/boost.txt
+  See http://www.boost.org
+
+* tinyxml, 
+  located under ./tinyxml 
+  is licensed under the zlib license,
+  available at ./doc/licenses/zlib.txt
+  See http://www.grinninglizard.com/tinyxml/
+  and http://sourceforge.net/projects/tinyxml
+
+* wxWidgets code (which may include wxWidgets-produced patches), 
+  located under ./wxWidgets
+  is licenced under the wxWindows license,
+  available in doc/licenses/wx.txt
+  This license refers to the GNU GPL and GNU L-GPL licenses
+  which are available in ./doc/licenses/gpl.txt and ./doc/licenses/lgpl.txt
+  See http://www.wxwidgets.org for more info
+
+* wxWidgets documentation
+  located under ./wxWidgets
+  is licenced under the wxWindows Documentation license,
+  available in doc/licenses/wxdoc.txt
+  See http://www.wxwidgets.org for more info
+
+* wxWidgets patches created by the lamarc team,
+  located under ./wxWidgetsLamarc
+  are intended to be contributed to the wxWidgets project and are
+  licenced under the wxWindows license,
+  available in doc/licenses/wx.txt

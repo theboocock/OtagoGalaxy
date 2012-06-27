@@ -1,0 +1,21 @@
+Beagle version 3.3.2 (31 Oct 2011)
+Enter "java -jar beagle.jar" for summary of command line arguments.
+Start time: 05:23 PM NZST on 29 May 2012
+
+Command line: java -Xmx1749m -jar beagle.jar
+  out=1338269001
+  unphased=/home/jamesboocock/galaxy-dist/database/files/000/dataset_88.dat
+  missing=-1
+  maxlr=5000.0
+  gprobs=false
+  nimputations=0
+  nsamples=4
+  niterations=10
+  seed=-9999
+  verbose=false
+
+number of markers    =    1027
+number of haplotypes =       2 (dataset_88.dat)
+
+Running time for phasing: 1 seconds
+Beagle version 3.3.2 (31 Oct 2011) finished
