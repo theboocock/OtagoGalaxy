@@ -5,37 +5,74 @@
     lamarc.sh ${input_file} ${output} ${output2} ${output3} ${output4} ${output5} ${output6}
     #if ($random_seed) != 1005:
         D S $random_seed N
+    #end if
+
     #if ($data_model_display.data_model) == "GTR": 
         M
+    #end if
+
     C 1 R $first_relat_cat_rate P $first_relat_cat_prob
     #for $i, $s in enumerate($data_model_display.add_category):
         $i R ${s.relat_cat_rate} P ${s.relat_cat_prob}
+    #end for
+
     enter A ${auto_correlation}
+
     #if (data_model_display.data_model) == "F84":
         T ${tt_ratio} B 
         #if ($rel_base_freq.base_frequencies == "no"):
             F A $a_freq C $c_freq G $g_freq T $t_freq
+        #end if
     #else:
         G 1 $ac_gtr_rate 2 $ag_gtr_rate 3 $at_gtr_rate 4 $cg_gtr_rate 5 $ct_gtr_rate 6 $gt_gtr_rate enter B A $gtr_a_freq C $gtr_c_freq G $gtr_g_freq T $gtr_t_freq enter
+    #end if
+
     E $per_base_error_rate R $rel_mute_rate enter A T
     #if ($growth_rate.set_thetas == "wattersons"):
         W
     #elif ($growth_rate.set_thetas == "manual"):
         1 $manual_set_theta enter
+    #end if
+
     G
     #if ($display_growth_options.growth_estimate == "yes"):
         X C $constraints_for_force_growth G $single_growth_estimate enter 
+    #end if
+
     #if ($recombination.use_recombination == "enabled"):
         R X C $constraints_for_force_recombination S $start_recombo_rate M $max_recombo_rate enter
+    #end if
+
     enter S
     #if ($type_of_analysis.analysis_type = "likelihood"):
         #if ($display_rearrangers.change_rearrangers == "yes"):
-            R T $topology_rearranger_freq S $treesize_rearranger_freq H $haplotype_rearranger_freq E $epochsize_rearranger_freq enter           
+            R T $topology_rearranger_freq S $treesize_rearranger_freq H $haplotype_rearranger_freq E $epochsize_rearranger_freq enter
+        #end if
+
     #else:
         P B
-        #if ($change_priors_coalescence.display_priors_coalescence == "yes"):
-        <!-- need to re look into this because now there are three options, gah -->    
+        #if ($change_priors_options.display_priors_options == "yes"):
+            T D S $prior_theta_shape U $prior_theta_upper_bound L $prior_theta_lower_bound enter enter
+            #if ($display_growth_options.growth_estimate == "yes"):
+                G D U $prior_growth_upper_bound L $prior_growth_lower_bound enter enter
+            #end if
 
+            #if ($recombination.use_recombination == "enabled"):
+                R D S $prior_recombo_shape U $prior_recombo_upper_bound L $prior_recombo_lower_bound enter enter
+            #end if
+        #end if
+
+        enter
+        #if ($display_rearrangers.change_rearrangers == "yes"):
+            R T $topology_rearranger_freq S $treesize_rearranger_freq H $haplotype_rearranger_freq B $bayesian_rearranger_freq E $epochsize_rearranger_freq enter
+        #end if
+    #end if
+    
+    #if ($change_sampling.display_sampling_options == "yes"):
+        S 1 $num_chains_initial 2 $num_rec_genealogies_initial 3 $interval_rec_items_initial 4 $num_samples_discard_initial 5 $num_chains_final 6 $num_rec_genealogies_final 7 $interval_rec_items_final 8 $num_samples_discard_final enter
+    #end if
+
+    M S $num_simulatenous_searches enter run
 
 </command>
 
@@ -163,6 +200,7 @@
             <option value="unconstrained" selected="True">Unconstrained</option>
             <option value="constant">Constant</option>
             <option value="invalid">Invalid</option>
+
         </param>
 
         <param name="start_recombo_rate" label="Starting recombination rate" type="float" help="Starting Value must be be between 0 and 100." value="0.01" />
@@ -209,9 +247,9 @@
     <when value="bayesian">
 
 
-        <conditional name="change_priors_coalescence">
+        <conditional name="change_priors_options">
 
-        <param name="display_prior_coalescence" label="Change default prior for Coalescence" type="select">
+        <param name="display_prior_options" label="Change default priors" type="select">
             <option value="no" selected="True">No</option>
             <option value="yes">Yes</option>
 
@@ -219,17 +257,31 @@
 
         <when value="yes">
 
-            <param name="prior_shape" label="Shape of the prior" type="select" >
+            <param name="prior_theta_shape" label="Theta: Shape of the prior" type="select" >
 
                 <option value="log" selected="True">log</option>
                 <option value="linear">linear</option>
 
             </param>
 
-            <param name="prior_upper_bound" label="Upper bound of the prior" type="float" value="10" help="between 1e-05 and 100" />
+            <param name="prior_theta_upper_bound" label="Theta: Upper bound of the prior" type="float" value="10" help="between 1e-05 and 100" />
 
-            <param name="prior_lower_bound" label="Lower bound of the prior" type="float" value="1e-05" help="between 1e-10 and upper bound" />
+            <param name="prior_theta_lower_bound" label="Theta: Lower bound of the prior" type="float" value="1e-05" help="between 1e-10 and upper bound" />
 
+            <param name="prior_recombo_shape" label="Recombination Rate: Shape of the prior (will only be in effect if recombination was previously selected)" type="select" >
+
+                <option value="log" selected="True">log</option>
+                <option value="linear">linear</option>
+
+            </param>
+
+            <param name="prior_recombo_upper_bound" label="Recombination Rate: Upper bound of the prior" type="float" value="10" help="between 1e-05 and 100" />
+
+            <param name="prior_recombo_lower_bound" label="Recombination Rate: Lower bound of the prior" type="float" value="1e-05" help="between 1e-10 and upper bound" />
+
+            <param name="prior_growth_upper_bound" label="Growth Rate: Upper bound of the prior" type="float" value="10" help="between lower bound and 15000" />
+
+            <param name="prior_growth_lower_bound" label="Growth Rate: Lower bound of the prior" type="float" value="1e-05" help="between -5000 and upper bound" />
         </when>
 
         </conditional>
@@ -305,5 +357,3 @@
 This tool runs LAMARC analysis on the file you have provided.
 
 </help>
-
-</tool>

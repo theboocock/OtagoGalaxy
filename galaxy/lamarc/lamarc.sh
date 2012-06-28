@@ -12,3 +12,16 @@
 # Inputs:
 # $1 = Main input file
 
+if [ $# > 2 ] 
+then
+    
+    for ((i=1; i <= $#; i++))
+    do  
+    
+        eval $INPUT=\${$i}
+        echo $INPUT
+    
+    done
+
+fi
+
