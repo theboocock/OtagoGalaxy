@@ -69,7 +69,7 @@
     #end if
     
     #if ($change_sampling.display_sampling_options == "yes"):
-        S 1 $num_chains_initial 2 $num_rec_genealogies_initial 3 $interval_rec_items_initial 4 $num_samples_discard_initial 5 $num_chains_final 6 $num_rec_genealogies_final 7 $interval_rec_items_final 8 $num_samples_discard_final enter
+        S 1 $change_sampling.num_chains_initial 2 $change_sampling.num_rec_genealogies_initial 3 $change_sampling.interval_rec_items_initial 4 $change_sampling.num_samples_discard_initial 5 $change_sampling.num_chains_final 6 $change_sampling.num_rec_genealogies_final 7 $change_sampling.interval_rec_items_final 8 $change_sampling.num_samples_discard_final enter
     #end if
 
     M S $num_simultaneous_searches enter run
