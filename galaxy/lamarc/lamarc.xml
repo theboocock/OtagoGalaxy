@@ -11,40 +11,40 @@
         M
     #end if
 
-    C 1 R $first_relat_cat_rate P $first_relat_cat_prob
-    #for $i, $s in enumerate($data_model_display.add_category):
+    C 1 R ${first_relat_cat_rate} P $first_relat_cat_prob
+    #for $i, $s in enumerate($add_category):
         $i R ${s.relat_cat_rate} P ${s.relat_cat_prob}
     #end for
 
     enter A ${auto_correlation}
 
-    #if (data_model_display.data_model) == "F84":
-        T ${tt_ratio} B 
-        #if ($rel_base_freq.base_frequencies == "no"):
-            F A $a_freq C $c_freq G $g_freq T $t_freq
+    #if ($data_model_display.data_model) == "F84":
+        T $data_model_display.tt_ratio B 
+        #if ($data_model_display.rel_base_freq.base_frequencies == "no"):
+            F A $data_model_display.rel_base_freq.a_freq C $data_model_display.rel_base_freq.c_freq G $data_model_display.rel_base_freq.g_freq T $data_model_display.rel_base_freq.t_freq
         #end if
     #else:
         G 1 $ac_gtr_rate 2 $ag_gtr_rate 3 $at_gtr_rate 4 $cg_gtr_rate 5 $ct_gtr_rate 6 $gt_gtr_rate enter B A $gtr_a_freq C $gtr_c_freq G $gtr_g_freq T $gtr_t_freq enter
     #end if
 
     E $per_base_error_rate R $rel_mute_rate enter A T
-    #if ($growth_rate.set_thetas == "wattersons"):
+    #if ($growth_theta.set_thetas == "wattersons"):
         W
-    #elif ($growth_rate.set_thetas == "manual"):
+    #elif ($growth_theta.set_thetas == "manual"):
         1 $manual_set_theta enter
     #end if
 
     G
     #if ($display_growth_options.growth_estimate == "yes"):
-        X C $constraints_for_force_growth G $single_growth_estimate enter 
+        X C $display_growth_options.constraints_for_force_growth G $display_growth_options.single_growth_estimate enter 
     #end if
 
     #if ($recombination.use_recombination == "enabled"):
-        R X C $constraints_for_force_recombination S $start_recombo_rate M $max_recombo_rate enter
+        R X C $recombination.constraints_for_force_recombination S $recombination.start_recombo_rate M $recombination.max_recombo_events enter
     #end if
 
     enter S
-    #if ($type_of_analysis.analysis_type = "likelihood"):
+    #if ($type_of_analysis.analysis_type == "likelihood"):
         #if ($display_rearrangers.change_rearrangers == "yes"):
             R T $topology_rearranger_freq S $treesize_rearranger_freq H $haplotype_rearranger_freq E $epochsize_rearranger_freq enter
         #end if
@@ -72,7 +72,7 @@
         S 1 $num_chains_initial 2 $num_rec_genealogies_initial 3 $interval_rec_items_initial 4 $num_samples_discard_initial 5 $num_chains_final 6 $num_rec_genealogies_final 7 $interval_rec_items_final 8 $num_samples_discard_final enter
     #end if
 
-    M S $num_simulatenous_searches enter run
+    M S $num_simultaneous_searches enter run
 
 </command>
 
@@ -88,15 +88,6 @@
         <option value="GTR">GTR</option>
     </param>
         
-    <param name="first_relat_cat_rate" type="integer" value="1" label="First Relative Category Rate" help="Mutation rate should be unique for each category" />
-    <param name="first_relat_cat_prob" type="integer" value="1" label="First Relative Category Probability" />
-
-    <repeat name="add_category" title="Add Category"> 
-        <param name="relat_cat_rate" type="integer" value="2" label="Relative Category Rate" help="Mutation rate should be unique for each category" />
-        <param name="relat_cat_prob" type="integer" value="1" label="Relative Category Probability" />
-    </repeat>
-    
-    <param name="auto_correlation" type="integer" value="1" label="Auto-Correlation" />
 
     <when value="F84">
 
@@ -137,6 +128,16 @@
     </when>
 
 </conditional>
+
+<param name="first_relat_cat_rate" type="integer" value="1" label="First Relative Category Rate" help="Mutation rate should be unique for each category" />
+<param name="first_relat_cat_prob" type="integer" value="1" label="First Relative Category Probability" />
+
+<repeat name="add_category" title="Add Category"> 
+    <param name="relat_cat_rate" type="integer" value="2" label="Relative Category Rate" help="Mutation rate should be unique for each category" />
+    <param name="relat_cat_prob" type="integer" value="1" label="Relative Category Probability" />
+</repeat>
+
+<param name="auto_correlation" type="integer" value="1" label="Auto-Correlation" />
 
 <param name="per_base_error_rate" type="float" value="0.0" label="Per-base error rate" help="Value must be less than or equal to 0.1" />
 
@@ -337,7 +338,7 @@
 
 </conditional>
 
-<param name="num_simulatenous_searches" label="Number of Simultaneous Searches (Heating)" type="integer" help="Higher-temperature searches investigate more possible solutions but spend proportionately more time evaluating poor candidates. Temperatures will be scaled so the lowest is 1.0" value="1" />
+<param name="num_simultaneous_searches" label="Number of Simultaneous Searches (Heating)" type="integer" help="Higher-temperature searches investigate more possible solutions but spend proportionately more time evaluating poor candidates. Temperatures will be scaled so the lowest is 1.0" value="1" />
 
 </inputs>
 
