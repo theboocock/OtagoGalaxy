@@ -45,13 +45,13 @@
 
     enter S
     #if ($type_of_analysis.analysis_type == "likelihood"):
-        #if ($display_rearrangers.change_rearrangers == "yes"):
-            R T $topology_rearranger_freq S $treesize_rearranger_freq H $haplotype_rearranger_freq E $epochsize_rearranger_freq enter
+        #if ($type_of_analysis.display_rearrangers.change_rearrangers == "yes"):
+            R T $type_of_analysis.display_rearrangers.topology_rearranger_freq S $type_of_analsisdisplay_rearrangers.treesize_rearranger_freq H $type_of_analysis.display_rearrangers.haplotype_rearranger_freq E $type_of_analysis.display_rearrangers.epochsize_rearranger_freq enter
         #end if
 
     #else:
         P B
-        #if ($change_priors_options.display_priors_options == "yes"):
+        #if ($type_of_analysis.change_priors_options.display_priors_options == "yes"):
             T D S $prior_theta_shape U $prior_theta_upper_bound L $prior_theta_lower_bound enter enter
             #if ($display_growth_options.growth_estimate == "yes"):
                 G D U $prior_growth_upper_bound L $prior_growth_lower_bound enter enter
@@ -63,8 +63,8 @@
         #end if
 
         enter
-        #if ($display_rearrangers.change_rearrangers == "yes"):
-            R T $topology_rearranger_freq S $treesize_rearranger_freq H $haplotype_rearranger_freq B $bayesian_rearranger_freq E $epochsize_rearranger_freq enter
+        #if ($type_of_analysis.display_rearrangers.change_rearrangers == "yes"):
+            R T $type_of_analysis.display_rearrangers.topology_rearranger_freq S $type_of_analysis.display_rearrangers.treesize_rearranger_freq H $type_of_analysis.display_rearrangers.haplotype_rearranger_freq B $type_of_analysis.display_rearrangers.bayesian_rearranger_freq E $type_of_analysis.display_rearrangers.epochsize_rearranger_freq enter
         #end if
     #end if
     
@@ -250,7 +250,7 @@
 
         <conditional name="change_priors_options">
 
-        <param name="display_prior_options" label="Change default priors" type="select">
+        <param name="display_priors_options" label="Change default priors" type="select">
             <option value="no" selected="True">No</option>
             <option value="yes">Yes</option>
 
