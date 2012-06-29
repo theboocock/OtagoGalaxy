@@ -12,16 +12,32 @@
 # Inputs:
 # $1 = Main input file
 
-if [ $# > 2 ] 
-then
-    
-    for ((i=1; i <= $#; i++))
-    do  
-    
-        eval $INPUT=\${$i}
-        echo $INPUT
-    
-    done
+INPUT=""
+COMMAND=$1'\nI\nV\n\n'
 
-fi
+for ((i=5; i <= $#; i++))
+do  
 
+    eval INPUT=\${$i}
+
+    if [ "$INPUT" == "enter" ]
+    then
+        INPUT='\n'
+    fi
+    
+    if [ "$INPUT" == "run" ]
+    then
+        INPUT="."
+    fi
+
+    COMMAND=$COMMAND'\n'$INPUT        
+
+done
+
+echo -e $COMMAND > ~tmp.tmp
+
+~/galaxy-dist/tools/SOER1000genes/galaxy/lamarc/lamarc/./lamarc < ~tmp.tmp > ~stderr.tmp
+
+mv -f *outfile*.txt $2
+mv -f report.xml $3
+mv -f *tracefile*.txt $4

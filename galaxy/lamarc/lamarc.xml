@@ -2,7 +2,7 @@
 <description>(L..A..M..A..R..C..)</description>
 
 <command interpreter="bash">
-    lamarc.sh ${input_file} ${output} ${output2} ${output3} ${output4} ${output5} ${output6}
+    lamarc.sh ${input_file} ${output} ${output2} ${output3}
     #if ($random_seed) != 1005:
         D S $random_seed N
     #end if
@@ -347,10 +347,7 @@
 <outputs>
 <data format="txt" name="output" label="Main output"/>
 <data format="xml" name="output2" label="XML Report"/>
-<data format="csv" name="output3" label="Profile Information"/>
-<data format="csv" name="output4" label="Bayesian likelihood curve"/>
-<data format="txt" name="output5" label="Tracefile"/>
-<data format="xml" name="output6" label="XML Summary"/>
+<data format="txt" name="output3" label="Tracefile"/>
 
 </outputs>
 <help>
