@@ -2,7 +2,7 @@
 <description>Beagle Software Analysis</description>
 <command interpreter="bash">
 ./beagle.sh
-'java -jar ${__tool_data_path__}/shared/jars/beagle/beagle.jar
+-c 'java -jar ${__tool_data_path__}/shared/jars/beagle/beagle.jar
 #if ($beagle_use_type_param.beagle_use_type) == "imputting":
 #for $i, $s in enumerate( $beagle_use_type_param.unphased )
   unphased=${s.unphased_unrelated_data}
@@ -24,7 +24,7 @@
 #end if
 missing=$beagle_use_type_param.missing_code
 maxlr=$beagle_use_type_param.max_lr
-gprobs=$beagle_use_type_param.g_probs
+gprobs=true
 nimputations=$beagle_use_type_param.n_imputations
 nsamples=$beagle_use_type_param.n_samples
 niterations=$beagle_use_type_param.n_iteration
@@ -38,7 +38,7 @@ excludecolumns=$beagle_use_type_param.exclude_columns_param.exclude_columns_file
 verbose=$beagle_use_type_param.Verbose
 #end if
 '
--l  $log -p $phased -g $gprobsfile -d $dosefile
+ -l  $log -p $phased -g $gprobsfile -d $dosefile -r $rsquaredfile
 </command>
 <inputs>
 <conditional name="beagle_use_type_param">
@@ -70,8 +70,7 @@ verbose=$beagle_use_type_param.Verbose
 	</when>
     </conditional>
     <param name="missing_code" value="-1" type="text" label="Missing Allele Code"/>
-   <param name="max_lr" type="float" label="Max Likelihood Ratio" value="5000.0"/>
-    <param name="g_probs" type="boolean" falsevalue="false" truevalue="true" label="Produce Genotype Probability Files"  />
+    <param name="max_lr" type="float" label="Max Likelihood Ratio" value="5000.0"/>
     <param name="n_imputations" type="integer" value="0" label="Number of Imputations"/>
     <param name="n_samples" type="integer" value="4" label="Number of Samples/Individuals"/>
     <param name="n_iteration" type="integer" value="10" label="Number of Iterations"/>
@@ -128,15 +127,20 @@ verbose=$beagle_use_type_param.Verbose
 </conditional>
 </inputs>
 <outputs>
-    <data name="log" format="txt"/>
-    <data name="phased" format="bgl">
-    	<filter> beagle_use_type_param['imputting']</filter>
+    <data name="log" format="txt" label="${tool.name} on ${on_string} (log)"/>
+    <data name="phased" format="bgl" label="${tool.name} on ${on_string} (phased output)"/>
+    	<filter> beagle_use_type_param['beagle_use_type'] == "imputting"</filter>
 	</data>
-    <data name="gprobsfile" format="bgl">
+    <data name="gprobsfile" format="bgl" label="${tool.name} on ${on_string} (gene probs)"/>
+    	<filter> beagle_use_type_param['beagle_use_type'] == "imputting"</filter>
     </data>
-    <data name="dosefile" format="bgl">
-    	<filter>g_probs== "true"</filter>
+    <data name="dosefile" format="bgl" label="${tool.name} on ${on_string} (dose)" >
+    	<filter> beagle_use_type_param['beagle_use_type'] == "imputting"</filter>
     </data>
+    <data name="rsquaredfile" format="bgl" label="${tool.name} on ${on_string} (r^2)" >
+    	<filter> beagle_use_type_param['beagle_use_type'] == "imputting"</filter>
+    </data>
+    
 
 </outputs>
 <help>
