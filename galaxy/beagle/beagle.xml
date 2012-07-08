@@ -3,59 +3,101 @@
 <command interpreter="bash">
 ./beagle.sh
 -c 'java -jar ${__tool_data_path__}/shared/jars/beagle/beagle.jar
+#set $count = 0
 #if ($beagle_use_type_param.beagle_use_type) == "imputting":
 #for $i, $s in enumerate( $beagle_use_type_param.unphased )
-  unphased=${s.unphased_unrelated_data}
+  	unphased=${s.unphased_unrelated_data}
+	#set $count = $count + 1
 #end for
 #for $i, $s in enumerate( $beagle_use_type_param.phased):
-  phased=${s.phased_unrelated_data}
+  	phased=${s.phased_unrelated_data}
+	#set $count = $count + 1
 #end for
 #for $i, $s in enumerate( $beagle_use_type_param.trios):
-  trios=${s.trios_data}
+  	trios=${s.trios_data}
+	#set $count = $count + 1
 #end for
 #for $i, $s in enumerate( $beagle_use_type_param.pairs):
-  pairs=${s.pairs_data}
+  	pairs=${s.pairs_data}
+	#set $count = $count + 1
 #end for
 #for $i, $s in enumerate($beagle_use_type_param.like):
-  like=${s.like_data}
+  	like=${s.like_data}
+	#set $count = $count + 1
 #end for
 #if  ($beagle_use_type_param.markers_param.markers_file):
-  markers=$beagle_use_type_param.markers_param.marker_data
+  	markers=$beagle_use_type_param.markers_param.marker_data
 #end if
-missing=$beagle_use_type_param.missing_code
-maxlr=$beagle_use_type_param.max_lr
-gprobs=true
-nimputations=$beagle_use_type_param.n_imputations
-nsamples=$beagle_use_type_param.n_samples
-niterations=$beagle_use_type_param.n_iteration
-seed=$beagle_use_type_param.seed_impute
-#if ($beagle_use_type_param.exclude_markers_param.exclude_markers):
-	excludemarkers=$beagle_use_type_param.exclude_markers_param.exclude_markers_file
+	missing=$beagle_use_type_param.missing_code
+	maxlr=$beagle_use_type_param.max_lr
+#if ($beagle_use_type_param.advanced_param.advanced_options):
+	gprobs=$beagle_use_type_param.advanced_param.g_probs
+	nimputations=$beagle_use_type_param.advanced_param.n_imputations
+	nsamples=$beagle_use_type_param.advanced_param.n_samples
+	niterations=$beagle_use_type_param.advanced_param.n_iteration
+	seed=$beagle_use_type_param.advanced_param.seed_impute
+	verbose=$beagle_use_type_param.advanced_param.verbose
+#if ($beagle_use_type_param.advanced_param.exclude_markers_param.exclude_markers):
+	excludemarkers=$beagle_use_type_param.advanced_param.exclude_markers_param.exclude_markers_file
 #end if
-#if ($beagle_use_type_param.exclude_columns_param.exclude_columns):
-	excludecolumns=$beagle_use_type_param.exclude_columns_param.exclude_columns_file
+#if ($beagle_use_type_param.advanced_param.exclude_columns_param.exclude_columns):
+	excludecolumns=$beagle_use_type_param.advanced_param.exclude_columns_param.exclude_columns_file
 #end if
-	verbose=$beagle_use_type_param.Verbose
 #end if
+	ibdscale=$beagle_use_type_param.ibdscale
+#if ($beagle_use_type_param.ibd_input_param.ibd_input):
+	ibdpairs=$beagle_use_type_param.ibd_input_param.ibd_input_file
+	ibd2nonibd=$beagle_use_type_param.ibd_input_param.ibd2nonibd
+	nonibd2ibd=$beagle_use_type_param.ibd_input_param.nonibd2ibd
+	ibderror=$beagle_use_type_param.ibd_input_param.idberror
+#end if
+#if ($beagle_use_type_param.hbd_input_param.hbd):
+        estimatehbd=$beagle_use_type_param.hbd_input_param.hbd
+	nonhbd2hbd=$beagle_use_type_param.hbd_input_param.nonbd2hd
+	hbderror=$beagle_use_type_param.hbd_input_param.hbderror
+	hbd2nonhbd=$beagle_use_type_param.hbd_input_param.hbd2nonhbd
+#end if 
+#if ($beagle_use_type_param.fastibd_param.fastibd):
+	fastibd=$beagle_use_type_param.fastibd_param.fastibd
+	fastibdthreshold=$beagle_use_type_param.fastibd_param.fastibdthreshold
+#end if
+
+#end if
+
 '
+ -I $count
  -l  $log 
-#if ($beagle_use_type_param.beagle_use_type) == "imputting":
-	#if ($beagle_use_type_param.g_probs):
-		-g
- 	#end if
  -n $__new_file_path__
- -p
  -i $log.id
+#if ($beagle_use_type_param.beagle_use_type) == "imputting":
+ 	#if ($beagle_use_type_param.advanced_param.advanced_options):
+		#if ($beagle_use_type_param.advanced_param.g_probs):
+			-g
+	 	#end if
+ 	#end if
+ -p
+#if ($beagle_use_type_param.markers_param.markers_file):
+	-m
 #end if
-
-
+#if ($beagle_use_type_param.fastibd_param.fastibd):
+ 	-f
+#end if
+#if ($beagle_use_type_param.hbd_input_param.hbd):
+	-h
+#end if
+#if ($beagle_use_type_param.ibd_input_param.ibd_input):
+	-b
+#end if
+#if ($beagle_use_type_param.beagle_use_type) == "association_tests":
+	-a
+#end if
+#end if
 
 </command>
 <inputs>
 <conditional name="beagle_use_type_param">
-    <param name="beagle_use_type" type="select" label="Phasing and Imputting or IBD and HBD analyisis or Association testing">
+    <param name="beagle_use_type" type="select" label="Phasing and Imputting or Association testing">
     <option value="imputting" selected="True">Phasing and Imputting</option>
-    <option value="ibd_hbd">IBD and HBD analysis</option>
     <option value="assoc_test">Association testing</option>
     </param>
     <when value="imputting">
@@ -66,7 +108,7 @@ seed=$beagle_use_type_param.seed_impute
     	<param name="phased_unrelated_data" type="data" format="bgl" label="Phased Unrelated file"/>
     </repeat>
     <repeat name="trios" title="Add Unphased Trios File/s">
-    <param name="trios_data" type="data" format="bgl" label="Unphased Trios File"/>
+    <param name="trios_data" type="data" format="bgl" label="Unphased Trios File"/>linux timer for work
     </repeat>
     <repeat name="pairs" title="Add Unphased Pairs File/s">
     <param name="beagle galaxy genomepairs_data" type="data" format="bgl" label="Unphased Pairs File"/>
@@ -77,18 +119,20 @@ seed=$beagle_use_type_param.seed_impute
     <conditional name="markers_param">
 	<param name="markers_file" type="boolean" truevalue="true" falsevalue="false" label="Specify Markers File"/>
 	<when value="true">
-		<param name="marker_data" type="data" format="text" label="Markers File"/>
+		<param name="marker_data" type="data" format="tabular" label="Markers File"/>
 	</when>
     </conditional>
     <param name="missing_code" value="-1" type="text" label="Missing Allele Code"/>
     <param name="max_lr" type="float" label="Max Likelihood Ratio" value="5000.0"/>
-    <param name="g_probs" type="boolean" label="Create Genotype probability files ( + r2 and dose files )"
-    truevalue="True" falsevalue="False"/>
-    <param name="n_imputations" type="integer" value="0" label="Number of Imputations"/>
-    <param name="n_samples" type="integer" value="4" label="Number of Samples/Individuals"/>
-    <param name="n_iteration" type="integer" value="10" label="Number of Iterations"/>
-    <param name="seed_impute" type="integer" value="-9999" label="Random Seed"/>
-    <param name="Verbose" type="boolean" value="false" truevalue="true" false="false"/>
+    <conditional name="advanced_param">
+    	<param name="advanced_options" type="boolean" truevalue="true" falsevalue="false" label="Advanced Imputting Options"/>
+    	<when value="true">
+   	 	<param name="g_probs" type="boolean" label="Create Genotype probability files ( + r2 and dose files )"  truevalue="True" falsevalue="False"/>
+    		<param name="n_imputations" type="integer" value="0" label="Number of Imputations"/>
+    		<param name="n_samples" type="integer" value="4" label="Number of Samples/Individuals"/>
+  		  <param name="n_iteration" type="integer" value="10" label="Number of Iterations"/>
+    	    	<param name="seed_impute" type="integer" value="-9999" label="Random Seed"/>
+   		 <param name="verbose" type="boolean" value="false" truevalue="true" false="false"/>
     <conditional name="exclude_markers_param">
    	<param name="exclude_markers" type="boolean" value="false" falsevalue="false" truevalue="true" label="Specify Excluded Markers File"/>
 	<when value="true">
@@ -102,17 +146,33 @@ seed=$beagle_use_type_param.seed_impute
 	</when>
     </conditional>
     </when>
-    <when value="ibd_hbd">
-        <param name= "ibd_input" type="data" format="text" label="IBD pairs File"/>
-        <param name="hbd" type="boolean" truevalue="true" falsevalue="false" value="false" label="Estimate HBD"/>
+    </conditional>
+        	<param name="ibdscale" type="float" value="2.0" label="IDB, HBD and fastIBD tuning parameter"/>
+    <conditional name="ibd_input_param">
+    	<param name="ibd_input" type="boolean" value="data" format="ibd" label="Specify IBD pairs file" truevalue="true" falsevalue="false"/>
+	<when value="true">
+        	<param name= "ibd_input_file" type="data" format="text" label="IBD pairs File"/>
+    		<param name="idberror" type="float" value="0.005" label="Genotype error rate"/>
+        	<param name="nonibd2ibd" type="float" value="0.0001" label="non-IBD to IBD transition rate"/>
+        	<param name="ibd2nonibd" type="float" label="IBD to non-IBD transition rate" value="1.0"/>
+	</when>
+    </conditional>
+    <conditional name="hbd_input_param">
+        <param name="hbd" type="boolean" description="If estimate Hbd is selected a markers file must be specified" truevalue="true" falsevalue="false" value="false" label="Estimate HBD"/>
+	<when value="true">
         <param name="nonbd2hd" type="float" value="0.0001" label="non-HBD to HBD transition rate"/>
         <param name="hbderror" type="float" value="1.0" label="Genotype Error rate"/>
-        <param name="ibdscale" type="float" value="2.0" label="IDB, HBD and fastIBD tuning parameter"/>
-        <param name="idberror" type="float" value="0.005" label="Genotype error rate"/>
-        <param name="nonibd2ibd" type="float" value="0.0001" label="non-IBD to IBD transition rate"/>
-        <param name="ibd2nonibd" type="float" label="IBD to non-IBD transition rate" value="1.0"/>
+	<param name="hbd2nonhbd" type="float" value="1.0" label="HBD to non-HBD transition rate"/>
+	</when>
+    </conditional>
+    <conditional name="fastibd_param">
+
         <param name="fastibd" type="boolean" truevalue="true" falsevalue="false"    value="false" label="Fast IBD"/>
-        <param name="fastibdthreshold" type="float" label="Score threshold for fast ibd" value="0.0000001" />
+	<when value="true">
+        <param name="fastibdthreshold" type="float" label="Score threshold for fast ibd" value="0.0000001" /> 
+	</when>
+    </conditional>
+
     </when>
     <when value="assoc_test">
         <param name="phased_bgl" type="data" label="phased Beagle file"/>

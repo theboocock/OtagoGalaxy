@@ -21,14 +21,17 @@ usage(){
 		files.
 	-g If gprobs=true in the command. More files are created when this
 	   option is selected.
-
-
+	-f fast IBD calculation
+	-h HBD calculation
+	-b IBD calculation requiring IBD pairs file
+	-a association test
+	-m Markers file is specified.
+	-I <number> number of input files
 
 EOF
 }
 getoptions(){
-echo "hello"
-while getopts "l:c:n:i:pg" opt; do
+while getopts "I:l:c:n:i:pgfhbam" opt; do
 case $opt in
 c)
 COMMAND="${OPTARG} out=$PREFIX"
@@ -48,12 +51,41 @@ GPROBS='TRUE'
 i)
 ID=$OPTARG
 ;;
+f)
+FAST_IBD='TRUE'
+;;
+h)
+HBD='TRUE'
+;;
+b)
+IBD='TRUE'
+;;
+a)
+;;
+m)
+MARKERS='TRUE'
+;;
+I)
+COUNT=$OPTARG
+;;
 ?)
 usage
 exit 1
 ;;
 esac
 done
+}
+checkmarkers(){
+if [ -n "${MARKERS}" ]; then
+	if [ $HBD == 'TRUE' ] || [ $IBD == 'TRUE' ]; then
+		echo "You need to specify markers file if doing HBD or IBD analysis" >2
+		exit 2	
+	fi
+	if [ $COUNT >= 2 ]; then
+		echo "You need to specify a markers file if you have multiple beagle files as inputs" >2
+		exit 2
+	fi
+fi
 }
 
 runbeagle(){
@@ -81,7 +113,8 @@ if [ "$GPROBS" == "TRUE" ]; then
 fi
 
 }
+
 getoptions "$@"
+checkmarkers
 runbeagle
 movefiles
-
