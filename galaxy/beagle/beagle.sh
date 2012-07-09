@@ -76,13 +76,13 @@ esac
 done
 }
 checkmarkers(){
-if [ -n "${MARKERS}" ]; then
+if [ -z "${MARKERS}" ]; then
 	if [ $HBD == 'TRUE' ] || [ $IBD == 'TRUE' ]; then
-		echo "You need to specify markers file if doing HBD or IBD analysis" >2
+		echo " markers file with cM positions is required if \"estimatehbd=true\" r if an ibdpairs file is specified" 1>&2
 		exit 2	
 	fi
 	if [ $COUNT >= 2 ]; then
-		echo "You need to specify a markers file if you have multiple beagle files as inputs" >2
+		echo "You need to specify a markers file if you have multiple beagle files as inputs" 1>&2
 		exit 2
 	fi
 fi
