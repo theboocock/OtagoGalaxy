@@ -77,11 +77,11 @@ done
 }
 checkmarkers(){
 if [ -z "${MARKERS}" ]; then
-	if [ $HBD == 'TRUE' ] || [ $IBD == 'TRUE' ]; then
+	if [ "$HBD" == "TRUE" ] || [ "$IBD" == "TRUE" ]; then
 		echo " markers file with cM positions is required if \"estimatehbd=true\" r if an ibdpairs file is specified" 1>&2
 		exit 2	
 	fi
-	if [ $COUNT >= 2 ]; then
+	if [ $COUNT -gt  1 ]; then
 		echo "You need to specify a markers file if you have multiple beagle files as inputs" 1>&2
 		exit 2
 	fi
@@ -116,5 +116,6 @@ fi
 
 getoptions "$@"
 checkmarkers
+echo $COMMAND
 runbeagle
 movefiles
