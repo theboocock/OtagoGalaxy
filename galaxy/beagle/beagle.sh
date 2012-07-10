@@ -3,7 +3,6 @@
 # Wrapper for beagle analysis
 # @author James Boocock
 #
-# $1 impute, ibd or assoctest $2 command line argument
 #
 PREFIX=`date '+%s'`
 
@@ -61,6 +60,7 @@ b)
 IBD='TRUE'
 ;;
 a)
+ASSOCIATON_TEST='TRUE'
 ;;
 m)
 MARKERS='TRUE'
@@ -95,21 +95,52 @@ fi
 }
 
 movefiles(){
+	echo "${NEW_FILE_PATH}"
 if [ "$LOGFILE" != "" ]; then
      mv $PREFIX.log $LOGFILE
 fi
+if [ "$ASSOCIATON_TEST" == "TRUE" ]; then
+	echo "ASSOC SELECTED"	
 
-if [ "$PHASED_FILE" == "TRUE" ]; then
+
+
+elif [ "$PHASED_FILE" == "TRUE" ]; then
+	i=0
 	gunzip $PREFIX.*.phased.gz
-	mv $PREFIX.*.phased ${NEW_FILE_PATH}/primary_${ID}_phased_visible_bgl
+	for f in $PREFIX.*.phased
+	do
+	echo $f
+	mv $f ${NEW_FILE_PATH}/primary_${ID}_phased${i}_visible_bgl
+	let i=I+1
+	done
 fi
 
 if [ "$GPROBS" == "TRUE" ]; then
+	i=0
 	gunzip $PREFIX.*.gprobs.gz
-	mv $PREFIX.*.gprobs ${NEW_FILE_PATH}/primary_${ID}_gprobs_visible_bgl
 	gunzip $PREFIX.*.dose.gz
-	mv $PREFIX.*.dose ${NEW_FILE_PATH}/primary_${ID}_dose_visible_bgl
-	mv $PREFIX.*.r2   ${NEW_FILE_PATH}/primary_${ID}_r2_visible_bgl
+	for f in $PREFIX.*.gprobs
+	do
+	mv $f ${NEW_FILE_PATH}/primary_${ID}_gprobs${i}_visible_bgl
+	let i=i+1
+	done 
+	i=0
+	for f in $PREFIX.*.dose
+	do
+	mv $f ${NEW_FILE_PATH}/primary_${ID}_dose${i}_visible_bgl
+	let i=i+1
+	done
+	i=0
+	for f in $PREFIX.*.r2
+	do
+	mv $f   ${NEW_FILE_PATH}/primary_${ID}_r2${i}_visible_bgl
+	let i=i+1
+	done
+fi
+
+if [ "$FAST_IBD" == "TRUE" ]; then
+	gunzip $PREFIX.*.fibd.gz
+	mv $PREFIX.*.fibd ${NEW_FILE_PATH}/primary_${ID}_fibd_visible_bgl
 fi
 
 }
