@@ -12,7 +12,7 @@ vcf_to_beagle.sh ${input_vcf} ${missing} ${output_marker} ${output_bgl} ${output
 
 <outputs>
     <data name="output_marker" format="txt" label="markers"/>
-    <data name="output_bgl" format="txt" label="bgl"/>
+    <data name="output_bgl" format="bgl" label="bgl"/>
     <data name="output_gprobs" format="txt" label="gprobs"/>
     <data name="output_like" format="txt" label="likelihood"/>
     <data name="output_int" format="txt" label="int"/>
