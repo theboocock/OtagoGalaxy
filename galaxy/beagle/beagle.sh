@@ -26,11 +26,11 @@ usage(){
 	-a association test
 	-m Markers file is specified.
 	-I <number> number of input files
-
+	-t trait specified
 EOF
 }
 getoptions(){
-while getopts "I:l:c:n:i:pgfhbam" opt; do
+while getopts "I:l:c:n:i:pgfhbamt" opt; do
 case $opt in
 c)
 COMMAND="${OPTARG} out=$PREFIX"
@@ -49,6 +49,9 @@ GPROBS='TRUE'
 ;;
 i)
 ID=$OPTARG
+;;
+t)
+TRAIT='TRUE'
 ;;
 f)
 FAST_IBD='TRUE'
@@ -95,13 +98,16 @@ fi
 }
 
 movefiles(){
-	echo "${NEW_FILE_PATH}"
 if [ "$LOGFILE" != "" ]; then
      mv $PREFIX.log $LOGFILE
 fi
 if [ "$ASSOCIATON_TEST" == "TRUE" ]; then
-	echo "ASSOC SELECTED"	
-
+        gunzip $PREFIX.*.dag.gz
+	mv $PREFIX.*.dag primary_${ID}_dag_dag
+	if [ "$TRAIT" == "TRUE" ]; then
+		mv $PREFIX.*.null primary_${ID}_null_null
+		mv $PREFIX.*.pval primary_${ID}_pval_pval
+	fi
 
 
 elif [ "$PHASED_FILE" == "TRUE" ]; then
@@ -109,40 +115,67 @@ elif [ "$PHASED_FILE" == "TRUE" ]; then
 	gunzip $PREFIX.*.phased.gz
 	for f in $PREFIX.*.phased
 	do
-	echo $f
-	mv $f ${NEW_FILE_PATH}/primary_${ID}_phased${i}_visible_bgl
+	VAR1=`echo $f | awk -F [_] '{print $2}'`
+	FILE_NUM=`echo $VAR1 | awk -F [.] '{print $1}'`
+	mv $f ${NEW_FILE_PATH}/primary_${ID}_phased${FILE_NUM}_visible_bgl
 	let i=I+1
 	done
 fi
 
 if [ "$GPROBS" == "TRUE" ]; then
-	i=0
 	gunzip $PREFIX.*.gprobs.gz
 	gunzip $PREFIX.*.dose.gz
+	
 	for f in $PREFIX.*.gprobs
 	do
-	mv $f ${NEW_FILE_PATH}/primary_${ID}_gprobs${i}_visible_bgl
-	let i=i+1
+	echo $f
+	VAR1=`echo $f | awk -F [_] '{print $2}'`
+	FILE_NUM=`echo $VAR1 | awk -F [.] '{print $1}'`
+	mv $f ${NEW_FILE_PATH}/primary_${ID}_gprobs${FILE_NUM}_visible_gprobs
 	done 
-	i=0
+
 	for f in $PREFIX.*.dose
 	do
-	mv $f ${NEW_FILE_PATH}/primary_${ID}_dose${i}_visible_bgl
-	let i=i+1
+	VAR1=`echo $f | awk -F [_] '{print $2}'`
+	FILE_NUM=`echo $VAR1 | awk -F [.] '{print $1}'`
+	mv $f ${NEW_FILE_PATH}/primary_${ID}_dose${FILE_NUM}_visible_dose
 	done
-	i=0
+	
 	for f in $PREFIX.*.r2
 	do
-	mv $f   ${NEW_FILE_PATH}/primary_${ID}_r2${i}_visible_bgl
-	let i=i+1
+	VAR1=`echo $f | awk -F [_] '{print $2}'`
+	FILE_NUM=`echo $VAR1 | awk -F [.] '{print $1}'`
+	mv $f   ${NEW_FILE_PATH}/primary_${ID}_r2${FILE_NUM}_visible_r2
 	done
 fi
 
 if [ "$FAST_IBD" == "TRUE" ]; then
 	gunzip $PREFIX.*.fibd.gz
-	mv $PREFIX.*.fibd ${NEW_FILE_PATH}/primary_${ID}_fibd_visible_bgl
+	for f in $PREFIX.*.fibd
+	do
+	VAR1=`echo $f | awk -F [_] '{print $2}'`
+	FILE_NUM=`echo $VAR1 | awk -F [.] '{print $1}'`
+	mv $f   ${NEW_FILE_PATH}/primary_${ID}_fibd${FILE_NUM}_visible_fibd
+	done
 fi
-
+if [ "$HBD" == "TRUE" ]; then
+	gunzip $PREFIX.*.hbd.gz	
+	for f in $PREFIX.*.hbd
+	do
+	VAR1=`echo $f | awk -F [_] '{print $2}'`
+	FILE_NUM=`echo $VAR1 | awk -F [.] '{print $1}'`
+	mv $f   ${NEW_FILE_PATH}/primary_${ID}_hbd${FILE_NUM}_visible_hbd
+	done
+fi
+if [ "$IBD" == "TRUE"]; then
+	for f in $PREFIX.*.ibd
+	do
+	VAR1=`echo $f | awk -F [_] '{print $2}'`
+	FILE_NUM=`echo $VAR1 | awk -F [.] '{print $1}'`
+	mv $f   ${NEW_FILE_PATH}/primary_${ID}_ibd${FILE_NUM}_visible_ibd
+	done
+	
+fi
 }
 
 getoptions "$@"
