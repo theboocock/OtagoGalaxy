@@ -66,7 +66,7 @@
 #if ($beagle_use_type_param.beagle_use_type) == "assoc_test":
 	data=$beagle_use_type_param.phased_bgl
 
-#if ($beagle_use_type_param.advanced_assoc.advanced_assoc_box) == "true":
+#if ($beagle_use_type_param.advanced_assoc.advanced_assoc_box) == "advanced":
 		nperms=$beagle_use_type_param.advanced_assoc.nperms		
 		diplotypes=$beagle_use_type_param.advanced_assoc.diplotypes
 		seed=$beagle_use_type_param.advanced_assoc.seed
@@ -81,7 +81,7 @@
 
 
 '
-
+#if ($beagle_use_type_param.beagle_use_type) == "imputtingtest"
 #for $i, $s in enumerate( $beagle_use_type_param.unphased )
   	unphased=${s.unphased_unrelated_data}
 #end for
@@ -97,6 +97,7 @@
 #for $i, $s in enumerate($beagle_use_type_param.like):
   	like=${s.like_data}
 #end for
+#end if
  -I $count
  -l  $log 
  -n $__new_file_path__
@@ -120,11 +121,11 @@
 #if ($beagle_use_type_param.ibd_input_param.ibd_input) == "true":
 	-b
 #end if
-#if ($beagle_use_type_param.beagle_use_type) == "association_tests":
+#end if
+#if ($beagle_use_type_param.beagle_use_type) == "assoc_test":
 	-a
 #if($beagle_use_type_param.trait_param.trait_specified) == "true":
 	-t
-#end if
 #end if
 #end if
 
@@ -217,10 +218,10 @@
 	<when value="true">
         <param name="fastibdthreshold" type="float" label="Score threshold for fast ibd" value="0.0000001" /> 
 	    </when>
+	  </conditional>
+	  </when>
     <when value="assoc_test">
         <param name="phased_bgl" format="bgl" type="data" label="phased Beagle file"/>
-	</when>
-	</conditional>
         <conditional name="trait_param">
         <param name="trait_specified" type="select" label="Specify Trait">
 		<option value="false" selected="true">No</option>
@@ -251,8 +252,6 @@
 </inputs>
 <outputs>
     <data name="log" format="txt"/>
-    
-
 </outputs>
 <help>
 .. class:: warningmark

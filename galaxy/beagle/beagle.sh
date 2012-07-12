@@ -69,6 +69,7 @@ m)
 MARKERS='TRUE'
 ;;
 I)
+echo $OPTARG
 COUNT=$OPTARG
 ;;
 ?)
@@ -84,7 +85,8 @@ if [ -z "${MARKERS}" ]; then
 		echo " markers file with cM positions is required if \"estimatehbd=true\" r if an ibdpairs file is specified" 1>&2
 		exit 2	
 	fi
-	if [ $COUNT -gt  1 ]; then
+	echo $COUNT
+	if [ "$COUNT" -gt  1 ]; then
 		echo "You need to specify a markers file if you have multiple beagle files as inputs" 1>&2
 		exit 2
 	fi
@@ -103,10 +105,10 @@ if [ "$LOGFILE" != "" ]; then
 fi
 if [ "$ASSOCIATON_TEST" == "TRUE" ]; then
         gunzip $PREFIX.*.dag.gz
-	mv $PREFIX.*.dag primary_${ID}_dag_dag
+	mv $PREFIX.*.dag ${NEW_FILE_PATH}/primary_${ID}_dag_visible_dag
 	if [ "$TRAIT" == "TRUE" ]; then
-		mv $PREFIX.*.null primary_${ID}_null_null
-		mv $PREFIX.*.pval primary_${ID}_pval_pval
+		mv $PREFIX.*.null ${NEW_FILE_PATH}/primary_${ID}_null_visible_null
+		mv $PREFIX.*.pval ${NEW_FILE_PATH}/primary_${ID}_pval_visible_pval
 	fi
 
 
@@ -167,7 +169,7 @@ if [ "$HBD" == "TRUE" ]; then
 	mv $f   ${NEW_FILE_PATH}/primary_${ID}_hbd${FILE_NUM}_visible_hbd
 	done
 fi
-if [ "$IBD" == "TRUE"]; then
+if [ "$IBD" == "TRUE" ]; then
 	for f in $PREFIX.*.ibd
 	do
 	VAR1=`echo $f | awk -F [_] '{print $2}'`
