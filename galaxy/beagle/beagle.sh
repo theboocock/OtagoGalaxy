@@ -6,6 +6,8 @@
 #
 PREFIX=`date '+%s'`
 
+
+
 usage(){
 	cat << EOF
 	Usage: This bash script sets up and runs beagle for 
@@ -27,10 +29,20 @@ usage(){
 	-m Markers file is specified.
 	-I <number> number of input files
 	-t trait specified
+	-d comma seperated list containing history dataset names.
+	-D comma seperated list containing dataset names used for matching
 EOF
 }
+
+
+get_history_id(){
+
+
+}
+
+
 getoptions(){
-while getopts "I:l:c:n:i:pgfhbamt" opt; do
+while getopts "d:D:I:l:c:n:i:pgfhbamt" opt; do
 case $opt in
 c)
 COMMAND="${OPTARG} out=$PREFIX"
@@ -52,6 +64,12 @@ ID=$OPTARG
 ;;
 t)
 TRAIT='TRUE'
+;;
+d)
+HISTORY_STRING=$OPTARG
+;;
+D)
+DATASET_STRING=$OPTARG
 ;;
 f)
 FAST_IBD='TRUE'
@@ -117,9 +135,7 @@ elif [ "$PHASED_FILE" == "TRUE" ]; then
 	gunzip $PREFIX.*.phased.gz
 	for f in $PREFIX.*.phased
 	do
-	VAR1=`echo $f | awk -F [_] '{print $2}'`
-	FILE_NUM=`echo $VAR1 | awk -F [.] '{print $1}'`
-	mv $f ${NEW_FILE_PATH}/primary_${ID}_phased${FILE_NUM}_visible_bgl
+	mv $f ${NEW_FILE_PATH}/primary_${ID}_phased${HISTORY_ID}_visible_bgl
 	let i=I+1
 	done
 fi
@@ -182,6 +198,5 @@ fi
 
 getoptions "$@"
 checkmarkers
-echo $COMMAND
 runbeagle
 movefiles

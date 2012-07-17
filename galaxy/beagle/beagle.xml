@@ -81,22 +81,45 @@
 
 
 '
-#if ($beagle_use_type_param.beagle_use_type) == "imputtingtest"
+#set $namestring = ""
+#set $datasetstring = ""
+#if ($beagle_use_type_param.beagle_use_type) == "imputting"
 #for $i, $s in enumerate( $beagle_use_type_param.unphased )
-  	unphased=${s.unphased_unrelated_data}
+	#set $namestring +=  str($s.unphased_unrelated_data.hid)
+	#set $namestring +=  str(",")
+	#set $datasetstring += str($s.unphased_unrelated_data)
+	#set $datasetstring += str(",")
 #end for
 #for $i, $s in enumerate( $beagle_use_type_param.phased):
+	#set $namestring +=  str($s.phased_unrelated_data.hid)
+	#set $namestring +=  str(",")
+	#set $datasetstring += str($s.phased_unrelated_data)
+	#set $datasetstring += str(",")
   	phased=${s.phased_unrelated_data}
 #end for
 #for $i, $s in enumerate( $beagle_use_type_param.trios):
+	#set $namestring +=  str($s.trios_data.hid)
+	#set $namestring +=  str(",")
+	#set $datasetstring += str($s.trios_data)
+	#set $datasetstring += str(",")
   	trios=${s.trios_data}
 #end for
 #for $i, $s in enumerate( $beagle_use_type_param.pairs):
+	#set $namestring +=  str($s.pairs_data.hid)
+	#set $namestring +=  str(",")
+	#set $datasetstring += str($s.pairs_data)
+	#set $datasetstring += str(",")
   	pairs=${s.pairs_data}
 #end for
 #for $i, $s in enumerate($beagle_use_type_param.like):
+	#set $namestring +=  str($s.like_data.hid)
+	#set $namestring +=  str(",")
+	#set $datasetstring += str($s.like_data)
+	#set $datasetstring += str(",")
   	like=${s.like_data}
 #end for
+	-d $namestring
+	-D $datasetstring
 #end if
  -I $count
  -l  $log 
