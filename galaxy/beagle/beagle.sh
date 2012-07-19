@@ -6,6 +6,8 @@
 #
 PREFIX=`date '+%s'`
 
+
+
 usage(){
 	cat << EOF
 	Usage: This bash script sets up and runs beagle for 
@@ -26,11 +28,21 @@ usage(){
 	-a association test
 	-m Markers file is specified.
 	-I <number> number of input files
-
+	-t trait specified
+	-d comma seperated list containing history dataset names.
+	-D comma seperated list containing dataset names used for matching
 EOF
 }
+
+
+get_history_id(){
+
+
+}
+
+
 getoptions(){
-while getopts "I:l:c:n:i:pgfhbam" opt; do
+while getopts "d:D:I:l:c:n:i:pgfhbamt" opt; do
 case $opt in
 c)
 COMMAND="${OPTARG} out=$PREFIX"
@@ -50,6 +62,15 @@ GPROBS='TRUE'
 i)
 ID=$OPTARG
 ;;
+t)
+TRAIT='TRUE'
+;;
+d)
+HISTORY_STRING=$OPTARG
+;;
+D)
+DATASET_STRING=$OPTARG
+;;
 f)
 FAST_IBD='TRUE'
 ;;
@@ -66,6 +87,7 @@ m)
 MARKERS='TRUE'
 ;;
 I)
+echo $OPTARG
 COUNT=$OPTARG
 ;;
 ?)
@@ -81,7 +103,8 @@ if [ -z "${MARKERS}" ]; then
 		echo " markers file with cM positions is required if \"estimatehbd=true\" r if an ibdpairs file is specified" 1>&2
 		exit 2	
 	fi
-	if [ $COUNT -gt  1 ]; then
+	echo $COUNT
+	if [ "$COUNT" -gt  1 ]; then
 		echo "You need to specify a markers file if you have multiple beagle files as inputs" 1>&2
 		exit 2
 	fi
@@ -95,13 +118,16 @@ fi
 }
 
 movefiles(){
-	echo "${NEW_FILE_PATH}"
 if [ "$LOGFILE" != "" ]; then
      mv $PREFIX.log $LOGFILE
 fi
 if [ "$ASSOCIATON_TEST" == "TRUE" ]; then
-	echo "ASSOC SELECTED"	
-
+        gunzip $PREFIX.*.dag.gz
+	mv $PREFIX.*.dag ${NEW_FILE_PATH}/primary_${ID}_dag_visible_dag
+	if [ "$TRAIT" == "TRUE" ]; then
+		mv $PREFIX.*.null ${NEW_FILE_PATH}/primary_${ID}_null_visible_null
+		mv $PREFIX.*.pval ${NEW_FILE_PATH}/primary_${ID}_pval_visible_pval
+	fi
 
 
 elif [ "$PHASED_FILE" == "TRUE" ]; then
@@ -109,44 +135,68 @@ elif [ "$PHASED_FILE" == "TRUE" ]; then
 	gunzip $PREFIX.*.phased.gz
 	for f in $PREFIX.*.phased
 	do
-	echo $f
-	mv $f ${NEW_FILE_PATH}/primary_${ID}_phased${i}_visible_bgl
+	mv $f ${NEW_FILE_PATH}/primary_${ID}_phased${HISTORY_ID}_visible_bgl
 	let i=I+1
 	done
 fi
 
 if [ "$GPROBS" == "TRUE" ]; then
-	i=0
 	gunzip $PREFIX.*.gprobs.gz
 	gunzip $PREFIX.*.dose.gz
+	
 	for f in $PREFIX.*.gprobs
 	do
-	mv $f ${NEW_FILE_PATH}/primary_${ID}_gprobs${i}_visible_bgl
-	let i=i+1
+	echo $f
+	VAR1=`echo $f | awk -F [_] '{print $2}'`
+	FILE_NUM=`echo $VAR1 | awk -F [.] '{print $1}'`
+	mv $f ${NEW_FILE_PATH}/primary_${ID}_gprobs${FILE_NUM}_visible_gprobs
 	done 
-	i=0
+
 	for f in $PREFIX.*.dose
 	do
-	mv $f ${NEW_FILE_PATH}/primary_${ID}_dose${i}_visible_bgl
-	let i=i+1
+	VAR1=`echo $f | awk -F [_] '{print $2}'`
+	FILE_NUM=`echo $VAR1 | awk -F [.] '{print $1}'`
+	mv $f ${NEW_FILE_PATH}/primary_${ID}_dose${FILE_NUM}_visible_dose
 	done
-	i=0
+	
 	for f in $PREFIX.*.r2
 	do
-	mv $f   ${NEW_FILE_PATH}/primary_${ID}_r2${i}_visible_bgl
-	let i=i+1
+	VAR1=`echo $f | awk -F [_] '{print $2}'`
+	FILE_NUM=`echo $VAR1 | awk -F [.] '{print $1}'`
+	mv $f   ${NEW_FILE_PATH}/primary_${ID}_r2${FILE_NUM}_visible_r2
 	done
 fi
 
 if [ "$FAST_IBD" == "TRUE" ]; then
 	gunzip $PREFIX.*.fibd.gz
-	mv $PREFIX.*.fibd ${NEW_FILE_PATH}/primary_${ID}_fibd_visible_bgl
+	for f in $PREFIX.*.fibd
+	do
+	VAR1=`echo $f | awk -F [_] '{print $2}'`
+	FILE_NUM=`echo $VAR1 | awk -F [.] '{print $1}'`
+	mv $f   ${NEW_FILE_PATH}/primary_${ID}_fibd${FILE_NUM}_visible_fibd
+	done
 fi
-
+if [ "$HBD" == "TRUE" ]; then
+	gunzip $PREFIX.*.hbd.gz	
+	for f in $PREFIX.*.hbd
+	do
+	VAR1=`echo $f | awk -F [_] '{print $2}'`
+	FILE_NUM=`echo $VAR1 | awk -F [.] '{print $1}'`
+	mv $f   ${NEW_FILE_PATH}/primary_${ID}_hbd${FILE_NUM}_visible_hbd
+	done
+fi
+if [ "$IBD" == "TRUE" ]; then
+	for f in $PREFIX.*.ibd
+	do
+	VAR1=`echo $f | awk -F [_] '{print $2}'`
+	FILE_NUM=`echo $VAR1 | awk -F [.] '{print $1}'`
+	mv $f   ${NEW_FILE_PATH}/primary_${ID}_ibd${FILE_NUM}_visible_ibd
+	done
+	
+fi
 }
 
 getoptions "$@"
 checkmarkers
-echo $COMMAND
 runbeagle
 movefiles

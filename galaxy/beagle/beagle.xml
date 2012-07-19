@@ -64,19 +64,63 @@
 
 #end if
 #if ($beagle_use_type_param.beagle_use_type) == "assoc_test":
-#if ($beagle_use_type_param.beagle_use_type.trait_param.trait_specified) == "true":
-	
+	data=$beagle_use_type_param.phased_bgl
+
+#if ($beagle_use_type_param.advanced_assoc.advanced_assoc_box) == "advanced":
+		nperms=$beagle_use_type_param.advanced_assoc.nperms		
+		diplotypes=$beagle_use_type_param.advanced_assoc.diplotypes
+		seed=$beagle_use_type_param.advanced_assoc.seed
+		scale=$beagle_use_type_param.advanced_assoc.scale
+		shift=$beagle_use_type_param.advanced_assoc.shift
+		tests=$beagle_use_type_param.advanced_assoc.tests
 #end if
-#if ($beagle_use_type_param.beagle_use_type.advanced_assoc.advanced_assoc_box) == "true":
-	
+#if ($beagle_use_type_param.trait_param.trait_specified) == "true":
+		trait=$beagle_use_type_param.trait_param.trait
 #end if
-
-
-
 #end if
 
 
 '
+#set $namestring = ""
+#set $datasetstring = ""
+#if ($beagle_use_type_param.beagle_use_type) == "imputting"
+#for $i, $s in enumerate( $beagle_use_type_param.unphased )
+	#set $namestring +=  str($s.unphased_unrelated_data.hid)
+	#set $namestring +=  str(",")
+	#set $datasetstring += str($s.unphased_unrelated_data)
+	#set $datasetstring += str(",")
+#end for
+#for $i, $s in enumerate( $beagle_use_type_param.phased):
+	#set $namestring +=  str($s.phased_unrelated_data.hid)
+	#set $namestring +=  str(",")
+	#set $datasetstring += str($s.phased_unrelated_data)
+	#set $datasetstring += str(",")
+  	phased=${s.phased_unrelated_data}
+#end for
+#for $i, $s in enumerate( $beagle_use_type_param.trios):
+	#set $namestring +=  str($s.trios_data.hid)
+	#set $namestring +=  str(",")
+	#set $datasetstring += str($s.trios_data)
+	#set $datasetstring += str(",")
+  	trios=${s.trios_data}
+#end for
+#for $i, $s in enumerate( $beagle_use_type_param.pairs):
+	#set $namestring +=  str($s.pairs_data.hid)
+	#set $namestring +=  str(",")
+	#set $datasetstring += str($s.pairs_data)
+	#set $datasetstring += str(",")
+  	pairs=${s.pairs_data}
+#end for
+#for $i, $s in enumerate($beagle_use_type_param.like):
+	#set $namestring +=  str($s.like_data.hid)
+	#set $namestring +=  str(",")
+	#set $datasetstring += str($s.like_data)
+	#set $datasetstring += str(",")
+  	like=${s.like_data}
+#end for
+	-d $namestring
+	-D $datasetstring
+#end if
  -I $count
  -l  $log 
  -n $__new_file_path__
@@ -100,9 +144,11 @@
 #if ($beagle_use_type_param.ibd_input_param.ibd_input) == "true":
 	-b
 #end if
-#if ($beagle_use_type_param.beagle_use_type) == "association_tests":
+#end if
+#if ($beagle_use_type_param.beagle_use_type) == "assoc_test":
 	-a
-
+#if($beagle_use_type_param.trait_param.trait_specified) == "true":
+	-t
 #end if
 #end if
 
@@ -165,7 +211,7 @@
     </conditional>
         	<param name="ibdscale" type="float" value="2.0" label="IDB, HBD and fastIBD tuning parameter"/>
     <conditional name="ibd_input_param">
-    	<param name="ibd_input" type="select"  value="false" label="Do IBD Analysis?" description="requires IBD pairs file">
+    	<param name="ibd_input" type="select"  value="false" label="IBD Analysis" description="requires IBD pairs file">
 		<option value="false">No</option>
 		<option value="true">Yes</option>
 	</param>
@@ -177,7 +223,7 @@
 	</when>
     </conditional>
     <conditional name="hbd_input_param">
-        <param name="hbd" type="select" description="If estimate Hbd is selected a markers file must be specified"  label="Estimate HBD?">
+        <param name="hbd" type="select" description="If estimate Hbd is selected a markers file must be specified"  label="Estimate HBD">
 		<option value="true">Yes</option>
 		<option value="false" selected="True">No</option>
 	</param>
@@ -188,33 +234,26 @@
 	</when>
     </conditional>
     <conditional name="fastibd_param">
-        <param name="fastibd" type="select"  label="Fast IBD?">
+        <param name="fastibd" type="select"  label="Fast IBD">
 		<option value="true">Yes</option>
 		<option value="false" selected="true">No</option>
 	</param>
 	<when value="true">
         <param name="fastibdthreshold" type="float" label="Score threshold for fast ibd" value="0.0000001" /> 
-	</when>
-    </conditional>
-
-    </when>
+	    </when>
+	  </conditional>
+	  </when>
     <when value="assoc_test">
         <param name="phased_bgl" format="bgl" type="data" label="phased Beagle file"/>
-	<param name="association_tests"  type="select" display="checkboxes" label="Tests to be performed (please make sure to tick atleast one)" multiple="true">
-		<option value="a">Allelic test</option>
-		<option value="r">Recessive test</option>
-		<option value="d">Dominant test</option>
-		<option value="o">Overdominant test</option>
-	</param>
         <conditional name="trait_param">
-        <param name="trait_specified" type="select" label="Specify Trait?">
+        <param name="trait_specified" type="select" label="Specify Trait">
 		<option value="false" selected="true">No</option>
 		<option value="true">Yes</option>
 	</param>
 	<when value="false">
 	</when>
         <when value="true">
-        <param name="trait" type="text" label="Affection status identifier" value="T2D"/>
+        <param name="trait" type="text" label="Affection status identifier"/>
         </when>
         </conditional>
 	<conditional name="advanced_assoc">
@@ -223,6 +262,7 @@
 			<option value="basic" selected="true">Basic</option>
 		</param>
 		<when value="advanced">
+		<param name="association_tests"  type="text" label=""  value="a"/>
         	<param name="nperms" type="integer" value="1000" label="Number of permutations"/>
         	<param name="diplotypes" type="boolean" truevalue="true" falsevalue="false" value="true" label="Diplotypes"/>
         	<param name="seed" type="integer" value="-99999" label="Random seed"/>
@@ -235,16 +275,22 @@
 </inputs>
 <outputs>
     <data name="log" format="txt"/>
-    
-
 </outputs>
 <help>
 .. class:: warningmark
 
 *TIP* if using multiple input files or performing IBD or HBD analysis a *markers file* is required. 
 
+*TIP* bgl input files are not auto-detected as the format is loosely defined please select the format 
+      when uploading the files.
+*TIP* association tests is one or more characters from the set  “ardo”,
+	a = allelic test, r = ressesive test=, d=dominant test and o = overdominant test
 -----
+.. class:: infomark
+Detailed Information on Command Line Arguments contained in readme.
+http://faculty.washington.edu/browning/beagle/beagle_3.3.2_31Oct11.pdf
 
+-----
 **Citations**
 
 BEAGLE's fastIBD method is described in
