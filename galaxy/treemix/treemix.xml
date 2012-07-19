@@ -3,9 +3,22 @@
 
 <command interpreter="bash">
 
-./treemix.sh $input_file $output_cov $output_covse $output_modelcov $output_treeout $output_vertices $output_edges 
-#if ($root == ""):
-    blah
+./treemix.sh $input_file $output_cov $output_covse $output_modelcov $output_treeout $output_vertices $output_edges $output_summary $output_png
+
+#if ($display_root.set_root == "yes"):
+    -r $display_root.root
+#end if
+
+#if ($display_ld.set_ld == "yes"):
+    -l $display_ld.ld
+#end if
+
+#if ($display_migration.set_migration == "yes"):
+    -m $display_migration.migration
+#end if
+
+#if ($display_prev_files.set_prev_files == "yes"):
+    -v $display_prev_files.prev_vert -e $display_prev_files.prev_edge
 #end if
 
 </command>
@@ -14,14 +27,43 @@
 
 <param name="input_file" type="data" format="txt" label="Input File" />
 
-<param name="root" value="" type="text" label="Set position of root" help="Optional.e.g. If the name of the outgroup population is Outgroup then enter it here" />
+<conditional name="display_root">
+<param name="set_root" type="select" label="Set position of root?">
+    <option value="no" selected="True">No</option>
+    <option value="yes">Yes</option>
+</param>
 
-<param name="ld" type="integer" value="0" label="Group SNPs together to account for linkage disequiilibrium" help="Optional. Recommended that you use a value that far exceeds the known extent of LD. Assumes order of SNPs is order in organism" />
+<when value="yes">
 
-<param name="migration" type="integer" value="0" label="Allowed migration events" help="Optional. Will build the ML tree then add the number of migration events." />
+    <param name="root" type="text" label="Set position of root" help="If the name of the outgroup population is Outgroup then enter it here" />
 
-<conditional name="add_prev_files">
-<param name="add_files" type="select" label="Add previously generated tree/graph?" >
+</when>
+</conditional>
+
+<conditional name="display_ld">
+<param name="set_ld" type="select" label="Set Linkage Disequilibrium?">
+    <option value="no" selected="True">No</option>
+    <option value="yes">Yes</option>
+</param>
+
+<when value="yes">
+    <param name="ld" type="integer" value="0" label="Group SNPs together to account for linkage disequiilibrium" help="Recommended that you use a value that far exceeds the known extent of LD. Assumes order of SNPs is order in organism" />
+</when>
+</conditional>
+
+<conditional name="display_migration">
+<param name="set_migration" type="select" label="Set number of allowed migration events?">
+    <option value="no" selected="True">No</option>
+    <option value="yes">Yes</option>
+</param>
+
+<when value="yes">
+<param name="migration" type="integer" value="0" label="Allowed migration events" help="Will build the ML tree then add the number of migration events." />
+</when>
+</conditional>
+
+<conditional name="display_prev_files">
+<param name="set_prev_files" type="select" label="Add previously generated tree/graph?" >
     <option value="yes">Yes</option>
     <option value="no" selected="True">No</option>
 </param>
@@ -39,14 +81,15 @@
 <data name="output_cov" format="txt" label="Covariance Matrix" />
 <data name="output_covse" format="txt" label="Standard errors for each entry" />
 <data name="output_modelcov" format="txt" label="Fitted covariance according to model" />
-<data name="output_treeout" format="txt" label="Fitted tree model and migration events" />
 <data name="output_vertices" format="txt" label="Vertices (Internal Structure)" />
 <data name="output_edges" format="txt" label="Edges (Internal Structure)" />
+<data name="output_treeout" format="txt" label="Fitted tree model and migration events" />
+<data name="output_summary" format="txt" label="Summary" />
+<data name="output_png" format="png" label="Tree plot" />
 
 </outputs>
 <help>
 
-Please input a .gz file
 
 </help>
 </tool>
