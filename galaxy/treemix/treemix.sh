@@ -22,16 +22,17 @@ OUT_5=$6
 OUT_6=$7
 OUT_7=$8
 OUT_8=$9
-OUT_9=$10
 
 # have to zip files because currently galaxy wont store zips
 gzip -c $1 > $1.gz
 
-shift 10
+shift 9
 
 COMMAND="treemix -i $INPUT.gz"
 
-while getopts "r:l:m:v:e:" OPTION; do
+R_COMMAND="`pwd` plain"
+
+while getopts "r:l:m:v:e:f:" OPTION; do
     case $OPTION in
         r)
             ROOT_POS="$OPTARG"
@@ -53,6 +54,10 @@ while getopts "r:l:m:v:e:" OPTION; do
             EDGE_FILE="$OPTARG"
             COMMAND="$COMMAND $EDGE_FILE"
             ;;
+        f)
+            POPORDER="$OPTARG"
+            R_COMMAND="`pwd` residual $POPORDER"
+            ;;
         ?)
             echo "Invalid options: -$OPTION" >&2
             exit 1
@@ -69,7 +74,8 @@ COMMAND="$COMMAND -o galaxy_treemix"
 $COMMAND > $OUT_7
 
 # make R plot thing
-Rscript ~/galaxy-dist/tools/SOER1000genes/galaxy/treemix/do_plots.R "`pwd`" 2> /dev/null
+
+Rscript ~/galaxy-dist/tools/SOER1000genes/galaxy/treemix/do_plots.R $R_COMMAND 2> /dev/null
 
 mv galaxy_tree.png $OUT_8
 

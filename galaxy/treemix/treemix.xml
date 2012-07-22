@@ -21,6 +21,10 @@
     -v $display_prev_files.prev_vert -e $display_prev_files.prev_edge
 #end if
 
+#if ($display_plot_residuals.plot_residuals == "yes"):
+    -f $display_plot_residuals.poporder
+#end if
+
 </command>
 
 <inputs>
@@ -71,6 +75,17 @@
 <when value="yes">
     <param name="prev_vert" type="data" format="txt" label="Vertices file" />
     <param name="prev_edge" type="data" format="txt" label="Edges file" />
+</when>
+</conditional>
+
+<conditional name="display_plot_residuals">
+<param name="plot_residuals" type="select" label="Visualize residuals" help="From the fit of the model to the data. Helps identify populations that are not well-modeled." >
+    <option value="yes">Yes</option>
+    <option value="no" selected="True">No</option>
+</param>
+
+<when value="yes">
+    <param name="poporder" type="data" format="txt" label="Population order" help="Select a file containing the names of the populations in the order you would like them to be plotted."/>
 </when>
 </conditional>
 
