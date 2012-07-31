@@ -1,9 +1,7 @@
 #!/bin/bash
 
 echo Restarting Galaxy...
-
-./start_webapp.sh --stop-daemon
-./start_webapp.sh --daemon
-
+./stop_galaxy.sh
+./start_galaxy.sh
 echo Done
 
