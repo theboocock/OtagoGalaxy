@@ -27,8 +27,6 @@ password = 1234
 # To change the passwords at setup requires altering the values in 6
 # files
 
-
-
-
-
-
+#TODO
+Don't forget to make cron script for ftp
+Don't forget to call galaxy cleanup script
