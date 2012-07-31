@@ -15,3 +15,5 @@ vcftools --vcf $1 --plink-tped --out out
 
 mv -f *.tped $2
 mv -f *.tfam $3
+
+exit 0

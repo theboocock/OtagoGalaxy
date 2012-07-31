@@ -20,3 +20,5 @@ java -jar /home/galaxy/galaxy-dist/tool-data/shared/jars/evs/evsClient.jar -t $1
 mv -f *.vcf $3
 mv -f *AllSites.txt $4
 mv -f *SummaryStats.txt $5
+
+exit 0

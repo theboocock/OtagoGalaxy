@@ -15,4 +15,4 @@ export input
 #export so perl can access the enviroment variables
 perl -p -e 's/$ENV{'input'}/$ENV{'replace'}/ ' $3 > $4
 
-
+exit 0

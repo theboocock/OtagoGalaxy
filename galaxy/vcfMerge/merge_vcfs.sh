@@ -35,3 +35,4 @@ perl ~/galaxy-dist/tool-data/shared/vcfperltools/vcf-merge ${FILE_LIST} 2> /dev/
 
 rm -f ~tmp*
 
+exit 0
