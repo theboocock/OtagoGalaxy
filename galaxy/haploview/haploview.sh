@@ -28,3 +28,4 @@ Your HapMap LD Plot
 </body>
 </html>" > $2
 
+exit 0

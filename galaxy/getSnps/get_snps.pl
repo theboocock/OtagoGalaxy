@@ -77,3 +77,4 @@ elsif ($opt_i){
     close OUT;
 }
 
+exit 0

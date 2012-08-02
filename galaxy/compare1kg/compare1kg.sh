@@ -54,3 +54,5 @@ while read line
     done < pos2.txt
 
 mv header.txt final_filtered.vcf
+
+exit 0

@@ -55,3 +55,5 @@ if [ $COL_CHECK_COUNT == 0 ]
 then
     echo "Please check there is an AC and AN columns present in the VCF. Alternatively there may not be any cases where the ALT allele is more frequent than the REF allele"
 fi
+
+exit 0

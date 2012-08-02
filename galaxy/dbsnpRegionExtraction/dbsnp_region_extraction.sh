@@ -39,3 +39,5 @@ fi
 rm -f ~tmp.tmp
 rm -f ~tmpReg.tmp
 rm -f ~reg.tmp
+
+exit 0

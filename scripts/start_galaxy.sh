@@ -1,5 +1,5 @@
 #!/bin/bash
 
 echo Starting Galaxy...
-./start_webapp.sh --daemon
+GALAXY_RUN_ALL=1 sh run.sh --daemon
 echo Done

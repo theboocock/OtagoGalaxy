@@ -12,3 +12,4 @@
 
 cat $1 | java -jar /home/galaxy/galaxy-dist/tool-data/shared/jars/snpEff/SnpSift.jar filter "((exists INDEL) & (QUAL >= ${2}))"
 
+exit 0

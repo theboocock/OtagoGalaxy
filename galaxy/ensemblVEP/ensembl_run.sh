@@ -46,3 +46,5 @@ else # call defaults
                         --cache --dir "/usr/local/ensembl_cache" \
                        --poly b --sift b --hgvs --force_overwrite > /dev/null
 fi
+
+exit 0
