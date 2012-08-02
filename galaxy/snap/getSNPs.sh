@@ -15,3 +15,4 @@ echo -e "\n\nNow you can go to:\n"
 echo -e "http://www.broadinstitute.org/mpg/snap/ldsearch.php\n"
 echo -e "Once you are there you can change the drop down box from 'File' to 'Text' and copy and paste the text above into it."  
 
+exit 0

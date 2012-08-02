@@ -20,3 +20,4 @@ tabix -fh /home/galaxy/galaxy-dist/tools/SOER1000genes/data/1kg/vcf/ALL.wgs.phas
 
 java -jar /home/galaxy/galaxy-dist/tool-data/shared/jars/alleleFreq/GetAlleleFreqSummary.jar $2 > $3
 
+exit 0

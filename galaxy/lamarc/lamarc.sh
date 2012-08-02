@@ -41,3 +41,5 @@ echo -e $COMMAND > ~tmp.tmp
 mv -f *outfile*.txt $2
 mv -f report.xml $3
 mv -f *tracefile*.txt $4
+
+exit 0

@@ -50,3 +50,4 @@ cat $1 | grep ^# >> ~tmp.tmp
 cat $1 | grep -v ^# | sort -k1,1d -k2,2n >> ~tmp.tmp
 mv -f ~tmp.tmp $1
 
+exit 0

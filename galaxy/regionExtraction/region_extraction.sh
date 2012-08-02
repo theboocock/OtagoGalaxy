@@ -16,3 +16,5 @@ bgzip -c ~input.tmp > ~input.tmp.gz
 tabix -p vcf ~input.tmp.gz
 tabix -h ~input.tmp.gz $3 > $2
 rm ~input.tmp*
+
+exit 0

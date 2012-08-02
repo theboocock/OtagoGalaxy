@@ -1,5 +1,5 @@
 #!/bin/bash
 
 echo Stopping Galaxy...
-./start_webapp.sh --stop-daemon
+GALAXY_RUN_ALL=1 sh run.sh --stop-daemon
 echo Done

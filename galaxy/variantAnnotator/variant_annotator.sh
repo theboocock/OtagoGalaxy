@@ -36,3 +36,4 @@ rm -f "${2}.vcf"
 rm -f "${3}.vcf"
 rm -f "${4}.vcf"
 
+exit 0
