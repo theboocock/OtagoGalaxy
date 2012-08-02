@@ -72,7 +72,7 @@
 		seed=$beagle_use_type_param.advanced_assoc.seed
 		scale=$beagle_use_type_param.advanced_assoc.scale
 		shift=$beagle_use_type_param.advanced_assoc.shift
-		tests=$beagle_use_type_param.advanced_assoc.tests
+		test=$beagle_use_type_param.advanced_assoc.association_tests
 #end if
 #if ($beagle_use_type_param.trait_param.trait_specified) == "true":
 		trait=$beagle_use_type_param.trait_param.trait
@@ -95,7 +95,6 @@
 	#set $namestring +=  str(",")
 	#set $datasetstring += str($s.phased_unrelated_data)
 	#set $datasetstring += str(",")
-  	phased=${s.phased_unrelated_data}
 #end for
 #for $i, $s in enumerate( $beagle_use_type_param.trios):
 	#set $namestring +=  str($s.trios_data.hid)
@@ -121,6 +120,7 @@
 	-d $namestring
 	-D $datasetstring
 #end if
+
  -I $count
  -l  $log 
  -n $__new_file_path__
@@ -277,20 +277,16 @@
     <data name="log" format="txt"/>
 </outputs>
 <help>
-.. class:: warningmark
 
-*TIP* if using multiple input files or performing IBD or HBD analysis a *markers file* is required. 
+**TIP** if using multiple input files or performing IBD or HBD analysis a *markers file* is required. 
 
-*TIP* bgl input files are not auto-detected as the format is loosely defined please select the format 
-      when uploading the files.
-*TIP* association tests is one or more characters from the set  “ardo”,
-	a = allelic test, r = ressesive test=, d=dominant test and o = overdominant test
------
-.. class:: infomark
+**TIP** bgl input files are not auto-detected as the format is loosely defined please select the format when uploading the files.
+
+**TIP** association tests is one or more characters from the set  “ardo”,	a = allelic test, r = ressesive test=, d=dominant test and o = overdominant test
+
 Detailed Information on Command Line Arguments contained in readme.
 http://faculty.washington.edu/browning/beagle/beagle_3.3.2_31Oct11.pdf
 
------
 **Citations**
 
 BEAGLE's fastIBD method is described in

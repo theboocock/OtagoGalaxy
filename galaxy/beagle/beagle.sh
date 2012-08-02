@@ -36,8 +36,31 @@ EOF
 
 
 get_history_id(){
-
-
+ IFS=','
+ I=0
+ GET_HISTORY_ID=`echo $GET_HISTORY_ID |   awk -F [\.] '{ print $2 }'`
+GET_HISTORY_ID=$GET_HISTORY_ID.dat
+ for word in $DATASET_STRING
+ do
+	TEMP=`echo $word | awk -F [\/] '{ print $NF }'`
+	
+	if [ "$TEMP" != "$GET_HISTORY_ID" ]; then
+		I=$((I+1))		 
+	else
+	break
+	fi
+done
+ J=0
+ echo $I
+ for word in $HISTORY_STRING
+ do
+	if [ "$J" != "$I" ]; then
+		J=$((J+1))	
+ 	else
+	HISTORY_ID=$word
+	break
+	fi
+ done
 }
 
 
@@ -104,7 +127,7 @@ if [ -z "${MARKERS}" ]; then
 		exit 2	
 	fi
 	echo $COUNT
-	if [ "$COUNT" -gt  1 ]; then
+	if [ "$COUNT" -gt  "1" ]; then
 		echo "You need to specify a markers file if you have multiple beagle files as inputs" 1>&2
 		exit 2
 	fi
@@ -131,12 +154,12 @@ if [ "$ASSOCIATON_TEST" == "TRUE" ]; then
 
 
 elif [ "$PHASED_FILE" == "TRUE" ]; then
-	i=0
 	gunzip $PREFIX.*.phased.gz
 	for f in $PREFIX.*.phased
 	do
+	GET_HISTORY_ID=$f
+	get_history_id
 	mv $f ${NEW_FILE_PATH}/primary_${ID}_phased${HISTORY_ID}_visible_bgl
-	let i=I+1
 	done
 fi
 
@@ -146,24 +169,23 @@ if [ "$GPROBS" == "TRUE" ]; then
 	
 	for f in $PREFIX.*.gprobs
 	do
-	echo $f
-	VAR1=`echo $f | awk -F [_] '{print $2}'`
-	FILE_NUM=`echo $VAR1 | awk -F [.] '{print $1}'`
-	mv $f ${NEW_FILE_PATH}/primary_${ID}_gprobs${FILE_NUM}_visible_gprobs
+	GET_HISTORY_ID=$f
+	get_history_id
+	mv $f ${NEW_FILE_PATH}/primary_${ID}_gprobs${HISTORY_ID}_visible_gprobs
 	done 
 
 	for f in $PREFIX.*.dose
 	do
-	VAR1=`echo $f | awk -F [_] '{print $2}'`
-	FILE_NUM=`echo $VAR1 | awk -F [.] '{print $1}'`
-	mv $f ${NEW_FILE_PATH}/primary_${ID}_dose${FILE_NUM}_visible_dose
+	GET_HISTORY_ID=$f
+	get_history_id
+	mv $f ${NEW_FILE_PATH}/primary_${ID}_dose${HISTORY_ID}_visible_dose
 	done
 	
 	for f in $PREFIX.*.r2
 	do
-	VAR1=`echo $f | awk -F [_] '{print $2}'`
-	FILE_NUM=`echo $VAR1 | awk -F [.] '{print $1}'`
-	mv $f   ${NEW_FILE_PATH}/primary_${ID}_r2${FILE_NUM}_visible_r2
+	GET_HISTORY_ID=$f
+	get_history_id
+	mv $f   ${NEW_FILE_PATH}/primary_${ID}_rsquared${HISTORY_ID}_visible_r2
 	done
 fi
 
@@ -171,32 +193,33 @@ if [ "$FAST_IBD" == "TRUE" ]; then
 	gunzip $PREFIX.*.fibd.gz
 	for f in $PREFIX.*.fibd
 	do
-	VAR1=`echo $f | awk -F [_] '{print $2}'`
-	FILE_NUM=`echo $VAR1 | awk -F [.] '{print $1}'`
-	mv $f   ${NEW_FILE_PATH}/primary_${ID}_fibd${FILE_NUM}_visible_fibd
+	GET_HISTORY_ID=$f
+	get_history_id
+	mv $f   ${NEW_FILE_PATH}/primary_${ID}_fibd${HISTORY_ID}_visible_fibd
 	done
 fi
 if [ "$HBD" == "TRUE" ]; then
 	gunzip $PREFIX.*.hbd.gz	
 	for f in $PREFIX.*.hbd
 	do
-	VAR1=`echo $f | awk -F [_] '{print $2}'`
-	FILE_NUM=`echo $VAR1 | awk -F [.] '{print $1}'`
-	mv $f   ${NEW_FILE_PATH}/primary_${ID}_hbd${FILE_NUM}_visible_hbd
+	GET_HISTORY_ID=$f
+	get_history_id
+	mv $f   ${NEW_FILE_PATH}/primary_${ID}_hbd${HISTORY_ID}_visible_hbd
 	done
 fi
 if [ "$IBD" == "TRUE" ]; then
 	for f in $PREFIX.*.ibd
 	do
-	VAR1=`echo $f | awk -F [_] '{print $2}'`
-	FILE_NUM=`echo $VAR1 | awk -F [.] '{print $1}'`
-	mv $f   ${NEW_FILE_PATH}/primary_${ID}_ibd${FILE_NUM}_visible_ibd
+	GET_HISTORY_ID=$f
+	get_history_id
+	mv $f   ${NEW_FILE_PATH}/primary_${ID}_ibd${HISTORY_ID}_visible_ibd
 	done
 	
 fi
 }
 
 getoptions "$@"
-checkmarkers
+echo $COMMAND
+checkmarkers 
 runbeagle
 movefiles
