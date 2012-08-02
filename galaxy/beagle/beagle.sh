@@ -6,8 +6,6 @@
 #
 PREFIX=`date '+%s'`
 
-
-
 usage(){
 	cat << EOF
 	Usage: This bash script sets up and runs beagle for 
