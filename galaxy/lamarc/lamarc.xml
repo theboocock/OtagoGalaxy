@@ -132,7 +132,7 @@
 <param name="first_relat_cat_rate" type="integer" value="1" label="First Relative Category Rate" help="Mutation rate should be unique for each category" />
 <param name="first_relat_cat_prob" type="integer" value="1" label="First Relative Category Probability" />
 
-<repeat name="add_category" title="Add Category"> 
+<repeat name="add_category" title="Category"> 
     <param name="relat_cat_rate" type="integer" value="2" label="Relative Category Rate" help="Mutation rate should be unique for each category" />
     <param name="relat_cat_prob" type="integer" value="1" label="Relative Category Probability" />
 </repeat>
