@@ -14,7 +14,7 @@
 # $5 = output_summaryStats
 
 # run program
-java -jar /home/galaxy/galaxy-dist/tool-data/shared/jars/evs/evsClient.jar -t $1 -f $2 > /dev/null
+java -jar ~/galaxy-dist/tool-data/shared/jars/evs/evsClient.jar -t $1 -f $2 > /dev/null
 
 # move files around
 mv -f *.vcf $3
