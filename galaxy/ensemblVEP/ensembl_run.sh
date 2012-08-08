@@ -37,14 +37,15 @@ then
         fi
 done
 # call actual script
-perl ~/galaxy-dist/tools/SOER1000genes/galaxy/ensemblVEP/variant_effect_predictor.pl -i $1 -o ~ensemble-TMP.tmp $ENSEMBL_RUN_SCRIPT --cache --dir "/usr/local/ensembl_cache" --hgvs --force_overwrite > /dev/null
+perl ~/galaxy-dist/tools/SOER1000genes/galaxy/ensemblVEP/variant_effect_predictor.pl -i $1 -o ~ensemble-TMP.tmp $ENSEMBL_RUN_SCRIPT --cache --dir "/usr/local/ensembl_cache" --hgvs --force_overwrite --buffer 50000 --fork 2 > /dev/null
 cat ~ensemble-TMP.tmp
 rm -f ~ensemble-TMP.tmp
 
 else # call defaults 
     perl ~/galaxy-dist/tools/SOER1000genes/galaxy/ensemblVEP/variant_effect_predictor.pl -i $1 -o ~ensemble-TMP.tmp --check_existing --gene \
                         --cache --dir "/usr/local/ensembl_cache" \
-                       --poly b --sift b --hgvs --force_overwrite > /dev/null
+                       --poly b --sift b --hgvs --force_overwrite  \
+                       --buffer 50000 --fork 2> /dev/null
 fi
 
 exit 0
