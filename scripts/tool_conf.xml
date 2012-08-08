@@ -56,6 +56,7 @@
    <label text="Calculations" id="ou_calc" />
    <tool file="SOER1000genes/galaxy/haploview/haploview.xml" />
    <tool file="SOER1000genes/galaxy/calcTsTv/calc_ts_tv.xml" />
+   <tool file="SOER1000genes/galaxy/ld_values_1kg/ld_values_1kg.xml" />
    <label text="VCF file Mainuplation" id="ou_vcf-manip" />
    <tool file="SOER1000genes/galaxy/beagle/vcf_to_beagle.xml"/>
    <tool file="SOER1000genes/galaxy/vcf_to_tped/vcf_to_tped.xml"/>

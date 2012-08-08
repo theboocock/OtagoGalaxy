@@ -23,7 +23,7 @@ OUT_6=$7
 OUT_7=$8
 OUT_8=$9
 
-# have to zip files because currently galaxy wont store zips
+# have to zip files because currently galaxy wont store zips by default
 gzip -c $1 > $1.gz
 
 shift 9

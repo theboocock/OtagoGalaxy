@@ -11,7 +11,7 @@
 # $2 = html_output
 #
 
-java -jar /home/galaxy/galaxy-dist/tool-data/shared/jars/haploview/Haploview.jar -n -ldcolorscheme RSQ -ldvalues RSQ -png -hapmap $1
+java -jar ~/galaxy-dist/tool-data/shared/jars/haploview/Haploview.jar -n -ldcolorscheme RSQ -ldvalues RSQ -png -hapmap $1
 
 FILE_NAME=`echo $1 | awk -F[\/] '{print $NF}'`
 

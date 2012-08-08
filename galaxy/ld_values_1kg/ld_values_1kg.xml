@@ -1,0 +1,87 @@
+<tool id="1kg_ld" name="Calculate 1000 genomes LD values" >
+<command interpreter="bash">
+./ld_values_1kg.sh
+	#if ($onekg_own_param.onekg_own) == "own_file":
+		-v $onekg_own_param.own_vcf			
+	#end if
+	#if ($onekg_use_type_param.onekg_use_type) == 'single':
+		-r $onekg_use_type_param.rsid	
+	#end if
+	#if ($onekg_use_type_param.onekg_use_type) == 'file':
+		-s $onekg_use_type_param.snplist	
+	#end if
+		-c $region_txt
+		-w $ld_window
+		-r $ld_window_r2
+		-l $ld_window_kb
+	#if ($comma_list) != "":
+		-i $comma_list
+	#end if
+		-o $plink_output
+		-O $plink_log
+	#if $matrix
+		-m
+	#end if 
+</command>
+	<inputs>
+	<conditional name="onekg_use_type_param">
+		<param name="onekg_use_type" type="select" label="Single, All the Snps in the file or Provide a SNP list">
+		<option value="single" selected="True">Single Snp</option>
+		<option value="all">All Snps</option>
+		<option value="file">Snp List</option>
+		</param>
+	<when value="single">
+		<param name="rsid" type="text" label="RSID of snp" />
+	</when> on which pairwise calculations are calculated and reported. To only analyse SNPs that are not more than 10 SNPs apart, for example, use the option (default is 10 SNPs) 
+	<when value="all">
+
+	</when>
+	<when value="file">
+		<param name="snplist" type="data" format="txt" label="Line Seperated List of snp RSIDs for LD calculation" help="Leaving this box empty will perform Ld analysis on all the samples"/>
+	</when>
+	</conditional>
+	<conditional name="onekg_own_param">
+		<param name="onekg_own" type="select" label="1000Genomes file or Own Vcf File">
+		<option value="onekg_file">1000 Genomes</option>
+		<option value="own_file">VCF from History </option>
+		</param>
+	<when value="onekg_file">
+	</when>
+	<when value="own_file">
+		<param name="own_vcf" type="data" format="vcf" label="VCF file"/>
+	</when>
+	</conditional>
+	<conditional name="comma_list_param">
+	<param name="comma_list_select" type="select" label="Calculate LD for All Samples or a Subset of Samples" >
+		<option value="all">All Samples</option>
+		<option value="subset">Subset of Samples</option>
+		</param>
+	<when value="all">
+	</when>
+	<when value="subset">
+	<param name="comma_list" type="text" label="Comma seperated list of IDS."  help="NA6096,etc....." />
+	</when>
+	</conditional>
+	<param name="region_txt" type="text" label="Chromosome Region" help="Chromosome region specified as chr:start-end e.g 4:34234-50000" />
+	<param name="ld_window" type="integer" value="10" label="LD window size" help="Analyse SNPs not more than this number apart"/>
+	<param name="ld_window_r2" type="float" value="0.2" label="Specify r2 value minimum"/>
+	<param name="ld_window_kb" type="integer" value="1000" label="Specify window size (in kb)" />
+	<param name="matrix" type="boolean" truevalue="true" falsevalue="false" value="false" label="Output as a matrix of Values" />
+	</inputs>
+
+	<outputs>
+		<data name="plink_output" format="txt" />
+		<data name="plink_log"    format="txt" />
+	</outputs>
+
+<help>
+The Tool retrieves LD values from 1000 genomes for
+a specific chromosome region.
+
+Citations.
+
+The tool uses vcftools, tabix and plink to retrieve data for the user.
+
+</help>
+
+</tool>
