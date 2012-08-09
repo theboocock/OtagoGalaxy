@@ -56,7 +56,6 @@
    <label text="Calculations" id="ou_calc" />
    <tool file="SOER1000genes/galaxy/haploview/haploview.xml" />
    <tool file="SOER1000genes/galaxy/calcTsTv/calc_ts_tv.xml" />
-   <tool file="SOER1000genes/galaxy/ld_values_1kg/ld_values_1kg.xml" />
    <label text="VCF file Mainuplation" id="ou_vcf-manip" />
    <tool file="SOER1000genes/galaxy/beagle/vcf_to_beagle.xml"/>
    <tool file="SOER1000genes/galaxy/vcf_to_tped/vcf_to_tped.xml"/>
@@ -66,12 +65,20 @@
    <tool file="SOER1000genes/galaxy/vcfSubset/select_samples.xml"/>
    <tool file="SOER1000genes/galaxy/vcf_to_csv/vcf_to_csv.xml"/>
    <label text="Work with 1000 Genomes Data" id="ou_hg" />
+   <tool file="SOER1000genes/galaxy/ld_values_1kg/ld_values_1kg.xml" />
    <tool file="SOER1000genes/galaxy/getPopAlleleFreq/getPopAF.xml"/>
    <tool file="SOER1000genes/galaxy/snap/snap.xml"/>
    <tool file="SOER1000genes/galaxy/compare1kg/compare1kg.xml"/>
    <label text="Query Databases" id="ou_db" />
    <tool file="SOER1000genes/galaxy/evs/evs.xml" />
 </section>
+<section name="SnpEff tools" id="snpEff_tools"> 
+    <tool file="SOER1000genes/galaxy/snpEff/snpEff.xml" /> 
+    <tool file="SOER1000genes/galaxy/snpEff/snpEff_download.xml" /> 
+    <tool file="SOER1000genes/galaxy/snpEff/snpSift_annotate.xml" /> 
+    <tool file="SOER1000genes/galaxy/snpEff/snpSift_caseControl.xml" /> 
+    <tool file="SOER1000genes/galaxy/snpEff/snpSift_filter.xml" /> 
+    <tool file="SOER1000genes/galaxy/snpEff/snpSift_int.xml" /> 
   <section name="ENCODE Tools" id="EncodeTools">
     <tool file="encode/gencode_partition.xml" />
     <tool file="encode/random_intervals.xml" />
