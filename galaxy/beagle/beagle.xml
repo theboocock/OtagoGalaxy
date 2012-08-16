@@ -2,7 +2,7 @@
 <description>Beagle Software Analysis</description>
 <command interpreter="bash">
 ./beagle.sh
--c 'java -Xmx4G -jar ${__tool_data_path__}/shared/jars/beagle/beagle.jar
+-c 'java -Xmx6G -jar ${__tool_data_path__}/shared/jars/beagle/beagle.jar
 #set $count = 0
 #if ($beagle_use_type_param.beagle_use_type) == "imputting":
 #for $i, $s in enumerate( $beagle_use_type_param.unphased )

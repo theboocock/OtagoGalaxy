@@ -10,5 +10,3 @@
  <datatype extension="dag" type="galaxy.datatypes.data:Text" subclass="true" display_in_upload="true"/>
 <datatype extension="bgl" type="galaxy.datatypes.data:Text" subclass="true" display_in_upload="true"/>
 
-
-
