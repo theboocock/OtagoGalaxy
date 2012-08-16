@@ -11,8 +11,8 @@
 # --genesFile NAME: specifies name of output genes file
 #
 # Edit SNPEFF_JAR and SNPEFF_CONFIG for your local setup
-SNPEFF_JAR=/scratch/galaxy/galaxy_dist/tools/snpEff/snpEff.jar
-SNPEFF_CONFIG=/scratch/galaxy/galaxy_dist/tools/snpEff/snpEff.config
+SNPEFF_JAR=~/galaxy/galaxy_dist/tool-data/shared/jars/snpEff/snpEff.jar
+SNPEFF_CONFIG=~/galaxy/galaxy_dist/tool-data/shared/jars/snpEff/snpEff.config
 #
 # Process command line
 input=
@@ -56,7 +56,7 @@ localGenesFile=$localStatsFile.genes.txt
 #
 # You can change the amount of memory used by snpEff, just change the -Xmx parameter
 # (e.g. use -Xmx2G for 2Gb of memory)
-snpEff_cmd="java -Xmx6G -jar $SNPEFF_JAR -c $SNPEFF_CONFIG $snpEff_args -stats $localStatsFile $input"
+snpEff_cmd="java -Xmx7G -jar $SNPEFF_JAR -c $SNPEFF_CONFIG $snpEff_args -stats $localStatsFile $input"
 echo $snpEff_cmd
 $snpEff_cmd > $output
 #

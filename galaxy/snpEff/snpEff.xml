@@ -5,7 +5,7 @@
 		You can change the amount of memory used by snpEff, just change the -Xmx parameter (e.g. use -Xmx2G for 2Gb of memory)
 	<command>java -Xmx6G -jar /path/to/your/snpEff/snpEff.jar eff -c /path/to/your/snpEff/snpEff/snpEff.config $inputFormat $offset -upDownStreamLen $udLength $filterIn $filterHomHet -no $filterOut -stats $statsFile $genomeVersion $input > $output </command>
 	-->
-	<command>java -Xmx6G -jar /home/galaxy/galaxy-dist/tool-data/shared/jars/snpEff/snpEff.jar eff -c /home/galaxy/galaxy-dist/tools/SOER1000genes/src/snpEff/snpEff.config -i $inputFormat -o $outputFormat -upDownStreamLen $udLength $filterIn $filterHomHet -no $filterOut -stats $statsFile $genomeVersion $input > $output </command>
+	<command>java -Xmx7G -jar ${__root_dir__}/tool-data/shared/jars/snpEff/snpEff.jar eff -c ${__root_dir__}/tool-data/shared/jars/snpEff/snpEff.config -i $inputFormat -o $outputFormat -upDownStreamLen $udLength $filterIn $filterHomHet -no $filterOut -stats $statsFile $genomeVersion $input > $output </command>
 	<inputs>
 		<param format="Tabular" name="input" type="data" label="Sequence changes (SNPs, MNPs, InDels)"/>
 
@@ -120,15 +120,7 @@
 				<option value="dipOrd1.63">Dipodomys ordii : dipOrd1.63</option>
 				<option value="dipOrd1.61">Dipodomys ordii : dipOrd1.61</option>
 				<option value="dipOrd1.60">Dipodomys ordii : dipOrd1.60</option>
-				on name="SnpEff tools" id="snpEff_tools">
-                  6     <tool file="snpEff/snpEff.xml" />
-                    7     <tool file="snpEff/snpEff_download.xml" />
-                      8     <tool file="snpEff/snpSift_annotate.xml" />
-                        9     <tool file="snpEff/snpSift_caseControl.xml" />
-                         10     <tool file="snpEff/snpSift_filter.xml" />
-                          11     <tool file="snpEff/snpSift_int.xml" />
-                           12   </section>
-                           ion value="dm5.42">Drosophila melanogaster : dm5.42</option>
+				<option value="dm5.42">Drosophila melanogaster : dm5.42</option>
 				<option value="dm5.40">Drosophila melanogaster : dm5.40</option>
 				<option value="dm5.34">Drosophila melanogaster : dm5.34</option>
 				<option value="dm5.32">Drosophila melanogaster : dm5.32</option>
@@ -158,15 +150,7 @@
 				<option value="EquCab2.63">Equus caballus : EquCab2.63</option>
 				<option value="eriEur1.61">Erinaceus europaeus : eriEur1.61</option>
 				<option value="eriEur1.60">Erinaceus europaeus : eriEur1.60</option>
-				<option val <section name="SnpEff tools" id="snpEff_tools">
-                  6     <tool file="snpEff/snpEff.xml" />
-                    7     <tool file="snpEff/snpEff_download.xml" />
-                      8     <tool file="snpEff/snpSift_annotate.xml" />
-                        9     <tool file="snpEff/snpSift_caseControl.xml" />
-                         10     <tool file="snpEff/snpSift_filter.xml" />
-                          11     <tool file="snpEff/snpSift_int.xml" />
-                           12   </section>
-                           ue="HEDGEHOG.66">Erinaceus europaeus : HEDGEHOG.66</option>
+				<option value="HEDGEHOG.66">Erinaceus europaeus : HEDGEHOG.66</option>
 				<option value="HEDGEHOG.65">Erinaceus europaeus : HEDGEHOG.65</option>
 				<option value="HEDGEHOG.64">Erinaceus europaeus : HEDGEHOG.64</option>
 				<option value="HEDGEHOG.63">Erinaceus europaeus : HEDGEHOG.63</option>
@@ -208,15 +192,7 @@
 				<option value="hg37.60">Homo sapiens : hg37.60</option>
 				<option value="hg37.59">Homo sapiens : hg37.59</option>
 				<option value="hg36.54">Homo sapiens : hg36.54</option>
-				<option val <section name="SnpEff tools" id="snpEff_tools">
-                  6     <tool file="snpEff/snpEff.xml" />
-                    7     <tool file="snpEff/snpEff_download.xml" />
-                      8     <tool file="snpEff/snpSift_annotate.xml" />
-                        9     <tool file="snpEff/snpSift_caseControl.xml" />
-                         10     <tool file="snpEff/snpSift_filter.xml" />
-                          11     <tool file="snpEff/snpSift_int.xml" />
-                           12   </section>
-                           ue="hg19">Homo sapiens : hg19</option>
+				<option value="hg19">Homo sapiens : hg19</option>
 				<option value="GRCh37.66">Homo sapiens : GRCh37.66</option>
 				<option value="GRCh37.65">Homo sapiens : GRCh37.65</option>
 				<option value="GRCh37.64">Homo sapiens : GRCh37.64</option>
