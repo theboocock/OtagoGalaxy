@@ -14,8 +14,8 @@
 		-w $ld_window
 		-r $ld_window_r2
 		-l $ld_window_kb
-	#if ($comma_list) != "":
-		-i $comma_list
+	#if ($comma_list_param.comma_list_select) == "subset":
+		-i $comma_list_param.comma_list
 	#end if
 		-o $plink_output
 		-O $plink_log
@@ -32,7 +32,7 @@
 		</param>
 	<when value="single">
 		<param name="rsid" type="text" label="RSID of snp" />
-	</when> on which pairwise calculations are calculated and reported. To only analyse SNPs that are not more than 10 SNPs apart, for example, use the option (default is 10 SNPs) 
+	</when>  
 	<when value="all">
 
 	</when>
