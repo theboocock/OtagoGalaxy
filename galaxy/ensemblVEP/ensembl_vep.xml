@@ -10,7 +10,8 @@
 
     <option value="sift">Display Sift output</option>
     <option value="polyphen">Display PolyPhen output</option>
-    <option value="condel">Display Condel output</option>
+##TODO: Its no longer accepted in vep. its now a plugin?
+<!--    <option value="condel">Display Condel output</option> -->
     <option value="regulatory">Display Regulatory output</option>
     <option value="protein">Display Protein output</option>
     <option value="hgnc">Display HGNC output</option>

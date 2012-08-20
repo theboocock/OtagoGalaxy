@@ -26,25 +26,29 @@ NUM_SAMPLES=$#
 
 if [ $NUM_SAMPLES != 1 ]
 then
-    for (( i=2; i <= $NUM_SAMPLES; i++ ))
-    do
-        NUM=${i}
-        eval INPUT=\${${NUM}}
-        if [ "${i}" -lt "5" ]; then
-            ENSEMBL_RUN_SCRIPT="${ENSEMBL_RUN_SCRIPT} --${INPUT} b"
-        else
-            ENSEMBL_RUN_SCRIPT="${ENSEMBL_RUN_SCRIPT} --${INPUT}"
-        fi
-done
+	for (( i=2; i <= $NUM_SAMPLES; i++ ))
+	do
+		NUM=${i}
+		eval INPUT=\${${NUM}}
+		if [ "${i}" -lt "5" ]; then
+			if [ "${i}" != "none" ]; then
+			    ENSEMBL_RUN_SCRIPT="${ENSEMBL_RUN_SCRIPT} --${INPUT} b"
+			fi
+		else
+		    ENSEMBL_RUN_SCRIPT="${ENSEMBL_RUN_SCRIPT} --${INPUT}"
+		fi
+	done
 # call actual script
-perl ~/galaxy-dist/tools/SOER1000genes/galaxy/ensemblVEP/variant_effect_predictor.pl -i $1 -o ~ensemble-TMP.tmp $ENSEMBL_RUN_SCRIPT --cache --dir "/usr/local/ensembl_cache" --hgvs --force_overwrite > /dev/null
-cat ~ensemble-TMP.tmp
-rm -f ~ensemble-TMP.tmp
+	perl ~/galaxy-dist/tools/SOER1000genes/galaxy/ensemblVEP/variant_effect_predictor.pl -i $1 -o ~ensemble-TMP.tmp $ENSEMBL_RUN_SCRIPT --cache --dir "/usr/local/ensembl_cache" --hgvs --force_overwrite --buffer 50000 --fork 2
+
+	cat ~ensemble-TMP.tmp
+	rm -f ~ensemble-TMP.tmp
 
 else # call defaults 
-    perl ~/galaxy-dist/tools/SOER1000genes/galaxy/ensemblVEP/variant_effect_predictor.pl -i $1 -o ~ensemble-TMP.tmp --check_existing --gene \
+	perl ~/galaxy-dist/tools/SOER1000genes/galaxy/ensemblVEP/variant_effect_predictor.pl -i $1 -o ~ensemble-TMP.tmp --check_existing --gene \
                         --cache --dir "/usr/local/ensembl_cache" \
-                       --poly b --sift b --hgvs --force_overwrite > /dev/null
+                       --poly b --sift b --hgvs --force_overwrite  \
+                       --buffer 50000 --fork 2
 fi
 
 exit 0
