@@ -19,8 +19,11 @@
 	#end if
 		-o $plink_output
 		-O $plink_log
-	#if $matrix
+	#if ($output_format) == "matrix": 
 		-m
+    #end if
+    #if ($output_format) == "haploview":
+        -h $plink_map
 	#end if 
 </command>
 	<inputs>
@@ -66,12 +69,19 @@
 	<param name="ld_window" type="integer" value="10" label="LD window size" help="Analyse SNPs not more than this number apart"/>
 	<param name="ld_window_r2" type="float" value="0.2" label="Specify r2 value minimum"/>
 	<param name="ld_window_kb" type="integer" value="1000" label="Specify window size (in kb)" />
-	<param name="matrix" type="boolean" truevalue="true" falsevalue="false" value="false" label="Output as a matrix of Values" />
-	</inputs>
+    <param name="output_format" type="select" label="Output Format">
+        <option name="normal">Normal tab-delimited file</option>
+        <option name="matrix">Matrix output</option>
+        <option name="haploview">Haploview output</option>
+    </param>
+    </inputs>
 
 	<outputs>
 		<data name="plink_output" format="txt" />
-		<data name="plink_log"    format="txt" />
+		<data name="plink_map" format="txt">
+            <filter> output_format == "haploview" </filter>
+        </data>
+        <data name="plink_log"    format="txt" />
 	</outputs>
 
 <help>
