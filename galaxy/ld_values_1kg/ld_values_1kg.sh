@@ -69,6 +69,7 @@ O)
 ;;
 h)
     HAPLOVIEW=$OPTARG
+    echo $HAPLOVIEW
 ;;
 p) 
     PED_FILE=$OPTARG
@@ -97,7 +98,7 @@ if [ "$ID_LIST" != "" ]; then
 else
 	cp -f temp.vcf temp2.vcf
 fi
-    if [ $HAPLOVIEW == ""]; then
+    if [ "$HAPLOVIEW" == "" ]; then
 	#convert to plink format
 	vcftools --vcf temp2.vcf --plink-tped --out plinkfile  > /dev/null
 	PLINK_COMMAND="p-link --tped plinkfile.tped --tfam plinkfile.tfam --r2 --noweb --ld-window $WINDOW  --ld-window-r2 $R2 --ld-window-kb $KB"
@@ -115,9 +116,8 @@ fi
 	mv plink.log $PLINK_LOG
     fi
     if [ "$HAPLOVIEW" != "" ]; then
-        vcftools --remove-indels --vcf temp2.vcf --plink --out plinkfile > $PLINK_LOG
-        awk ' {$1$3=""; print $0} ' < plinkfile.map > plinktemp
-        mv plinkfile.map plinkfile.info
+        vcftools --remove-indels --vcf temp2.vcf --plink-tped --out  plinkfile > $PLINK_LOG
+        p-link --tped plinkfile.tped --tfam plinkfile.tfam --recodeHV >> $PLINK_LOG
         mv plinkfile.info $PLINK_OUTPUT
         mv plinkfile.ped $PED_FILE
     fi

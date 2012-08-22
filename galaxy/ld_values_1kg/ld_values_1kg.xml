@@ -17,15 +17,14 @@
 	#if ($comma_list_param.comma_list_select) == "subset":
 		-i $comma_list_param.comma_list
 	#end if
-    #if ($output_format) != "haploview":
+    #if str($output_format) != "haploview":
 		-o $plink_output
     #end if
 		-O $plink_log
-    #end if
-	#if ($output_format) == "matrix": 
+	#if str($output_format) == "matrix": 
 		-m
     #end if
-    #if ($output_format) == "haploview":
+    #if str($output_format) == "haploview":
         -h $plink_map
 	#end if 
 </command>
@@ -86,7 +85,7 @@
             </filter>
         </data>
         <data name="plink_ped" format="ped" >
-            <filter> output_format == "haploview"
+            <filter> output_format == "haploview"</filter>
         </data>
 		<data name="plink_map" format="info">
             <filter> output_format == "haploview" </filter>
