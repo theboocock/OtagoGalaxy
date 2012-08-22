@@ -17,8 +17,11 @@
 	#if ($comma_list_param.comma_list_select) == "subset":
 		-i $comma_list_param.comma_list
 	#end if
+    #if ($output_format) != "haploview":
 		-o $plink_output
+    #end if
 		-O $plink_log
+    #end if
 	#if ($output_format) == "matrix": 
 		-m
     #end if
@@ -70,15 +73,22 @@
 	<param name="ld_window_r2" type="float" value="0.2" label="Specify r2 value minimum"/>
 	<param name="ld_window_kb" type="integer" value="1000" label="Specify window size (in kb)" />
     <param name="output_format" type="select" label="Output Format">
-        <option name="normal">Normal tab-delimited file</option>
-        <option name="matrix">Matrix output</option>
-        <option name="haploview">Haploview output</option>
+        <option value="normal">Normal tab-delimited file</option>
+        <option value="matrix">Matrix output</option>
+        <option value="haploview">Haploview output</option>
     </param>
     </inputs>
 
 	<outputs>
-		<data name="plink_output" format="txt" />
-		<data name="plink_map" format="txt">
+		<data name="plink_output" format="txt" >
+            <filter>
+                    output_format != "haploview"        
+            </filter>
+        </data>
+        <data name="plink_ped" format="ped" >
+            <filter> output_format == "haploview"
+        </data>
+		<data name="plink_map" format="info">
             <filter> output_format == "haploview" </filter>
         </data>
         <data name="plink_log"    format="txt" />

@@ -1,6 +1,6 @@
-<tool name="ped_to_bgl" version="1.0.0" description="Converts a Ped and Map file to Bgl format" />
+<tool name="ped_to_bgl" version="1.0.0" description="Converts a Ped and Map file to Bgl format" >
 <command>
-    ../../src/beagle/ped_to_bgl $input_ped $input_map > $output_beagle
+    ../../src/beagle/./ped_to_bgl $input_ped $input_map > $output_beagle
 </command>
 
 <inputs>
@@ -9,7 +9,7 @@
 </inputs>
 
 <outputs>
-    <output name="output_beagle" type="data" format="bgl"/>
+    <data name="output_beagle" format="bgl"/>
 </outputs>
 
 <help>
