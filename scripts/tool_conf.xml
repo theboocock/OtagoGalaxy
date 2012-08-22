@@ -37,6 +37,7 @@
    <label text="Selection Tools" id="ou_selection" />
    <tool file="SOER1000genes/galaxy/calc_ld/calc_ld.xml" />
    <tool file="SOER1000genes/galaxy/beagle/beagle.xml" />
+   <tool file="SOER1000genes/galaxy/beagle/ped_to_beagle.xml" />
    <tool file="SOER1000genes/galaxy/lamarc/lamarc.xml" />
    <tool file="SOER1000genes/galaxy/treemix/treemix.xml" />
    <tool file="SOER1000genes/galaxy/ihs/ihs_calc.xml" />
