@@ -26,13 +26,14 @@ cat << EOF
 	-R <RSID>     perform analysis on this single snp
 	-O <LOGFILE>  path to log file
     -h            haploview output
+    -p            Ped file output for haploview output
 EOF
 
 
 }
 
 getoptions(){
-while getopts "O:R:v:i:o:r:s:c:w:r:l:mh:" opt;  do
+while getopts "p:O:R:v:i:o:r:s:c:w:r:l:mh:" opt;  do
 case $opt in
 v)
 	VCF_INPUT=$OPTARG
@@ -69,9 +70,8 @@ O)
 ;;
 h)
     HAPLOVIEW=$OPTARG
-    echo $HAPLOVIEW
 ;;
-p) 
+p)
     PED_FILE=$OPTARG
 ;;
 ?)
@@ -117,8 +117,8 @@ fi
     fi
     if [ "$HAPLOVIEW" != "" ]; then
         vcftools --remove-indels --vcf temp2.vcf --plink-tped --out  plinkfile > $PLINK_LOG
-        p-link --tped plinkfile.tped --tfam plinkfile.tfam --recodeHV >> $PLINK_LOG
-        mv plinkfile.info $PLINK_OUTPUT
+        p-link --tped plinkfile.tped  --noweb --tfam plinkfile.tfam --recodeHV --out plinkfile >> $PLINK_LOG
+        mv plinkfile.info $HAPLOVIEW
         mv plinkfile.ped $PED_FILE
     fi
 
