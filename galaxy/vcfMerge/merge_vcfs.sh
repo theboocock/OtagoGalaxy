@@ -31,7 +31,7 @@ then
     done
 fi
 
-perl ~/galaxy-dist/tool-data/shared/vcfperltools/vcf-merge ${FILE_LIST} 2> /dev/null
+vcf-merge ${FILE_LIST} 2> /dev/null
 
 rm -f ~tmp*
 

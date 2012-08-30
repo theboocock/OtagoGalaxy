@@ -11,6 +11,7 @@
 # --genesFile NAME: specifies name of output genes file
 #
 # Edit SNPEFF_JAR and SNPEFF_CONFIG for your local setup
+
 SNPEFF_JAR=~/galaxy/galaxy_dist/tool-data/shared/jars/snpEff/snpEff.jar
 SNPEFF_CONFIG=~/galaxy/galaxy_dist/tool-data/shared/jars/snpEff/snpEff.config
 #
