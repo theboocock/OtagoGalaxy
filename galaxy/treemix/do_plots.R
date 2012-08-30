@@ -10,6 +10,6 @@ if (dir[7] == "residual") {
     plot_resid(paste(dir[6], "/galaxy_treemix", sep = ""), dir[8])
 } else
     plot_tree(paste(dir[6], "/galaxy_treemix", sep = ""))
-dev.off()
 
+dev.off()
 

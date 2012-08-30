@@ -7,7 +7,7 @@
 	java -Xmx6G -jar /home/pcingola/tools/SnpSift.jar filter -f $input -e $exprFile > $output
 	-->
 	<command>
-		java -Xmx6G -jar /home/pcingola/tools/SnpSift.jar filter -f $input -e $exprFile > $output
+		java -Xmx6G -jar ${__root_dir__}/tool-data/shared/jars/snpEff/SnpSift.jar filter -f $input -e $exprFile > $output
 	</command>
 	<inputs>
 		<param format="Tabular" name="input" type="data" label="VCF input"/>

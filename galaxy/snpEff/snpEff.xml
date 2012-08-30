@@ -1,11 +1,6 @@
 <tool id="snpEff" name="SnpEff" version="1.0">
 	<description>Variant efefct and annotation</description>
-	<!-- 
-	    You will need to change the path to wherever your installation is.
-		You can change the amount of memory used by snpEff, just change the -Xmx parameter (e.g. use -Xmx2G for 2Gb of memory)
-	<command>java -Xmx6G -jar /path/to/your/snpEff/snpEff.jar eff -c /path/to/your/snpEff/snpEff/snpEff.config $inputFormat $offset -upDownStreamLen $udLength $filterIn $filterHomHet -no $filterOut -stats $statsFile $genomeVersion $input > $output </command>
-	-->
-	<command>java -Xmx7G -jar ${__root_dir__}/tool-data/shared/jars/snpEff/snpEff.jar eff -c ${__root_dir__}/tool-data/shared/jars/snpEff/snpEff.config -i $inputFormat -o $outputFormat -upDownStreamLen $udLength $filterIn $filterHomHet -no $filterOut -stats $statsFile $genomeVersion $input > $output </command>
+    <command>java -Xmx7G -jar ${__root_dir__}/tool-data/shared/jars/snpEff/snpEff.jar eff -c ${__root_dir__}/tool-data/shared/jars/snpEff/snpEff.config -i $inputFormat -o $outputFormat -upDownStreamLen $udLength $filterIn $filterHomHet -no $filterOut -stats $statsFile $genomeVersion $input > $output </command>
 	<inputs>
 		<param format="Tabular" name="input" type="data" label="Sequence changes (SNPs, MNPs, InDels)"/>
 

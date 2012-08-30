@@ -5,7 +5,7 @@
 		You can change the amount of memory used, just change the -Xmx parameter (e.g. use -Xmx2G for 2Gb of memory)
 	-->
 	<command>
-		java -Xmx1G -jar /home/pcingola/tools/SnpSift.jar casControl -q $hhCase $hhControl $caseControStr $input > $output
+		java -Xmx6G -jar ${__root_dir__}/tool-data/shared/jars/snpEff/SnpSift.jar casControl -q $hhCase $hhControl $caseControStr $input > $output
 	</command>
 	<inputs>
 		<param format="Tabular" name="input" type="data" label="VCF input"/>

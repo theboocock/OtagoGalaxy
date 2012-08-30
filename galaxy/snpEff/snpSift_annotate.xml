@@ -4,7 +4,7 @@
 	    You will need to change the path to wherever your installation is.
 		You can change the amount of memory used, just change the -Xmx parameter (e.g. use -Xmx2G for 2Gb of memory)
 	-->
-	<command>java -Xmx6G -jar /home/pcingola/tools/SnpSift.jar annotate -q $dbSnp $input > $output </command>
+	<command>java -Xmx6G -jar ${__root_dir__}/tool-data/shared/jars/snpEff/SnpSift.jar annotate -q $dbSnp $input > $output </command>
 	<inputs>
 		<param format="Tabular" name="input" type="data" label="VCF input"/>
 		<param format="Tabular" name="dbSnp" type="data" label="dbSnp in VCF format"/>
