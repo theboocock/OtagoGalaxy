@@ -1,0 +1,19 @@
+<tool id="common_snp_plink" name="Common Plink snps" />
+    <description>Takes two of more files in lped format and returns a list containing all the snps in all the files.</description>
+
+    <command interpreter="python">
+        common_snps.py
+        #for $i, $s in enumerate($lped_files)
+            "$i.extra_files_path=$i.map"
+        #end for
+        > $output 
+    </command>
+        
+    <inputs>
+        <repeat name="lped_files">
+            <param name="lped_files_data" type="data" format="bgl" label="lped rGenetics data"/>
+        </repeat>
+    </inputs>
+    <outputs>
+    </outputs>
+</tool>
