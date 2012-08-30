@@ -1,0 +1,19 @@
+<tool id="ped_to_bgl" version="1.0.0" name="Ped to Map Converter" >
+<command>
+    ../../src/beagle/./ped_to_bgl $input_ped $input_map > $output_beagle
+</command>
+
+<inputs>
+    <param name="input_ped" type="data" format="ped" label="Input Ped file"/>
+    <param name="input_map" type="data" format="map" label="Input Map file"/>
+</inputs>
+
+<outputs>
+    <data name="output_beagle" format="bgl"/>
+</outputs>
+
+<help>
+</help>
+
+
+</tool>

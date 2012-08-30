@@ -26,13 +26,14 @@ cat << EOF
 	-R <RSID>     perform analysis on this single snp
 	-O <LOGFILE>  path to log file
     -h            haploview output
+    -p            Ped file output for haploview output
 EOF
 
 
 }
 
 getoptions(){
-while getopts "O:R:v:i:o:r:s:c:w:r:l:mh" opt;  do
+while getopts "p:O:R:v:i:o:r:s:c:w:r:l:mh:" opt;  do
 case $opt in
 v)
 	VCF_INPUT=$OPTARG
@@ -70,6 +71,9 @@ O)
 h)
     HAPLOVIEW=$OPTARG
 ;;
+p)
+    PED_FILE=$OPTARG
+;;
 ?)
 usage
 exit 1
@@ -92,11 +96,11 @@ fi
 if [ "$ID_LIST" != "" ]; then
 	vcf-subset -c $ID_LIST temp.vcf > temp2.vcf 2> /dev/null
 else
-	cp -f temp2.vcf temp.vcf
+	cp -f temp.vcf temp2.vcf
 fi
-    if [ $HAPLOVIEW == ""]; then
+    if [ "$HAPLOVIEW" == "" ]; then
 	#convert to plink format
-	vcftools --vcf temp.vcf --plink-tped --out plinkfile  > /dev/null
+	vcftools --vcf temp2.vcf --plink-tped --out plinkfile  > /dev/null
 	PLINK_COMMAND="p-link --tped plinkfile.tped --tfam plinkfile.tfam --r2 --noweb --ld-window $WINDOW  --ld-window-r2 $R2 --ld-window-kb $KB"
 	if [ "$SNP_LIST" != "" ]; then
 		PLINK_COMMAND="${PLINK_COMMAND} --ld-snp-list $SNP_LIST"
@@ -111,12 +115,11 @@ fi
 	mv plink.ld $PLINK_OUTPUT
 	mv plink.log $PLINK_LOG
     fi
-    if [ "$HAPLOVIEW" != ""]
-        vcftools --remove-indels --vcf temp.vcf --plink --out plinkfile > $PLINK_LOG
-        awk ' {$1$3=""; print $0} ' < plinkfile.map > plinktemp
-        mv plinkfile.map plinkfile.info
-        mv plinkfile.info $PLINK_OUTPUT
-        mv plinkfile.ped $HAPLOVIEW
+    if [ "$HAPLOVIEW" != "" ]; then
+        vcftools --remove-indels --vcf temp2.vcf --plink-tped --out  plinkfile > $PLINK_LOG
+        p-link --tped plinkfile.tped  --noweb --tfam plinkfile.tfam --recodeHV --out plinkfile >> $PLINK_LOG
+        mv plinkfile.info $HAPLOVIEW
+        mv plinkfile.ped $PED_FILE
     fi
 
 	
