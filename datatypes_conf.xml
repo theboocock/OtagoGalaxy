@@ -175,8 +175,8 @@
  <datatype extension="dag" type="galaxy.datatypes.data:Text" subclass="true" display_in_upload="true"/>
 <datatype extension="bgl" type="galaxy.datatypes.data:Text" subclass="true" display_in_upload="true"/>
 <datatype extension="ped" type="galaxy.datatypes.data:Text" subclass="true" display_in_upload="true"/>
-<datatype extension="map" type="galaxy.datatype.data:Text" subclass="true" display_in_upload="true"/>
-<datatype extension="info" type="galaxy.datatype.datatype:Text" subclass="true" display_in_upload="true" />
+<datatype extension="map" type="galaxy.datatypes.data:Text" subclass="true" display_in_upload="true"/>
+<datatype extension="info" type="galaxy.datatypes.datatype:Text" subclass="true" display_in_upload="true" />
     <datatype extension="linecount" type="galaxy.datatypes.data:LineCount" display_in_upload="true"/>
     <datatype extension="memexml" type="galaxy.datatypes.xml:MEMEXml" mimetype="application/xml" display_in_upload="true"/>
     <datatype extension="cisml" type="galaxy.datatypes.xml:CisML" mimetype="application/xml" display_in_upload="true"/>
