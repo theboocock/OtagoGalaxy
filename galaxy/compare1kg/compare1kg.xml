@@ -3,7 +3,7 @@
 
     <command interpreter="bash">
 
-        ./split.sh ${inputVCF} ${high_or_low1} ${filter_af1} ${high_or_low2} {filter_af2} ${select_by} > ${outputVCF} 
+        ./compare1kg.sh ${inputVCF} ${high_or_low1} ${filter_af1} ${high_or_low2} ${filter_af2} ${select_by} ${outputVCF} 
 
     </command>
 
@@ -14,9 +14,10 @@
         <option value="more">Greater than or equal to</option>
         </param>
         <param name="filter_af1" label="Filter your VCF by AF less than or equal to" type="text" help="Filter your VCF by Allele Frequencies less than or equal to some number" />
-        <param name="select_by" type="select" display="checkboxes" multiple="True" optional="true" value ="" label="Select what to filter by" help="You can select all, just SNPs or just INDELs">
-        <option value="snp">Filter SNPs</option>
-        <option value="indel">Filter INDELs</option>
+        <param name="select_by" type="select" display="radio" optional="false" label="Select which variants to keep" help="You can select all, just SNPs or just INDELs">
+        <option selected="true" value="all">Keep ALL</option>
+        <option value="SNP">Just SNPs</option>
+        <option value="INDEL">Just INDELs</option>
         </param>
         <param name="high_or_low2" label="Less than or qual to OR greater than or equal to?" type="select" display="radio">
         <option value="less">Less than or equal to</option>
@@ -31,6 +32,10 @@
     </outputs>
 
     <help>
+    
     This will search through the 1000 Genomes VCF and compare your vcf filtered by AF against it and then filter the result by AF as well.
+
+    If the variant does not explicitly specify whether it is a SNP or INDEL and you have selected to display just SNPs or just INDELs we will not display anything.
+
     </help>
 </tool>
