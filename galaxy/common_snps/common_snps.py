@@ -10,7 +10,7 @@ def snpList(file_name):
     with open(file_name,'r') as f:
         for line in f:
             line =line.split()
-            snp_list.append(line[1]);
+            snp_list.append(line[1])
                         
     return snp_list
 
@@ -25,7 +25,6 @@ def get_common_snp_list(snp_total):
     return snp_map
 
 def __main__():
-    sys.stderr.write(str(len(sys.argv)))
     file_data = {}
     for file_name in sys.argv:
         if file_name != sys.argv[0]:

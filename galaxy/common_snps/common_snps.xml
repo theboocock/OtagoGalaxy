@@ -4,7 +4,7 @@
     <command interpreter="python">
         common_snps.py
         #for $i, $s in enumerate($lped_files)
-            "${s.lped_files_data}.extra_files_path/${s.lped_files_data}.metadata.base_name"
+            "$s.lped_files_data.extra_files_path/$s.lped_files_data.metadata.base_name".map
         #end for
         > $snp_list 
     </command>
