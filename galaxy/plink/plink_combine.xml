@@ -1,0 +1,13 @@
+<tool id="plink_combine" name="Combine Plink Files." >
+<description>Combine Plink Datasets. Will automatically fix strand errors if possible.</description>
+
+
+<inputs>
+
+</inputs>
+
+<outputs>
+</ouputs>
+
+
+</tool>
