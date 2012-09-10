@@ -1,0 +1,35 @@
+<tool id="plink_filter" name="Plink Filter on Ped Data">
+<description> 
+    Inclusion parameters in plink for filtering data. By default all the parameters you set no value will print summary information to the log file.
+</description>
+<command interpreter="bash">
+plink
+</command>
+<inputs>
+    <conditional name="input_datatype">
+        <param name="input_datatype_select" type="select" label="Pbed data or lped data input">
+        <option value="pbed">Plink Binary Format</option>
+        <option value="lped">Ped/Map Plink Format</option>
+        </param>
+    </conditional>
+    <param name="mi_pp" type="float" value="" label="Exclude individuals with high missing genotype rates." help="This value is a proportion between 0 and 1, 1 meaning the individual has 100% missing data"/>
+    <param name="mi_marker" type="float" value ="" label="Exclude markers with high missing genotype rate" help="This value is a proportion between 0 and 1, 1 meaning the marker has 100% missing data"/>
+    <param name="maf" type="float" value="" label="Exclude markers with a maf lower than the threshold specified" help="The value is a proportion between 0 and 1, 1 meaning the minor allele frequency needs to be 100% to stay in the outputted file"/>
+    <param name="hwe" type="float" value="" label="HWE test" help="Exclude markers that fail the Hardy-Weinberg test at a specified significance threshold"/>
+    <param name="mendel" type="float" value="" label="Mendel Error Rate" help="Exclude markers and individuals based on the error rate entered in the field"/>
+
+</inputs>
+
+
+<outputs>
+    <data name="output_log" format="txt"/>
+    <data name="output_pbed" format="pbed">
+    <filter> $input_datatype.input_datatype_select == "pbed" </filter>
+    </data>
+    <data name="output_lped" format="lped">
+    <filter> $input_datatype.input_datatype_select == "lped" </filter>
+
+</ouputs>
+
+
+</tool>
