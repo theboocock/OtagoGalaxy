@@ -1,17 +1,32 @@
-<tool id="plink_filter" name="Plink Filter on Ped Data">
+<tool id="plink_filter" name="Plink Filter on Ped Data ">
 <description> 
     Inclusion parameters in plink for filtering data. By default all the parameters you set no value will print summary information to the log file.
 </description>
-<command interpreter="bash">
-plink --hwe $hwe --maf $maf --mind $mi_pp --geno $mi_marker --noweb --recode
-      --out
+<command>
+plink --hwe $hwe 
+#if $maf == 0.0 or $maf == 0:
+--maf $maf 
+#end if 
+--geno $mi_marker --noweb 
 #if $input_datatype.input_datatype_select == "pbed":
- $output_pbed
+ --bfile "$input_datatype.input_pbed.extra_files_path/$input_datatype.input_pbed.metadata.base_name"
+ --out $output_pbed
+ --make-bed
 #end if
 #if $input_datatype.input_datatype_select =="lped":
- $output_lped
+ --file "$input_datatype.input_lped.extra_files_path/$input_datatype.input_lped.metadata.base_name"
+ --recode 
+ --out $output_lped
 #end if 
  > $output_log
+ ;
+ ./move_files_plink_to_galaxy.sh 
+ #if $input_datatype.input_datatype_select == "pbed":
+
+ #end if 
+#if $input_datatype.input_datatype_select == "lped"
+
+ #end if
 </command>
 <inputs>
     <conditional name="input_datatype">
@@ -19,12 +34,18 @@ plink --hwe $hwe --maf $maf --mind $mi_pp --geno $mi_marker --noweb --recode
         <option value="pbed">Plink Binary Format</option>
         <option value="lped">Ped/Map Plink Format</option>
         </param>
+    <when value="pbed">
+        <param name="input_pbed" type="data" format="pbed" label="Pbed Input"/>
+    </when>
+    <when value="lped">
+        <param name="input_lped" type="data" format="lped" label="Lped Input" />
+    </when>
     </conditional>
-    <param name="mi_pp" type="float" value="" label="Exclude individuals with high missing genotype rates." help="This value is a proportion between 0 and 1, 1 meaning the individual has 100% missing data"/>
-    <param name="mi_marker" type="float" value ="" label="Exclude markers with high missing genotype rate" help="This value is a proportion between 0 and 1, 1 meaning the marker has 100% missing data"/>
-    <param name="maf" type="float" value="" label="Exclude markers with a maf lower than the threshold specified" help="The value is a proportion between 0 and 1, 1 meaning the minor allele frequency needs to be 100% to stay in the outputted file"/>
-    <param name="hwe" type="float" value="" label="HWE test" help="Exclude markers that fail the Hardy-Weinberg test at a specified significance threshold"/>
-    <param name="mendel" type="float" value="" label="Mendel Error Rate" help="Exclude markers and individuals based on the error rate entered in the field"/>
+    <param name="mi_pp" type="float" value="0" label="Exclude individuals with high missing genotype rates." help="This value is a proportion between 0 and 1, 1 meaning the individual has 100% missing data"/>
+    <param name="mi_marker" type="float" value ="1" label="Exclude markers with high missing genotype rate" help="This value is a proportion between 0 and 1, 1 meaning the marker has 100% missing data"/>
+    <param name="maf" type="float" value="0" label="Exclude markers with a maf lower than the threshold specified" help="The value is a proportion between 0 and 1, 1 meaning the minor allele frequency needs to be 100% to stay in the outputted file"/>
+    <param name="hwe" type="float" value="0" label="HWE test" help="Exclude markers that fail the Hardy-Weinberg test at a specified significance threshold"/>
+    <param name="mendel" type="text" value="0.0 0.0" label="Mendel Error Rate" help="Exclude markers and individuals based on the error rate entered in the field. Two numbers are required space seperated and the numbers must be between zero and one. For example if (0.05 .1) were entered. The first parameter determines that families with more than 5% Mendel errors (considering all SNPs) will be discarded. The second parameter indicates that SNPs with more than 10% Mendel error rate will be excluded (i.e. based on the number of trios) "/>
 
 </inputs>
 
@@ -32,12 +53,12 @@ plink --hwe $hwe --maf $maf --mind $mi_pp --geno $mi_marker --noweb --recode
 <outputs>
     <data name="output_log" format="txt"/>
     <data name="output_pbed" format="pbed">
-    <filter> $input_datatype.input_datatype_select == "pbed" </filter>
+    <filter>input_datatype['input_datatype_select'] == "pbed" </filter>
     </data>
     <data name="output_lped" format="lped">
-    <filter> $input_datatype.input_datatype_select == "lped" </filter>
-
-</ouputs>
+    <filter> input_datatype['input_datatype_select'] == "lped" </filter>
+    </data>
+</outputs>
 
 
 </tool>
