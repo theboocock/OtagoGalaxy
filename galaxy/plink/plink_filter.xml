@@ -3,7 +3,15 @@
     Inclusion parameters in plink for filtering data. By default all the parameters you set no value will print summary information to the log file.
 </description>
 <command interpreter="bash">
-plink
+plink --hwe $hwe --maf $maf --mind $mi_pp --geno $mi_marker --noweb --recode
+      --out
+#if $input_datatype.input_datatype_select == "pbed":
+ $output_pbed
+#end if
+#if $input_datatype.input_datatype_select =="lped":
+ $output_lped
+#end if 
+ > $output_log
 </command>
 <inputs>
     <conditional name="input_datatype">
