@@ -16,7 +16,7 @@
     <option value="protein">Display Protein output</option>
     <option value="hgnc">Display HGNC output</option>
     <option value="most_severe">Display Most Severe output</option>
-    <option value="most_severe">Display Summary output</option>
+    <option value="summary">Display Summary output</option>
     <option value="per_gene">Display Per-gene output</option>
     <option value="coding_only">Display Coding Region Only</option>
     <option value="check_existing">Check Existing Snps</option>
