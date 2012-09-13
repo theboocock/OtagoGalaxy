@@ -20,12 +20,15 @@ plink --hwe $hwe
 #end if 
  > $output_log
  ;
- ./move_files_plink_to_galaxy.sh 
- #if $input_datatype.input_datatype_select == "pbed":
-
+ #if $input_datatype.input_datatype_select == "lped":
+    mkdir "$output_lped.extra_files_path";
+    mv ${output_lped}.ped "$output_lped.extra_files_path"/;
+    mv ${output_lped}.map "$output_lped.extra_files_path"/;
  #end if 
-#if $input_datatype.input_datatype_select == "lped"
-
+#if $input_datatype.input_datatype_select == "pbed"
+    mkdir $output.pbed.extra_files_path";
+    mv ${output_pbed}.map "$output_pbed.extra_files_path"/;
+    mv ${output_pbed}.ped "$output_pbed.extra_files_path"/;
  #end if
 </command>
 <inputs>
@@ -52,10 +55,10 @@ plink --hwe $hwe
 
 <outputs>
     <data name="output_log" format="txt"/>
-    <data name="output_pbed" format="pbed">
+    <data name="output_pbed" format="pbed" metadata_source="input_pbed">
     <filter>input_datatype['input_datatype_select'] == "pbed" </filter>
     </data>
-    <data name="output_lped" format="lped">
+    <data name="output_lped" format="lped" metadata_source="input_lped">
     <filter> input_datatype['input_datatype_select'] == "lped" </filter>
     </data>
 </outputs>
