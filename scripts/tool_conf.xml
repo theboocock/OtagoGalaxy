@@ -40,6 +40,7 @@
    <tool file="SOER1000genes/galaxy/lamarc/lamarc.xml" />
    <tool file="SOER1000genes/galaxy/treemix/treemix.xml" />
    <tool file="SOER1000genes/galaxy/ihs/ihs_calc.xml" />
+   <tool file="SOER1000genes/galaxy/impute2/impute2.xml" />
    </section>
 <section name="Otago - Variant Effect Predictors" id="ou_vep" >
    <tool file="SOER1000genes/galaxy/ensemblVEP/ensembl_vep.xml"/>
