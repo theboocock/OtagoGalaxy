@@ -3,20 +3,51 @@
 
 <command interpreter="bash">
     
-    ./impute.sh ${start_pos} ${end_pos} ${chromosome} ${known_haps} ${output_genofile} ${output_summary} ${output_warnings} ${output_info}
+    ./impute.sh ${start_pos} ${end_pos} ${chromosome} ${known_haps} ${output_genofile} ${output_summary} ${output_warnings} ${output_info} ${phased_or_not} ${buffer_size}
 
 </command>
 
 <inputs>
+
+    <param name="start_pos" type="integer" label="Start position of region" />
+    <param name="end_pos" type="integer" label="End position of region" />
+    <param name="chromosome" type="text" label="Chromosome Number" help="For X chromosome please just enter x"/>
+
+    <conditional name="gen_or_hap" />
+        <param name="phased_or_not" type="select" label="Are your haplotypes phased or unphased?" help="Unphased data will produce slightly more accurate results but take longer to run" >
+            <option selected="true" value="unphased">Unphased </option>
+            <option value="phased" help="Partially phased also counts">(Pre-)Phased</option>
+        </param>
+
+        <when value="phased">
+            <param name="known_haps" type="data" format="hap" label="Pre-phased Known Haplotypes file" />
+        <when />
+
+        <when value="unphased">
+            <param name="known_haps" type="data" format="gen" label="Pre-phased Known Haplotypes file" />
+        <when />
+
+    </conditional>
+
+    <param name="buffer_size" type="integer" value="250" label="Buffer Size" help="Length of buffer region (in kb) to include on each side of the analysis interval. Using a buffer region helps prevent imputation quality from deteriorating near the edges of the analysis interval. Larger buffers may improve accuracy for low-frequency variants (since such variants tend to reside on long haplotype backgrounds) at the cost of longer running times." />
+
+    <param name="ne" type="integer" value="20000" label="Effective Population Size" help="Commonly denoted as Ne in the population genetics literature from which your dataset was sampled. This parameter scales the recombination rates that IMPUTE2 uses to guide its model of linkage disequilibrium patterns" />
+
 </inputs>
 
 <outputs>
 
-
+    <data format="txt" name="output_genofile" />
+    <data format="txt" name="output_summary" />
+    <data format="txt" name="output_warnings" />
+    <data format="txt" name="output_info" />
 
 </outputs>
 
 <help>
+This tool uses IMPUTE2 a program for imputation. It can accept pre-phased data (e.g. from ShapeIT) or unphased data which is recommended for smaller regions. 
+
+More information can be found here http://mathgen.stats.ox.ac.uk/impute/impute_v2.html
 </help>
 
 </tool>
