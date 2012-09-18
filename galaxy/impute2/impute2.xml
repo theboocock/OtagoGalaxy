@@ -1,0 +1,22 @@
+<tool id="impute2" name="IMPUTE2" version="1.0">
+<description>Perform imputation</description>
+
+<command interpreter="bash">
+    
+    ./impute.sh ${start_pos} ${end_pos} ${chromosome} ${known_haps} ${output_genofile} ${output_summary} ${output_warnings} ${output_info}
+
+</command>
+
+<inputs>
+</inputs>
+
+<outputs>
+
+
+
+</outputs>
+
+<help>
+</help>
+
+</tool>
