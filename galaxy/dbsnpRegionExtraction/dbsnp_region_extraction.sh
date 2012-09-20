@@ -22,9 +22,11 @@ then
 else
 
     /home/galaxy/galaxy-dist/tools/SOER1000genes/galaxy/dbsnpRegionExtraction/./getRegion.sh $1
-
+    cat ~reg.tmp
     while read line
     do
+        echo $line
+        echo ${line/-/..}
         python ~/galaxy-dist/tools/vcf_tools/vcfPytools.py extract --in=${1} --region=${line/-/..} >> ~tmpReg.tmp
         tabix -h ~/galaxy-dist/tools/SOER1000genes/data/dbSNP.vcf.gz ${line} > ~tmp.tmp
         java -jar ~/galaxy-dist/tool-data/shared/jars/snpEff/SnpSift.jar annotate ~tmp.tmp ~tmpReg.tmp 1>> $2 
