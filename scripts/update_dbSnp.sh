@@ -13,4 +13,5 @@ wget -N ftp://ftp.ncbi.nih.gov/snp/organisms/human_9606/VCF/00-All.vcf.gz
 mv -f 00-All.vcf.gz /home/galaxy/galaxy-dist/tools/SOER1000genes/data/dbSNP.vcf.gz
 rm /home/galaxy/galaxy-dist/tools/SOER1000genes/data/dbSnp.vcf.gz.tbi
 tabix -p vcf /home/galaxy/galaxy-dist/tools/SOER1000genes/data/dbSNP.vcf.gz
+
 echo "Done!"
