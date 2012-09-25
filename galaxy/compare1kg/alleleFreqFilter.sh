@@ -7,6 +7,8 @@
 # $2 threshold below which to throw away line
 # $3 more or less
 # $4 snps / indels / all
+# $5 database
+# $6 population (if database == evs)
 
 while read line
 do
@@ -32,15 +34,35 @@ do
         # print the line if is more or less than threshold and snp/indel
         if [ "$AF_PAIR" != "" ]; then
 
-            if [ "$3" == "more" ] ;then
-                AF_NUMBER=`echo $AF_PAIR | awk -v AF=$2 -F[\=] '{if($2 >= AF){
-                                                                    print $0
-                                                                }}'`
-            fi
-            if [ "$3" == "less" ] ;then
-                AF_NUMBER=`echo $AF_PAIR | awk -v AF=$2 -F[\=] '{if($2 <= AF){
-                                                                    print $0
-                                                                }}'`
+            if [ "$5" == "1kg" ] ;then 
+
+                if [ "$3" == "more" ] ;then
+                    AF_NUMBER=`echo $AF_PAIR | awk -v AF=$2 -F[\=] '{if($2 >= AF){
+                                                                        print $0
+                                                                    }}'`
+                fi
+                if [ "$3" == "less" ] ;then
+                    AF_NUMBER=`echo $AF_PAIR | awk -v AF=$2 -F[\=] '{if($2 <= AF){
+                                                                        print $0
+                                                                    }}'`
+                fi
+
+            else
+
+                if [ "$3" == "more" ] ;then
+                    TRIP=`echo $AF_PAIR | awk -F[\=] '{print $2}'`
+                    AF_NUMBER=`echo $AF_PAIR | awk -v AF=$2 -v POP=$6 -F[,] '{if($POP >= AF){
+                                                                        print $POP
+                                                                    }}'`
+                fi
+                if [ "$3" == "less" ] ;then
+                    TRIP=`echo $AF_PAIR | awk -F[\=] '{print $2}'`
+                    POP=$6
+                    AF_NUMBER=`echo $AF_PAIR | awk -v AF=$2 -v POP=$6 -F[,] '{if($POP <= AF){
+                                                                        print $POP
+                                                                    }}'`
+                fi
+
             fi
 
             if [ "$AF_NUMBER" != "" ];then
