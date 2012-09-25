@@ -24,9 +24,9 @@ do
     #Remove the item from the list.
     SNPEFF_IMPACT=${SNPEFF_IMPACT#*\,}
     #Add the item to the snpSift expression string
+    if [ $IMPACT != "None" ]; then
     if [ $4 == "snpeff" ]; then
     if [ "$COUNT" == "0" ]; then
-
        SNPSIFT_EXPR="${SNPSIFT_EXPR}!( EFF[*].IMPACT = '${IMPACT}' )"
     else
        SNPSIFT_EXPR="${SNPSIFT_EXPR} & !( EFF[*].IMPACT = '${IMPACT}' )"
@@ -47,6 +47,7 @@ do
     fi
     fi
     COUNT=`expr $COUNT + 1`
+    fi
 done
 
 while echo $SNPEFF_EFFECT | grep \, &> /dev/null
