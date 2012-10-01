@@ -67,14 +67,12 @@ elsif ($opt_i){
         if( $line =~ m/^#/ ){
             print(OUT "$line");
 #look at 3rd column (ID), write out if == "."
-        } elsif() {
-            ($line ~= m/^\w+\t\w+\t\.\t.\t\.\t./)
+        } elsif($line =~ m/^\w+\t\w+\t\.\t.\t\.\t./){
             #Do nothing fix for murray
         }elsif ($line =~ m/^\w+\t\w+\t\.\t./){
                 print(OUT "$line");
             }
         }
-    }
     close IN;
     close OUT;
 }
