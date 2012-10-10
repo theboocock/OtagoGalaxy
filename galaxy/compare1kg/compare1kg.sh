@@ -46,16 +46,14 @@ while read line
     do
         tabix -f $DATABASE $line >> filtered.1kg.vcf
     done < pos1.txt
-
 #filter 1kg vcf
 ~/galaxy-dist/tools/SOER1000genes/galaxy/compare1kg/./alleleFreqFilter.sh `pwd`/filtered.1kg.vcf $5 $4 $6 $8 $9 >| final_filtered_1kg.vcf
-
 awk '{print $1":"$2"-"$2}' < final_filtered_1kg.vcf >| pos2.txt
-
 # print out all those that match the 1kg and myvcf
 while read line
     do
-        tabix -f filtered_myVCF.vcf.gz $line >> $7
+       tabix -f filtered_myVCF.vcf.gz $line >> $7
+       
     done < pos2.txt
 
 exit 0

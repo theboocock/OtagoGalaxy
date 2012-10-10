@@ -1,0 +1,89 @@
+.
+├── 1kg
+│   ├── impute2
+│   │   ├── ALL_1000G_phase1integrated_v3_chr10_impute.hap
+│   │   ├── ALL_1000G_phase1integrated_v3_chr11_impute.legend
+│   │   ├── ALL_1000G_phase1integrated_v3_chr12_impute.hap
+│   │   ├── ALL_1000G_phase1integrated_v3_chr12_impute.legend
+│   │   ├── ALL_1000G_phase1integrated_v3_chr13_impute.hap
+│   │   ├── ALL_1000G_phase1integrated_v3_chr13_impute.legend
+│   │   ├── ALL_1000G_phase1integrated_v3_chr14_impute.hap
+│   │   ├── ALL_1000G_phase1integrated_v3_chr14_impute.legend
+│   │   ├── ALL_1000G_phase1integrated_v3_chr16_impute.hap
+│   │   ├── ALL_1000G_phase1integrated_v3_chr17_impute.legend
+│   │   ├── ALL_1000G_phase1integrated_v3_chr19_impute.legend
+│   │   ├── ALL_1000G_phase1integrated_v3_chr1_impute.hap
+│   │   ├── ALL_1000G_phase1integrated_v3_chr1_impute.legend
+│   │   ├── ALL_1000G_phase1integrated_v3_chr20_impute.legend
+│   │   ├── ALL_1000G_phase1integrated_v3_chr21_impute.legend
+│   │   ├── ALL_1000G_phase1integrated_v3_chr22_impute.hap
+│   │   ├── ALL_1000G_phase1integrated_v3_chr22_impute.legend
+│   │   ├── ALL_1000G_phase1integrated_v3_chr2_impute.hap
+│   │   ├── ALL_1000G_phase1integrated_v3_chr2_impute.legend
+│   │   ├── ALL_1000G_phase1integrated_v3_chr3_impute.legend
+│   │   ├── ALL_1000G_phase1integrated_v3_chr5_impute.legend
+│   │   ├── ALL_1000G_phase1integrated_v3_chr6_impute.hap
+│   │   ├── ALL_1000G_phase1integrated_v3_chr6_impute.legend
+│   │   ├── ALL_1000G_phase1integrated_v3_chr7_impute.hap
+│   │   ├── ALL_1000G_phase1integrated_v3_chr7_impute.legend
+│   │   ├── ALL_1000G_phase1integrated_v3_chr8_impute.hap
+│   │   ├── ALL_1000G_phase1integrated_v3_chr8_impute.legend
+│   │   ├── ALL_1000G_phase1integrated_v3_chr9_impute.hap
+│   │   ├── ALL_1000G_phase1integrated_v3_chrX_nonPAR_impute.hap
+│   │   ├── ALL_1000G_phase1integrated_v3_chrX_PAR1_impute.hap
+│   │   ├── ALL_1000G_phase1integrated_v3_chrX_PAR1_impute.legend
+│   │   ├── ALL_1000G_phase1integrated_v3_chrX_PAR2_impute.hap
+│   │   ├── ALL_1000G_phase1integrated_v3_chrX_PAR2_impute.legend
+│   │   ├── ALL_1000G_phase1integrated_v3_impute.tgz
+│   │   ├── ALL_1000G_phase1integrated_v3.sample
+│   │   ├── genetic_map_chr11_combined_b37.txt
+│   │   ├── genetic_map_chr12_combined_b37.txt
+│   │   ├── genetic_map_chr15_combined_b37.txt
+│   │   ├── genetic_map_chr16_combined_b37.txt
+│   │   ├── genetic_map_chr18_combined_b37.txt
+│   │   ├── genetic_map_chr19_combined_b37.txt
+│   │   ├── genetic_map_chr1_combined_b37.txt
+│   │   ├── genetic_map_chr20_combined_b37.txt
+│   │   ├── genetic_map_chr21_combined_b37.txt
+│   │   ├── genetic_map_chr2_combined_b37.txt
+│   │   ├── genetic_map_chr6_combined_b37.txt
+│   │   ├── genetic_map_chr7_combined_b37.txt
+│   │   └── genetic_map_chrX_PAR2_combined_b37.txt
+│   └── vcf
+│       ├── ALL.subset.vcf
+│       ├── ALL.wgs.phase1_release_v2.20101123.snps_indels_sv.sites.vcf
+│       ├── ALL.wgs.phase1_release_v2.20101123.snps_indels_sv.sites.vcf.gz
+│       └── ALL.wgs.phase1_release_v2.20101123.snps_indels_sv.sites.vcf.gz.tbi
+├── dbSNP.vcf.gz
+├── dbSNP.vcf.gz.tbi
+└── evs
+    └── esp
+        ├── chromosomes
+        │   ├── ESP6500.ALL.snps.vcf.gz
+        │   ├── ESP6500.chr10.snps.vcf.gz
+        │   ├── ESP6500.chr11.snps.vcf.gz
+        │   ├── ESP6500.chr12.snps.vcf.gz
+        │   ├── ESP6500.chr13.snps.vcf.gz
+        │   ├── ESP6500.chr14.snps.vcf.gz
+        │   ├── ESP6500.chr15.snps.vcf.gz
+        │   ├── ESP6500.chr16.snps.vcf.gz
+        │   ├── ESP6500.chr17.snps.vcf.gz
+        │   ├── ESP6500.chr18.snps.vcf.gz
+        │   ├── ESP6500.chr19.snps.vcf.gz
+        │   ├── ESP6500.chr1.snps.vcf.gz
+        │   ├── ESP6500.chr20.snps.vcf.gz
+        │   ├── ESP6500.chr21.snps.vcf.gz
+        │   ├── ESP6500.chr22.snps.vcf.gz
+        │   ├── ESP6500.chr2.snps.vcf.gz
+        │   ├── ESP6500.chr3.snps.vcf.gz
+        │   ├── ESP6500.chr4.snps.vcf.gz
+        │   ├── ESP6500.chr5.snps.vcf.gz
+        │   ├── ESP6500.chr6.snps.vcf.gz
+        │   ├── ESP6500.chr7.snps.vcf.gz
+        │   ├── ESP6500.chr8.snps.vcf.gz
+        │   ├── ESP6500.chr9.snps.vcf.gz
+        │   └── ESP6500.chrX.snps.vcf.gz
+        ├── ESP6500.ALL.snps.vcf.gz
+        └── ESP6500.ALL.snps.vcf.gz.tbi
+
+6 directories, 80 files
