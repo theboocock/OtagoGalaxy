@@ -2,7 +2,7 @@
 <description>(integrated Haplotype Score)</description>
 
 <command>
-    ${__root_dir__}/tools/SOER1000genes/galaxy/ihs/iHS/./ihs ${input_map} ${input_hap} > ${output}
+    ${__root_dir__}/tools/SOER1000genes/galaxy/ihs/iHS/./ihs ${input_map} ${input_hap} > ${output} 2> /dev/null
 </command>
 
 <inputs>
