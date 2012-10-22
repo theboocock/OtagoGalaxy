@@ -9,10 +9,8 @@
 # $4 snps / indels / all
 # $5 database
 # $6 population (if database == evs)
-
-while read line
+while  read line
 do
-
     if [ "$4" != "all" ] ;then
         line=`echo $line | grep -i "$4"`
         if [ "$line" == "" ] ;then
@@ -66,7 +64,7 @@ do
             fi
 
             if [ "$AF_NUMBER" != "" ];then
-                    echo $line
+                    echo "$line"
             fi
         fi
     fi

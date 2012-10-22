@@ -1,7 +1,146 @@
-All locations are based from the root directory at /home/galaxy/galaxy-dist/tools/SOER100genes/
+UPDATED: 10/10/12
 
-Data / databases that tools can rely on:
+This file contains the contents of the /SOER100genes/galaxy/ directory. This stores all tools that have been created. The hierarchy will be arranged so that the tool xml file will be listed and then the call heir achy of those files. In the case that there is more than one xml file then the first xml will be listed with its heirarchy and then the next xml will be listed.
 
-data/
+Tools that require jars that are stored in the ~/galaxy-dist/tool-data/shared/jars/ folder will simply be denoted jars/
 
+galaxy/
+├── beagle
+│   ├── beagle.xml
+│   ├── beagle.sh
+│   │   └── jars/beagle/beagle.jar
+│   ├── bgl_to_ped.xml
+│   ├── ped_to_beagle.xml
+│   ├── vcf_to_beagle.xml
+│   ├── vcf_to_beagle.xml
+│       └── jars/beagle/vcf2beagle.jar
+├── calc_ld
+│   ├── calc_ld.xml
+│   └── calc_ld.sh
+├── calcTsTv
+│   └── calc_ts_tv.xml
+├── common_snps
+│   ├── common_snps.xml
+│   └── common_snps.py
+├── compare1kg
+│   ├── compare1kg.xml
+│   ├── compare1kg.sh
+│   ├── alleleFreqFilter.sh
+├── dbsnpRegionExtraction
+│   ├── dbsnp_region_extraction.xml
+│   ├── dbsnp_region_extraction.sh
+│   └── getRegion.sh
+├── ensemblVEP
+│   ├── ensembl_vep.xml
+│   ├── ensembl_vep.sh
+│   ├── ensembl_run.sh
+│   └── variant_effect_predictor.pl
+├── evs
+│   ├── evs.xml
+│   └── evs.sh
+│   │   └── jars/evs/evsClient.jar
+├── extractSampleId
+│   ├── get_sample_id.xml
+│   └── get_sample_id.sh
+├── findreplace
+│   ├── find_and_replace.xml
+│   └── find_and_replace.sh
+├── getAlleleFreq
+│   └── getAlleleFreq.xml
+│       └── jars/getAlleleFreqSummary/GetAlleleFreqSummary.jar
+├── getPopAlleleFreq
+│   ├── getPopAF.xml
+│   └── getPopAF.sh
+│       └── jars/getAlleleFreqSummary/GetAlleleFreqSummary.jar
+├── getSnps
+│   ├── get_snps.xml
+│   └── get_snps.pl
+├── haploview
+│   ├── haploview.xml
+│   └── haploview.pl
+│   │   └── jars/haplo/Haploview.jar
+├── homozyFilter
+│   └── homo_multi.xml
+├── ihs
+│   └── ihs_calc.xml
+├── impute2
+│   ├── impute2.xml
+│   └── impute2.sh
+├── indelQualityFilter
+│   ├── indelQual_filter.xml
+│   └── indelQual_filter.sh
+├── lamarc
+│   ├── lamarc.xml
+│   └── lamarc.sh
+├── ld_values_1kg
+│   ├── ld_values_1kg.xml
+│   └── ld_values_1kg.sh
+├── mafCheck
+│   ├── mafCheck.xml
+│   └── mafCheck.sh
+├── mpop
+│   └── mpop.xml
+├── multiRegionSelect
+│   ├── multiple_region_extraction.xml
+│   └── multiple_region_extraction.sh
+├── phyllip
+│   └── neighbour
+│       └── neighbour.xml
+├── plink
+│   ├── common_snps.xml
+│   ├── common_snps.py
+│   ├── plink_combine.xml
+│   ├── plink_filter.xml
+│   └── plink_force_reference.xml
+├── qualityFilter
+│   └── quality_filter.xml
+├── rare_variant_filter
+│   ├── rare_variant_filter.xml
+│   ├── rare_variant_filter_wrapper.sh
+│   └── rare_variant_filter.sh
+├── readDepthFilter
+│   └── read_depth_filter.xml
+├── regionEffectFilter
+│   ├── region_effect_filter.xml
+│   └── region_effect_filter.sh
+├── regionExtraction
+│   ├── region_extraction.xml
+│   └── region_extraction.sh
+├── snap
+│   ├── snap.xml
+│   └── getSNPs.sh
+├── snpEff
+│   ├── snpEff.xml
+│   ├── snpEff_wrapper.sh
+│      └── jars/snpEff/snpEff.jar
+│   ├── snpEff_download.xml
+│      └── jars/snpEff/snpEff.jar
+│   ├── snpSift_annotate.xml
+│      └── jars/snpEff/SnpSift.jar
+│   ├── snpSift_caseControl.xml
+│      └── jars/snpEff/SnpSift.jar
+│   ├── snpSift_filter.xml
+│      └── jars/snpEff/SnpSift.jar
+│   └── snpSift_int.xml
+│      └── jars/snpEff/SnpSift.jar
+├── treemix
+│   ├── treemix.xml
+│   ├── treemix.sh
+│   ├── plotting_funcs.R
+│   └── do_plots.R
+├── variantAnnotator
+│   ├── variant_annotator.xml
+│   └── variant_annotator.sh
+├── vcfMerge
+│   ├── merge_vcfs.xml
+│   └── merge_vcfs.sh
+├── vcfSubset
+│   ├── select_samples.xml
+│   └── select_samples.sh
+├── vcf_to_csv
+│   ├── vcf_to_csv.xml
+│      └── jars/vcf_to_csv/VcfToCsv.jar
+└── vcf_to_tped
+    ├── vcf_to_tped.xml
+    └── vcf_to_tped.sh
 

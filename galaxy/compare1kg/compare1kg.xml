@@ -35,7 +35,7 @@
 
     </conditional>
 
-        <param name="high_or_low1" label="Less than or qual to OR greater than or equal to?" type="select" display="radio">
+        <param name="high_or_low1" label="Less than or equal to OR greater than or equal to?" type="select" display="radio">
             <option value="less">Less than or equal to</option>
             <option value="more">Greater than or equal to</option>
         </param>
@@ -45,7 +45,7 @@
             <option value="SNP">Just SNPs</option>
             <option value="INDEL">Just INDELs</option>
         </param>
-        <param name="high_or_low2" label="Less than or qual to OR greater than or equal to?" type="select" display="radio">
+        <param name="high_or_low2" label="Less than or equal to OR greater than or equal to?" type="select" display="radio">
             <option value="less">Less than or equal to</option>
             <option value="more">Greater than or equal to</option>
         </param>

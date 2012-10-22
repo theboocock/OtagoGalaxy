@@ -1,0 +1,28 @@
+UPDATED --- 10/10/12
+
+This is the necessary contents of the SOER1000genes/data/ folder for the required tools. Some files have been ommited or abbreviated to maintain legibility. It is implied the reader will have some knowledge as to the required files.
+
+data/
+├── 1kg
+│   ├── impute2
+│   │   ├── ALL_1000G_phase1integrated_v3_chr1-22-x_impute.hap
+│   │   ├── ALL_1000G_phase1integrated_v3_chr1-22-x_impute.legend
+│   │   ├── ALL_1000G_phase1integrated_v3_impute.tgz
+│   │   ├── ALL_1000G_phase1integrated_v3.sample
+│   │   ├── genetic_map_chr1-22-x_combined_b37.txt
+│   └── vcf
+│       ├── ALL.subset.vcf
+│       ├── ALL.wgs.phase1_release_v2.20101123.snps_indels_sv.sites.vcf
+├── dbSNP.vcf.gz
+├── dbSNP.vcf.gz.tbi
+└── evs
+    └── esp
+        ├── chromosomes
+        │   ├── ESP6500.ALL.snps.vcf.gz
+        ├── ESP6500.ALL.snps.vcf.gz
+        └── ESP6500.ALL.snps.vcf.gz.tbi
+
+6 directories, 80 files
+
+=======
+

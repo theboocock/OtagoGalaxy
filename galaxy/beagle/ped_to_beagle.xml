@@ -1,6 +1,8 @@
 <tool id="ped_to_bgl" version="1.0.0" name="Ped to Beagle Converter" >
-<command>
-    ../../src/beagle/./ped_to_bgl $input_ped $input_map > $output_beagle
+<description>Convert PED and MAP file to BEAGLE format</description>
+
+<command interpreter="bash">
+    ${__root_dir__}/tools/SOER1000genes/galaxy/beagle/ped_to_beagle.sh $input_ped $input_map $output_beagle 2> /dev/null
 </command>
 
 <inputs>
@@ -13,7 +15,7 @@
 </outputs>
 
 <help>
+Takes a .ped and a .map file and converts them to a .bgl file. This bgl file can then be used by BEAGLE.
 </help>
-
 
 </tool>
