@@ -19,7 +19,7 @@ do
 done
 
 eval INPUT=\${$#}
-bgzip -c $INPUT > $INPUT.gz
-vcf-subset -c $SAMPLE_LIST $INPUT.gz
+bgzip -c $INPUT > INPUT.gz
+vcf-subset -c $SAMPLE_LIST INPUT.gz
 
 exit 0
