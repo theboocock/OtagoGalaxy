@@ -4,7 +4,7 @@
 <command interpreter="bash">
     select_samples.sh ${samples} ${input} > ${output}
 </command>
-<parallelism method="multi" split_inputs="input" shared_inputs="samples" split_mode="from_composite" merge_outputs="output"/>
+<parallelism method="multi" split_inputs="input" shared_inputs="samples" split_mode="number_of_parts" merge_outputs="output"/>
 
 
 <inputs>
