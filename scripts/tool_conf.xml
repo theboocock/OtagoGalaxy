@@ -68,6 +68,7 @@
    <tool file="SOER1000genes/galaxy/vcfMerge/merge_vcfs.xml"/>
    <tool file="SOER1000genes/galaxy/extractSampleId/get_sample_id.xml" />
    <tool file="SOER1000genes/galaxy/vcfSubset/select_samples.xml"/>
+   <tool file="SOER1000genes/galaxy/vcfConsensus/vcfConsensus.xml"/>
    <tool file="SOER1000genes/galaxy/vcf_to_csv/vcf_to_csv.xml"/>
 </section>
 <section name="Otago - Work with 1000 Genomes Data" id="ou_1kg" >
@@ -82,6 +83,7 @@
 <section name="Otago - Plink tools" id="ou_plink">
     <tool file="SOER1000genes/galaxy/plink/plink_filter.xml"/>
     <tool file="SOER1000genes/galaxy/plink/common_snps.xml"/>
+    <tool file="SOER1000genes/galaxy/plink/linear_regression.xml"/>
 </section>
  <section name="SnpEff tools" id="snpEff_tools">
    <tool file="SOER1000genes/galaxy/snpEff/snpEff.xml" />
