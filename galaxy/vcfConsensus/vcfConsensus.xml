@@ -2,7 +2,7 @@
 <description>Apply VCF variants to a fasta file to create consensus sequence</description>
 
 <command interpreter="bash">
-    cat ${input_fasta} | vcf-consensus ${input_vcf} > ${output}
+    vcfConsensus.sh ${input_fasta} ${input_vcf} ${output}
 </command>
 
 <inputs>
