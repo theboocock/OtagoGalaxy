@@ -1,0 +1,25 @@
+<tool id="vcf_consensus" name="Vcf Consensus" version="1.0">
+<description>Apply VCF variants to a fasta file to create consensus sequence</description>
+
+<command interpreter="bash">
+    cat ${input_fasta} | vcf-consensus ${input_vcf} > ${output}
+</command>
+
+<inputs>
+<param name="input_fasta" type="data" format="fasta" label="Select fasta file" />
+<param name="input_vcf" type="data" format="vcf" label="Select vcf file" />
+
+</inputs>
+
+<outputs>
+<data format="vcf" name="output" label="Consensus sequence from ${input_fasta} and ${input_vcf}"/>
+</outputs>
+<help>
+    Apply VCF variants to a fasta file to create consensus sequence.
+
+	Credits
+
+	VCFtools is used for sample selection. The Variant Call Format and VCFtools, Petr Danecek, Adam Auton, Goncalo Abecasis, Cornelis A. Albers, Eric Banks, Mark A. DePristo, Robert Handsaker, Gerton Lunter, Gabor Marth, Stephen T. Sherry, Gilean McVean, Richard Durbin and 1000 Genomes Project Analysis Group, Bioinformatics, 2011  
+</help>
+
+</tool>
