@@ -3,33 +3,21 @@
     Inclusion parameters in plink for filtering data. By default all the parameters you set no value will print summary information to the log file.
 </description>
 <command>
+plink_filter.py -p 'plink'
 plink --hwe $hwe 
-#if $maf == 0.0 or $maf == 0:
---maf $maf 
+#if $maf != 0.0 and $maf != 0:
+-m $maf 
 #end if 
---geno $mi_marker --noweb 
+-g $mi_marker 
 #if $input_datatype.input_datatype_select == "pbed":
- --bfile "$input_datatype.input_pbed.extra_files_path/$input_datatype.input_pbed.metadata.base_name"
- --out $output_pbed
- --make-bed
+ -f "$input_datatype.input_pbed.extra_files_path/$input_datatype.input_pbed.metadata.base_name"
+ -o "$output_pbed.files_path"
 #end if
 #if $input_datatype.input_datatype_select =="lped":
- --file "$input_datatype.input_lped.extra_files_path/$input_datatype.input_lped.metadata.base_name"
- --recode 
- --out $output_lped
+ -f "$input_datatype.input_lped.extra_files_path/$input_datatype.input_lped.metadata.base_name"
+ -o "$output_lped.files_path"
 #end if 
  > $output_log
- ;
- #if $input_datatype.input_datatype_select == "lped":
-    mkdir "$output_lped.extra_files_path";
-    mv ${output_lped}.ped "$output_lped.extra_files_path"/;
-    mv ${output_lped}.map "$output_lped.extra_files_path"/;
- #end if 
-#if $input_datatype.input_datatype_select == "pbed"
-    mkdir $output.pbed.extra_files_path";
-    mv ${output_pbed}.map "$output_pbed.extra_files_path"/;
-    mv ${output_pbed}.ped "$output_pbed.extra_files_path"/;
- #end if
 </command>
 <inputs>
     <conditional name="input_datatype">
