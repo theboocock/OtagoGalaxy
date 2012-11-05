@@ -3,36 +3,18 @@
     Inclusion parameters in plink for filtering data. By default all the parameters you set no value will print summary information to the log file.
 </description>
 <command>
-plink_filter.py -p 'plink'
-plink --hwe $hwe 
-#if $maf != 0.0 and $maf != 0:
--m $maf 
+    plink --hwe $hwe 
+#if $maf == 0.0 or $maf == 0:
+    --maf $maf 
 #end if 
--g $mi_marker 
-#if $input_datatype.input_datatype_select == "pbed":
- -f "$input_datatype.input_pbed.extra_files_path/$input_datatype.input_pbed.metadata.base_name"
- -o "$output_pbed.files_path"
-#end if
-#if $input_datatype.input_datatype_select =="lped":
- -f "$input_datatype.input_lped.extra_files_path/$input_datatype.input_lped.metadata.base_name"
- -o "$output_lped.files_path"
-#end if 
- > $output_log
+    --geno $mi_marker --noweb 
+     --file "$input_datatype.input_lped.extra_files_path/$input_datatype.input_lped.metadata.base_name"
+     --recode 
+     --out $output_lped
 </command>
 <inputs>
-    <conditional name="input_datatype">
-        <param name="input_datatype_select" type="select" label="Pbed data or lped data input">
-        <option value="pbed">Plink Binary Format</option>
-        <option value="lped">Ped/Map Plink Format</option>
-        </param>
-    <when value="pbed">
-        <param name="input_pbed" type="data" format="pbed" label="Pbed Input"/>
-    </when>
-    <when value="lped">
-        <param name="input_lped" type="data" format="lped" label="Lped Input" />
-    </when>
-    </conditional>
-    <param name="mi_pp" type="float" value="0" label="Exclude individuals with high missing genotype rates." help="This value is a proportion between 0 and 1, 1 meaning the individual has 100% missing data"/>
+    <param name="input_lped" type="data" format="lped" label="Lped Input" help="Contains your map and ped file. Can be converted from a composite datatype of bim, fam and bed files." />
+    <param name="mi_pp" type="float" value="1" label="Exclude individuals that have more than the proportion specified of missing data.with high missing genotype rates." help="This value is a proportion between 0 and 1, 1 meaning the individual has 100% missing data"/>
     <param name="mi_marker" type="float" value ="1" label="Exclude markers with high missing genotype rate" help="This value is a proportion between 0 and 1, 1 meaning the marker has 100% missing data"/>
     <param name="maf" type="float" value="0" label="Exclude markers with a maf lower than the threshold specified" help="The value is a proportion between 0 and 1, 1 meaning the minor allele frequency needs to be 100% to stay in the outputted file"/>
     <param name="hwe" type="float" value="0" label="HWE test" help="Exclude markers that fail the Hardy-Weinberg test at a specified significance threshold"/>
@@ -40,15 +22,8 @@ plink --hwe $hwe
 
 </inputs>
 
-
 <outputs>
-    <data name="output_log" format="txt"/>
-    <data name="output_pbed" format="pbed" metadata_source="input_pbed">
-    <filter>input_datatype['input_datatype_select'] == "pbed" </filter>
-    </data>
-    <data name="output_lped" format="lped" metadata_source="input_lped">
-    <filter> input_datatype['input_datatype_select'] == "lped" </filter>
-    </data>
+    <data name="output_lped" format="lped" metadata_source="input_lped" />
 </outputs>
 
 
