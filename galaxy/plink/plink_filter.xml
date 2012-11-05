@@ -4,19 +4,21 @@
 </description>
 <command>
     plink --hwe $hwe 
-#if $maf == 0.0 or $maf == 0:
     --maf $maf 
-#end if 
-    --geno $mi_marker --noweb 
-     --file "$input_datatype.input_lped.extra_files_path/$input_datatype.input_lped.metadata.base_name"
+    --mind $mi_pp
+    --geno $mi_marker
+    --max-maf $max_maf
+    --me $mendel
+    --noweb 
+     --file "$input_lped.extra_files_path/$input_lped.metadata.base_name"
      --recode 
-     --out $output_lped
 </command>
 <inputs>
     <param name="input_lped" type="data" format="lped" label="Lped Input" help="Contains your map and ped file. Can be converted from a composite datatype of bim, fam and bed files." />
     <param name="mi_pp" type="float" value="1" label="Exclude individuals that have more than the proportion specified of missing data.with high missing genotype rates." help="This value is a proportion between 0 and 1, 1 meaning the individual has 100% missing data"/>
     <param name="mi_marker" type="float" value ="1" label="Exclude markers with high missing genotype rate" help="This value is a proportion between 0 and 1, 1 meaning the marker has 100% missing data"/>
     <param name="maf" type="float" value="0" label="Exclude markers with a maf lower than the threshold specified" help="The value is a proportion between 0 and 1, 1 meaning the minor allele frequency needs to be 100% to stay in the outputted file"/>
+    <param name="max_maf" type="float" value="1.0" label="Exclude marker with a minor allele frequency larger than this value" help="The value is a proportion between 0 and 1, 1 meaning the maximum minor allele frequency is 100% and 0 meaning the maximum is 0%"/>
     <param name="hwe" type="float" value="0" label="HWE test" help="Exclude markers that fail the Hardy-Weinberg test at a specified significance threshold"/>
     <param name="mendel" type="text" value="0.0 0.0" label="Mendel Error Rate" help="Exclude markers and individuals based on the error rate entered in the field. Two numbers are required space seperated and the numbers must be between zero and one. For example if (0.05 .1) were entered. The first parameter determines that families with more than 5% Mendel errors (considering all SNPs) will be discarded. The second parameter indicates that SNPs with more than 10% Mendel error rate will be excluded (i.e. based on the number of trios) "/>
 
