@@ -1,0 +1,56 @@
+<tool id="plink_linear_regression" name="Plink Linear Regression">
+    <description> 
+    Will calculate a linear regression from given ped/map files.
+    </description>
+    <command>
+        plink --noweb --file "${os.path.join($inputlped.extra_files_path, $inputlped.metadata.base_name)}" 
+        #if str($linear_or_gxe) == "linear":
+            --linear
+        #else
+            --gxe --mcovar 1
+        #end if
+        #if $allowNoSex == "yes":
+            --allow-no-sex
+        #end if
+        #if $extraCovar.addCovar == "yes":
+            --covar ${inputCovar}
+        #end if
+        --missing-phenotype ${missing}
+        ;
+        mv plink.assoc.logistic ${output}
+    </command>
+
+    <inputs>
+
+        <param name="inputlped" type="data" format="lped" label="lped composite file" help="This should be a map and a ped file combined into a lped file when loaded into Galaxy."/>
+
+        <conditional name="extraCovar">
+            <param name="addCovar" type="select" label="Add Covariate File" help="Add a covariate file to be used.">
+                <option value="yes">Add covariate</option>
+                <option value="no">Do not add covariate</option>
+            </param>
+
+            <when value="yes">
+                <param name="inputCovar" type="data" format="txt" label="Covariate Input"/>
+            </when>
+        </conditional>
+
+        <param name="allowNoSex" type="select" label="Allow no sex or not" help="This option if is not selected will remove all samples that do not contain a sex">
+            <option value="yes" selected="True">Allow no-sex</option>
+            <option value="no">Do not allow no-sex</option>
+        </param>
+
+        <param name="linear_or_gxe" type="select" label="Linear regression or Gene X interactions" help="If set to gene x interactions (--gxe) number of covariates is selected as 1.">
+            <option value="linear" selected="True">Linear Regression</option>
+            <option value="gxe">Gene X Interactions</option>
+        </param>
+
+        <param name="missing" type="text" label="Missing phenotype value" help="This is the value used to denote a missing-phenotype, usually specified as NA or -9." />
+
+    </inputs>
+
+    <outputs>
+        <data name="output" format="txt"/>
+    </outputs>
+
+</tool>
