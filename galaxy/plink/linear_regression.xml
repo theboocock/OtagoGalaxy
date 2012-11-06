@@ -1,6 +1,6 @@
 <tool id="plink_linear_regression" name="Plink Linear Regression">
     <description> 
-    Will calculate a linear regression from given ped/map files.
+        Will calculate a linear regression from given ped/map files.
     </description>
     <command>
         plink --noweb --file "${os.path.join($inputlped.extra_files_path, $inputlped.metadata.base_name)}" 
@@ -16,7 +16,7 @@
             --allow-no-sex
         #end if
         --missing-phenotype ${missing}
-        #if ($ci != "-1.0"):
+        #if (str($ci) != "-1.0"):
             --ci $ci
         #end if
         ;
