@@ -1,5 +1,9 @@
 #!/bin/bash
 #
+# Runs the impute2 program with files specified.
+# TODO should have 1kg files symlinked not hard coded
+# 
+# INPUTS
 # $1 = start pos
 # $2 = end pos
 # $3 = chr number of file
