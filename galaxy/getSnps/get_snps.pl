@@ -48,11 +48,7 @@ if($opt_f){
         close IN;
         close OUT;
     }
-}
-
-
-
-elsif ($opt_i){
+} elsif ($opt_i){
 #open file to read
     open(IN, "$opt_i") or die "error reading $opt_i for reading";
     if($opt_o){
@@ -66,9 +62,9 @@ elsif ($opt_i){
 #write out if starts with '#'
         if( $line =~ m/^#/ ){
             print(OUT "$line");
-#look at 3rd column (ID), write out if == "."
         } elsif($line =~ m/^\w+\t\w+\t\.\t.\t\.\t./){
             #Do nothing fix for murray
+#look at 3rd column (ID), write out if == "."
         }elsif ($line =~ m/^\w+\t\w+\t\.\t./){
                 print(OUT "$line");
             }

@@ -45,7 +45,7 @@ GET_HISTORY_ID=$GET_HISTORY_ID.dat
 	if [ "$TEMP" != "$GET_HISTORY_ID" ]; then
 		I=$((I+1))		 
 	else
-	break
+	    break
 	fi
 done
  J=0
