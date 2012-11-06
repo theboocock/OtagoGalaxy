@@ -16,7 +16,7 @@
             --allow-no-sex
         #end if
         --missing-phenotype ${missing}
-        #if ($ci != "0.0"):
+        #if ($ci != "-1.0"):
             --ci $ci
         #end if
         ;
