@@ -1,0 +1,41 @@
+<tool id="gen_to_lped" name="Gtool conversion from gen/sample to ped/map" version="1.0">
+<description>Converts gen/sample files from imputation to PED/MAP files.</description>
+
+    <command>
+    gtool -G --g ${input_gen} --s ${input_sample} --ped out.ped --map out.map 
+    #if ($phenotype != ""):
+        --phenotype ${phenotype} 
+    #end if
+    #if ($threshold != 0.0):
+        --threshold ${threshold}
+    #end if
+    #if ($sex != ""):
+        --sex ${sex}
+    #end if
+    </command>
+
+    <inputs>
+
+        <param name="input" type="data" format="lped" label="PED/MAP input file" help="This is your composite datatype (lped file) containing the PED/MAP files."/>
+
+        <param name="phenotype" type="text" label="Name of Phenotype" help="If the phenotype does not exist or you don't wish to set a phenotype, the phenotype is given a value of -9 in the PED file."/>
+
+        <param name="threshold" type="float" value="0.0" label="Call threshold" help="In the GEN format each SNP is represented as a set of three probabilities which correspond to the allele pairs AA,AB,BB. If the largest of the probabilities is over the threshold specified, then the genotype in the PED file is expressed as the corresponding allele pair. The genotypes are expressed as pairs of 1,2,0. If none of the probabilities are over the calling threshold then the pair is unknown, 0 0. This should allow the conversion of indels and other biallelic structural variants from the 1000 Genomes." />
+
+        <param name="sex" type="text" label="Name of sex column" help="The name of the sex column in the SAMPLE file is specified using this value. If unspecified will look for a column named 'sex' or 'gender'. If no column is found then the sex column in the PED file will be set to -9." />
+
+    </inputs>
+
+    <outputs>
+
+        <data format="lped" name="output" label="Ped/Map files converted from ${input_gen.metadata.base_name}" />
+
+    </outputs>
+
+    <help>
+        This tool converts gen/sample files into ped/map files.
+
+        Thanks to the creators of Gtool (http://www.well.ox.ac.uk/~cfreeman/software/gwas/gtool.html) for helping to do the file conversion.
+    </help>
+
+</tool>
