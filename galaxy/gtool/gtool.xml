@@ -1,0 +1,42 @@
+<tool id="gtool" name="Gtool conversion from ped/map to gen" version="1.0">
+<description>Converts PED/MAP files to gen/sample files for imputation.</description>
+
+    <command interpreter="bash">
+        tool -P --ped ${input_ped} --map ${input_map} --og ${output_gen} --os ${output_sample}
+        #if (${bin_pheno} == "yes"):
+            --binary_phenotype 1
+        #end if
+        #if (${family} == "yes"):
+            --family
+        #end if
+    </command>
+
+    <inputs>
+
+        <param name="input_ped" type="data" format="ped" label="PED input file" />
+        <param name="input_map" type="data" format="map" label="MAP input file" />
+
+        <param name="bin_pheno" type="select" label="Binary Phenotype" >
+            <option value="no" selected="True">No</option>
+            <option value="yes">Yes</option>
+        </param>
+
+        <param name="family" type="select" label="Preserve family_id in sample file" >
+            <option value="no" selected="True">No</option>
+            <option value="yes">Yes</option>
+        </param>
+    </inputs>
+
+    <outputs>
+
+        <data format="txt" name="output_genofile" label="Gen file from converted ${input_ped} file" />
+        <data format="txt" name="output_sample" label="Sample file from converted ${input_map} file"/>
+
+    </outputs>
+
+    <help>
+        This tool converts a ped/map file into a gen/sample file required for IMPUTE2
+        Conversion is not necessary when doing pre-phased or phased imputations with IMPUTE2
+    </help>
+
+</tool>
