@@ -15,8 +15,7 @@
 
     <inputs>
 
-        <param name="input_ped" type="data" format="ped" label="PED input file" />
-        <param name="input_map" type="data" format="map" label="MAP input file" />
+        <param name="input_ped_map" type="data" format="lped" label="PED/MAP input file" help="This is your composite datatype (lped file)."/>
 
         <param name="bin_pheno" type="select" label="Binary Phenotype" >
             <option value="no" selected="True">No</option>
