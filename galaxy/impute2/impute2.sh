@@ -16,7 +16,7 @@
 # $10 = Ne
 # $11 = buffer_size
 
-java GenerateImputePairs $1 $2 > ~generated.tmp
+java -jar ~/galaxy-dist/tool-data/shared/jars/generateImpute/GenerateImputePairs.jar $1 $2 > ~generated.tmp
 
 if [ "$9" == "unphased" ] ; then
 
