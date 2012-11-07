@@ -2,20 +2,20 @@
 <description>Converts PED/MAP files to gen/sample files for imputation.</description>
 
     <command interpreter="bash">
-        gtool -P --ped ${os.path.join($input_ped.extra_file_path, $input_ped.metadata.base_name.ped)} 
-        --map ${os.path.join($input_map.extra_file_path, $input_ped.metadata.base_name.map)}
+        gtool -P --ped ${os.path.join($input.extra_file_path, $input.metadata.base_name.ped)} 
+        --map ${os.path.join($input.extra_file_path, $input.metadata.base_name.map)}
         --og ${output_gen} --os ${output_sample}
-        #if (${bin_pheno} == "yes"):
+        #if ($bin_pheno == "yes"):
             --binary_phenotype 1
         #end if
-        #if (${family} == "yes"):
+        #if ($family == "yes"):
             --family
         #end if
     </command>
 
     <inputs>
 
-        <param name="input_ped_map" type="data" format="lped" label="PED/MAP input file" help="This is your composite datatype (lped file)."/>
+        <param name="input" type="data" format="lped" label="PED/MAP input file" help="This is your composite datatype (lped file)."/>
 
         <param name="bin_pheno" type="select" label="Binary Phenotype" >
             <option value="no" selected="True">No</option>
@@ -30,8 +30,8 @@
 
     <outputs>
 
-        <data format="txt" name="output_genofile" label="Gen file from converted ${input_ped} file" />
-        <data format="txt" name="output_sample" label="Sample file from converted ${input_map} file"/>
+        <data format="txt" name="output_genofile" label="Gen file from converted ${input} file" />
+        <data format="txt" name="output_sample" label="Sample file from converted ${input} file"/>
 
     </outputs>
 
