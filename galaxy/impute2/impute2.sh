@@ -1,5 +1,9 @@
 #!/bin/bash
 #
+# Runs the impute2 program with files specified.
+# TODO should have 1kg files symlinked not hard coded
+# 
+# INPUTS
 # $1 = start pos
 # $2 = end pos
 # $3 = chr number of file
@@ -12,7 +16,7 @@
 # $10 = Ne
 # $11 = buffer_size
 
-java GenerateImputePairs $1 $2 > ~generated.tmp
+java -jar ~/galaxy-dist/tool-data/shared/jars/generateImpute/GenerateImputePairs.jar $1 $2 > ~generated.tmp
 
 if [ "$9" == "unphased" ] ; then
 

@@ -3,7 +3,9 @@
 
 <command interpreter="bash">
     
-    ./impute.sh ${start_pos} ${end_pos} ${chromosome} ${known_haps} ${output_genofile} ${output_summary} ${output_warnings} ${output_info} ${phased_or_not} ${ne} ${buffer_size}
+    impute2.sh ${start_pos} ${end_pos} ${chromosome} ${known_haps} ${output_genofile} 
+    ${output_summary} ${output_warnings} ${output_info} ${gen_or_hap.phased_or_not} 
+    ${ne} ${buffer_size}
 
 </command>
 
