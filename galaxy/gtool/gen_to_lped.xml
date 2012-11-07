@@ -12,11 +12,16 @@
     #if ($sex != ""):
         --sex ${sex}
     #end if
+    ;
+    mv out.ped ${os.path.join($output.extra_files_path, $output.metadata.base_name + ".ped")}
+    mv out.map ${os.path.join($output.extra_files_path, $output.metadata.base_name + ".map")}
     </command>
 
     <inputs>
 
-        <param name="input" type="data" format="lped" label="PED/MAP input file" help="This is your composite datatype (lped file) containing the PED/MAP files."/>
+        <param name="input_gen" type="data" format="gen" label="Gen input file" help="This is your genotype file in .gen format."/>
+
+        <param name="input_sample" type="data" format="sample" label="Sample input file" help="This is your sample file in .sample format."/>
 
         <param name="phenotype" type="text" label="Name of Phenotype" help="If the phenotype does not exist or you don't wish to set a phenotype, the phenotype is given a value of -9 in the PED file."/>
 
