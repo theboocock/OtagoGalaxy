@@ -2,7 +2,9 @@
 <description>Converts PED/MAP files to gen/sample files for imputation.</description>
 
     <command interpreter="bash">
-        tool -P --ped ${input_ped} --map ${input_map} --og ${output_gen} --os ${output_sample}
+        gtool -P --ped ${os.path.join($input_ped.extra_file_path, $input_ped.metadata.base_name.ped)} 
+        --map ${os.path.join($input_map.extra_file_path, $input_ped.metadata.base_name.map)}
+        --og ${output_gen} --os ${output_sample}
         #if (${bin_pheno} == "yes"):
             --binary_phenotype 1
         #end if
@@ -37,6 +39,8 @@
     <help>
         This tool converts a ped/map file into a gen/sample file required for IMPUTE2
         Conversion is not necessary when doing pre-phased or phased imputations with IMPUTE2
+
+        Thanks to the creators of Gtool (http://www.well.ox.ac.uk/~cfreeman/software/gwas/gtool.html) for helping to do the file conversion.
     </help>
 
 </tool>
