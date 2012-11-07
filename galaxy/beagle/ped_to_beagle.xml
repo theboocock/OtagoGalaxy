@@ -2,12 +2,11 @@
 <description>Convert PED and MAP file to BEAGLE format</description>
 
 <command interpreter="bash">
-    ${__root_dir__}/tools/SOER1000genes/galaxy/beagle/ped_to_beagle.sh $input_ped $input_map $output_beagle 2> /dev/null
+    ${__root_dir__}/tools/SOER1000genes/galaxy/beagle/ped_to_beagle.sh "$input_lped.extra_files_path" "$input_lped.metadata.base_name"  $output_beagle 2> /dev/null
 </command>
 
 <inputs>
-    <param name="input_ped" type="data" format="ped" label="Input Ped file"/>
-    <param name="input_map" type="data" format="map" label="Input Map file"/>
+    <param name="input_lped" type="data" format="lped" label="Input Ped/Map rgenetics file"/>
 </inputs>
 
 <outputs>

@@ -84,6 +84,7 @@
     <tool file="SOER1000genes/galaxy/plink/plink_filter.xml"/>
     <tool file="SOER1000genes/galaxy/plink/common_snps.xml"/>
     <tool file="SOER1000genes/galaxy/plink/linear_regression.xml"/>
+    <tool file="SOER1000genes/galaxy/plink/plink_hwe.xml"/>
 </section>
  <section name="SnpEff tools" id="snpEff_tools">
    <tool file="SOER1000genes/galaxy/snpEff/snpEff.xml" />
