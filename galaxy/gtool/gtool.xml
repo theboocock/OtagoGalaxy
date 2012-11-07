@@ -2,8 +2,8 @@
 <description>Converts PED/MAP files to gen/sample files for imputation.</description>
 
     <command interpreter="bash">
-        gtool -P --ped ${os.path.join($input.extra_file_path, $input.metadata.base_name.ped)} 
-        --map ${os.path.join($input.extra_file_path, $input.metadata.base_name.map)}
+        gtool -P --ped ${os.path.join($input.extra_files_path, $input.metadata.base_name.ped)} 
+        --map ${os.path.join($input.extra_files_path, $input.metadata.base_name.map)}
         --og ${output_gen} --os ${output_sample}
         #if ($bin_pheno == "yes"):
             --binary_phenotype 1
@@ -15,7 +15,7 @@
 
     <inputs>
 
-        <param name="input" type="data" format="lped" label="PED/MAP input file" help="This is your composite datatype (lped file)."/>
+        <param name="input" type="data" format="lped" label="PED/MAP input file" help="This is your composite datatype (lped file) containing the PED/MAP files."/>
 
         <param name="bin_pheno" type="select" label="Binary Phenotype" >
             <option value="no" selected="True">No</option>
