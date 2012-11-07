@@ -1,9 +1,9 @@
 <tool id="gtool" name="Gtool conversion from ped/map to gen" version="1.0">
 <description>Converts PED/MAP files to gen/sample files for imputation.</description>
 
-    <command interpreter="bash">
-        gtool -P --ped ${os.path.join($input.extra_files_path, $input.metadata.base_name.ped)} 
-        --map ${os.path.join($input.extra_files_path, $input.metadata.base_name.map)}
+    <command>
+        gtool -P --ped ${os.path.join($input.extra_files_path, $input.metadata.base_name + ".ped")} 
+        --map ${os.path.join($input.extra_files_path, $input.metadata.base_name + ".map")}
         --og ${output_gen} --os ${output_sample}
         #if ($bin_pheno == "yes"):
             --binary_phenotype 1
@@ -30,8 +30,8 @@
 
     <outputs>
 
-        <data format="txt" name="output_genofile" label="Gen file from converted ${input} file" />
-        <data format="txt" name="output_sample" label="Sample file from converted ${input} file"/>
+        <data format="txt" name="output_gen" label="Gen file converted from ${input.metadata.base_name} file" />
+        <data format="txt" name="output_sample" label="Sample file converted from ${input.metadata.base_name} file"/>
 
     </outputs>
 
