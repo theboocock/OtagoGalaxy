@@ -4,7 +4,7 @@
 <command interpreter="bash">
     select_samples.sh ${samples} ${input} ${output}
 </command>
-<parallelism method="multi" split_inputs="input" shared_inputs="samples" split_mode="number_of_parts" split_size="2" merge_outputs="output"/> 
+<!--<parallelism method="multi" split_inputs="input" shared_inputs="samples" split_mode="number_of_parts" split_size="2" merge_outputs="output"/> -->
 
 <inputs>
 <param name="input" type="data" format="vcf" label="Select VCF" />
