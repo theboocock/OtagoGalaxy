@@ -7,19 +7,30 @@
 # input VCF and put them into a new VCF
 #
 # $1..($#-1) = sample ids
-# $($#) = input file
+# $($#) = output file
+# $($#) = output file
 
 SAMPLE_LIST=""
 NUM_SAMPLES=$#
+NUM_SAMPLES=$((NUM_SAMPLES - 2))
 
-for ((i=1; i<NUM_SAMPLES; i++))
+for ((i=1; i<=NUM_SAMPLES; i++))
 do
-    eval INPUT=\${$i}
+    INPUT=$1
     SAMPLE_LIST="${SAMPLE_LIST}$INPUT,"
+    shift 
 done
 
-eval INPUT=\${$#}
-bgzip -c $INPUT > INPUT.gz
-vcf-subset -c $SAMPLE_LIST INPUT.gz
+echo $SAMPLE_LIST
+
+INPUT_FILENAME=$1
+echo $INPUT_FILENAME
+shift
+OUTPUT_FILENAME=$1
+echo $OUTPUT_FILENAME
+bgzip -c $INPUT_FILENAME > INPUT.gz
+tabix -p vcf INPUT.gz
+
+vcf-subset -c $SAMPLE_LIST INPUT.gz > $OUTPUT_FILENAME
 
 exit 0

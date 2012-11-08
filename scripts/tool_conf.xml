@@ -87,7 +87,8 @@
     <tool file="SOER1000genes/galaxy/plink/plink_hwe.xml"/>
 </section>
  <section name="Otago - File converters" id="ou_converters" >
-    <tool file="SOER1000genes/galaxy/gtool/gtool.xml"/>
+    <tool file="SOER1000genes/galaxy/gtool/lped_to_gen.xml"/>
+    <tool file="SOER1000genes/galaxy/gtool/gen_to_lped.xml"/>
  </section>
  <section name="SnpEff tools" id="snpEff_tools">
    <tool file="SOER1000genes/galaxy/snpEff/snpEff.xml" />

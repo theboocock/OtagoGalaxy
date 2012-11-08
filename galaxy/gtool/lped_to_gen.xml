@@ -1,4 +1,4 @@
-<tool id="gtool" name="Gtool conversion from ped/map to gen" version="1.0">
+<tool id="lped_to_gen" name="Gtool conversion from ped/map to gen" version="1.0">
 <description>Converts PED/MAP files to gen/sample files for imputation.</description>
 
     <command>
