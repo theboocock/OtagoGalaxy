@@ -12,6 +12,7 @@ plink --hwe $hwe
 --noweb
 --file "$input_lped.extra_files_path/$input_lped.metadata.base_name"
 --recode
+--out "$output_lped.metadata.base_name"
 ;
 python ~/galaxy-dist/tools/SOER1000genes/src/python/create_composite_rgenetics.py 'lped' $output_lped $output_lped.metadata.base_name $output_lped.extra_files_path
 </command>
