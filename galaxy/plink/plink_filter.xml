@@ -2,8 +2,18 @@
 <description> 
     Inclusion parameters in plink for filtering data. By default all the parameters you set no value will print summary information to the log file.
 </description>
-<command interpreter="python">
-    plink_filter.py '$input_lped.extra_files_path' '$input_lped.metadata.base_name' '$hwe'  '$maf' '$mi_pp' '$mi_marker' '$max_maf' '$mendel' '$output_lped.extra_files_path' '$output_lped'
+<command>
+plink --hwe $hwe
+--maf $maf
+--mind $mi_pp
+--geno $mi_marker
+--max-maf $max_maf
+--me $mendel
+--noweb
+--file "$input_lped.extra_files_path/$input_lped.metadata.base_name"
+--recode
+;
+python ~/galaxy-dist/tools/SOER1000genes/src/python/create_composite_rgenetics.py 'lped' $output_lped $output_lped.metadata.base_name $output_lped.extra_files_path
 </command>
 <inputs>
     <param name="input_lped" type="data" format="lped" label="Lped Input" help="Contains your map and ped file. Can be converted from a composite datatype of bim, fam and bed files." />

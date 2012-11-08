@@ -86,6 +86,9 @@
     <tool file="SOER1000genes/galaxy/plink/linear_regression.xml"/>
     <tool file="SOER1000genes/galaxy/plink/plink_hwe.xml"/>
 </section>
+ <section name="Otago - File converters" id="ou_converters" >
+    <tool file="SOER1000genes/galaxy/gtool/gtool.xml"/>
+ </section>
  <section name="SnpEff tools" id="snpEff_tools">
    <tool file="SOER1000genes/galaxy/snpEff/snpEff.xml" />
    <tool file="SOER1000genes/galaxy/snpEff/snpEff_download.xml" />
