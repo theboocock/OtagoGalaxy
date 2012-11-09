@@ -1,0 +1,22 @@
+<tool id="plink_hwe" name="Plink Hardy-Weinberg Summary" version="1.0.0">
+<command>
+   plink --bfile "$input_pbed.extra_files_path/$input_pbed.metadata.base_name" --noweb --hardy > $output_hwe 
+</command>
+    
+<inputs>
+    <param name="input_pbed" type="data" format="lped"/>
+</inputs>
+
+<outputs>
+    <data name="output_hwe" format="txt"/>
+</outputs>
+<help>
+This tool performs a plink hardy weinberg summary.
+
+Useful for investigating snps which are significantly out of HWE
+
+For more information go to 
+http://pngu.mgh.harvard.edu/~purcell/plink/summary.shtml#hardy
+</help>
+
+</tool>
