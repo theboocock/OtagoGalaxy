@@ -1,0 +1,31 @@
+<tool id="snptest" name="SNPTest">
+    <description> 
+        Will test and produce summary stats for gen/sample files.
+    </description>
+    <command>
+        snptest -summary_stats_only -data ${input_gen} ${input_sample} 
+        #for $i, $s in enumerate( $inputFiles )
+            ${s.input_g}
+            ${s.input_s}
+        #end for 
+        -o ${output}
+    </command>
+
+    <inputs>
+
+        <param name="input_gen" type="data" format="gen" label="Gen Input file" help="This is your genotype file."/>
+        <param name="input_sample" type="data" format="sample" label="Sample Input file" help="This is your sample file."/>
+
+        <repeat name="inputFiles" title="Add another cohort">
+            <param name="input_g" type="data" format="gen" label="Gen Input file" />
+            <param name="input_s" type="data" format="sample" label="Sample Input file" />
+        </repeat>
+
+
+    </inputs>
+
+    <outputs>
+        <data name="output" format="txt"/>
+    </outputs>
+
+</tool>
