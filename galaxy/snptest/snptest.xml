@@ -8,7 +8,7 @@
             ${s.input_g}
             ${s.input_s}
         #end for 
-        -o ${output}
+        -overlap -o ${output}
     </command>
 
     <inputs>
@@ -16,7 +16,7 @@
         <param name="input_gen" type="data" format="gen" label="Gen Input file" help="This is your genotype file."/>
         <param name="input_sample" type="data" format="sample" label="Sample Input file" help="This is your sample file."/>
 
-        <repeat name="inputFiles" title="Add another cohort">
+        <repeat name="inputFiles" title="Cohort">
             <param name="input_g" type="data" format="gen" label="Gen Input file" />
             <param name="input_s" type="data" format="sample" label="Sample Input file" />
         </repeat>
