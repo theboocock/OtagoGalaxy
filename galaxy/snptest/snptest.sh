@@ -3,7 +3,6 @@
 sample1=$1
 sample2=$2
 output=$#
-file1_num_chrom=`ls 1_*_tmp.gen | wc -l`
 
 for f in 1_*_tmp.ge
 do

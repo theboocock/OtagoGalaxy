@@ -6,7 +6,6 @@
         split_gen.sh ${input_gen}
         #for $i, $s in enumerate( $inputFiles )
             ${s.input_g}
-            ${s.input_s}
         #end for 
         ;
         snptest.sh ${input_sample} 
