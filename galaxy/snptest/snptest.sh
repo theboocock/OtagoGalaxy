@@ -1,17 +1,19 @@
 #!/bin/bash
 
 sample1=$1
-sample2=$2
+sample2=$3
 output=$#
 
-for f in 1_*_tmp.ge
+for f in 1_*_tmp.gen
 do
     COMMAND="snptest -summary_stats_only -data $f $sample1"
-    if [ "$sample2" != "none" ]
+    if [ "$2" == "sample2" ]
     then
-        s=${f:3}
+        s=${f:2}
         COMMAND=$COMMAND" 2_$s $sample2"
     fi
     COMMAND=$COMMAND" -overlap -o $output"
 done
+
+$COMMAND
 

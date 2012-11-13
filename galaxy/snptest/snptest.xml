@@ -10,7 +10,7 @@
         ;
         bash ${__root_dir__}/tools/SOER1000genes/galaxy/snptest/snptest.sh ${input_sample} 
         #for $i, $s in enumerate( $inputFiles )
-            ${s.input_s}
+            sample ${s.input_s}
         #end for 
         ${output}
     </command>
