@@ -8,7 +8,7 @@
             ${s.input_g}
         #end for 
         ;
-        snptest.sh ${input_sample} 
+        bash ${__root_dir__}/tools/SOER1000genes/galaxy/snptest/snptest.sh ${input_sample} 
         #for $i, $s in enumerate( $inputFiles )
             ${s.input_s}
         #end for 
@@ -24,7 +24,6 @@
             <param name="input_g" type="data" format="gen" label="Gen Input file" />
             <param name="input_s" type="data" format="sample" label="Sample Input file" />
         </repeat>
-
 
     </inputs>
 
