@@ -21,13 +21,9 @@ do
     shift 
 done
 
-echo $SAMPLE_LIST
-
 INPUT_FILENAME=$1
-echo $INPUT_FILENAME
 shift
 OUTPUT_FILENAME=$1
-echo $OUTPUT_FILENAME
 bgzip -c $INPUT_FILENAME > INPUT.gz
 tabix -p vcf INPUT.gz
 
