@@ -14,7 +14,7 @@ plink --hwe $hwe
 --recode
 --out "$output_lped.metadata.base_name"
 ;
-python ~/galaxy-dist/tools/SOER1000genes/src/python/create_composite_rgenetics.py 'lped' $output_lped $output_lped.metadata.base_name $output_lped.extra_files_path
+python ~/galaxy-dist/tools/shared/composite_datatypes/create_composite_rgenetics.py 'lped' $output_lped $output_lped.metadata.base_name $output_lped.extra_files_path
 </command>
 <inputs>
     <param name="input_lped" type="data" format="lped" label="Lped Input" help="Contains your map and ped file. Can be converted from a composite datatype of bim, fam and bed files." />
