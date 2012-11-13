@@ -2,13 +2,13 @@
 <description>(integrated Haplotype Score)</description>
 
 <command>
-    ${__root_dir__}/tools/SOER1000genes/galaxy/ihs/iHS/./ihs ${input_map} ${input_hap} > ${output} 2> /dev/null
+    ihs ${input_map} ${input_hap} > ${output} 2> /dev/null
 </command>
 
 <inputs>
 
-<param name="input_map" type="data" format="map" label="Input Map File" />
-<param name="input_hap" type="data" format="hap" label="Haplotype file" />
+<param name="input_map" type="data" format="ihsmap" label="Input Map File" />
+<param name="input_hap" type="data" format="ihshap" label="Haplotype file" />
 
 </inputs>
 
