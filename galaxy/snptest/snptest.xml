@@ -2,13 +2,18 @@
     <description> 
         Will test and produce summary stats for gen/sample files.
     </description>
-    <command>
-        snptest -summary_stats_only -data ${input_gen} ${input_sample} 
+    <command interpreter="bash">
+        split_gen.sh ${input_gen}
         #for $i, $s in enumerate( $inputFiles )
             ${s.input_g}
             ${s.input_s}
         #end for 
-        -overlap -o ${output}
+        ;
+        snptest.sh ${input_sample} 
+        #for $i, $s in enumerate( $inputFiles )
+            ${s.input_s}
+        #end for 
+        ${output}
     </command>
 
     <inputs>
