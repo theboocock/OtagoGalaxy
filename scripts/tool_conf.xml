@@ -36,7 +36,6 @@
 <section name="Otago - Selection Tools" id="ou_select">
    <tool file="SOER1000genes/galaxy/calc_ld/calc_ld.xml" />
    <tool file="SOER1000genes/galaxy/beagle/beagle.xml" />
-   <tool file="SOER1000genes/galaxy/beagle/ped_to_beagle.xml" />
    <tool file="SOER1000genes/galaxy/lamarc/lamarc.xml" />
    <tool file="SOER1000genes/galaxy/treemix/treemix.xml" />
    <tool file="SOER1000genes/galaxy/ihs/ihs_calc.xml" />
@@ -64,14 +63,11 @@
    <tool file="SOER1000genes/galaxy/calcTsTv/calc_ts_tv.xml" />
    </section>
    <section name="Otago - VCF file Mainuplation" id="ou_vcf-manip" >
-   <tool file="SOER1000genes/galaxy/beagle/vcf_to_beagle.xml"/>
-   <tool file="SOER1000genes/galaxy/vcf_to_tped/vcf_to_tped.xml"/>
    <tool file="SOER1000genes/galaxy/regionExtraction/region_extraction.xml" />
    <tool file="SOER1000genes/galaxy/vcfMerge/merge_vcfs.xml"/>
    <tool file="SOER1000genes/galaxy/extractSampleId/get_sample_id.xml" />
    <tool file="SOER1000genes/galaxy/vcfSubset/select_samples.xml"/>
    <tool file="SOER1000genes/galaxy/vcfConsensus/vcfConsensus.xml"/>
-   <tool file="SOER1000genes/galaxy/vcf_to_csv/vcf_to_csv.xml"/>
 </section>
 <section name="Otago - Work with 1000 Genomes Data" id="ou_1kg" >
    <tool file="SOER1000genes/galaxy/ld_values_1kg/ld_values_1kg.xml"/>
@@ -89,6 +85,10 @@
     <tool file="SOER1000genes/galaxy/plink/.xml"/>
 </section>
  <section name="Otago - File converters" id="ou_converters" >
+   <tool file="SOER1000genes/galaxy/beagle/vcf_to_beagle.xml"/>
+   <tool file="SOER1000genes/galaxy/vcf_to_tped/vcf_to_tped.xml"/>
+   <tool file="SOER1000genes/galaxy/vcf_to_csv/vcf_to_csv.xml"/>
+   <tool file="SOER1000genes/galaxy/beagle/ped_to_beagle.xml" />
     <tool file="SOER1000genes/galaxy/gtool/lped_to_gen.xml"/>
     <tool file="SOER1000genes/galaxy/gtool/gen_to_lped.xml"/>
  </section>
