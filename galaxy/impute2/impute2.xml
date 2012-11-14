@@ -39,7 +39,7 @@
 
 <outputs>
 
-    <data format="txt" name="output_genofile" />
+    <data format="gen" name="output_genofile" />
     <data format="txt" name="output_summary" />
     <data format="txt" name="output_warnings" />
     <data format="txt" name="output_info" />

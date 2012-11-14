@@ -6,10 +6,7 @@
 #if $ancestral_method_param.ancestral_method == "input_file":
     $ancestral_method_param.input_ancestral_allele
 #end if
-</command>
-
-<inputs>
-
+=======
 <param name="input_map" type="data" format="ihsmap" label="Legend File" />
 <param name="input_hap" type="data" format="ihshap" label="HapFile"/>
 hap and legend files are from"/>
@@ -24,6 +21,11 @@ hap and legend files are from"/>
 </when>
 
 </conditional>
+=======
+<param name="input_map" type="data" format="ihsmap" label="Input Map File" />
+<param name="input_hap" type="data" format="ihshap" label="Haplotype file" />
+
+>>>>>>> 6264bd253f4bf844ffc4cdc9190ea4d320b72bba
 </inputs>
 
 <outputs>

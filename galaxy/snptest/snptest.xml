@@ -2,13 +2,17 @@
     <description> 
         Will test and produce summary stats for gen/sample files.
     </description>
-    <command>
-        snptest -summary_stats_only -data ${input_gen} ${input_sample} 
+    <command interpreter="bash">
+        split_gen.sh ${input_gen}
         #for $i, $s in enumerate( $inputFiles )
             ${s.input_g}
-            ${s.input_s}
         #end for 
-        -overlap -o ${output}
+        ;
+        bash ${__root_dir__}/tools/SOER1000genes/galaxy/snptest/snptest.sh ${input_sample} 
+        #for $i, $s in enumerate( $inputFiles )
+            sample ${s.input_s}
+        #end for 
+        ${output}
     </command>
 
     <inputs>
@@ -20,7 +24,6 @@
             <param name="input_g" type="data" format="gen" label="Gen Input file" />
             <param name="input_s" type="data" format="sample" label="Sample Input file" />
         </repeat>
-
 
     </inputs>
 
