@@ -5,9 +5,9 @@
     <command>
         plink --noweb --file "$input_lped.extra_files_path/$input_lped.metadata.base_name"
         --recode --transpose
-        --out "$output_tped.metadata.base_name"
+        --out convert 
         ;
-        python ${__root_dir__}/tool-data/shared/composite_datatypes/create_composite_rgenetics.py 'tped' $output_tped $output_tped.metadata.base_name $output_tped.extra_files_path
+##        python ${__root_dir__}/tool-data/shared/composite_datatypes/create_composite_rgenetics.py 'tped' $output_tped convert $output_tped.extra_files_path
     </command>
 
     <inputs>
