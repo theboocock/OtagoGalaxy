@@ -1,15 +1,29 @@
 <tool id="ou_ihs_calc" name="Calculate iHS" version="1.0">
 <description>(integrated Haplotype Score)</description>
 
-<command>
-    ${__root_dir__}/tools/SOER1000genes/galaxy/ihs/iHS/./ihs ${input_map} ${input_hap} > ${output} 2> /dev/null
+<command interpreter="bash">
+    ${__root_dir__}/tools/SOER1000genes/galaxy/ihs/ihs.sh $input_hap $input_map $ancestral_method_param.ancestral_method $chromosome $output ${__root_dir__} 
+#if $ancestral_method_param.ancestral_method == "input_file":
+    $ancestral_method_param.input_ancestral_allele
+#end if
 </command>
 
 <inputs>
 
-<param name="input_map" type="data" format="map" label="Input Map File" />
-<param name="input_hap" type="data" format="hap" label="Haplotype file" />
+<param name="input_map" type="data" format="ihsmap" label="Legend File" />
+<param name="input_hap" type="data" format="ihshap" label="HapFile"/>
+hap and legend files are from"/>
+<conditional name="ancestral_method_param">
+<param name="ancestral_method" type="select" label="Select the method to assign the ancestral gene value">
+    <option value="1kg">1000 Genomes Ancestral Allele annotation</option>
+    <option value="input_file">Text file</option>
+    <option value="reference">Use the reference allele as the ancestral allele</option>
+</param>
+<when value="input_file">
+    <param name="input_ancestral_allele" type="data" format="txt" label="Ancestral Allele text file" help="A tab seperated text file with each position on a new line.  Fields are position ancestral_allele and derived allele. In this order."/>
+</when>
 
+</conditional>
 </inputs>
 
 <outputs>
