@@ -32,7 +32,7 @@
 
     <outputs>
 
-        <data format="lped" name="output" label="Ped/Map files converted from ${input_gen.metadata.base_name}" metadata_source="input_gen"/>
+        <data format="lped" name="output" metadata_source="input_gen"/>
 
     </outputs>
 
