@@ -34,7 +34,6 @@
     <tool file="data_destination/epigraph_test.xml" />
   </section>
 <section name="Otago - Selection Tools" id="ou_select">
-   <tool file="SOER1000genes/galaxy/calc_ld/calc_ld.xml" />
    <tool file="SOER1000genes/galaxy/beagle/beagle.xml" />
    <tool file="SOER1000genes/galaxy/lamarc/lamarc.xml" />
    <tool file="SOER1000genes/galaxy/treemix/treemix.xml" />
@@ -59,10 +58,9 @@
    <tool file="SOER1000genes/galaxy/readDepthFilter/read_depth_filter.xml"/></section>
 <section name="Otago - Calculations" id="ou_calc">
    <tool file="SOER1000genes/galaxy/haploview/haploview.xml" />
-   <tool file="SOER1000genes/galaxy/ld_values_1kg/ld_values_1kg.xml" />
    <tool file="SOER1000genes/galaxy/calcTsTv/calc_ts_tv.xml" />
-   </section>
-   <section name="Otago - VCF file Mainuplation" id="ou_vcf-manip" >
+</section>
+<section name="Otago - VCF file Manipulation" id="ou_vcf-manip" >
    <tool file="SOER1000genes/galaxy/regionExtraction/region_extraction.xml" />
    <tool file="SOER1000genes/galaxy/vcfMerge/merge_vcfs.xml"/>
    <tool file="SOER1000genes/galaxy/extractSampleId/get_sample_id.xml" />
@@ -72,7 +70,6 @@
 <section name="Otago - Work with 1000 Genomes Data" id="ou_1kg" >
    <tool file="SOER1000genes/galaxy/ld_values_1kg/ld_values_1kg.xml"/>
    <tool file="SOER1000genes/galaxy/getPopAlleleFreq/getPopAF.xml"/>
-   <tool file="SOER1000genes/galaxy/snap/snap.xml"/>
    <tool file="SOER1000genes/galaxy/compare1kg/compare1kg.xml"/>
 </section>
 <section name="Otago - Query Databases" id="ou_datab" >
