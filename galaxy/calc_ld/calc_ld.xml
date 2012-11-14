@@ -7,9 +7,9 @@
 <inputs>
     <param name="input_tped" type="data" format="tped" label="Transposed PED File"/>
     <param name="input_tfam" type="data" format="tfam" label="Transposed FAM File"/>
-    <param name="input_rs" type="text" label="SNP RSID"/>
-    <param name="input_size" type="integer" value="100" label="Size of LD Window"/>
-    <param name="input_threshold" type="float" value="0.8" label="Display only LD values above this number"/>
+    <param name="input_rs" type="text" label="SNP rs#" help="The rsid for the SNP you wish to calculate the LD of"/>
+    <param name="input_size" type="integer" value="1000" label="Size of LD Window" help="Number of SNPs far apart to check up to." />
+    <param name="input_threshold" type="float" value="0.2" label="Display only LD values above this number" help="Set to 0.0 to display all SNPs"/>
 </inputs>
 <outputs>
     <data name="output" format="txt" type="data"/>

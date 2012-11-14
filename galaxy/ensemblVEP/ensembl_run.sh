@@ -39,7 +39,7 @@ then
 		fi
 	done
 # call actual script
-	perl ~/galaxy-dist/tools/SOER1000genes/galaxy/ensemblVEP/variant_effect_predictor.pl -i $1 -o ~ensemble-TMP.tmp $ENSEMBL_RUN_SCRIPT --cache --dir "/usr/local/ensembl_cache" --hgvs --force_overwrite --buffer 50000 --fork 2
+	perl ~/galaxy-dist/tools/SOER1000genes/galaxy/ensemblVEP/variant_effect_predictor.pl -i $1 -o ~ensemble-TMP.tmp $ENSEMBL_RUN_SCRIPT --cache --dir "~/.vep/" --hgvs --force_overwrite --buffer 50000 --fork 2
 
 	cat ~ensemble-TMP.tmp
 	rm -f ~ensemble-TMP.tmp

@@ -4,9 +4,9 @@
  <datatype extension="hbd" type="galaxy.datatypes.data:Text" subclass="true" display_in_upload="true"/>
  <datatype extension="dose" type="galaxy.datatypes.data:Text" subclass="true" display_in_upload="true"/>
  <datatype extension="gprobs" type="galaxy.datatypes.data:Text" subclass="true" display_in_upload="true"/>
- <datatype extension="pval" type="galaxy.datatypes.data:Text"
- subclass="true" display_in_upload="true"/>
+ <datatype extension="pval" type="galaxy.datatypes.data:Text" subclass="true" display_in_upload="true"/>
  <datatype extension="null" type="galaxy.datatypes.data:Text" subclass="true" display_in_upload="true"/>
  <datatype extension="dag" type="galaxy.datatypes.data:Text" subclass="true" display_in_upload="true"/>
 <datatype extension="bgl" type="galaxy.datatypes.data:Text" subclass="true" display_in_upload="true"/>
+<datatype extension="tped" type="galaxy.datatype.genetics:Tped" display_in_upload="true"/>
 

@@ -1,6 +1,6 @@
 <tool id="ensembl_vep" name="Ensembl Variant Effect Predictor" version="1.0">
 <command interpreter="bash">
-    ./ensembl_vep.sh ${input} ${vep_options} > ${output}
+    ./ensembl_vep.sh ${input} ${vep_options}  > ${output}
 </command>
 
 <inputs>
