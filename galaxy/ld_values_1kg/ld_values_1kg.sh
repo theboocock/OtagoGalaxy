@@ -109,7 +109,7 @@ fi
 		PLINK_COMMAND="${PLINK_COMMAND} --ld-snp $RSID"
 	fi
 	if [ "$MATRIX" == "TRUE" ]; then
-		PLINK_COMMAND="${PLINK_COMMAND}  --matrix"
+	PLINK_COMMAND="p-link --tped plinkfile.tped --tfam plinkfile.tfam --r2 --noweb --matrix"
 	fi
 	eval	$PLINK_COMMAND > /dev/null
 	mv plink.ld $PLINK_OUTPUT
