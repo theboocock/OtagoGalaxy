@@ -29,6 +29,9 @@ def main():
     if rg == "lped":
         shutil.move(base_name + '.ped', os.path.join(extra_files, base_name + '.ped'))
         shutil.move(base_name + '.map', os.path.join(extra_files, base_name + '.map'))
+    elif rg == "tped":
+        shutil.move(base_name + '.tped', os.path.join(extra_files, base_name + '.tped'))
+        shutil.move(base_name + '.tfam', os.path.join(extra_files, base_name + '.tfam'))
     elif rg == "pbed":
         shutil.move(base_name + '.bim', os.path.join(extra_files, base_name + '.bim'))
         shutil.move(base_name + '.bed', os.path.join(extra_files, base_name + '.bed'))
