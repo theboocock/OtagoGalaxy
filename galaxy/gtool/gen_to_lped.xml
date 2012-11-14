@@ -2,7 +2,7 @@
 <description>Converts gen/sample files from imputation to PED/MAP files.</description>
 
     <command>
-    gtool -G --g ${input_gen} --s ${input_sample} --ped gen_converted.ped --map gen_converted.map 
+    gtool -G --g ${input_gen} --s ${input_sample} --ped $input_gen.metadata.base_name".ped" --map $input_gen.metadata.base_name".map"
     #if ($phenotype != ""):
         --phenotype ${phenotype} 
     #end if
@@ -13,7 +13,7 @@
         --sex ${sex}
     #end if
     ;
-    python ~/galaxy-dist/tool-data/shared/composite_datatypes/create_composite_rgenetics.py 'lped' $output gen_converted $output.extra_files_path
+    python ~/galaxy-dist/tool-data/shared/composite_datatypes/create_composite_rgenetics.py 'lped' $output $input_gen.metadata.base_name $output.extra_files_path
     </command>
 
     <inputs>
