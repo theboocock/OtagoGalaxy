@@ -1,0 +1,22 @@
+<tool id="ou_lped_to_tped" name="LPED to TPED Converter">
+    <description> 
+        Converts a lped to a transposed version (tped/tfam composite datatype). 
+    </description>
+    <command>
+        plink --noweb --file "$input_lped.extra_files_path/$input_lped.metadata.base_name"
+        --recode --transpose
+        --out "$output_tped.metadata.base_name"
+        ;
+        python ${__root_dir__}/tools/shared/composite_datatypes/create_composite_rgenetics.py 'tped' $output_tped $output_tped.metadata.base_name $output_tped.extra_files_path
+    </command>
+
+    <inputs>
+        <param name="input_lped" type="data" format="lped" label="Lped Input" help="Contains your map and ped file." />
+
+    </inputs>
+
+    <outputs>
+        <data name="output_tped" format="tped" metadata_source="input_lped" />
+    </outputs>
+
+</tool>
