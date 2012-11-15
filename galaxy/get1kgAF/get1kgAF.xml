@@ -1,0 +1,25 @@
+<tool id="ou_get1kg_af" name="Get Allele Frequencies from 1000 Genomes" version="1.0">
+    <description>database. Can be converted to ped/map.</description>
+
+    <command>
+        tabix -fh ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20110521/ALL.chr${chr}.phase1_release_v3.20101123.snps_indels_svs.genotypes.vcf.gz ${chr}:${reg} > genotypes.vcf 2> /dev/null
+        ;
+        vcftools --vcf genotypes.vcf --freq --out alleleFrequencies
+        ;
+        mv alleleFrequencies.frq $output
+    </command>
+
+    <inputs>
+        <param name="chr" type="integer" value="1" label="Chromosome" help="Please enter in one chromosome. 1..22 and X are valid. E.g. 16" />
+        <param name="reg" type="text" label="Region" help="Please enter the start region a '-' and end region. E.g. 56995835-57017756"/>
+    </inputs>
+
+    <outputs>
+        <data format="txt" name="output"/>
+    </outputs>
+
+    <help>
+        Returns the allele frequencies from the 1000 Genomes database for a given region.
+    </help>
+
+</tool>
