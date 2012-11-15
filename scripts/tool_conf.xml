@@ -74,9 +74,11 @@
 </section>
 <section name="Otago - Query Databases" id="ou_datab" >
    <tool file="SOER1000genes/galaxy/evs/evs.xml" />
+   <tool file="SOER1000genes/galaxy/get1kgAF/get1kgAF.xml" />
 </section>
 <section name="Otago - Plink tools" id="ou_plink">
     <tool file="SOER1000genes/galaxy/plink/plink_filter.xml"/>
+    <tool file="SOER1000genes/galaxy/plink/snp_extraction.xml"/>
     <tool file="SOER1000genes/galaxy/plink/common_snps.xml"/>
     <tool file="SOER1000genes/galaxy/plink/linear_regression.xml"/>
     <tool file="SOER1000genes/galaxy/plink/.xml"/>
