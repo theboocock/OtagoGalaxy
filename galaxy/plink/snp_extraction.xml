@@ -5,8 +5,14 @@
     <command>
         echo $snplist | tr -s "__cr____cn__" "\n" > snplist.txt
         ;
+        echo $region | tr -s "__cr____cn__" "\n" > region.txt
+        ;
         plink --noweb --file "$input_lped.extra_files_path/$input_lped.metadata.base_name"
-        --extract snplist.txt
+        #if ($snp_or_region.display_snp_or_region == "snps"):
+            --extract snplist.txt
+        #else
+            --extract region.txt --range
+        #end if
         --recode 
         --out $input_lped.metadata.base_name 
         $no_sex
@@ -16,7 +22,21 @@
 
     <inputs>
         <param name="input_lped" type="data" format="lped" label="Lped Input" help="Contains your map and ped file." />
-        <param name="snplist" type="text" area="True" size="20x30" label="SNPs to extract" help="Please enter each SNP rs#, one per line." />
+        <conditional name="snp_or_region">
+            <param name="display_snp_or_region" type="select" label="Extract by series of SNPs or regions" >
+                <option value="snps" selected="True">SNPs</option>
+                <option value="regions">Regions</option>
+            </param>
+
+            <when value="snps">
+                <param name="snplist" type="text" area="True" size="20x30" label="SNPs to extract" help="Please enter each SNP rs#, one per line." />
+            </when>
+            <when value="regions">
+                <param name="region" type="text" area="True" size="20x30" label="Region to extract" help="Please enter a series of ranges you wish to extract in format: chr startPos endPos name_of_range. E.g. 2 30000000 35000000 R1 with one range per line"/>
+            </when>
+
+        </conditional>
+
         <param name="no_sex" type="select" label="Allow no-sex samples to be included" >
             <option value="--allow-no-sex" selected="True">Yes</option>
             <option value="">No</option>

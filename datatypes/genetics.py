@@ -358,15 +358,14 @@ class SNPMatrix(Rgenetics):
 
 class Tped(Rgenetics):
     """
-    linkage pedigree (ped,map) Rgenetics data collections
+    Transposed map  (tped,tfarm) Rgenetics data collections
     """
-    file_ext="Tped"
+    file_ext="tped"
     
     def __init__( self, **kwd ):
         Rgenetics.__init__(self, **kwd)
-        self.add_composite_file( '%s.tped', description =  ' Transposed Pedigree File', substitute_name_with_metadata = 'base_name', is_binary = False )
-        self.add_composite_file( '%s.tfam', description = ' Transposed FamFile', substitute_name_with_metadata = 'base_name', is_binary = False )
-
+        self.add_composite_file( '%s.tped', description = 'Transposed Pedigree File', substitute_name_with_metadata = 'base_name', is_binary = False )
+        self.add_composite_file( '%s.tfam', description = 'Transposed Fam File', substitute_name_with_metadata = 'base_name', is_binary = False )
 
 class Lped(Rgenetics):
     """

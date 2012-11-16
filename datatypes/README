@@ -1,0 +1,5 @@
+Datatypes.
+
+cp datatype_conf.xml to root of galaxy directory
+
+cp genetics.py to <galaxy_root_dir>/lib/galaxy/datatypes and erase the one that is in there
