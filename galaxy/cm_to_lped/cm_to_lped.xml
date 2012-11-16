@@ -1,8 +1,7 @@
 <tool id="cm_to_lped" name="Annotate Lped with CentiMorgans from HapMap" version="1.0.0">
     <description>The tool annotates your ped file with centimorgan values from the hapmap recombination maps</description>
 <command interpreter="bash"> 
-cm_to_ped.sh $input_lped.extra_files_path $input_lped.metadata.base_name ${__root_dir__}/tools/SOER1000genes/data/1kg/impute2/
-   
+cm_to_lped.sh $input_lped.extra_files_path $input_lped.metadata.base_name ${__root_dir__}/tools/SOER1000genes/data/1kg/impute2/ ${__root_dir__}
 ;
 python ~/galaxy-dist/tool-data/shared/composite_datatypes/create_composite_rgenetics.py 'lped' $output_lped $output_lped.metadata.base_name $output_lped.extra_files_path
 
