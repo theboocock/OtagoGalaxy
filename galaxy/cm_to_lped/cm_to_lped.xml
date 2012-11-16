@@ -1,0 +1,26 @@
+<tool id="cm_to_lped" name="Annotate Lped with CentiMorgans from HapMap">
+    <description>The tool annotates your ped file with centimorgan values from the hapmap recombination maps</description>
+<command interpreter="bash"> 
+cm_to_ped.sh $input_lped.extra_files_path $input_lped.metadata.base_name ${__root_dir__}/tools/SOER1000genes/data/1kg/impute2/
+   
+;
+python ~/galaxy-dist/tool-data/shared/composite_datatypes/create_composite_rgenetics.py 'lped' $output_lped $output_lped.metadata.base_name $output_lped.extra_files_path
+
+</command>
+<inputs>
+    <param name="input_lped" type="data" format="lped" label="Lped input file"/>
+
+</inputs>
+<outputs>
+    <param name="output_lped" type="data" metadata_source="input_lped"/>
+</outputs>
+<help>
+The tool uses a script written by Edward Hills and James Boocock to annotate the files 
+with cM data from 1000 genomes.
+
+
+</help>
+
+
+
+</tool>
