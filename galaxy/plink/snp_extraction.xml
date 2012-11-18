@@ -1,12 +1,15 @@
 <tool id="ou_snp_extraction" name="SNP Extraction">
     <description> 
-        Takes a list of SNPs and returns a new ped/map with only those SNPs specified
+        Takes a set of SNPs or regions and returns a new ped/map with only those specified
     </description>
     <command>
-        echo $snplist | tr -s "__cr____cn__" "\n" > snplist.txt
-        ;
-        echo $region | tr -s "__cr____cn__" "\n" > region.txt
-        ;
+        #if ($snp_or_region.display_snp_or_region == "snps"):
+            echo $snp_or_region.snplist | tr -s "__cr____cn__" "\n" > snplist.txt
+            ;
+        #else
+            echo $snp_or_region.region | tr -s "__cr____cn__" "\n" > region.txt
+            ;
+        #end if
         plink --noweb --file "$input_lped.extra_files_path/$input_lped.metadata.base_name"
         #if ($snp_or_region.display_snp_or_region == "snps"):
             --extract snplist.txt
