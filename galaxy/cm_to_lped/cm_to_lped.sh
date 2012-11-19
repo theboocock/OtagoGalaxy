@@ -26,7 +26,7 @@ do
     if [ ${line} != "26" ]  && [ ${line} != "24" ]; then
          python $4/tools/SOER1000genes/galaxy/cm_to_lped/annotate_cm.py $MAP_FILE "${1}/${2}.map" $line >> out.tmp
     else
-         python $4/tools/SOER1000genes/galaxy/cm_to_lped/add_999.py "${1}/${2}.map" >> out.tmp
+        python $4/tools/SOER1000genes/galaxy/cm_to_lped/add_999.py "${1}/${2}.map" >> out.tmp
     fi
 done < chromosomes
 cp -f out.tmp "${2}.map"
