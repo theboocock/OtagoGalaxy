@@ -14,6 +14,10 @@ python ~/galaxy-dist/tool-data/shared/composite_datatypes/create_composite_rgene
     <data name="output_lped" format="lped" metadata_source="input_lped"/>
 </outputs>
 <help>
+
+A '-9' in the output map file indicates a missing value in the impute2 centimorgan files.
+So no centimorgan annotation was possible at this marker. 
+
 The tool uses a script written by Edward Hills and James Boocock to annotate the files 
 with cM data from 1000 genomes.
 

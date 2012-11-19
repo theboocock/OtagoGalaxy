@@ -4,7 +4,8 @@
 # $1 GENETIC_MAP FILE
 # $2 user_MAP FILE
 # $3 chrom
-#
+# 
+# Annotates genetic map positions from chromosome based cm files in the hapmap3/impute format
 # @author James Boocock
 # @date   16/11/2012
 #
@@ -15,6 +16,7 @@ import sys
 def main():
     genetic_map_file=sys.argv[1]
     user_map_file=sys.argv[2]
+    count = 0
     if (sys.argv[3] == 'X'):
         sys.arv[3] = '24'
     with open(user_map_file, 'r') as umap:
@@ -31,17 +33,18 @@ def main():
                 g_pos1=g_line[0]
                 if (u_line[0] == sys.argv[3]):
                     if(long(u_pos1) == long(g_pos1)):
-                        print "WIN2 " +  u_line[0] + ' '+ u_line[1] + ' ' + g_line[2]+ ' ' + u_line[3]
+                        print u_line[0] + ' '+ u_line[1] + ' ' + g_line[2]+ ' ' + u_line[3]
                         u_line_temp=umap.readline()
                         g_line_temp=gmap.readline()
                     elif (long(u_pos1) < long(g_pos1)):
+                        print u_line[0] + ' ' + u_line[1]+ ' ' + '-9' + ' ' + u_line[3]
                         u_line_temp=umap.readline()
                     else:
                         g_line_temp=gmap.readline()
                 else:
                     u_line_temp=umap.readline()
+                count=count + 1
 
-            
 
     
 

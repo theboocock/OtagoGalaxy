@@ -41,7 +41,6 @@
    <tool file="SOER1000genes/galaxy/impute2/impute2.xml" />
    <tool file="SOER1000genes/galaxy/snptest/snptest.xml" />
    <tool file="SOER1000genes/galaxy/xpehh/xpehh.xml" />
-   <tool file="SOER1000genes/galaxy/cm_to_lped/cm_to_lped.xml" />
    </section>
 <section name="Otago - Variant Effect Predictors" id="ou_vep" >
    <tool file="SOER1000genes/galaxy/ensemblVEP/ensembl_vep.xml"/>
@@ -82,9 +81,11 @@
     <tool file="SOER1000genes/galaxy/plink/snp_extraction.xml"/>
     <tool file="SOER1000genes/galaxy/plink/common_snps.xml"/>
     <tool file="SOER1000genes/galaxy/plink/linear_regression.xml"/>
-    <tool file="SOER1000genes/galaxy/plink/.xml"/>
 </section>
  <section name="Otago - File converters" id="ou_converters" >
+   <tool file="SOER1000genes/galaxy/cm_to_lped/cm_to_lped.xml"/>
+   <tool file="SOER1000genes/galaxy/cm_to_lped/remove_missing_cm.xml"/>
+   <tool file="SOER1000genes/galaxy/lped_to_ihs/lped_to_ihs.xml"/>
    <tool file="SOER1000genes/galaxy/plink/ped_to_tped.xml"/>
    <tool file="SOER1000genes/galaxy/beagle/vcf_to_beagle.xml"/>
    <tool file="SOER1000genes/galaxy/vcf_to_tped/vcf_to_tped.xml"/>

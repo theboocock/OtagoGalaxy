@@ -25,7 +25,6 @@ def main():
         os.mkdir(extra_files)
     except:
         pass
-    print os.path.join(extra_files, base_name + '.ped')
     if rg == "lped":
         shutil.move(base_name + '.ped', os.path.join(extra_files, base_name + '.ped'))
         shutil.move(base_name + '.map', os.path.join(extra_files, base_name + '.map'))

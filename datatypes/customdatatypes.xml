@@ -10,3 +10,5 @@
 <datatype extension="bgl" type="galaxy.datatypes.data:Text" subclass="true" display_in_upload="true"/>
 <datatype extension="tped" type="galaxy.datatype.genetics:Tped" display_in_upload="true"/>
 <datatype extension="ihs"  type="galaxy.datatype.genetics:Ihs" display_in_upload="true"/>
+    <datatype extension="ihshap" type="galaxy.datatypes.data:Text" subclass="true" display_in_upload="true"/>
+    <datatype extension="ihsmap" type="galaxy.datatypes.data:Text" subclass="true" display_in_upload="true"/>

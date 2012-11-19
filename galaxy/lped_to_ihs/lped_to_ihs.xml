@@ -1,0 +1,20 @@
+<tool id="lped_to_ihs" name="Lped to IHS format converter" version="1.0.0">
+<command interpreter="python">
+    lped_to_ihs.py $input_ihs.metadata.base_name $input_ihs.metadata.extra_files_path 
+
+</command>
+
+<inputs>
+    <param name="input_ihs" type="data" format="lped" label="lped data with centimorgan annotation">
+
+</inputs>
+
+<outputs>
+    <data name="ihs_map" format="ihsmap"/>
+    <data name="ihs_hap" format="ihshap"/>
+
+<outputs>
+
+
+
+</tool>

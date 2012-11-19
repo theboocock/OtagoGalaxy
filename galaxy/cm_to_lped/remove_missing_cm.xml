@@ -1,0 +1,23 @@
+<tool id="remove_missing_cm" name="Remove SNPS with missing cM values" version="1.0.0">
+<description>Takes a lped file and removes any snps which have the specified missing code
+in the cM column</description>
+<command interpreter="python">
+${__root_dir__}/tools/SOER1000genes/galaxy/cm_to_lped/remove_missing.py $input_lped.metadata.base_name $input_lped.extra_files_path $missing > snplist
+;
+plink --file $input_lped.extra_files_path/$input_lped.metadata.base_name --noweb --extract snplist --recode --out $input_lped.metadata.base_name
+
+;
+python ${__root_dir__}/tool-data/shared/composite_datatypes/create_composite_rgenetics.py 'lped' $output_lped $output_lped.metadata.base_name $output_lped.extra_files_path
+</command>
+
+<inputs>
+    <param name="input_lped" type="data" format="lped" label="Lped input file"/>
+    <param name="missing" type="text" value="" label="Missing centimorgan value" help="The value in the centimorgan column for a snp that is missing cM data"/>
+</inputs>
+
+<outputs>
+    <data name="output_lped" format="lped" metadata_source="input_lped"/>
+</outputs>
+
+
+</tool>
