@@ -46,7 +46,9 @@
 #end if
 	ibdscale=$beagle_use_type_param.ibdscale
 #if ($beagle_use_type_param.ibd_input_param.ibd_input) == "true":
-	ibdpairs=$beagle_use_type_param.ibd_input_param.ibd_input_file
+#if ($beagle_use_type_param.ibd_input_param.ibd_input_file_param.ibd_input_file) == "true":
+	ibdpairs=$beagle_use_type_param.ibd_input_param.ibd_input_file_param.ibd_input_data
+#end if
 	ibd2nonibd=$beagle_use_type_param.ibd_input_param.ibd2nonibd
 	nonibd2ibd=$beagle_use_type_param.ibd_input_param.nonibd2ibd
 	ibderror=$beagle_use_type_param.ibd_input_param.idberror
@@ -141,7 +143,7 @@
 #if ($beagle_use_type_param.hbd_input_param.hbd) == "true":
 	-h
 #end if
-#if ($beagle_use_type_param.ibd_input_param.ibd_input) == "true":
+#if ($beagle_use_type_param.ibd_input_param.ibd_input_file_param.ibd_input_file) == "true":
 	-b
 #end if
 #end if
@@ -216,7 +218,12 @@
 		<option value="true">Yes</option>
 	</param>
 	<when value="true">
-        	<param name= "ibd_input_file" type="data" format="text" label="IBD pairs File"/>
+            <conditional name="ibd_input_file_param">
+                <param name= "ibd_input_file" type="boolean" value="false" label="Specify IBD pairs file"/>
+                <when value="true">
+        	        <param name= "ibd_input_data" type="data" format="text" label="IBD pairs File"/>
+                </when>
+            </conditional>
     		<param name="idberror" type="float" value="0.005" label="Genotype error rate"/>
         	<param name="nonibd2ibd" type="float" value="0.0001" label="non-IBD to IBD transition rate"/>
         	<param name="ibd2nonibd" type="float" label="IBD to non-IBD transition rate" value="1.0"/>
