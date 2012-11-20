@@ -30,8 +30,8 @@
 
     <outputs>
 
-        <data format="txt" name="output_gen" label="Gen file converted from ${input.metadata.base_name} file" />
-        <data format="txt" name="output_sample" label="Sample file converted from ${input.metadata.base_name} file"/>
+        <data format="txt" name="output_gen"  />
+        <data format="txt" name="output_sample" />
 
     </outputs>
 

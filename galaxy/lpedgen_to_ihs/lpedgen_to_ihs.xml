@@ -1,0 +1,25 @@
+<tool id="lped_to_ihs" name="Lped to IHS format converter" version="1.0.0">
+<description>Requires the gen file from lped to gen conversion</description>
+<command interpreter="python">
+    lpedgen_to_ihs.py $input_ihs.metadata.base_name $input_ihs.extra_files_path  $input_gen
+    $ihs_hap $ihs_map
+
+</command>
+
+<inputs>
+    <param name="input_ihs" type="data" format="lped" label="lped data with centimorgan annotation"/>
+    <param name="input_gen" type="data" format ="gen" label="gen data from the haps file"/>
+</inputs>
+
+<outputs>
+    <data name="ihs_map" format="ihsmap"/>
+    <data name="ihs_hap" format="ihshap"/>
+
+</outputs>
+<help>
+    Converts File to the format required for input to IHS calc and XP-EHH
+
+</help>
+
+
+</tool>
