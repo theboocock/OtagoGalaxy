@@ -14,7 +14,9 @@ import os
 import sys
 
 def main():
+    # hapmap genetic file
     genetic_map_file=sys.argv[1]
+    # user map file
     user_map_file=sys.argv[2]
     count = 0
     if (sys.argv[3] == 'X_PAR2'):

@@ -1,0 +1,38 @@
+<tool id="shape_it" name="ShapeIT phasing tool" version="1.0.0"/>
+<command>
+#if $input_type_param.input_type_param
+
+
+</command>
+<description>performs haplotype phasing</description>
+<inputs>
+    <conditional name="input_type_param">
+    <param name="input_type" type="select" label="Please select input data format">
+    <option value="lped">Lped Input</option>
+    <option value="pbed">Pbed Input</option>
+    <option value="gen"/>Gen/Sample Input</option>
+    <when value="lped">
+        <param name="input_lped" type="data" format="lped" label="lped file"/>
+    </when>
+    <when value="pbed">
+        <param name="input_pbed" type="data" format="pbed" label="pbed file"/>
+    </when>
+    <when value="gen">
+        <param name="input_gen" type="data" format="gen" label="Input Gen File" />
+        <param name="input_samp" type="data" format="sample"  label="Input Sample File" />
+    </when>
+    </param>
+</inputs>
+<outputs>
+    <param name=""/>
+    <param name=""/>
+</outputs>
+<help>
+    SHAPEIT is a fast and accurate haplotype inference software 
+    more details can be found by following this link.
+
+     http://www.shapeit.fr/        
+
+</help>
+
+</tool>
