@@ -14,11 +14,13 @@ import os
 import sys
 
 def main():
+    # hapmap genetic file
     genetic_map_file=sys.argv[1]
+    # user map file
     user_map_file=sys.argv[2]
     count = 0
     if (sys.argv[3] == 'X'):
-        sys.arv[3] = '24'
+        sys.argv[3] = '24'
     with open(user_map_file, 'r') as umap:
         with open(genetic_map_file, 'r') as gmap:
             u_line_temp=umap.readline()
