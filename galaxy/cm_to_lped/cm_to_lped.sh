@@ -25,7 +25,7 @@ do
     if [ ${chrom} != "26" ]  && [ ${chrom} != "24" ]; then
          python $4/tools/SOER1000genes/galaxy/cm_to_lped/annotate_cm.py $MAP_FILE "${1}/${2}.map" $chrom >> out.tmp
     else
-         python $4/tools/SOER1000genes/galaxy/cm_to_lped/add_999.py "${1}/${2}.map" >> out.tmp
+        python $4/tools/SOER1000genes/galaxy/cm_to_lped/add_999.py "${1}/${2}.map" >> out.tmp
     fi
 
 done < chromosomes

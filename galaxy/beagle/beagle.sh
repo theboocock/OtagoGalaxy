@@ -22,13 +22,14 @@ usage(){
 	   option is selected.
 	-f fast IBD calculation
 	-h HBD calculation
-	-b IBD calculation requiring IBD pairs file
+	-b IBD pairs file
 	-a association test
 	-m Markers file is specified.
 	-I <number> number of input files
 	-t trait specified
 	-d comma seperated list containing history dataset names.
 	-D comma seperated list containing dataset names used for matching
+    
 EOF
 }
 

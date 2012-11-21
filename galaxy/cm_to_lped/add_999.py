@@ -14,7 +14,8 @@ def main():
     u_file=sys.argv[1]
     with open(u_file,'r') as f:
         for line in f:
-            if (line.split()[1] == 0):
+            
+            if (line.split()[0] == "24" or line.split()[0] == "26"):
                 print line.split()[0] + ' ' + line.split()[1] +' '+  '-9' + ' ' +  line.split()[3]
 
 

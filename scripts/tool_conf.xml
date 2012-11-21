@@ -85,7 +85,7 @@
  <section name="Otago - File converters" id="ou_converters" >
    <tool file="SOER1000genes/galaxy/cm_to_lped/cm_to_lped.xml"/>
    <tool file="SOER1000genes/galaxy/cm_to_lped/remove_missing_cm.xml"/>
-   <tool file="SOER1000genes/galaxy/lped_to_ihs/lped_to_ihs.xml"/>
+   <tool file="SOER1000genes/galaxy/lpedgen_to_ihs/lpedgen_to_ihs.xml"/>
    <tool file="SOER1000genes/galaxy/plink/ped_to_tped.xml"/>
    <tool file="SOER1000genes/galaxy/beagle/vcf_to_beagle.xml"/>
    <tool file="SOER1000genes/galaxy/vcf_to_tped/vcf_to_tped.xml"/>
