@@ -7,6 +7,7 @@
   #else
     ./dbsnp_region_extraction.sh ${input1} ${variants_annotated} ${region}
   #end if
+
   </command>
   <inputs>
     <param name="input1" label="VCF file" type="data" format="vcf" help="Can only upload a VCF that contains one chromosone."/>
