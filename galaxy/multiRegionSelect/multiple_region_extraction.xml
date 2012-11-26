@@ -1,9 +1,9 @@
 <tool id="multi_region_extraction" name="Multiple Region Extraction" version="1.0.0">
 
-<command intepreter="bash">
+<command>
 echo $input_region | tr -s "__cr____cn__" "\n" > region.txt
 ;
-${__root_dir__}/tools/SOER1000genes/galaxy/multiRegionSelect/multiple_region_extraction.sh $all_regions_vcf $dbsnp_annotation $input_vcf region.txt
+bash ${__root_dir__}/tools/SOER1000genes/galaxy/multiRegionSelect/multiple_region_extraction.sh $all_regions_vcf $dbsnp_annotation $input_vcf region.txt
 </command>
 
 <inputs>
