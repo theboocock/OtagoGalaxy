@@ -1,4 +1,4 @@
-<tool id="compare_1kg" name="Compare VCF with 1000 Genomes" version ="1.0.0">
+<tool id="compare_1kg" name="Compare VCF with 1000 Genomes or EVS database" version ="1.0.0">
     <description>and filter by Allele Frequency</description>
 
     <command interpreter="bash">
@@ -21,6 +21,7 @@
 
         <when value="evs">
 
+            <!-- TODO: Add different populations -->
             <param name="population" label="Please select the population(s)" type="select" display="radio">
                 <option value="1">European American</option>
                 <option value="2">African American</option>
@@ -35,17 +36,17 @@
 
     </conditional>
 
-        <param name="high_or_low1" label="Less than or equal to OR greater than or equal to?" type="select" display="radio">
+        <param name="high_or_low1" label="Less than or equal to OR greater than or equal to?" type="select" display="radio" help="This will keep those below (if less than) or above (if greater than) the threshold.">
             <option value="less">Less than or equal to</option>
             <option value="more">Greater than or equal to</option>
         </param>
-        <param name="filter_af1" label="Filter your VCF by AF less than or equal to" type="text" help="Filter your VCF by Allele Frequencies less than or equal to some number" />
+        <param name="filter_af1" label="Filter your VCF by AF less than or equal to" type="text" help="Filter your VCF by Allele Frequencies less than or equal to some number." />
         <param name="select_by" type="select" display="radio" optional="false" label="Select which variants to keep" help="You can select all, just SNPs or just INDELs">
             <option selected="true" value="all">Keep ALL</option>
             <option value="SNP">Just SNPs</option>
             <option value="INDEL">Just INDELs</option>
         </param>
-        <param name="high_or_low2" label="Less than or equal to OR greater than or equal to?" type="select" display="radio">
+        <param name="high_or_low2" label="Less than or equal to OR greater than or equal to?" type="select" display="radio" help="This will keep those below (if less than) or above (if greater than) the threshold.">
             <option value="less">Less than or equal to</option>
             <option value="more">Greater than or equal to</option>
         </param>
