@@ -1,14 +1,15 @@
 <tool id="multi_region_extraction" name="Multiple Region Extraction" version="1.0.0">
 
 <command intepreter="bash">
-${__root_dir__}/tools/SOER1000genes/galaxy/multiRegionSelect/multiple_region_extraction.sh $all_regions_vcf $dbsnp_annotation $input_vcf  $input_region
-
+echo $input_region | tr -s "__cr____cn__" "\n" > region.txt
+;
+${__root_dir__}/tools/SOER1000genes/galaxy/multiRegionSelect/multiple_region_extraction.sh $all_regions_vcf $dbsnp_annotation $input_vcf region.txt
 </command>
 
 <inputs>
 <param name="input_vcf" type="data" format="vcf" label="VCF file to extract regions from"/>
 
-<param name="input_region" type="data" format="txt" label="Region text file" help="In format chr:regionFrom-regionTo line seperated" />
+<param name="input_region" type="text" area="True" size="20x30" label="Region text file" help="In format chr:regionFrom-regionTo line seperated" />
 <param name="dbsnp_annotation" label="Perform dbsnp annotation" type="boolean"  falsevalue="False" truevalue="True" help="All regions will be annotated with RSIDs from dbSNP if no region is selected."/>
 
 </inputs>
@@ -21,11 +22,10 @@ ${__root_dir__}/tools/SOER1000genes/galaxy/multiRegionSelect/multiple_region_ext
 
 <help>
 
-Multi region extraction takes a text file contaning 
-regions to be extracted line seperated in ChR:regionTo-RegionFrom
- 
-example text file.
+Multi region extraction extracts multiple regions from a vcf file.
 
+Regions to be extracted line seperated in ChR:regionTo-RegionFrom
+ 
 3:4343-21234521 
 
 4:32132-1231251 
