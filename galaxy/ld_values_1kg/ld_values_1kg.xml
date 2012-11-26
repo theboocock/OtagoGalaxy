@@ -1,4 +1,5 @@
-<tool id="1kg_ld" name="Calculate 1000 genomes LD values" >
+<tool id="1kg_ld" name="Calculate LD values" >
+<description>Calculate LD from your own vcf or from the 1000 genomes</description>
 <command interpreter="bash">
 ./ld_values_1kg.sh
 	#if ($onekg_own_param.onekg_own) == "own_file":
