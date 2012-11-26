@@ -40,7 +40,7 @@
             <option value="less">Less than or equal to</option>
             <option value="more">Greater than or equal to</option>
         </param>
-        <param name="filter_af1" label="Filter your VCF by AF less than or equal to" type="text" help="Filter your VCF by Allele Frequencies less than or equal to some number." />
+        <param name="filter_af1" label="Filter your VCF by AF" type="text" help="Filter your VCF by Allele Frequencies less than or greater than or equal to some number." />
         <param name="select_by" type="select" display="radio" optional="false" label="Select which variants to keep" help="You can select all, just SNPs or just INDELs">
             <option selected="true" value="all">Keep ALL</option>
             <option value="SNP">Just SNPs</option>
@@ -50,7 +50,7 @@
             <option value="less">Less than or equal to</option>
             <option value="more">Greater than or equal to</option>
         </param>
-        <param name="filter_af2" label="Filter end VCF by AF less than or equal to" type="text" help="Filter end VCF by Allele Frequencies less than or equal to some number" />
+        <param name="filter_af2" label="Filter end VCF by AF" type="text" help="Filter end VCF by Allele Frequencies less than or greater than equal to some number" />
 
     </inputs>
 

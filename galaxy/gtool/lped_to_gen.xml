@@ -30,8 +30,8 @@
 
     <outputs>
 
-        <data format="txt" name="output_gen"  />
-        <data format="txt" name="output_sample" />
+        <data format="gen" name="output_gen"  />
+        <data format="sample" name="output_sample" />
 
     </outputs>
 
