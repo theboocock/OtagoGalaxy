@@ -1,19 +1,21 @@
 <tool id="select_samples" name="Filter by Sample" version="0.1">
 <description>and put into a new VCF file</description>
 
-<command interpreter="bash">
-    select_samples.sh ${samples} ${input} ${output}
+<command>
+    echo $samples | tr -s "__cr____cn__" "\," > samples.txt 
+    ;
+    bash ${__root_dir__}/tools/SOER1000genes/galaxy/vcfSubset/select_samples.sh samples.txt ${input} ${output}
 </command>
 <!--<parallelism method="multi" split_inputs="input" shared_inputs="samples" split_mode="number_of_parts" split_size="2" merge_outputs="output"/> -->
 
 <inputs>
 <param name="input" type="data" format="vcf" label="Select VCF" />
-<param name="samples" type="text" label="Enter sample IDs (whitespace separated)" help="Names must be whitespace separated e.g AT501 AT502 AT503 etc" />
+<param name="samples" type="text" area="True" size="20x30" label="Enter sample IDs (whitespace separated)" help="Names must be whitespace separated e.g AT501 AT502 AT503 etc" />
 
 </inputs>
 
 <outputs>
-<data format="vcf" name="output" label="Samples ${samples} from ${input}"/>
+<data format="vcf" name="output" />
 </outputs>
 <help>
 	Filter by sample extracts all the sample ids specified in a whitespace
