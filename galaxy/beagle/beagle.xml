@@ -143,8 +143,10 @@
 #if ($beagle_use_type_param.hbd_input_param.hbd) == "true":
 	-h
 #end if
+#if ($beagle_use_type_param.ibd_input_param.ibd_input) == "true":
 #if ($beagle_use_type_param.ibd_input_param.ibd_input_file_param.ibd_input_file) == "true":
 	-b
+#end if
 #end if
 #end if
 #if ($beagle_use_type_param.beagle_use_type) == "assoc_test":
