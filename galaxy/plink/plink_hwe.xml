@@ -1,8 +1,10 @@
 <tool id="plink_hwe" name="Plink Hardy-Weinberg Summary" version="1.0.0">
     <command>
        echo ${options} | tr "," " " > options_file
-       ;
-       plink --bfile "$input_pbed.extra_files_path/$input_pbed.metadata.base_name" --noweb --hardy  --out out `cat options_file`
+        ;
+        echo "There are no founders" > out.nof
+        ;
+        plink --file "$input.extra_files_path/$input.metadata.base_name" --noweb --hardy  --out out `cat options_file`
        ;
        mv out.hwe ${output_hwe} 
        ;
@@ -10,11 +12,11 @@
     </command>
         
     <inputs>
-        <param name="input_pbed" type="data" format="pbed" label="Input bed/bim/fam (pbed)"/>
+        <param name="input" type="data" format="lped" label="Input ped/map (lped)"/>
 
         <param name="options" type="select" display="checkboxes" multiple="True" optional="true" value="" label="Please select your options">
             <option value="--allow-no-sex" selected="True">--allow-no-sex</option>
-            <option value="--nofounders">--nofounders</option>
+            <option value="--nonfounders">--nonfounders</option>
             <option value="--filter-cases">--filter-cases</option>
             <option value="--filter-controls">--filter-controls</option>
 
