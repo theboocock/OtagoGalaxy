@@ -3,15 +3,17 @@
 <command interpreter="bash">
 ./ld_values_1kg.sh
 	#if ($onekg_own_param.onekg_own) == "own_file":
-		-v $onekg_own_param.own_vcf			
-	#end if
-	#if ($onekg_use_type_param.onekg_use_type) == 'single':
-		-r $onekg_use_type_param.rsid	
+		-v $onekg_own_param.own_vcf		
+        #if ($onekg_own_param.region_txt_param.region_txt_bool):
+        -c $onekg_own_param.region_txt_param.region_txt
+        #end if
+    #end if
+    #if ($onekg_own_param.onekg_own) == "onekg_file":
+        -c $onekg_own_param.region_txt
 	#end if
 	#if ($onekg_use_type_param.onekg_use_type) == 'file':
 		-s $onekg_use_type_param.snplist	
 	#end if
-		-c $region_txt
 		-w $ld_window
 		-r $ld_window_r2
 		-l $ld_window_kb
@@ -53,8 +55,13 @@
 		<option value="own_file">VCF from History </option>
 		</param>
 	<when value="onekg_file">
+	    <param name="region_txt" type="text" label="Chromosome Region" help="Chromosome region specified as chr:start-end e.g 4:34234-50000" />
 	</when>
 	<when value="own_file">
+	    <conditional name="region_txt_param">
+        <param name="region_txt_bool" type="boolean" label="Specify Chromosome region" value="False"/>
+        <param name="region_txt" type="text" label="Chromosome Region" help="Chromosome region specified as chr:start-end e.g 4:34234-50000" />
+        </conditional>
 		<param name="own_vcf" type="data" format="vcf" label="VCF file"/>
 	</when>
 	</conditional>
@@ -69,7 +76,6 @@
 	<param name="comma_list" type="text" label="Comma seperated list of IDS."  help="NA6096,etc....." />
 	</when>
 	</conditional>
-	<param name="region_txt" type="text" label="Chromosome Region" help="Chromosome region specified as chr:start-end e.g 4:34234-50000" />
 	<param name="ld_window" type="integer" value="10" label="LD window size" help="Analyse SNPs not more than this number apart"/>
 	<param name="ld_window_r2" type="float" value="0.2" label="Specify r2 value minimum"/>
 	<param name="ld_window_kb" type="integer" value="1000" label="Specify window size (in kb)" />

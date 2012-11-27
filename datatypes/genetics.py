@@ -358,7 +358,7 @@ class SNPMatrix(Rgenetics):
 
 class Tped(Rgenetics):
     """
-    Transposed map  (tped,tfarm) Rgenetics data collections
+    Transposed map  (tped,tfam) Rgenetics data collections
     """
     file_ext="tped"
     
