@@ -173,9 +173,9 @@
 <datatype extension="pval" type="galaxy.datatypes.data:Text" subclass="true" display_in_upload="true"/>
 <datatype extension="null" type="galaxy.datatypes.data:Text" subclass="true" display_in_upload="true"/>
 <datatype extension="dag" type="galaxy.datatypes.data:Text" subclass="true" display_in_upload="true"/>
-<datatype extension="bgl" type="galaxy.datatypes.data:Text" subclass="true" display_in_upload="true"/>
-<datatype extension="ped" type="galaxy.datatypes.data:Text" subclass="true" display_in_upload="true"/>
-<datatype extension="map" type="galaxy.datatypes.data:Text" subclass="true" display_in_upload="true"/>
+    <datatype extension="bgl" type="galaxy.datatypes.data:Text" subclass="true" display_in_upload="true">
+      <converter file="bgl_to_ped.xml" target_datatype="lped"/>
+    </datatype>
 <datatype extension="info" type="galaxy.datatypes.datatype:Text" subclass="true" display_in_upload="true" />
     <datatype extension="linecount" type="galaxy.datatypes.data:LineCount" display_in_upload="true"/>
     <datatype extension="memexml" type="galaxy.datatypes.xml:MEMEXml" mimetype="application/xml" display_in_upload="true"/>
@@ -187,9 +187,9 @@
       <converter file="vcf_to_vcf_bgzip_converter.xml" target_datatype="vcf_bgzip"/>
       <converter file="vcf_to_tabix_converter.xml" target_datatype="tabix" depends_on="bgzip"/>
       <converter file="vcf_to_summary_tree_converter.xml" target_datatype="summary_tree"/>
-<!-- TODO: add these from our location into lib/converters folder (or wherever it goes) -->
       <converter file="vcf_to_beagle.xml" target_datatype="bgl" depends_on="vcftools"/>
       <converter file="vcf_to_tped.xml" target_datatype="tped" depends_on="vcftools"/>
+      <converter file="vcf_to_ped.xml" target_datatype="ped" depends_on="vcftools"/>
       <converter file="vcf_to_csv.xml" target_datatype="csv"/>
       <display file="ucsc/vcf.xml" />
       <display file="igv/vcf.xml" />
@@ -234,9 +234,12 @@
     <!-- linkage format pedigree (separate .map file) -->
     <datatype extension="lped" type="galaxy.datatypes.genetics:Lped" display_in_upload="true">
       <converter file="lped_to_fped_converter.xml" target_datatype="fped"/>
+      <converter file="ped_to_beagle.xml" target_datatype="bgl"/>
+      <converter file="ped_to_tped.xml" target_datatype="tped"/>
       <converter file="lped_to_pbed_converter.xml" target_datatype="pbed"/>
     </datatype>
     <datatype extension="tped" type="galaxy.datatypes.genetics:Tped" display_in_upload="true">
+      <converter file="tped_to_lped.xml" target_datatype="lped"/>
     </datatype>
     <!-- plink compressed file - has bed extension unfortunately -->
     <datatype extension="pbed" type="galaxy.datatypes.genetics:Pbed" display_in_upload="true">
