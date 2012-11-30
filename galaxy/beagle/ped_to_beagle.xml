@@ -1,20 +1,20 @@
 <tool id="ped_to_bgl" version="1.0.0" name="Ped to Beagle Converter" >
-<description>Convert PED and MAP file to BEAGLE format</description>
+    <description>Convert PED and MAP (lped) to BEAGLE format</description>
 
-<command interpreter="bash">
-    ${__root_dir__}/tools/SOER1000genes/galaxy/beagle/ped_to_beagle.sh "$input_lped.extra_files_path" "$input_lped.metadata.base_name"  $output_beagle 2> /dev/null
-</command>
+    <command>
+        ped_to_bgl ${os.path.join($input.extra_files_path, $input.metadata.base_name + ".ped") ${os.path.join($input.extra_files_path, $input.metadata.base_name + ".map") > $output
+    </command>
 
-<inputs>
-    <param name="input_lped" type="data" format="lped" label="Input Ped/Map rgenetics file"/>
-</inputs>
+    <inputs>
+        <param name="input" type="data" format="lped" label="Input Ped/Map (lped)"/>
+    </inputs>
 
-<outputs>
-    <data name="output_beagle" format="bgl"/>
-</outputs>
+    <outputs>
+        <data name="output" format="bgl"/>
+    </outputs>
 
-<help>
-Takes a .ped and a .map file and converts them to a .bgl file. This bgl file can then be used by BEAGLE.
-</help>
+    <help>
+        Takes a .ped and a .map (as lped) file and converts them to a .bgl file. This bgl file can then be used by BEAGLE.
+    </help>
 
 </tool>
