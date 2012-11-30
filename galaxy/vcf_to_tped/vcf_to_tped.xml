@@ -14,7 +14,7 @@
     </inputs>
 
     <outputs>
-    <data format="tped" name="output"/>
+        <data format="tped" name="output"/>
     </outputs>
     <help>
         This tool converts a given VCF into a tped and tfam file stored as a compostie datatype tped.
