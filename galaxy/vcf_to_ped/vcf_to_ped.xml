@@ -1,25 +1,27 @@
 <tool id="ou_vcf_to_ped" name="Convert VCF to PED/MAP" version="1.0">
-<description>Converts a VCF to a lped (PED/MAP)</description>
+    <description>Converts a VCF to a lped (PED/MAP)</description>
 
-<command>
-    vcftools --plink --vcf $input --out out
-    ;
-    python ${__root_dir__}/tool-data/shared/composite_datatypes/create_composite_rgenetics.py 'lped' $output out $output.extra_files_path
-</command>
+    <command>
+        vcftools --plink --vcf $input --out out
+        ;
+        python ${__root_dir__}/tool-data/shared/composite_datatypes/create_composite_rgenetics.py 'lped' $output out $output.extra_files_path
+    </command>
 
-<inputs>
+    <inputs>
 
-<param name="input" type="data" format="vcf" label="VCF to convert" />
+        <param name="input" type="data" format="vcf" label="VCF to convert" help="The VCF file must contain genotypic information (i.e. there must be SAMPLE columns present)." />
 
-</inputs>
+    </inputs>
 
-<outputs>
-<data format="lped" name="output"/>
-</outputs>
-<help>
-    This tool converts a given VCF into a ped and map file which will be stored in an lped file.
+    <outputs>
+        <data format="lped" name="output"/>
+    </outputs>
+    <help>
+        This tool converts a given VCF into a ped and map file which will be stored in an lped file.
 
-	VCFtools is used for sample selection. The Variant Call Format and VCFtools, Petr Danecek, Adam Auton, Goncalo Abecasis, Cornelis A. Albers, Eric Banks, Mark A. DePristo, Robert Handsaker, Gerton Lunter, Gabor Marth, Stephen T. Sherry, Gilean McVean, Richard Durbin and 1000 Genomes Project Analysis Group, Bioinformatics, 2011  
-</help>
+        The VCF file must contain genotypic information (i.e. there must be SAMPLE columns present).
+
+        VCFtools is used for sample selection. The Variant Call Format and VCFtools, Petr Danecek, Adam Auton, Goncalo Abecasis, Cornelis A. Albers, Eric Banks, Mark A. DePristo, Robert Handsaker, Gerton Lunter, Gabor Marth, Stephen T. Sherry, Gilean McVean, Richard Durbin and 1000 Genomes Project Analysis Group, Bioinformatics, 2011  
+    </help>
 
 </tool>

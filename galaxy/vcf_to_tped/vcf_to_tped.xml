@@ -1,25 +1,27 @@
 <tool id="ou_vcf_to_tped" name="Convert VCF to TPED" version="1.0">
-<description>and put into a new VCF file</description>
+    <description>and put into a new VCF file</description>
 
-<command>
-    vcftools --vcf $input --plink-tped --out out
-    ;
-    python ${__root_dir__}/tool-data/shared/composite_datatypes/create_composite_rgenetics.py 'tped' $output out $output.extra_files_path
-</command>
+    <command>
+        vcftools --vcf $input --plink-tped --out out
+        ;
+        python ${__root_dir__}/tool-data/shared/composite_datatypes/create_composite_rgenetics.py 'tped' $output out $output.extra_files_path
+    </command>
 
-<inputs>
+    <inputs>
 
-<param name="input" type="data" format="vcf" label="VCF to convert" />
+        <param name="input" type="data" format="vcf" label="VCF to convert" help="The VCF file must contain genotypic information (i.e. there must be SAMPLE columns present)." />
 
-</inputs>
+    </inputs>
 
-<outputs>
-<data format="tped" name="output"/>
-</outputs>
-<help>
-    This tool converts a given VCF into a tped and tfam file stored as a tped.
+    <outputs>
+    <data format="tped" name="output"/>
+    </outputs>
+    <help>
+        This tool converts a given VCF into a tped and tfam file stored as a compostie datatype tped.
 
-	VCFtools is used for sample selection. The Variant Call Format and VCFtools, Petr Danecek, Adam Auton, Goncalo Abecasis, Cornelis A. Albers, Eric Banks, Mark A. DePristo, Robert Handsaker, Gerton Lunter, Gabor Marth, Stephen T. Sherry, Gilean McVean, Richard Durbin and 1000 Genomes Project Analysis Group, Bioinformatics, 2011  
-</help>
+        The VCF file must contain genotypic information (i.e. there must be SAMPLE columns present).
+
+        VCFtools is used for sample selection. The Variant Call Format and VCFtools, Petr Danecek, Adam Auton, Goncalo Abecasis, Cornelis A. Albers, Eric Banks, Mark A. DePristo, Robert Handsaker, Gerton Lunter, Gabor Marth, Stephen T. Sherry, Gilean McVean, Richard Durbin and 1000 Genomes Project Analysis Group, Bioinformatics, 2011  
+    </help>
 
 </tool>
