@@ -32,7 +32,6 @@
 
     </conditional>
 
-<<<<<<< HEAD
         <param name="high_or_low1" label="Less than OR greater than?" type="select" display="radio" help="This will keep those below (if less than) or above (if greater than) the threshold.">
             <option value="lt">Less than</option>
             <option value="gt">Greater than</option>
@@ -40,19 +39,11 @@
 
         <param name="filter_af1" label="Filter your VCF by AF" type="text" help="Filter your VCF by Allele Frequencies less than or greater than to some number." />
 
-=======
-        <param name="high_or_low1" label="Keep SNPs with an AF Less than or equal to OR greater than or equal to?" type="select" display="radio" help="This will keep those below (if less than) or above (if greater than) the threshold.">
-            <option value="less">Less than or equal to</option>
-            <option value="more">Greater than or equal to</option>
-        </param>
-        <param name="filter_af1" label="AF Value" type="float" value="1.0" help="Filter your VCF by Allele Frequencies less than or greater than or equal to some number." />
->>>>>>> c2fda4773a8afe45da2945454ca98da909ec3501
         <param name="select_by" type="select" display="radio" optional="false" label="Select which variants to keep" help="You can select all, just SNPs or just INDELs">
             <option selected="true" value="all">Keep ALL</option>
             <option value="SNP">Just SNPs</option>
             <option value="INDEL">Just INDELs</option>
         </param>
-<<<<<<< HEAD
 
         <param name="high_or_low2" label="Less than OR greater than?" type="select" display="radio" help="This will keep those below (if less than) or above (if greater than) the threshold.">
             <option value="lt">Less than</option>
@@ -60,13 +51,6 @@
         </param>
 
         <param name="filter_af2" label="Filter end VCF by AF" type="text" help="Filter end VCF by Allele Frequencies less than or greater than to some number" />
-=======
-        <param name="high_or_low2" label="Keep SNPs with AF less than or equal to OR greater than or equal to?" type="select" display="radio" help="This will keep those below (if less than) or above (if greater than) the threshold.">
-            <option value="less">Less than or equal to</option>
-            <option value="more">Greater than or equal to</option>
-        </param>
-        <param name="filter_af2" label="AF Value" type="float" value="1.0" help="Filter end VCF by Allele Frequencies less than or greater than equal to some number" />
->>>>>>> c2fda4773a8afe45da2945454ca98da909ec3501
 
     </inputs>
 
