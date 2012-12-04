@@ -1,22 +1,22 @@
 <tool id="vcf_to_csv" name="VCF To CSV converter" version="1.0.0">
+<description>Converts a VCF to a CSV which can then be loaded into Excel</description>
 
-<command>
-java -jar ${__root_dir__}/tool-data/shared/jars/vcf_to_csv/VcfToCsv.jar $vcf_file > $csv_file
-</command>
+    <command>
+        java -jar ${__root_dir__}/tool-data/shared/jars/vcf_to_csv/VcfToCsv.jar $vcf_file > $csv_file
+    </command>
 
-<inputs>
-	<param name="vcf_file" label="VCF to be Converted" type="data" format="vcf"/>
-</inputs>
+    <inputs>
+        <param name="vcf_file" label="VCF to be Converted" type="data" format="vcf"/>
+    </inputs>
 
-<outputs>
-	<data name="csv_file" format="csv"/>
-</outputs>
+    <outputs>
+        <data name="csv_file" format="csv"/>
+    </outputs>
 
-<help>
-	Converts a VCF file into a CSV file taking each part of the info
-	field and seperating it into its own column.
+    <help>
+        Converts a VCF file into a CSV file taking each part of the info
+        field and separating it into its own column.
 
-</help>
-
+    </help>
 
 </tool>

@@ -1,21 +1,25 @@
 <tool id="bgl_to_ped" name="BGL to PED output" version="1.0.0">
-<description> Turns Beagle back into ped  </description>
-<command >
-./bgl_to_ped $bgl_input 'awk {$1 $2 $3 $4 $5'
-</command>
-<inputs>
-    <param name="bgl_input" type="data" format="bgl" label="phased beagle output"/>
-    <param name="lped_input" type="data" format="lped" label="original lped input"/>
-</inputs>
-<outputs>
-<data name="phased_lped" format="lped" /> 
-</outputs>
+    <description> Turns Beagle back into ped  </description>
 
-<help>
-    Given the nature of the formats the script required the original 
-    lped/pbed is supplied also so that it can be converted back into ped
+    <command>
+    <!-- FIXME TODO Don't think this actually does anything at all.. -->
+        ./bgl_to_ped $bgl_input 'awk {$1 $2 $3 $4 $5'
+    </command>
 
+    <inputs>
+        <param name="bgl_input" type="data" format="bgl" label="phased beagle output"/>
+        <param name="lped_input" type="data" format="lped" label="original lped input"/>
+    </inputs>
 
-</help>
+    <outputs>
+
+        <data name="phased_lped" format="lped" /> 
+
+    </outputs>
+
+    <help>
+        Given the nature of the formats the script required the original 
+        lped/pbed is supplied also so that it can be converted back into ped
+    </help>
 
 </tool>

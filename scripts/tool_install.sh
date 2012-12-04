@@ -41,8 +41,6 @@ tool_conf.xml >> tmp.conf
 echo "</toolbox>" >> tmp.conf
 sudo mv -f tmp.conf ${GALAXY_INSTALLATION}/tool_conf.xm
 
-
-
 # Setup VcfTools
 sudo cp -f ../src/vcfperltools $GALAXY_INSTALLATION/tool-data/shared/
 
@@ -131,6 +129,5 @@ echo "TEMP=$GALAXY_INSTALLATION/database/tmp" >> $GALAXY_HOME/.bashrc;
 echo "export TEMP" >> $GALAXY_HOME/.bashrc
 
 sudo chown -R $GALAXY_USER:$GALAXY_USER $GALAXY_INSTALLATION
-
 
 echo Done!
