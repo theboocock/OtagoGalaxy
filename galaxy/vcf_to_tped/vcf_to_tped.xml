@@ -2,9 +2,9 @@
 <description>and put into a new VCF file</description>
 
 <command>
-    vcftools --vcf $input --plink-tped --out out
+    vcftools --vcf $input --plink-tped --out RgeneticsData
     ;
-    python ${__root_dir__}/tool-data/shared/composite_datatypes/create_composite_rgenetics.py 'tped' $output out $output.extra_files_path
+    python ${__root_dir__}/tool-data/shared/composite_datatypes/create_composite_rgenetics.py 'tped' $output RgeneticsData $output.extra_files_path
 </command>
 
 <inputs>
