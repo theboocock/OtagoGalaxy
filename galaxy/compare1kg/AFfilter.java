@@ -1,22 +1,20 @@
 import java.util.*;
 
-/* reads from stdin and scans along line from vcf to find AF field then prints lines to stdout
- * that are above/below specified AF
+/*
+ * @file AFfilter.java
+ * @description reads from stdin and scans along line from vcf to find AF field
+ * then prints lines to stdout that are above/below specified AF
  *
- * Murray 3/12/12
+ * @author Murray Cadzow
+ * @date 3/12/12
  */
-
-
-
-
 public class AFfilter{
     
-public static double thresAF=0.0;
+public static double thresAF = 0.0;
 public static boolean filterGT = false;
-public static String  chr = "", pos = "";
+public static String chr = "", pos = "";
 
 public static String popln = "AF";
-
 
     public static void main(String args[]){
         if( args.length >= 2 ){
@@ -26,19 +24,20 @@ public static String popln = "AF";
             }
         
             if(args.length == 3){
-                   popln = args[3]; 
+                   popln = args[2]; 
             }
+
         }else{
-            System.err.println("Run: java AFfilter [lt/gt] af [name of AF field]\nDefault is lt 0.0 AF");
+            System.err.println("Run: java AFfilter [lt/gt] af population\nDefault is lt 0.0 AF");
             System.exit(0);
         }
         readLines();
     }
 
     public static void readLines(){
-    Scanner scan = new Scanner( System.in );
-    while( scan.hasNextLine() ){
-            findInfo( scan.nextLine() );
+        Scanner scan = new Scanner( System.in );
+        while( scan.hasNextLine() ){
+                findInfo( scan.nextLine() );
         }
     }
 
@@ -65,7 +64,7 @@ public static String popln = "AF";
         afScan.findInLine(popln + "=");
         if( afScan.hasNextDouble() ){
             testAF = afScan.nextDouble();
-            if( filterGT == false &&  testAF < thresAF   ){
+            if( filterGT == false && testAF < thresAF ){
 //                System.out.println("testAF= " + testAF + " filterGT= "+filterGT);
                 System.out.println( chr + ":" + pos );
             } else if ( filterGT == true && testAF > thresAF){
