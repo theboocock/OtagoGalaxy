@@ -33,7 +33,7 @@ EOF
 }
 
 getoptions(){
-while getopts "p:O:R:v:i:o:r:s:c:w:r:l:mh:" opt;  do
+while getopts "p:O:R:v:i:I:o:r:s:c:w:r:l:mh:" opt;  do
 case $opt in
 v)
 	VCF_INPUT=$OPTARG
@@ -48,7 +48,7 @@ c)
 	REGION=$OPTARG
 ;;
 w)
-	WINDOW=$OPTARG
+    WINDOW=$OPTARG
 ;;
 r)
 	R2=$OPTARG
@@ -61,6 +61,9 @@ m)
 ;;
 i)      
 	ID_LIST=$OPTARG
+;;
+I)
+    ID_FILE=$OPTARG
 ;;
 o)
 	PLINK_OUTPUT=$OPTARG
@@ -86,7 +89,7 @@ done
 getoptions "$@"
 if [ "$VCF_INPUT" != "" ]; then
     if [ "$REGION" != "" ]; then
-	cat $VCF_INPUT | bgzip -c > temp_vcf.gz	
+
 	tabix -p vcf temp_vcf.gz
 	tabix -fh temp_vcf.gz $REGION > temp.vcf
     else
@@ -95,12 +98,20 @@ if [ "$VCF_INPUT" != "" ]; then
 else
 	tabix -fh ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20110521/ALL.chr`echo ${REGION} | awk -F [\:] '{print $1}'`.phase1_release_v3.20101123.snps_indels_svs.genotypes.vcf.gz $REGION > temp.vcf 2> /dev/null
 fi
-
 	#subset vcf file
 if [ "$ID_LIST" != "" ]; then
 	vcf-subset -c $ID_LIST temp.vcf > temp2.vcf 2> /dev/null
+elif [ "$ID_FILE" != "" ]; then
+    ID_LIST=`cat $ID_FILE | sed -r ':a;N;$!ba;s/[\t\n ]+/,/g'`
+    vcf-subset -c $ID_LIST temp.vcf > temp2.vcf 2> /dev/null 
 else
 	cp -f temp.vcf temp2.vcf
+fi
+LINE_COUNT=`wc -l temp2.vcf` 
+LINE_COUNT=`echo $LINE_COUNT  | awk '{print $1}'`
+if [ $LINE_COUNT == "0" ]; then
+    echo "Error when subsetting sample no valid snps returned.Region could be incorrect or your sample subset returned no matching identifiers" >&2 
+    exit 1
 fi
     if [ "$HAPLOVIEW" == "" ]; then
 	#convert to plink format
