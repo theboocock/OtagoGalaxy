@@ -43,10 +43,22 @@
    <tool file="SOER1000genes/galaxy/xpehh/xpehh.xml" />
    </section>
 <section name="Otago - Variant Effect Predictors" id="ou_vep" >
+<!--
    <tool file="SOER1000genes/galaxy/ensemblVEP/ensembl_vep.xml"/>
-   <tool file="SOER1000genes/galaxy/dbsnpRegionExtraction/dbsnp_region_extraction.xml" />
    <tool file="SOER1000genes/galaxy/variantAnnotator/variant_annotator.xml" />
+-->
+   <tool file="SOER1000genes/galaxy/dbsnpRegionExtraction/dbsnp_region_extraction.xml" />
    </section>
+ <section name="Otago - SnpEff tools" id="snpEff_tools">
+   <tool file="SOER1000genes/galaxy/snpEff/snpEff.xml" />
+<!--
+   <tool file="SOER1000genes/galaxy/snpEff/snpEff_download.xml" />
+-->
+   <tool file="SOER1000genes/galaxy/snpEff/snpSift_annotate.xml" />
+   <tool file="SOER1000genes/galaxy/snpEff/snpSift_caseControl.xml" />    
+   <tool file="SOER1000genes/galaxy/snpEff/snpSift_filter.xml" />
+   <tool file="SOER1000genes/galaxy/snpEff/snpSift_int.xml" />
+</section>
    <section name="Otago - Filters" id="ou_filt">
    <tool file="SOER1000genes/galaxy/regionEffectFilter/region_effect_filter.xml"/>
    <tool file="SOER1000genes/galaxy/getAlleleFreq/getAlleleFreq.xml"/>
@@ -84,6 +96,8 @@
     <tool file="SOER1000genes/galaxy/plink/plink_hwe.xml"/>
 </section>
  <section name="Otago - File converters" id="ou_converters" >
+   <tool file="SOER1000genes/galaxy/cm_to_lped/cm_to_lped.xml"/>
+   <tool file="SOER1000genes/galaxy/cm_to_lped/remove_missing_cm.xml"/>
    <tool file="SOER1000genes/galaxy/plink/ped_to_tped.xml"/>
    <tool file="SOER1000genes/galaxy/tped_to_lped/tped_to_lped.xml"/>
    <tool file="SOER1000genes/galaxy/beagle/vcf_to_beagle.xml"/>
@@ -91,21 +105,9 @@
    <tool file="SOER1000genes/galaxy/vcf_to_ped/vcf_to_ped.xml"/>
    <tool file="SOER1000genes/galaxy/vcf_to_csv/vcf_to_csv.xml"/>
    <tool file="SOER1000genes/galaxy/beagle/ped_to_beagle.xml" />
-   <tool file="SOER1000genes/galaxy/gtool/lped_to_gen.xml"/>
-   <tool file="SOER1000genes/galaxy/gtool/gen_to_lped.xml"/>
+    <tool file="SOER1000genes/galaxy/gtool/lped_to_gen.xml"/>
+    <tool file="SOER1000genes/galaxy/gtool/gen_to_lped.xml"/>
  </section>
- <section name="Otago - Other" id="ou_other" >
-   <tool file="SOER1000genes/galaxy/cm_to_lped/cm_to_lped.xml"/>
-   <tool file="SOER1000genes/galaxy/cm_to_lped/remove_missing_cm.xml"/>
- </section>
- <section name="SnpEff tools" id="snpEff_tools">
-   <tool file="SOER1000genes/galaxy/snpEff/snpEff.xml" />
-   <tool file="SOER1000genes/galaxy/snpEff/snpEff_download.xml" />
-   <tool file="SOER1000genes/galaxy/snpEff/snpSift_annotate.xml" />
-   <tool file="SOER1000genes/galaxy/snpEff/snpSift_caseControl.xml" />    
-   <tool file="SOER1000genes/galaxy/snpEff/snpSift_filter.xml" />
-   <tool file="SOER1000genes/galaxy/snpEff/snpSift_int.xml" />
-</section>
   <section name="ENCODE Tools" id="EncodeTools">
     <tool file="encode/gencode_partition.xml" />
     <tool file="encode/random_intervals.xml" />
