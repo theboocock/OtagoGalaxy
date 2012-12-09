@@ -46,17 +46,20 @@
     <help>
         This tool performs permutation and association testing using PRESTO as developed by Browning and Browning. More detail can be found here: www.faculty.washington.edu/browning/presto/presto.html.
 
-        Options explained in more detail:
 
         **Required arguments**
-        
+
+
         *missing allele code* 
+
         the character or sequence of characters used to represent a missing allele (e.g. missing=-1 or
         missing=0 or missing=?). The missing argument is required. If your data set has
         no missing alleles then set the missing parameter to any character or sequence of
         characters that is not used as an allele.
 
+
         *trait file*
+
         The BEAGLE file containing the affection status for each allele. The affection status is
         specified on a single line beginning with the characte\r “A”. All alleles must have
         an affection status specified. If the file specified with the trait parameter contains
@@ -64,10 +67,13 @@
         file2... If the file specified with the trait
         argument contains multiple affection status lines (i.e. lines whose first field is “A”),
         then only the first affection status line will be used. The trait argument is required.
-        
+
+
         **Optional arguments**
 
+
         *strata file* 
+        
         is the BEAGLE file containing the population stratum for each allele. The population stra-
         tum for each allele is specified on a single line beginning with the character “S”. If
         the strata argument is used, all alleles must have a population stratum specified.
@@ -76,8 +82,10 @@
         population stratum lines (i.e. lines whose first field is “S”), then only the first pop-
         ulation stratum line will be used. The strata argument is optional. If it is omitted,
         all alleles are assumed to belong to a single population stratum.
-        
+
+
         *tests*
+
         t = allelic trend test
         a = allelic test
         r = recessive test (groups major allele homozygotes and heterozygotes)
@@ -105,19 +113,25 @@
         test=t. Only the allelic test (test=a) is permitted when diplotypes=false. See
         the diplotypes argument in this section for more details.
 
+
         *seed value*
+
         is an integer seed for the random number generator. The seed argument is optional. The default value is seed=-99999.
         The seed for the random number generator determines the sequence of permutations
         of the trait status. The seed parameter can be used to parallelize an analysis.
 
+
         *number of permutations*
+
         is a nonnegative integer giving the number of permutations of the affection status that will
         be used. You can skip permutation testing by setting nperms=0. The nperms argu-
         ment is optional. The default value is nperms=1000. The computational time for
         permutation testing is linear in the number of permutations. Typically 1,000, or
         10,000 permutations are used to determine experiment-wide statistical significance.
 
+
         *number of order statistics*
+
         is a nonnegative integer giving the number order statistics that will be written to
         the null p-value file. For each marker and permutation of the
         trait status, the test statistic is the maximum χ2 statistic from the association tests
@@ -126,7 +140,9 @@
         the null p-value file. The topranks argument is optional. The default value
         is topranks=1.
 
+
         *threshold for 2nd stage 
+
         a non-negative floating point number giving the minimum first-stage test statistic
         required for a marker to be genotyped in the second stage of a two-stage genotyping
         design. For each permutation and for each diallelic marker, data from one-half of
@@ -142,7 +158,9 @@
         topranks parameter. The threshold argument is optional. The default value is
         threshold=0.0 which corresponds to a one-stage genotyping design.
 
+
         *diplotypes* 
+
         is true if the alleles from the same individual are always paired in the PRESTO input file so that the third and fourth
         columns are the alleles for the first individual, the fifth and sixth columns are the
         alleles for the second individual, and so on, and true/false is false if the alleles
