@@ -2,6 +2,7 @@
     <description>of BEAGLE data</description>
     <command>
         java -jar ${__tool_data_path__}/shared/jars/presto/presto.jar out=out missing=${missing_allele_code} trait=${input_trait_file}
+        #if ( 
     </command>
 
     <inputs>
@@ -16,11 +17,13 @@
         <param name="input_strata_file" type="data" format="txt" label="STRATA file" help="Contains the strata data. If this contains marker data it will need to be added above also." optional="true"/>
 
         <param name="assocs" type="select" display="checkboxes" multiple="True" label="Association Tests to perform" >
-            <option value="t">Allelic Trend Test</option>
+            <option value="t" selected="True">Allelic Trend Test</option>
             <option value="a">Allelic Test</option>
             <option value="r">Recessive Test</option>
             <option value="d">Dominant Test</option>
             <option value="o">Overdominant Test</option>
+
+        </param>
 
         <param name="topranks" type="integer" value="1" label="Number of Order Statistics" />
 
@@ -30,7 +33,7 @@
 
         <param name="threshold" type="float" value="0.0" label="Threshold for Second Stage" help="Determines significance levels for two-stage genotyping designs using the first-stage samples suggested by Frank Dudbridge."/>
 
-        <param name="diplotypes" type="boolean" truevalue="true" falsevalue="false" label="Diplotypes?" help="If true, the trait status is permuted for the individuals so that both alleles for each individual have the same permuted trait status." />
+        <param name="diplotypes" type="boolean" truevalue="true" falsevalue="false" checked="true" label="Diplotypes?" help="If ticked, the trait status is permuted for the individuals so that both alleles for each individual have the same permuted trait status." />
 
     </inputs>
 
@@ -46,38 +49,35 @@
         Options explained in more detail:
 
         **Required arguments**
-        • missing=<missing allele code> where <missing allele code> is the charac-
-        ter or sequence of characters used to represent a missing allele (e.g. missing=-1 or
+        
+        *missing allele code* 
+        the character or sequence of characters used to represent a missing allele (e.g. missing=-1 or
         missing=0 or missing=?). The missing argument is required. If your data set has
         no missing alleles then set the missing parameter to any character or sequence of
         characters that is not used as an allele.
-        • trait=<trait file> where <trait file> is the name of the BEAGLE file (see
-        Section 4) containing the affection status for each allele. The affection status is
-        specified on a single line beginning with the character “A”. All alleles must have
+
+        *trait file*
+        The BEAGLE file containing the affection status for each allele. The affection status is
+        specified on a single line beginning with the characte\r “A”. All alleles must have
         an affection status specified. If the file specified with the trait parameter contains
         marker data, the file must also be specified in the genotype data file list (file1
-        file2 ... in the command line (1) above). If the file specified with the trait
+        file2... If the file specified with the trait
         argument contains multiple affection status lines (i.e. lines whose first field is “A”),
         then only the first affection status line will be used. The trait argument is required.
-        • out=<output file prefix> where <output file prefix> is the prefix for the
-        PRESTO output files. For example, if out=presto is specified, the output files will
-        be presto.log, presto.pval, and presto.null. See Section 6 for a description of
-        the output files. The out argument is required.
         
         **Optional arguments**
-        • strata=<strata file> where <strata file> is the name of the BEAGLE file (see
-        Section 4) containing the population stratum for each allele. The population stra-
+
+        *strata file* 
+        is the BEAGLE file containing the population stratum for each allele. The population stra-
         tum for each allele is specified on a single line beginning with the character “S”. If
         the strata argument is used, all alleles must have a population stratum specified.
         If the file specified with the strata parameter contains marker data, the file must
-        also be specified in the genotype data file list (file1 file2 ... in the command
-        line (1) above). If the file specified with the strata argument contains multiple
+        also be specified in the genotype data file list (file1 file2 ...). If the file specified with the strata argument contains multiple
         population stratum lines (i.e. lines whose first field is “S”), then only the first pop-
         ulation stratum line will be used. The strata argument is optional. If it is omitted,
         all alleles are assumed to belong to a single population stratum.
-        6
-        • test=<association tests> where <association tests> is one or more charac-
-        ters from the set {tardo} (e.g. test=t or test=tardo) where
+        
+        *tests*
         t = allelic trend test
         a = allelic test
         r = recessive test (groups major allele homozygotes and heterozygotes)
@@ -90,67 +90,69 @@
         allelic trend test after multiplying by N/(N − 1) where N is the sample size.
         For the remaining tests (a, r, d, or o) a 2 × 2 contingency table is constructed
         for each stratum and the Cochran-Mantel-Haenszel test with continuity correction
-            is performed [7, 1]. The Cochran-Mantel-Haenszel test is a generalization to strat-
-            ified data of the standard chi-square test of independence. When there is only
-            one population stratum, the Cochran-Mantel-Haenszel test statistic is equal to the
-            standard χ2 test statistic after multiplying by N/(N − 1) where N is the sample
-            size. Although, the Cochran-Mantel-Haenszel test can be used to test for allelic
-            effects (test=a), the Mantel trend test (test=t) is the preferred allelic test since it
-            is robust to departure from Hardy-Weinberg equilibrium [8].
-            The test statistic for each marker is the maximum χ2 statistic (maximized over
-            the specified allelic and genotypic tests). If a marker has more than two alleles,
-            each allele is tested for association with affection status by grouping the other al-
-            leles. Thus a triallelic marker is tested as if it were three diallelic markers, and
-            will result in 3 test statistics. The test argument is optional. The default value is
-            test=t. Only the allelic test (test=a) is permitted when diplotypes=false. See
-            the diplotypes argument in this section for more details.
-            • seed=<random seed> where <random seed> is an integer seed for the random num-
-            ber generator. The seed argument is optional. The default value is seed=-99999.
-            The seed for the random number generator determines the sequence of permutations
-            of the trait status. The seed parameter can be used to parallelize an analysis as
-            discussed in Section 6.3.
-            • nperms=<number of permutations> where <number of permutations> is a non-
-            negative integer giving the number of permutations of the affection status that will
-            be used. You can skip permutation testing by setting nperms=0. The nperms argu-
-            ment is optional. The default value is nperms=1000. The computational time for
-            permutation testing is linear in the number of permutations. Typically 1,000, or
-            10,000 permutations are used to determine experiment-wide statistical significance.
-            7
-            • topranks=<number of order statistics> where <number of order statistics>
-            is a nonnegative integer giving the number order statistics that will be written to
-            the null p-value file (see Section 6.2). For each marker and permutation of the
-            trait status, the test statistic is the maximum χ2 statistic from the association tests
-            specified with the test parameter. For each permutation, the test statistics are
-            sorted in decreasing order, and the largest topranks test statistics are written to
-            the null p-value file (.null). The topranks argument is optional. The default value
-            is topranks=1.
-            • threshold=<threshold for 2nd stage> where <threshold for 2nd stage> is a
-            non-negative floating point number giving the minimum first-stage test statistic
-            required for a marker to be genotyped in the second stage of a two-stage genotyping
-            design. For each permutation and for each diallelic marker, data from one-half of
-            the cases and one-half of the controls is used to calculate the test statistic. If the test
-            statistic is greater than or equal to the threshold parameter then the test statistic
-            is recalculated using the data from the entire sample.
-            The threshold argument is used to determine significance levels for two-stage
-            genotyping designs using the first-stage samples as suggested by Frank Dudbridge
-            [4]. The p-value file (.pval) is not produced when the threshold parameter is set
-            greater than 0.0.
-            The test statistics in the null p-value file (.null) can be used to determine signif-
-            icance for any of the top k ranks in your two-stage study where k is equal to the
-            topranks parameter. The threshold argument is optional. The default value is
-            threshold=0.0 which corresponds to a one-stage genotyping design.
-            • diplotypes=<true/false> where <true/false> is true if the alleles from the same
-            individual are always paired in the PRESTO input file so that the third and fourth
-            columns are the alleles for the first individual, the fifth and sixth columns are the
-            alleles for the second individual, and so on, and <true/false> is false if the alleles
-            are not paired. The diplotypes options controls how the trait status is permuted
-            during permutation testing. If diplotypes=true, the trait status is permuted for
-            the individuals so that both alleles for each individual have the same permuted
-            trait status. When diplotypes=false, the trait status is permuted for the alle-
-            les (rather than for the individuals). Only the allelic test can be performed when
-            diplotypes=false (see the test parameter in this section). The diplotypes ar-
-            gument is optional. The default value is diplotypes=true.
+        is performed. The Cochran-Mantel-Haenszel test is a generalization to strat-
+        ified data of the standard chi-square test of independence. When there is only
+        one population stratum, the Cochran-Mantel-Haenszel test statistic is equal to the
+        standard χ2 test statistic after multiplying by N/(N − 1) where N is the sample
+        size. Although, the Cochran-Mantel-Haenszel test can be used to test for allelic
+        effects (test=a), the Mantel trend test (test=t) is the preferred allelic test since it
+        is robust to departure from Hardy-Weinberg equilibrium.
+        The test statistic for each marker is the maximum χ2 statistic (maximized over
+        the specified allelic and genotypic tests). If a marker has more than two alleles,
+        each allele is tested for association with affection status by grouping the other al-
+        leles. Thus a triallelic marker is tested as if it were three diallelic markers, and
+        will result in 3 test statistics. The test argument is optional. The default value is
+        test=t. Only the allelic test (test=a) is permitted when diplotypes=false. See
+        the diplotypes argument in this section for more details.
 
+        *seed value*
+        is an integer seed for the random number generator. The seed argument is optional. The default value is seed=-99999.
+        The seed for the random number generator determines the sequence of permutations
+        of the trait status. The seed parameter can be used to parallelize an analysis.
+
+        *number of permutations*
+        is a nonnegative integer giving the number of permutations of the affection status that will
+        be used. You can skip permutation testing by setting nperms=0. The nperms argu-
+        ment is optional. The default value is nperms=1000. The computational time for
+        permutation testing is linear in the number of permutations. Typically 1,000, or
+        10,000 permutations are used to determine experiment-wide statistical significance.
+
+        *number of order statistics*
+        is a nonnegative integer giving the number order statistics that will be written to
+        the null p-value file. For each marker and permutation of the
+        trait status, the test statistic is the maximum χ2 statistic from the association tests
+        specified with the test parameter. For each permutation, the test statistics are
+        sorted in decreasing order, and the largest topranks test statistics are written to
+        the null p-value file. The topranks argument is optional. The default value
+        is topranks=1.
+
+        *threshold for 2nd stage 
+        a non-negative floating point number giving the minimum first-stage test statistic
+        required for a marker to be genotyped in the second stage of a two-stage genotyping
+        design. For each permutation and for each diallelic marker, data from one-half of
+        the cases and one-half of the controls is used to calculate the test statistic. If the test
+        statistic is greater than or equal to the threshold parameter then the test statistic
+        is recalculated using the data from the entire sample.
+        The threshold argument is used to determine significance levels for two-stage
+        genotyping designs using the first-stage samples as suggested by Frank Dudbridge. 
+        The p-value file is not produced when the threshold parameter is set
+        greater than 0.0.
+        The test statistics in the null p-value file can be used to determine signif-
+        icance for any of the top k ranks in your two-stage study where k is equal to the
+        topranks parameter. The threshold argument is optional. The default value is
+        threshold=0.0 which corresponds to a one-stage genotyping design.
+
+        *diplotypes* 
+        is true if the alleles from the same individual are always paired in the PRESTO input file so that the third and fourth
+        columns are the alleles for the first individual, the fifth and sixth columns are the
+        alleles for the second individual, and so on, and true/false is false if the alleles
+        are not paired. The diplotypes options controls how the trait status is permuted
+        during permutation testing. If diplotypes=true, the trait status is permuted for
+        the individuals so that both alleles for each individual have the same permuted
+        trait status. When diplotypes=false, the trait status is permuted for the alle-
+        les (rather than for the individuals). Only the allelic test can be performed when
+        diplotypes=false (see the test parameter in this section). The diplotypes ar-
+        gument is optional. The default value is diplotypes=true.
 
     </help>
 
