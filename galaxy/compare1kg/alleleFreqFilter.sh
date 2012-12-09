@@ -1,5 +1,7 @@
 #!/bin/bash
 #
+#*** *** ** DEPRECEATED --- NO LONGER USERD **** ***** ****
+#
 # Filters VCF file by allele frequency 
 # removes lines that do not contain AF column
 #

@@ -4,7 +4,7 @@
 ./ld_values_1kg.sh
 	#if ($onekg_own_param.onekg_own) == "own_file":
 		-v $onekg_own_param.own_vcf		
-        #if ($onekg_own_param.region_txt_param.region_txt_bool):
+        #if ($onekg_own_param.region_txt_param.region_txt_bool) == "True":
         -c $onekg_own_param.region_txt_param.region_txt
         #end if
     #end if
@@ -18,8 +18,12 @@
 		-r $ld_window_r2
 		-l $ld_window_kb
 	#if ($comma_list_param.comma_list_select) == "subset":
-		-i $comma_list_param.comma_list
+    #if ($comma_list_param.sample_input.sample_input_type) == "id_box":
+		-i $comma_list_param.sample_input.comma_list
+    #else 
+        -I $comma_list_param.sample_input.id_history
 	#end if
+    #end if
     #if str($output_format) != "haploview":
 		-o $plink_output
     #end if
@@ -59,21 +63,36 @@
 	</when>
 	<when value="own_file">
 	    <conditional name="region_txt_param">
-        <param name="region_txt_bool" type="boolean" label="Specify Chromosome region" value="False"/>
+        <param name="region_txt_bool" type="boolean" label="Specify Chromosome region" value="False" truevalue="True" falsevalue="False"/>
+        <when value="True">
         <param name="region_txt" type="text" label="Chromosome Region" help="Chromosome region specified as chr:start-end e.g 4:34234-50000" />
+        </when>
+
         </conditional>
 		<param name="own_vcf" type="data" format="vcf" label="VCF file"/>
 	</when>
 	</conditional>
 	<conditional name="comma_list_param">
-	<param name="comma_list_select" type="select" label="Calculate LD for All Samples or a Subset of Samples" >
+	<param name="comma_list_select" type="select" label="Calculate LD for All Samples or a Subset of Samples" help="Subsetting requires samples be present in the vcf file">
 		<option value="all">All Samples</option>
 		<option value="subset">Subset of Samples</option>
 		</param>
 	<when value="all">
 	</when>
 	<when value="subset">
-	<param name="comma_list" type="text" label="Comma seperated list of IDS."  help="NA6096,etc....." />
+    <conditional name="sample_input">
+        <param name="sample_input_type" type="select" label="Select your subset input type" >
+            <option value="id_file">File from History</option>
+            <option value="id_box">Entry into TextBox</option>
+        </param>
+        <when value="id_file">
+            <param name="id_history" type="data" format="txt" label="File containing whitespace seperated sampled IDS" />
+        </when>
+        <when value="id_box">
+            <param name="comma_list" type="text" label="Comma seperated list of IDS."  help="NA6096,etc....." />
+        </when>
+        
+    </conditional>
 	</when>
 	</conditional>
 	<param name="ld_window" type="integer" value="10" label="LD window size" help="Analyse SNPs not more than this number apart"/>
