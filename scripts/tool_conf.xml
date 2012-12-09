@@ -35,6 +35,7 @@
   </section>
 <section name="Otago - Selection Tools" id="ou_select">
    <tool file="SOER1000genes/galaxy/beagle/beagle.xml" />
+   <tool file="SOER1000genes/galaxy/presto/presto.xml" />
    <tool file="SOER1000genes/galaxy/lamarc/lamarc.xml" />
    <tool file="SOER1000genes/galaxy/treemix/treemix.xml" />
    <tool file="SOER1000genes/galaxy/ihs/ihs_calc.xml" />
