@@ -1,5 +1,7 @@
 #!/bin/bash
 #
+#*** *** ** DEPRECEATED --- NO LONGER USERD **** ***** ****
+#
 # Filters VCF file by allele frequency 
 # removes lines that do not contain AF column
 #
@@ -9,7 +11,7 @@
 # $4 snps / indels / all
 # $5 database
 # $6 population (if database == evs)
-while  read line
+while read line
 do
     if [ "$4" != "all" ] ;then
         line=`echo $line | grep -i "$4"`

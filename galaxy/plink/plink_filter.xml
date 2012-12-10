@@ -3,7 +3,8 @@
     Inclusion parameters in plink for filtering data. By default all the parameters you set no value will print summary information to the log file.
 </description>
 <command>
-plink --hwe $hwe
+
+eval `echo "plink --hwe $hwe
 --maf $maf
 --mind $mi_pp
 --geno $mi_marker
@@ -12,7 +13,7 @@ plink --hwe $hwe
 --noweb
 --file "$input_lped.extra_files_path/$input_lped.metadata.base_name"
 --recode
---out "$output_lped.metadata.base_name"
+--out "$output_lped.metadata.base_name"" | tr "," " "`
 ;
 python ${__root_dir__}/tool-data/shared/composite_datatypes/create_composite_rgenetics.py 'lped' $output_lped $output_lped.metadata.base_name $output_lped.extra_files_path
 </command>
@@ -24,7 +25,13 @@ python ${__root_dir__}/tool-data/shared/composite_datatypes/create_composite_rge
     <param name="max_maf" type="float" value="1.0" label="Exclude marker with a minor allele frequency larger than this value" help="The value is a proportion between 0 and 1, 1 meaning the maximum minor allele frequency is 100% and 0 meaning the maximum is 0%"/>
     <param name="hwe" type="float" value="0" label="HWE test" help="Exclude markers that fail the Hardy-Weinberg test at a specified significance threshold"/>
     <param name="mendel" type="text" value="0.0 0.0" label="Mendel Error Rate" help="Exclude markers and individuals based on the error rate entered in the field. Two numbers are required space seperated and the numbers must be between zero and one. For example if (0.05 .1) were entered. The first parameter determines that families with more than 5% Mendel errors (considering all SNPs) will be discarded. The second parameter indicates that SNPs with more than 10% Mendel error rate will be excluded (i.e. based on the number of trios) "/>
+<param name="options" type="select" display="checkboxes" multiple="True" optional="true" value="" label="Please select your options">
+            <option value="--allow-no-sex" selected="True">--allow-no-sex</option>
+            <option value="--nofounders">--nofounders</option>
+            <option value="--filter-cases">--filter-cases</option>
+            <option value="--filter-controls">--filter-controls</option>
 
+        </param>
 </inputs>
 
 <outputs>

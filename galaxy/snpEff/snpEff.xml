@@ -1,5 +1,5 @@
 <tool id="snpEff" name="SnpEff" version="1.0">
-	<description>Variant efefct and annotation</description>
+	<description>Variant effect and annotation</description>
     <command>java -Xmx7G -jar ${__root_dir__}/tool-data/shared/jars/snpEff/snpEff.jar eff -c ${__root_dir__}/tool-data/shared/jars/snpEff/snpEff.config -i $inputFormat -o $outputFormat -upDownStreamLen $udLength $filterIn $filterHomHet -no $filterOut -stats $statsFile $genomeVersion $input > $output </command>
 	<inputs>
 		<param format="Tabular" name="input" type="data" label="Sequence changes (SNPs, MNPs, InDels)"/>

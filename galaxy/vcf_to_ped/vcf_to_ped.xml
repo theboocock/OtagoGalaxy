@@ -1,10 +1,10 @@
-<tool id="ou_vcf_to_tped" name="Convert VCF to TPED" version="1.0">
-    <description>and put into a new VCF file</description>
+<tool id="ou_vcf_to_ped" name="Convert VCF to PED/MAP" version="1.0">
+    <description>Converts a VCF to a lped (PED/MAP)</description>
 
     <command>
-        vcftools --vcf $input --plink-tped --out RgeneticsData
+        vcftools --plink --vcf $input --out out
         ;
-        python ${__root_dir__}/tool-data/shared/composite_datatypes/create_composite_rgenetics.py 'tped' $output RgeneticsData $output.extra_files_path
+        python ${__root_dir__}/tool-data/shared/composite_datatypes/create_composite_rgenetics.py 'lped' $output out $output.extra_files_path
     </command>
 
     <inputs>
@@ -14,10 +14,10 @@
     </inputs>
 
     <outputs>
-        <data format="tped" name="output"/>
+        <data format="lped" name="output"/>
     </outputs>
     <help>
-        This tool converts a given VCF into a tped and tfam file stored as a compostie datatype tped.
+        This tool converts a given VCF into a ped and map file which will be stored in an lped file.
 
         The VCF file must contain genotypic information (i.e. there must be SAMPLE columns present).
 

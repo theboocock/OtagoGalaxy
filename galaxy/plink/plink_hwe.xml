@@ -1,22 +1,40 @@
 <tool id="plink_hwe" name="Plink Hardy-Weinberg Summary" version="1.0.0">
-<command>
-   plink --bfile "$input_pbed.extra_files_path/$input_pbed.metadata.base_name" --noweb --hardy > $output_hwe 
-</command>
-    
-<inputs>
-    <param name="input_pbed" type="data" format="lped"/>
-</inputs>
+    <command>
+       echo ${options} | tr "," " " > options_file
+        ;
+        echo "There are no founders" > out.nof
+        ;
+        plink --file "$input.extra_files_path/$input.metadata.base_name" --noweb --hardy  --out out `cat options_file`
+       ;
+       mv out.hwe ${output_hwe} 
+       ;
+       mv out.nof ${output_nof} 
+    </command>
+        
+    <inputs>
+        <param name="input" type="data" format="lped" label="Input ped/map (lped)"/>
 
-<outputs>
-    <data name="output_hwe" format="txt"/>
-</outputs>
-<help>
-This tool performs a plink hardy weinberg summary.
+        <param name="options" type="select" display="checkboxes" multiple="True" optional="true" value="" label="Please select your options">
+            <option value="--allow-no-sex" selected="True">--allow-no-sex</option>
+            <option value="--nonfounders">--nonfounders</option>
+            <option value="--filter-cases">--filter-cases</option>
+            <option value="--filter-controls">--filter-controls</option>
 
-Useful for investigating snps which are significantly out of HWE
+        </param>
 
-For more information go to 
-http://pngu.mgh.harvard.edu/~purcell/plink/summary.shtml#hardy
-</help>
+    </inputs>
+
+    <outputs>
+        <data name="output_hwe" format="txt"/>
+        <data name="output_nof" format="txt"/>
+    </outputs>
+    <help>
+    This tool performs a plink hardy weinberg summary.
+
+    Useful for investigating snps which are significantly out of HWE
+
+    For more information go to 
+    http://pngu.mgh.harvard.edu/~purcell/plink/summary.shtml#hardy
+    </help>
 
 </tool>

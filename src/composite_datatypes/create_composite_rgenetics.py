@@ -35,9 +35,8 @@ def main():
         shutil.move(base_name + '.bim', os.path.join(extra_files, base_name + '.bim'))
         shutil.move(base_name + '.bed', os.path.join(extra_files, base_name + '.bed'))
         shutil.move(base_name + '.fam', os.path.join(extra_files, base_name + '.fam'))
+
     html_creation.create_html(extra_files,html_out, base_name + '/')
-
-
 
 if __name__=="__main__":main()
 

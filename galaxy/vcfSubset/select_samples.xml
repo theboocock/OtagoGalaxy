@@ -2,7 +2,7 @@
 <description>and put into a new VCF file</description>
 
 <command>
-    echo $samples | tr -s "__cr____cn__" "\," > samples.txt 
+    echo $samples | tr -s "__cr____cn__" "\," | sed 's/[[:space:]]\+/,/g' > samples.txt 
     ;
     bash ${__root_dir__}/tools/SOER1000genes/galaxy/vcfSubset/select_samples.sh samples.txt ${input} ${output}
 </command>

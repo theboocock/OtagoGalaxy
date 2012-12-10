@@ -293,6 +293,8 @@
 
 **TIP** association tests is one or more characters from the set  “ardo”,	a = allelic test, r = ressesive test=, d=dominant test and o = overdominant test
 
+**TIP** If no trait is specified advanced association tests will fail.
+
 Detailed Information on Command Line Arguments contained in readme.
 http://faculty.washington.edu/browning/beagle/beagle_3.3.2_31Oct11.pdf
 

@@ -1,11 +1,11 @@
-<tool id="compare_1kg" name="Compare VCF with 1000 Genomes" version ="1.0.0">
+<tool id="compare_1kg" name="Compare VCF with 1000 Genomes or EVS database" version ="1.0.0">
     <description>and filter by Allele Frequency</description>
 
     <command interpreter="bash">
 
-        ./compare1kg.sh ${inputVCF} ${high_or_low1} ${filter_af1} ${high_or_low2} ${filter_af2} ${select_by} ${outputVCF} ${display_populations.database}
+        compare1kg.sh ${inputVCF} ${high_or_low1} ${filter_af1} ${high_or_low2} ${filter_af2} ${select_by} ${outputVCF} ${display_populations.database}
         #if ($display_populations.database == "evs"):
-            $display_populations.population
+            ${display_populations.population}
         #end if
 
     </command>
@@ -21,35 +21,36 @@
 
         <when value="evs">
 
+            <!-- TODO: Add different populations -->
             <param name="population" label="Please select the population(s)" type="select" display="radio">
-                <option value="1">European American</option>
-                <option value="2">African American</option>
-                <option value="3" selected="True">ALL</option>
+                <option value="EUR_AF">European American</option>
+                <option value="AFR_AF">African American</option>
+                <option value="AF" selected="True">ALL</option>
             </param>
-
-        </when>
-
-        <when value="1kg">
 
         </when>
 
     </conditional>
 
-        <param name="high_or_low1" label="Less than or equal to OR greater than or equal to?" type="select" display="radio">
-            <option value="less">Less than or equal to</option>
-            <option value="more">Greater than or equal to</option>
+        <param name="high_or_low1" label="Less than OR greater than?" type="select" display="radio" help="This will keep those below (if less than) or above (if greater than) the threshold.">
+            <option value="lt">Less than</option>
+            <option value="gt">Greater than</option>
         </param>
-        <param name="filter_af1" label="Filter your VCF by AF less than or equal to" type="text" help="Filter your VCF by Allele Frequencies less than or equal to some number" />
+
+        <param name="filter_af1" label="Filter your VCF by AF" type="text" help="Filter your VCF by Allele Frequencies less than or greater than to some number." />
+
         <param name="select_by" type="select" display="radio" optional="false" label="Select which variants to keep" help="You can select all, just SNPs or just INDELs">
             <option selected="true" value="all">Keep ALL</option>
             <option value="SNP">Just SNPs</option>
             <option value="INDEL">Just INDELs</option>
         </param>
-        <param name="high_or_low2" label="Less than or equal to OR greater than or equal to?" type="select" display="radio">
-            <option value="less">Less than or equal to</option>
-            <option value="more">Greater than or equal to</option>
+
+        <param name="high_or_low2" label="Less than OR greater than?" type="select" display="radio" help="This will keep those below (if less than) or above (if greater than) the threshold.">
+            <option value="lt">Less than</option>
+            <option value="gt">Greater than</option>
         </param>
-        <param name="filter_af2" label="Filter end VCF by AF less than or equal to" type="text" help="Filter end VCF by Allele Frequencies less than or equal to some number" />
+
+        <param name="filter_af2" label="Filter end VCF by AF" type="text" help="Filter end VCF by Allele Frequencies less than or greater than to some number" />
 
     </inputs>
 
