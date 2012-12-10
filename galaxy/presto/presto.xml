@@ -1,11 +1,9 @@
 <tool id="ou_presto" name="PRESTO Permutation" version="1.0">
     <description>of BEAGLE data</description>
-    <command>
-        java -jar ${__tool_data_path__}/shared/jars/presto/presto.jar out=out missing=${missing_allele_code} trait=${input_trait_file}
-        #if ($input_strata_file != "none"):
-            strata=${input_strata_file}
-        #end if
-        test=$assocs.strip(',')
+    <command interpreter="bash">
+        ./presto.sh ${missing_allele_code} ${input_trait_file}
+        ${input_strata_file}
+        $assocs
         topranks=$topranks
         seed=$seed
         nperms=$nperms
@@ -13,6 +11,7 @@
         diplotypes=$diplotypes
         #for $i, $s, in enumerate($input_files):
             ${s.input}
+        #end for
         ;
         mv out.log ${log}
         ;
