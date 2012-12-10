@@ -15,7 +15,7 @@ eval `echo "plink --hwe $hwe
 --recode
 --out "$output_lped.metadata.base_name"" | tr "," " "`
 ;
-python ~/galaxy-dist/tool-data/shared/composite_datatypes/create_composite_rgenetics.py 'lped' $output_lped $output_lped.metadata.base_name $output_lped.extra_files_path
+python ${__root_dir__}/tool-data/shared/composite_datatypes/create_composite_rgenetics.py 'lped' $output_lped $output_lped.metadata.base_name $output_lped.extra_files_path
 </command>
 <inputs>
     <param name="input_lped" type="data" format="lped" label="Lped Input" help="Contains your map and ped file. Can be converted from a composite datatype of bim, fam and bed files." />
