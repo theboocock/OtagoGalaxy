@@ -29,21 +29,21 @@ do
     if [ "$COUNT" == "0" ]; then
        SNPSIFT_EXPR="${SNPSIFT_EXPR}( EFF[*].IMPACT = '${IMPACT}' )"
     else
-       SNPSIFT_EXPR="${SNPSIFT_EXPR} & !( EFF[*].IMPACT = '${IMPACT}' )"
+       SNPSIFT_EXPR="${SNPSIFT_EXPR} | ( EFF[*].IMPACT = '${IMPACT}' )"
     fi
 
     elif [ "$4" == "genomic2" ] ; then
 
     if [ "$COUNT" == "0" ]; then
-       SNPSIFT_EXPR="${SNPSIFT_EXPR}!( "resource.EFF[*]".IMPACT = '${IMPACT}' )"
+       SNPSIFT_EXPR="${SNPSIFT_EXPR} ( "resource.EFF[*]".IMPACT = '${IMPACT}' )"
     else
-       SNPSIFT_EXPR="${SNPSIFT_EXPR} & !( "resource.EFF[*]".IMPACT = '${IMPACT}' )"
+       SNPSIFT_EXPR="${SNPSIFT_EXPR} | ( "resource.EFF[*]".IMPACT = '${IMPACT}' )"
     fi
     else 
     if [ "$COUNT" == "0" ] ; then 
     SNPSIFT_EXPR="${SNPSIFT_EXPR}((na SNPEFF_IMPACT) |(SNPEFF_IMPACT = '${IMPACT}') )"
     else
-    SNPSIFT_EXPR="${SNPSIFT_EXPR} & ((na SNPEFF_IMPACT) | ( SNPEFF_IMPACT = '${IMPACT}') )"
+    SNPSIFT_EXPR="${SNPSIFT_EXPR} | ((na SNPEFF_IMPACT) | ( SNPEFF_IMPACT = '${IMPACT}') )"
     fi
     fi
     COUNT=`expr $COUNT + 1`
@@ -61,24 +61,24 @@ do
     if [ "$COUNT" == "0" ] ; then
     SNPSIFT_EXPR="${SNPSIFT_EXPR} ( EFF[*].EFFECT = '${EFFECT}' )"
     else
-    SNPSIFT_EXPR="${SNPSIFT_EXPR} & ( EFF[*].EFFECT = '${EFFECT}' )"    
+    SNPSIFT_EXPR="${SNPSIFT_EXPR} | ( EFF[*].EFFECT = '${EFFECT}' )"    
     fi
     elif [ "$4" == "genomic2" ] ; then
 
     if [ "$COUNT" == "0" ]; then
        SNPSIFT_EXPR="${SNPSIFT_EXPR}( resource.EFF[*].EFFECT = '${IMPACT}' )"
     else
-       SNPSIFT_EXPR="${SNPSIFT_EXPR} & ( resource.EFF[*].EFFECT = '${IMPACT}' )"
+       SNPSIFT_EXPR="${SNPSIFT_EXPR} | ( resource.EFF[*].EFFECT = '${IMPACT}' )"
     fi
     else
     if [ "$COUNT" == "0" ] ; then
     SNPSIFT_EXPR="${SNPSIFT_EXPR} ( (na SNPEFF_EFFECT) | (SNPEFF_EFFECT = '${EFFECT}') )"
     else
-    SNPSIFT_EXPR="${SNPSIFT_EXPR} & ( (na SNPEFF_EFFECT) | (SNPEFF_EFFECT = '${EFFECT}') )"
+    SNPSIFT_EXPR="${SNPSIFT_EXPR} | ( (na SNPEFF_EFFECT) | (SNPEFF_EFFECT = '${EFFECT}') )"
     fi
     fi 
     COUNT=`expr $COUNT + 1`
 done
-cat $1 | java -jar ~/galaxy-dist/tool-data/shared/jars/snpEff/SnpSift.jar filter -i "$SNPSIFT_EXPR"
+cat $1 | java -jar ~/galaxy-dist/tool-data/shared/jars/snpEff/SnpSift.jar filter  "$SNPSIFT_EXPR"
 
 exit 0
