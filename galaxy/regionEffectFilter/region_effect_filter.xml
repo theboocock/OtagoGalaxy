@@ -16,7 +16,7 @@
         <!--option value="genomic2">Genomic Annotation option 2</option-->
     </param>
 
-	<param name="impact_options" type="select" display="checkboxes" multiple="True" optional="true" value="" label="Select variant impact filters (impact levels to be removed)">
+	<param name="impact_options" type="select" display="checkboxes" multiple="True" optional="true" value="" label="Select variant impact filters (impact levels to be retained)">
 	<option value="HIGH">Filter HIGH impact effects</option>
 	<option value="MODERATE">Filter MODERATE impact effects</option>
 	<option value="LOW">Filter LOW impact effects</option>
@@ -24,7 +24,7 @@
 	</param>
 
 
-	<param name="effect_options" type="select" display="checkboxes" multiple="True" optional="true" value="" label="Select variant effect filters (effects to be removed)">
+	<param name="effect_options" type="select" display="checkboxes" multiple="True" optional="true" value="" label="Select variant effect filters (effets to be retained)">
 	<option value="INTERGENIC">Filter INTERGENIC effect</option>
 	<option value="UPSTREAM">Filter UPSTREAM effect</option>
 	<option value="UTR_5_PRIME">Filter UTR_5_PRIME in 5'UTR region</option>
