@@ -173,9 +173,11 @@
 <datatype extension="pval" type="galaxy.datatypes.data:Text" subclass="true" display_in_upload="true"/>
 <datatype extension="null" type="galaxy.datatypes.data:Text" subclass="true" display_in_upload="true"/>
 <datatype extension="dag" type="galaxy.datatypes.data:Text" subclass="true" display_in_upload="true"/>
-    <datatype extension="bgl" type="galaxy.datatypes.data:Text" subclass="true" display_in_upload="true">
+<datatype extension="bgl" type="galaxy.datatypes.data:Text" subclass="true" display_in_upload="true">
+<!--
       <converter file="bgl_to_ped.xml" target_datatype="lped"/>
-    </datatype>
+-->
+</datatype>
 <datatype extension="info" type="galaxy.datatypes.datatype:Text" subclass="true" display_in_upload="true" />
     <datatype extension="linecount" type="galaxy.datatypes.data:LineCount" display_in_upload="true"/>
     <datatype extension="memexml" type="galaxy.datatypes.xml:MEMEXml" mimetype="application/xml" display_in_upload="true"/>

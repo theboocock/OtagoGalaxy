@@ -2,7 +2,23 @@
     <description>of BEAGLE data</description>
     <command>
         java -jar ${__tool_data_path__}/shared/jars/presto/presto.jar out=out missing=${missing_allele_code} trait=${input_trait_file}
-        #if ( 
+        #if ($input_strata_file != "none"):
+            strata=${input_strata_file}
+        #end if
+        test=$assocs.strip(',')
+        topranks=$topranks
+        seed=$seed
+        nperms=$nperms
+        threshold=$threshold
+        diplotypes=$diplotypes
+        #for $i, $s, in enumerate($input_files):
+            ${s.input}
+        ;
+        mv out.log ${log}
+        ;
+        mv out.null ${null}
+        ;
+        mv out.pval ${pval}
     </command>
 
     <inputs>
@@ -46,7 +62,7 @@
     <help>
         This tool performs permutation and association testing using PRESTO as developed by Browning and Browning. More detail can be found here: www.faculty.washington.edu/browning/presto/presto.html.
 
-
+-----
         **Required arguments**
 
 
@@ -141,7 +157,7 @@
         is topranks=1.
 
 
-        *threshold for 2nd stage 
+        *threshold for 2nd stage* 
 
         a non-negative floating point number giving the minimum first-stage test statistic
         required for a marker to be genotyped in the second stage of a two-stage genotyping
