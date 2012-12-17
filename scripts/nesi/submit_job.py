@@ -21,6 +21,7 @@ from grisu.frontend.control.login import LoginManager
 from grisu.frontend.model.job import JobObject, BatchJobObject, JobsException
 from grisu.model import FileManager
 from grisu.jcommons.constants import Constants
+import time
 import sys
 import os
 
@@ -52,8 +53,9 @@ job.setSubmissionLocation(queue)
 job.setTimestampJobname("galaxy_" + galaxy_job_id)
 
 # save jobname for job
-with open("nesi_job_name.tmp", "w") as njn:
-    njn.write(job.getJobName())
+njn = open("nesi_job_name.tmp", "w")
+njn.write(job.getJobname())
+njn.close()
 
 job.setCommandline(command)
 
@@ -69,13 +71,13 @@ except Exception, e:
     # Just catch all exceptions for time being. TODO
     print "Cannot submit job currently."
     job.kill(True)
-    exit(1)
+    sys.exit(1)
 
 while not job.isFinished():
     time.sleep(3)
 
 print "standard out: \n", job.getStdOutContent()
-print "standard out: \n", job.getStdErrContent()
+print "standard err: \n", job.getStdErrContent()
 
 # That's all folks!
-exit(0)
+sys.exit(0)

@@ -13,9 +13,6 @@
 # argv4     = command line
 # argv5-n   = files to be staged in
 
-# TODO: add possibiility for emailing user if defined in galaxy config
-# TODO: get application and check that it is ok to run on queue
-
 from grisu.Grython import serviceInterface as si
 from grisu.frontend.control.login import LoginManager
 from grisu.frontend.model.job import JobObject, BatchJobObject, JobsException
@@ -40,17 +37,21 @@ job = JobObject(si)
 job = job.getJob(job_name)
 
 # Save stdout and stderr to files to be read by galaxy
-with open(outfile, "w") as out:
-    out.write(job.getStdOutContent())
+out = open(outfile, "w")
+out.write(job.getStdOutContent())
+out.close()
 
-with open(errfile, "w") as err:
-    err.write(job.getStdErrContent()
+err = open(errfile, "w")
+err.write(job.getStdErrContent()
+err.close()
 
-with open(error_codefile, "w") as err:
-    err.write(job.getErrorCode()
+ec = open(error_codefile, "w")
+ec.write(job.getErrorCode()
+ec.close()
 
 # TODO do i need to do clean here?
-job.kill(True)
+# Probably easier to seeing as i have the job already..
+si.kill(job_name, True)
 
 # That's all folks!
-exit(0)
+sys.exit(0)

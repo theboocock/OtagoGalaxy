@@ -26,4 +26,4 @@ except Exception:
 
 
 # That's all folks!
-exit(0)
+sys.exit(0)
