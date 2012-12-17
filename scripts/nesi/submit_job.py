@@ -50,6 +50,11 @@ for f in sys.argv[6:]:
 job = JobObject(si) 
 job.setSubmissionLocation(queue)
 job.setTimestampJobname("galaxy_" + galaxy_job_id)
+
+# save jobname for job
+with open("nesi_job_name.tmp", "w") as njn:
+    njn.write(job.getJobName())
+
 job.setCommandline(command)
 
 for inputs in input_files:
@@ -63,7 +68,7 @@ try:
 except Exception, e:
     # Just catch all exceptions for time being. TODO
     print "Cannot submit job currently."
-    # TODO -- cleanup here also on nesi side of things. e.g. kill() and clean()
+    job.kill(True)
     exit(1)
 
 while not job.isFinished():
