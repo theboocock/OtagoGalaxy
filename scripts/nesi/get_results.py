@@ -51,7 +51,7 @@ ec.close()
 
 # TODO do i need to do clean here?
 # Probably easier to seeing as i have the job already..
-si.kill(job_name, True)
+job.kill(True)
 
 # That's all folks!
 sys.exit(0)
