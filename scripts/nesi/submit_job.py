@@ -7,13 +7,14 @@
 #        complete.
 
 # Arguments:
-# argv1     = location
+# argv1     = queue
 # argv2     = group
 # argv3     = galaxy job id 
 # argv4     = command line
 # argv5-n   = files to be staged in
 
 # TODO: add possibiility for emailing user if defined in galaxy config
+# TODO: get application and check that it is ok to run on queue
 
 from grisu.Grython import serviceInterface as si
 from grisu.frontend.control.login import LoginManager
@@ -27,7 +28,7 @@ DEFAULT_GROUP = '/nz/nesi'
 DEFAULT_QUEUE = 'pan:pan.nesi.org.nz'
 
 current_dir = os.path.abspath(os.path.curdir)
-location        = sys.argv[1]
+queue           = sys.argv[1]
 group           = sys.argv[2]
 galaxy_job_id   = sys.argv[3]
 command         = sys.argv[4]
@@ -35,7 +36,7 @@ input_files     = list()
 
 if group == '':
     group = DEFAULT_GROUP
-if queue = '':
+if queue == '':
     queue = DEFAULT_QUEUE
 
 for f in sys.argv[6:]:
@@ -47,16 +48,29 @@ for f in sys.argv[6:]:
 #FIXME why isn't it catting my files properly? its the same as there example..
 
 job = JobObject(si) 
-job.setSubmissionLocation(location)
+job.setSubmissionLocation(queue)
 job.setTimestampJobname("galaxy_" + galaxy_job_id)
 job.setCommandline(command)
 
 for inputs in input_files:
     job.addInputFileUrl(inputs)
 
-#print "just testing so not actually sending it.."
 job.createJob(group)
 
 print "Submitting job..."
-job.submitJob()
+try:
+    job.submitJob()
+except Exception, e:
+    # Just catch all exceptions for time being. TODO
+    print "Cannot submit job currently."
+    # TODO -- cleanup here also on nesi side of things. e.g. kill() and clean()
+    exit(1)
 
+while not job.isFinished():
+    time.sleep(3)
+
+print "standard out: \n", job.getStdOutContent()
+print "standard out: \n", job.getStdErrContent()
+
+# That's all folks!
+exit(0)
