@@ -46,7 +46,8 @@ err.write(job.getStdErrContent()
 err.close()
 
 ec = open(error_codefile, "w")
-ec.write(job.getErrorCode()
+exit_code = (int)job.getStatus() - 1000
+ec.write(exit_code)
 ec.close()
 
 # TODO do i need to do clean here?
