@@ -46,12 +46,12 @@ err.write(job.getStdErrContent())
 err.close()
 
 ec = open(error_codefile, "w")
+# FIXME -- awaiting Markus to fix it... could be some time
 exit_code = job.getStatus(False) - 1000
 ec.write(str(exit_code))
 ec.close()
 
-# TODO do i need to do clean here?
-# Probably easier to seeing as i have the job already..
+# clean it up
 job.kill(True)
 
 # That's all folks!
