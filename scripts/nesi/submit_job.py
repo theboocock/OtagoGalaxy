@@ -11,7 +11,8 @@
 # argv2     = group
 # argv3     = galaxy job id 
 # argv4     = command line
-# argv5-n   = files to be staged in
+# argv5     = file to write jobname to
+# argv6-n   = files to be staged in
 
 # TODO: add possibiility for emailing user if defined in galaxy config
 # TODO: get application and check that it is ok to run on queue
@@ -33,6 +34,7 @@ queue           = sys.argv[1]
 group           = sys.argv[2]
 galaxy_job_id   = sys.argv[3]
 command         = sys.argv[4]
+jobname_file    = sys.argv[5]
 input_files     = list()
 
 if group == '':
@@ -40,7 +42,7 @@ if group == '':
 if queue == '':
     queue = DEFAULT_QUEUE
 
-for f in sys.argv[6:]:
+for f in sys.argv[7:]:
     input_files.append(f)
 
 
@@ -53,7 +55,7 @@ job.setSubmissionLocation(queue)
 job.setTimestampJobname("galaxy_" + galaxy_job_id)
 
 # save jobname for job
-njn = open("nesi_job_name.tmp", "w")
+njn = open(jobname_file, "w")
 njn.write(job.getJobname())
 njn.close()
 
@@ -73,6 +75,7 @@ except Exception, e:
     job.kill(True)
     sys.exit(1)
 
+# TODO -- remove. just for debugging
 while not job.isFinished():
     time.sleep(3)
 
