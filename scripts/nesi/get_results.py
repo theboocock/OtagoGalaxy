@@ -32,9 +32,9 @@ errfile         = sys.argv[2]
 error_codefile  = sys.argv[3]
 job_name        = sys.argv[4]
 
-job = JobObject(si) 
+#job = JobObject(si) 
 
-job = job.getJob(job_name)
+job = JobObject(si, job_name)
 
 # Save stdout and stderr to files to be read by galaxy
 out = open(outfile, "w")
@@ -42,12 +42,12 @@ out.write(job.getStdOutContent())
 out.close()
 
 err = open(errfile, "w")
-err.write(job.getStdErrContent()
+err.write(job.getStdErrContent())
 err.close()
 
 ec = open(error_codefile, "w")
-exit_code = (int)job.getStatus() - 1000
-ec.write(exit_code)
+exit_code = job.getStatus(False) - 1000
+ec.write(str(exit_code))
 ec.close()
 
 # TODO do i need to do clean here?

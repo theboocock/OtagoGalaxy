@@ -44,7 +44,7 @@ class NesiJobState( object ):
         self.job_name = None
         self.old_state = None
         self.running = False
-        self.job_file = None
+        self.nesi_jobname_file = None
         self.ofile = None
         self.efile = None
         self.ecfile = None
@@ -233,13 +233,14 @@ class NesiJobRunner(BaseJobRunner):
         ecfile = "%s/%s.ec" % (self.app.config.cluster_files_directory, job_wrapper.job_id)
         ofile  = "%s/%s.o" %(self.app.config.cluster_files_directory,job_wrapper.job_id)
         efile = "%s/%s.e" %(self.app.config.cluster_files_directory,job_wrapper.job_id)
+        nesi_jobname_file = "%s/%s.njf" %(self.app.config.cluster_files_directory,job_wrapper.job_id)
         exec_dir = os.path.abspath( job_wrapper.working_directory )
 
         #TODO stip file paths here. to make it relative path for nesi
         if job_wrapper.get_state() == model.Job.states.DELETED:
             log.debug("Job %s deleted by user before it entered the Nesi queue" % job_wrapper.job_id)
             if self.app.config.cleanup_job in ("always", "onsuccess"):
-                job_wrapper.cleanup((ofile,efile,ecfile,jobfile))
+                job_wrapper.cleanup((ofile,efile,ecfile,nesi_jobname_file))
             return
 
         #submit
@@ -247,11 +248,13 @@ class NesiJobRunner(BaseJobRunner):
         log.debug("(%s) Submitting: %s" % (galaxy_job_id, command_line))
                
         #Submit the job to nesi
-        rc = call(["./submit_job.py", nesi_runner + ":" + nesi_server, self.nesi_group, galaxy_job_id, command_line])
+        #TODO need to add the files to be staged in here.. niggly if they arelady in commandline
+        rc = call(["./submit_job.py", nesi_runner + ":" + nesi_server, self.nesi_group, galaxy_job_id, command_line, nesi_jobname_file])
 
-        # TODO needs to be cleaned up
-        with open("nesi_job_name.tmp", 'r') as njn:
-            nesi_job_name = njn.readline()     
+        # get nesi jobname
+        njn = open(nesi_jobname_file, 'r')
+        nesi_job_name = njn.readline()
+        njn.close()
 
         #TODO have more verbose error codes / checking
         if rc != 0:
@@ -266,12 +269,12 @@ class NesiJobRunner(BaseJobRunner):
         nesi_job_state.job_wrapper = job_wrapper
         nesi_job_state.job_name= nesi_job_name
         nesi_job_state.ecfile=ecfile
-        nesi_job_state.job_file=job_file
         nesi_job_state.old_state= job_status[0]
         nesi_job_state.running=False
         nesi_job_state.runner_url=runner_url 
         nesi_job_state.ofile = ofile
         nesi_job_state.efile = efile
+        nesi_job_state.nesi_jobname_file=nesi_jobname_file
         # Add to our queue of jobs to monitor
         self.monitor_queue.put(nesi_job_state)
 
@@ -316,6 +319,7 @@ class NesiJobRunner(BaseJobRunner):
         ecfile = nesi_job_state.ecfile 
         ofile = nesi_job_state.ofile
         efile = nesi_job_state.efile
+        jobname_file = nesi_job_state.nesi_jobname_file
         runner_url=nesi_job_state.job_wrapper.get_job_runner_url()
         nesi_server=self.determine_nesi_server(runner_url)
         nesi_runner=self.determine_nesi_runner(runner_url)
@@ -324,34 +328,48 @@ class NesiJobRunner(BaseJobRunner):
         # get results
         rc = call(["./get_results.py", ofile, efile, ecfile, nesi_job_name])
         
+        # can't hit server for some reason
+        if rc != 0:
+            # lets just sleep for a bit and try again
+            time.sleep(10)
+            rc = call(["./get_results.py", ofile, efile, ecfile, nesi_job_name])
+
+            if rc != 0:
+                # no luck for some reason 
+                job_wrapper.fail("Cannot get results for this execution")
+                log.error("Cannot get results from NeSI Server")
+
         try:
             efh=file(nesi_job_state.efile,"r")
             ofh=file(nesi_job_state.ofile, "r")
             stdout = ofh.read(32768)
             stderr = efh.read(32768)
+            #FIXME: print it?
             print stderr,stdout
-        except:
-            log.debug("Could not open stdout/stderr files")
-        try:
-            ecfh = file(ecfile, "r")
-            exit_code_str= ecfh.read(32)
+
         except:
             stdout = ''
             stderr = 'Job output not returned by Nesi: The job was manually dequeued or there was a cluster error'
-            exit_code_str=""
+            log.debug("Could not open stdout/stderr files")
+
         try:
+            ecfh = file(ecfile, "r")
+            exit_code_str= ecfh.read(32)
             exit_code = int (exit_code_str)
+
         except:
-            log.warning("Exit code" + exit_code_str + " was invalid, Using 0." )
+            exit_code_str=""
+            log.warning("Exit code" + exit_code_str + " was invalid or missing, using 0." )
             exit_code = 0
+
         try:
             nesi_job_state.job_wrapper.finish(stdout, stderr, exit_code)
         except:
             log.exception("Job Wrapper finish method failed")
             nesi_job_state.job_wrapper.fail("Unable to finish job", exception=True)
+
         if self.app.config.cleanup_job == "always" or ( not stderr and self.app.config.cleanup_job == "onsuccess" ):
-            # FIXME --- keep the files now for debugging purposes
-            #self.cleanup((ecfile,job_file,ofile,efile))
+            self.cleanup((ecfile,ofile,efile,jobname_file))
     
     def cleanup( self, files ):
         for file in files:
