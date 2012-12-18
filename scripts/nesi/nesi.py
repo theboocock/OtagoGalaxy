@@ -175,7 +175,7 @@ class NesiJobRunner(BaseJobRunner):
             jobstatus_file = nesi_job_state.nesi_jobstatus_file
             break
 
-        rc = call(["./check_jobs.py", jobstatus_file])
+        rc = call(["./check_jobs.py", "-b BeSTGRID", jobstatus_file])
 
         for nesi_job_state in self.watched:
             job_name = nesi_job_state.job_name
@@ -258,7 +258,7 @@ class NesiJobRunner(BaseJobRunner):
                
         #Submit the job to nesi
         #TODO need to add the files to be staged in here.. niggly if they arelady in commandline
-        rc = call(["./submit_job.py", nesi_runner + ":" + nesi_server, self.nesi_group, galaxy_job_id, command_line, nesi_jobname_file])
+        rc = call(["./submit_job.py", "-b BeSTGRID", nesi_runner + ":" + nesi_server, self.nesi_group, galaxy_job_id, command_line, nesi_jobname_file])
 
         # get nesi jobname
         njn = open(nesi_jobname_file, 'r')
@@ -316,7 +316,7 @@ class NesiJobRunner(BaseJobRunner):
     def stop_job(self,job):
         """Attempts to remove a job from the Nesi queue"""
 
-        rc = call(["./stop_job.py", nesi_runner + ":" + nesi_server, self.nesi_group, nesi_job_name])
+        rc = call(["./stop_job.py", "-b BeSTGRID", nesi_runner + ":" + nesi_server, self.nesi_group, nesi_job_name])
 
         #TODO have more verbose error codes / checking
         if rc != 0:
@@ -337,13 +337,13 @@ class NesiJobRunner(BaseJobRunner):
         nesi_job_name = nesi_job_state.job_name
         
         # get results
-        rc = call(["./get_results.py", ofile, efile, ecfile, nesi_jobstatus_file, nesi_job_name])
+        rc = call(["./get_results.py", "-b BeSTGRID", ofile, efile, ecfile, nesi_jobstatus_file, nesi_job_name])
         
         # can't hit server for some reason
         if rc != 0:
             # lets just sleep for a bit and try again
             time.sleep(10)
-            rc = call(["./get_results.py", ofile, efile, ecfile, nesi_jobstatus_file, nesi_job_name])
+            rc = call(["./get_results.py", "-b BeSTGRID", ofile, efile, ecfile, nesi_jobstatus_file, nesi_job_name])
             if rc != 0:
                 # no luck for some reason 
                 job_wrapper.fail("Cannot get results for this execution")
