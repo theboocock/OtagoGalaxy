@@ -31,7 +31,14 @@ job_status= {
     0: "Done",
     1: "Pending",
     2: "Failed",
-    3: "Broken/Not found",
+    3: "Active",
+    4: "No such job"
+    5: "Job created"
+    6: "Read to submit"
+    7: "Staging in"
+    8: "Unsubmitted"
+    9: "Cleaning up"
+    10: "Job killed"
 }
 
 class NesiJobState( object ):
@@ -44,10 +51,11 @@ class NesiJobState( object ):
         self.job_name = None
         self.old_state = None
         self.running = False
-        self.nesi_jobname_file = None
         self.ofile = None
         self.efile = None
         self.ecfile = None
+        self.nesi_jobname_file = None
+        self.nesi_jobstatus_file = None
         self.runner_url = None
         self.check_count=0
         self.stop_job = False
@@ -163,18 +171,18 @@ class NesiJobRunner(BaseJobRunner):
         nesi_server= self.determine_nesi_server(self.app.config.default_cluster_job_runner)
         nesi_runner= self.determine_nesi_runner(self.app.config.default_cluster_job_runner)
         
-        try:
-            # TODO: pending RE from markus
-            # write each job result to a file, then read that file and check them all.. good times
-        except :
-            log.debug("Could not check job status because Nesi connection failed")
+        for nesi_job_state in self.watched
+            jobstatus_file = nesi_job_state.nesi_jobstatus_file
+            break
+
+        rc = call(["./check_jobs.py", jobstatus_file])
+
         for nesi_job_state in self.watched:
             job_name = nesi_job_state.job_name
             galaxy_job_id = nesi_job_state.job_wrapper.get_id_tag()
             old_state = nesi_job_state.old_state
             try: 
-                #TODO parsing of file will need to be done RE above 
-                with open("nesi_job_states", "r") as njs:
+                with open(jobstatus_file, "r") as njs:
                     status = ""
                     for line in njs:
                         line = line.split(":")
@@ -196,12 +204,12 @@ class NesiJobRunner(BaseJobRunner):
                 new_watched.append(nesi_job_state)
             elif status == "Active" and nesi_job_state.running:
                 new_watched.append(nesi_job_state)
-            elif status == "Failed":
+            elif status == "Failed" or "Job killed" or "Undefined":
                 self.work_queue.put(('finish', nesi_job_state))
-            elif status == "Broken/Not Found":
-                new_watched.append(nesi_job_state)
-            elif status == "Successful":
+            elif status == "Done":
                 self.work_queue.put(('finish',nesi_job_state))
+            else:
+                new_watched.append(nesi_job_state)
 
         self.watched= new_watched
 
@@ -234,13 +242,14 @@ class NesiJobRunner(BaseJobRunner):
         ofile  = "%s/%s.o" %(self.app.config.cluster_files_directory,job_wrapper.job_id)
         efile = "%s/%s.e" %(self.app.config.cluster_files_directory,job_wrapper.job_id)
         nesi_jobname_file = "%s/%s.njf" %(self.app.config.cluster_files_directory,job_wrapper.job_id)
+        nesi_jobstatus_file = "%s/%s.jsf" %(self.app.config.cluster_files_directory,job_wrapper.job_id)
         exec_dir = os.path.abspath( job_wrapper.working_directory )
 
         #TODO stip file paths here. to make it relative path for nesi
         if job_wrapper.get_state() == model.Job.states.DELETED:
             log.debug("Job %s deleted by user before it entered the Nesi queue" % job_wrapper.job_id)
             if self.app.config.cleanup_job in ("always", "onsuccess"):
-                job_wrapper.cleanup((ofile,efile,ecfile,nesi_jobname_file))
+                job_wrapper.cleanup((ofile,efile,ecfile,nesi_jobname_file,nesi_jobstatus_file))
             return
 
         #submit
@@ -275,6 +284,7 @@ class NesiJobRunner(BaseJobRunner):
         nesi_job_state.ofile = ofile
         nesi_job_state.efile = efile
         nesi_job_state.nesi_jobname_file=nesi_jobname_file
+        nesi_job_state.nesi_jobstatus_file=nesi_jobstatus_file
         # Add to our queue of jobs to monitor
         self.monitor_queue.put(nesi_job_state)
 
@@ -320,20 +330,20 @@ class NesiJobRunner(BaseJobRunner):
         ofile = nesi_job_state.ofile
         efile = nesi_job_state.efile
         jobname_file = nesi_job_state.nesi_jobname_file
+        jobstatus_file = nesi_job_state.nesi_jobstatus_file
         runner_url=nesi_job_state.job_wrapper.get_job_runner_url()
         nesi_server=self.determine_nesi_server(runner_url)
         nesi_runner=self.determine_nesi_runner(runner_url)
         nesi_job_name = nesi_job_state.job_name
         
         # get results
-        rc = call(["./get_results.py", ofile, efile, ecfile, nesi_job_name])
+        rc = call(["./get_results.py", ofile, efile, ecfile, nesi_jobstatus_file, nesi_job_name])
         
         # can't hit server for some reason
         if rc != 0:
             # lets just sleep for a bit and try again
             time.sleep(10)
-            rc = call(["./get_results.py", ofile, efile, ecfile, nesi_job_name])
-
+            rc = call(["./get_results.py", ofile, efile, ecfile, nesi_jobstatus_file, nesi_job_name])
             if rc != 0:
                 # no luck for some reason 
                 job_wrapper.fail("Cannot get results for this execution")
@@ -369,7 +379,7 @@ class NesiJobRunner(BaseJobRunner):
             nesi_job_state.job_wrapper.fail("Unable to finish job", exception=True)
 
         if self.app.config.cleanup_job == "always" or ( not stderr and self.app.config.cleanup_job == "onsuccess" ):
-            self.cleanup((ecfile,ofile,efile,jobname_file))
+            self.cleanup((ecfile,ofile,efile,jobname_file,jobstatus_file))
     
     def cleanup( self, files ):
         for file in files:
