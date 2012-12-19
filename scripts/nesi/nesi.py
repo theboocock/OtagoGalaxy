@@ -259,6 +259,7 @@ class NesiJobRunner(BaseJobRunner):
         #Submit the job to nesi
         #TODO need to add the files to be staged in here.. niggly if they arelady in commandline
 
+        # TODO get names of input files
         print type(job_wrapper.get_input_fnames())
 
         rc = call(["./submit_job.py", "-b BeSTGRID", nesi_runner + ":" + nesi_server, self.nesi_group, galaxy_job_id, command_line, nesi_jobname_file])
