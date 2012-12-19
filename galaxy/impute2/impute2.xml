@@ -5,7 +5,7 @@
     
     impute2.sh ${start_pos} ${end_pos} ${chromosome} ${known_haps} ${output_genofile} 
     ${output_summary} ${output_warnings} ${output_info} ${gen_or_hap.phased_or_not} 
-    ${ne} ${buffer_size}
+    ${ne} ${buffer_size} ${__root_dir__}
 
 </command>
 
