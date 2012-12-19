@@ -21,9 +21,6 @@ For this job runner to work a mac version of galaxy is required and that the
 Additional Errors may follow:
 %s
 """
-try:
-except Exception, e:
-    raise Exception( egg_messages % str (e))
 
 log = logging.getLogger(__name__)
 

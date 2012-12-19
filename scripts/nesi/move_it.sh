@@ -1,7 +1,7 @@
 #!/bin/bash
 
-mv -f submit_job.py ../../../../lib/galaxy/jobs/runners/
-mv -f check_jobs.py ../../../../lib/galaxy/jobs/runners/
-mv -f get_results.py ../../../../lib/galaxy/jobs/runners/
-mv -f stop_job.py ../../../../lib/galaxy/jobs/runners/
-mv -f nesi.py ../../../../lib/galaxy/jobs/runners/
+cp -f submit_job.py ../../../../lib/galaxy/jobs/runners/
+cp -f check_jobs.py ../../../../lib/galaxy/jobs/runners/
+cp -f get_results.py ../../../../lib/galaxy/jobs/runners/
+cp -f stop_job.py ../../../../lib/galaxy/jobs/runners/
+cp -f nesi.py ../../../../lib/galaxy/jobs/runners/
