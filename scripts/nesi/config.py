@@ -97,7 +97,7 @@ class Configuration( object ):
         self.job_working_directory = resolve_path( kwargs.get( "job_working_directory", "database/job_working_directory" ), self.root )
     
         self.xgrid_nfs_mount_location = kwargs.get("xgrid_nfs_mount_location",None)
-        sefl.nesi_group = kwargs.get("nesi_group", None)
+        self.nesi_group = kwargs.get("nesi_group", None)
 
         self.cleanup_job = kwargs.get( "cleanup_job", "always" )
         self.outputs_to_working_directory = string_as_bool( kwargs.get( 'outputs_to_working_directory', False ) )
