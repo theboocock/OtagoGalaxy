@@ -337,6 +337,7 @@ class NesiJobRunner(BaseJobRunner):
 
         #TODO have more verbose error codes / checking
         if rc != 0:
+            print "Call failed: " + nesi_script_location + "/./stop_job.py" + " -b BeSTGRID" + " " + job.get_job_runner_external_id()
             log.error("Removal of job from the NeSI queue failed.")
             return
 
