@@ -173,7 +173,7 @@ class NesiJobRunner(BaseJobRunner):
         nesi_server= self.determine_nesi_server(self.app.config.default_cluster_job_runner)
         nesi_runner= self.determine_nesi_runner(self.app.config.default_cluster_job_runner)
         
-        rc = call([nesi_script_location + "/./check_jobs.py", "-b BeSTGRID", jobstatus_file])
+        rc = call(nesi_script_location + "/./check_jobs.py " + "-b BeSTGRID " + jobstatus_file, shell=True)
 
         if rc != 0:
             log.debug("Call failed: " + nesi_script_location + "/./check_jobs.py" + " -b BeSTGRID" + " " + jobstatus_file)
@@ -260,34 +260,27 @@ class NesiJobRunner(BaseJobRunner):
         galaxy_job_id = job_wrapper.get_id_tag()
         log.debug("(%s) Submitting: %s" % (galaxy_job_id, command_line))
                
-        #Submit the job to nesi
-        #TODO need to add the files to be staged in here.. niggly if they arelady in commandline
-
         # TODO get names of input files
+        # TODO need to rewrite command line with proper locations for nesi
         input_files = " ".join(job_wrapper.get_input_fnames())
         print "INPUT_FILES: " + input_files
 
-        rc = os.system(nesi_script_location + "/./submit_job.py" + " -b BeSTGRID " + nesi_server + " " + self.nesi_group + " " + galaxy_job_id + " " + nesi_jobname_file + " '" + command_line + "' " + input_files)
-        #rc = call([nesi_script_location + "/./submit_job.py", "-b BeSTGRID", nesi_server, self.nesi_group, galaxy_job_id, nesi_jobname_file, "\'" + command_line + "\'", input_files], shell=True)
+        #Submit the job to nesi
+        rc = call(nesi_script_location + "/./submit_job.py" + " -b BeSTGRID " + nesi_server + " " + self.nesi_group + " " + galaxy_job_id + " " + nesi_jobname_file + " '" + command_line + "' " + input_files, shell=True)
 
         if rc != 0:
-            print "Cannot print:"
-            print nesi_script_location + "/./submit_job.py" + " -b BeSTGRID " + nesi_server + " " + self.nesi_group + " " + galaxy_job_id + " " + nesi_jobname_file + " '" + command_line + "' " + input_files
-#            print "Cannot submit Nesi Job with command: " + nesi_script_location + "/./submit_job.py -b BeSTGRID " + nesi_server, self.nesi_group, galaxy_job_id, nesi_jobname_file, '"' + command_line + '"', input_files
             job_wrapper.fail("Unable to submit NeSI job currently.")
             log.error("Cannot submit NeSI job currently.")
             return
 
         # get nesi jobname
-        njn = open(nesi_jobname_file, 'r')
-        nesi_job_name = njn.readline()
-        njn.close()
-
-        #TODO have more verbose error codes / checking
-        if rc != 0:
-            job_wrapper.fail("Unable to queue job for execution.")
-            log.error("Submission of job to the submit server failed.")
-            return
+        try:
+            njn = open(nesi_jobname_file, 'r')
+            nesi_job_name = njn.readline()
+            njn.close()
+        except:
+            job_wrapper.fail("Unable to submit NeSI job currently.")
+            log.error("NeSI job file not created correctly.")
 
         # store runner information for tracking if Galaxy restarts.
         job_wrapper.set_runner(runner_url, nesi_job_name)
@@ -333,11 +326,10 @@ class NesiJobRunner(BaseJobRunner):
     def stop_job(self,job):
         """Attempts to remove a job from the Nesi queue"""
     
-        rc = call([nesi_script_location + "/./stop_job.py", "-b BeSTGRID", job.get_job_runner_external_id()])
+        rc = call(nesi_script_location + "/./stop_job.py " + "-b BeSTGRID " + job.get_job_runner_external_id(), shell=True)
 
         #TODO have more verbose error codes / checking
         if rc != 0:
-            print "Call failed: " + nesi_script_location + "/./stop_job.py" + " -b BeSTGRID" + " " + job.get_job_runner_external_id()
             log.error("Removal of job from the NeSI queue failed.")
             return
 
@@ -352,13 +344,15 @@ class NesiJobRunner(BaseJobRunner):
         nesi_job_name = nesi_job_state.job_name
         
         # get results
-        rc = call([nesi_script_location + "/./get_results.py", "-b BeSTGRID", ofile, efile, ecfile, jobstatus_file, nesi_job_name])
+        rc = call(nesi_script_location + "/./get_results.py " + "-b BeSTGRID " + ofile + " " + efile + " " + ecfile + " " + jobstatus_file + " " + nesi_job_name, shell=True)
         
         # can't hit server for some reason
         if rc != 0:
             # lets just sleep for a bit and try again
             time.sleep(10)
-            rc = call([nesi_script_location + "/./get_results.py", "-b BeSTGRID", ofile, efile, ecfile, jobstatus_file, nesi_job_name])
+            rc = call(nesi_script_location + "/./get_results.py" + " -b BeSTGRID " + ofile + " " + efile + " " + ecfile + " " + nesi_job_name, shell=True)
+
+            #TODO: have more verbose error checking
             if rc != 0:
                 # no luck for some reason 
                 job_wrapper.fail("Cannot get results for this execution")

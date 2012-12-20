@@ -7,11 +7,10 @@
 #        complete.
 
 # Arguments:
-# argv1     = queue
-# argv2     = group
-# argv3     = galaxy job id 
-# argv4     = command line
-# argv5-n   = files to be staged in
+# argv1     = ofile
+# argv2     = efile
+# argv3     = ecfile
+# argv4     = job_name
 
 from grisu.Grython import serviceInterface as si
 from grisu.frontend.control.login import LoginManager
@@ -46,7 +45,7 @@ err.write(job.getStdErrContent())
 err.close()
 
 ec = open(error_codefile, "w")
-# FIXME -- awaiting Markus to fix it... could be some time
+#NOTE: Will not be status of job run as of yet, waiting for markus to restart NeSI
 exit_code = job.getStatus(False) - 1000
 ec.write(str(exit_code))
 ec.close()
