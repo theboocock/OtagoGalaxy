@@ -257,11 +257,10 @@ class NesiJobRunner(BaseJobRunner):
         #TODO need to add the files to be staged in here.. niggly if they arelady in commandline
 
         # TODO get names of input files
-        print "HERES THE FUCKING TYPE OF THE FUCKING FNAMES YOLL"
-        print type(job_wrapper.get_input_fnames())
+        input_files = " ".join(job_wrapper.get_input_fnames())
+        print input_files
 
-        #TODO get files from job_wrapper inputs.getfnames or whatever
-        rc = call([nesi_script_location + "/./submit_job.py", "-b BeSTGRID", nesi_server, self.nesi_group, galaxy_job_id, nesi_jobname_file, command_line])
+        rc = call([nesi_script_location + "/./submit_job.py", "-b BeSTGRID", nesi_server, self.nesi_group, galaxy_job_id, nesi_jobname_file, command_line, input_files])
 
         # get nesi jobname
         njn = open(nesi_jobname_file, 'r')
