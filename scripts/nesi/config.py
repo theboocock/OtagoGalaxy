@@ -66,6 +66,7 @@ class Configuration( object ):
             tcf = 'tool_conf.xml'
         self.tool_configs = [ resolve_path( p, self.root ) for p in listify( tcf ) ]
         self.tool_data_table_config_path = resolve_path( kwargs.get( 'tool_data_table_config_path', 'tool_data_table_conf.xml' ), self.root )
+        self.shed_tool_data_table_config = resolve_path( kwargs.get( 'shed_tool_data_table_config', 'shed_tool_data_table_conf.xml' ), self.root )
         self.enable_tool_shed_check = string_as_bool( kwargs.get( 'enable_tool_shed_check', False ) )
         try:
             self.hours_between_check = int( kwargs.get( 'hours_between_check', 12 ) )
@@ -95,11 +96,6 @@ class Configuration( object ):
         self.job_queue_cleanup_interval = int( kwargs.get("job_queue_cleanup_interval", "5") )
         self.cluster_files_directory = os.path.abspath( kwargs.get( "cluster_files_directory", "database/pbs" ) )
         self.job_working_directory = resolve_path( kwargs.get( "job_working_directory", "database/job_working_directory" ), self.root )
-    
-        self.xgrid_nfs_mount_location = kwargs.get("xgrid_nfs_mount_location",None)
-        self.nesi_group = kwargs.get("nesi_group", None)
-        print self.nesi_group
-
         self.cleanup_job = kwargs.get( "cleanup_job", "always" )
         self.outputs_to_working_directory = string_as_bool( kwargs.get( 'outputs_to_working_directory', False ) )
         self.output_size_limit = int( kwargs.get( 'output_size_limit', 0 ) )
@@ -128,11 +124,18 @@ class Configuration( object ):
         self.enable_beta_job_managers = string_as_bool( kwargs.get( 'enable_beta_job_managers', 'False' ) )
         # Per-user Job concurrency limitations
         self.user_job_limit = int( kwargs.get( 'user_job_limit', 0 ) )
+        # user_job_limit for backwards-compatibility
+        self.registered_user_job_limit = int( kwargs.get( 'registered_user_job_limit', self.user_job_limit ) )
+        self.anonymous_user_job_limit = int( kwargs.get( 'anonymous_user_job_limit', self.user_job_limit ) )
         self.default_cluster_job_runner = kwargs.get( 'default_cluster_job_runner', 'local:///' )
         self.pbs_application_server = kwargs.get('pbs_application_server', "" )
         self.pbs_dataset_server = kwargs.get('pbs_dataset_server', "" )
         self.pbs_dataset_path = kwargs.get('pbs_dataset_path', "" )
         self.pbs_stage_path = kwargs.get('pbs_stage_path', "" )
+        #Xgrid NFS mount
+        self.xgrid_nfs_mount_location = (kwargs.get("xgrid_nfs_mount_location",None))
+        self.nesi_group = kwargs.get("nesi_group", None)
+
         self.drmaa_external_runjob_script = kwargs.get('drmaa_external_runjob_script', None )
         self.drmaa_external_killjob_script = kwargs.get('drmaa_external_killjob_script', None)
         self.external_chown_script = kwargs.get('external_chown_script', None)
@@ -220,6 +223,19 @@ class Configuration( object ):
         self.job_manager = kwargs.get('job_manager', self.server_name).strip()
         self.job_handlers = [ x.strip() for x in kwargs.get('job_handlers', self.server_name).split(',') ]
         self.default_job_handlers = [ x.strip() for x in kwargs.get('default_job_handlers', ','.join( self.job_handlers ) ).split(',') ]
+        # parse the [galaxy:job_limits] section
+        self.job_limits = {}
+        try:
+            job_limits = global_conf_parser.items( 'galaxy:job_limits' )
+            for k, v in job_limits:
+                # Since the URL contains a colon and possibly an equals sign, consider ' = ' the delimiter
+                more_k, v = v.split(' = ', 1)
+                k = '%s:%s' % (k, more_k.strip())
+                v = v.strip().rsplit(None, 1)
+                v[1] = int(v[1])
+                self.job_limits[k] = v
+        except ConfigParser.NoSectionError:
+            pass
         # Use database for IPC unless this is a standalone server (or multiple servers doing self dispatching in memory)
         if self.track_jobs_in_database is None or self.track_jobs_in_database == "None":
             self.track_jobs_in_database = True
@@ -345,7 +361,7 @@ class Configuration( object ):
 def get_database_engine_options( kwargs ):
     """
     Allow options for the SQLAlchemy database engine to be passed by using
-    the prefix "database_engine_option_".
+    the prefix "database_engine_option".
     """
     conversions =  {
         'convert_unicode': string_as_bool,
