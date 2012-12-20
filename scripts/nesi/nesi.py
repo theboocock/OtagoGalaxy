@@ -176,7 +176,7 @@ class NesiJobRunner(BaseJobRunner):
         rc = call([nesi_script_location + "/./check_jobs.py", "-b BeSTGRID", jobstatus_file])
 
         if rc != 0:
-            log.debug("Call failed: " + nesi_script+location + "/./check_jobs.py" + " -b BeSTGRID" + " " + jobstatus_file)
+            log.debug("Call failed: " + nesi_script_location + "/./check_jobs.py" + " -b BeSTGRID" + " " + jobstatus_file)
             log.error("Could not check NeSI servers to obtain job statuses")
             return
 
@@ -199,6 +199,7 @@ class NesiJobRunner(BaseJobRunner):
 
             except:
                 log.exception("Could not access jobs to check job status.")
+                return
 
             print status
             if status != old_state:          
@@ -336,6 +337,7 @@ class NesiJobRunner(BaseJobRunner):
 
         #TODO have more verbose error codes / checking
         if rc != 0:
+            print "Call failed: " + nesi_script_location + "/./stop_job.py" + " -b BeSTGRID" + " " + job.get_job_runner_external_id()
             log.error("Removal of job from the NeSI queue failed.")
             return
 
