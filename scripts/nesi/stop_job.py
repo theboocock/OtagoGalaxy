@@ -1,4 +1,4 @@
-#!/home/edwardhills/NeSI_Tools/bin/grython -b BeSTGRID
+#!/home/edwardhills/NeSI_Tools/bin/grython
 #
 # Author: Ed hills
 # Date: 17/12/12

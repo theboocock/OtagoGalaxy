@@ -180,7 +180,6 @@ class NesiJobRunner(BaseJobRunner):
             log.error("Could not check NeSI servers to obtain job statuses")
             return
 
-    
         for nesi_job_state in self.watched:
             job_name = nesi_job_state.job_name
             galaxy_job_id = nesi_job_state.job_wrapper.get_id_tag()
@@ -198,6 +197,7 @@ class NesiJobRunner(BaseJobRunner):
                         log.debug("Could not find job in NeSI queue that matched: ", job_name)
 
             except:
+                print "Call failed: " + nesi_script_location + "/./check_jobs.py" + " -b BeSTGRID" + " " + jobstatus_file
                 log.exception("Could not access jobs to check job status.")
                 return
 
