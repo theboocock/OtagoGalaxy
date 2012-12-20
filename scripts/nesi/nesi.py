@@ -32,13 +32,13 @@ job_status= {
     1: "Pending",
     2: "Failed",
     3: "Active",
-    4: "No such job"
-    5: "Job created"
-    6: "Read to submit"
-    7: "Staging in"
-    8: "Unsubmitted"
-    9: "Cleaning up"
-    10: "Job killed"
+    4: "No such job",
+    5: "Job created",
+    6: "Read to submit",
+    7: "Staging in",
+    8: "Unsubmitted",
+    9: "Cleaning up",
+    10: "Job killed",
 }
 
 class NesiJobState( object ):
@@ -131,7 +131,7 @@ class NesiJobRunner(BaseJobRunner):
     def determine_nesi_group(self, group, rewrite=False):
         """Determine what Nesi group we are connecting to"""
         nesi_group = group
-        if nesi_group == "" or is None:
+        if nesi_group == "" or None:
             self.nesi_group = '/nz/nesi'
             log.debug("No group set. Setting NeSI group to %s" % self.nesi_group)
             nesi_group = self.nesi_group
@@ -171,7 +171,7 @@ class NesiJobRunner(BaseJobRunner):
         nesi_server= self.determine_nesi_server(self.app.config.default_cluster_job_runner)
         nesi_runner= self.determine_nesi_runner(self.app.config.default_cluster_job_runner)
         
-        for nesi_job_state in self.watched
+        for nesi_job_state in self.watched:
             jobstatus_file = nesi_job_state.nesi_jobstatus_file
             break
 
@@ -191,7 +191,8 @@ class NesiJobRunner(BaseJobRunner):
                             status = line[1]
 
                     if status == "":
-                        log.debug("Could not find job in NeSI queue that matched: ", job_name
+                        log.debug("Could not find job in NeSI queue that matched: ", job_name)
+
             except:
                 log.exception("Could not access jobs to check job status.")
 

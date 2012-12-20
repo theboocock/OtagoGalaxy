@@ -98,6 +98,7 @@ class Configuration( object ):
     
         self.xgrid_nfs_mount_location = kwargs.get("xgrid_nfs_mount_location",None)
         self.nesi_group = kwargs.get("nesi_group", None)
+        print self.nesi_group
 
         self.cleanup_job = kwargs.get( "cleanup_job", "always" )
         self.outputs_to_working_directory = string_as_bool( kwargs.get( 'outputs_to_working_directory', False ) )
