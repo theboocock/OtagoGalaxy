@@ -260,10 +260,10 @@ class NesiJobRunner(BaseJobRunner):
         input_files = " ".join(job_wrapper.get_input_fnames())
         print "INPUT_FILES: " + input_files
 
-        rc = call([nesi_script_location + "/./submit_job.py", "-b BeSTGRID", nesi_server, self.nesi_group, galaxy_job_id, nesi_jobname_file, '"' + command_line + '"', input_files])
+        rc = call([nesi_script_location + "/./submit_job.py", "-b BeSTGRID", nesi_server, self.nesi_group, galaxy_job_id, nesi_jobname_file, '"' + command_line + '"', input_files], shell=True)
 
         if rc != 0:
-            print "Cannot submit Nesi Job with command: " + nesi_script_location + "/./submit_job.py -b BeSTGRID " + nesi_server, self.nesi_group, galaxy_job_id, nesi_jobname_file, command_line, input_files
+            print "Cannot submit Nesi Job with command: " + nesi_script_location + "/./submit_job.py -b BeSTGRID " + nesi_server, self.nesi_group, galaxy_job_id, nesi_jobname_file, '"' + command_line + '"', input_files
             job_wrapper.fail("Unable to submit NeSI job currently.")
             log.error("Cannot submit NeSI job currently.")
             log.exception("Cannot submit NeSI job currently.")
