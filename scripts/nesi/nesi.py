@@ -164,7 +164,7 @@ class NesiJobRunner(BaseJobRunner):
                 log.exception("Uncaught exception checking jobs")
 
             #sleep a bit before the next state is checked
-            time.sleep(30)
+            time.sleep(10)
 
     def check_watched_items(self):
         """Called by the monitor thread to look at each of the jobs and deal 
@@ -175,6 +175,12 @@ class NesiJobRunner(BaseJobRunner):
         
         rc = call([nesi_script_location + "/./check_jobs.py", "-b BeSTGRID", jobstatus_file])
 
+        if rc != 0:
+            log.debug("Call failed: " + nesi_script+location + "/./check_jobs.py" + " -b BeSTGRID" + " " + jobstatus_file)
+            log.error("Could not check NeSI servers to obtain job statuses")
+            return
+
+    
         for nesi_job_state in self.watched:
             job_name = nesi_job_state.job_name
             galaxy_job_id = nesi_job_state.job_wrapper.get_id_tag()
@@ -260,10 +266,13 @@ class NesiJobRunner(BaseJobRunner):
         input_files = " ".join(job_wrapper.get_input_fnames())
         print "INPUT_FILES: " + input_files
 
-        rc = call([nesi_script_location + "/./submit_job.py", "-b BeSTGRID", nesi_server, self.nesi_group, galaxy_job_id, nesi_jobname_file, "\'" + command_line + "\'", input_files], shell=True)
+        rc = os.system(nesi_script_location + "/./submit_job.py" + " -b BeSTGRID " + nesi_server + " " + self.nesi_group + " " + galaxy_job_id + " " + nesi_jobname_file + " '" + command_line + "' " + input_files)
+        #rc = call([nesi_script_location + "/./submit_job.py", "-b BeSTGRID", nesi_server, self.nesi_group, galaxy_job_id, nesi_jobname_file, "\'" + command_line + "\'", input_files], shell=True)
 
         if rc != 0:
-            print "Cannot submit Nesi Job with command: " + nesi_script_location + "/./submit_job.py -b BeSTGRID " + nesi_server, self.nesi_group, galaxy_job_id, nesi_jobname_file, '"' + command_line + '"', input_files
+            print "Cannot print:"
+            print nesi_script_location + "/./submit_job.py" + " -b BeSTGRID " + nesi_server + " " + self.nesi_group + " " + galaxy_job_id + " " + nesi_jobname_file + " '" + command_line + "' " + input_files
+#            print "Cannot submit Nesi Job with command: " + nesi_script_location + "/./submit_job.py -b BeSTGRID " + nesi_server, self.nesi_group, galaxy_job_id, nesi_jobname_file, '"' + command_line + '"', input_files
             job_wrapper.fail("Unable to submit NeSI job currently.")
             log.error("Cannot submit NeSI job currently.")
             return
@@ -280,7 +289,7 @@ class NesiJobRunner(BaseJobRunner):
             return
 
         # store runner information for tracking if Galaxy restarts.
-        job_wrapper.set_runner(runner_url, job_id.job_name)
+        job_wrapper.set_runner(runner_url, nesi_job_name)
         # Store nesi related state information for job.
         nesi_job_state=NesiJobState()
         nesi_job_state.job_wrapper = job_wrapper
@@ -322,12 +331,11 @@ class NesiJobRunner(BaseJobRunner):
     # TODO figure out how job helps us get our job_name
     def stop_job(self,job):
         """Attempts to remove a job from the Nesi queue"""
-
-        rc = call([nesi_script_location + "/./stop_job.py", "-b BeSTGRID", nesi_job_name])
+    
+        rc = call([nesi_script_location + "/./stop_job.py", "-b BeSTGRID", job.get_job_runner_external_id()])
 
         #TODO have more verbose error codes / checking
         if rc != 0:
-            job_wrapper.fail("Unable to remove job from execution.")
             log.error("Removal of job from the NeSI queue failed.")
             return
 
