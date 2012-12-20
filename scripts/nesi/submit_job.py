@@ -74,18 +74,18 @@ job.createJob(group)
 print "Submitting job..."
 try:
     job.submitJob()
-except Exception, e:
+except:
     # Just catch all exceptions for time being. TODO
     print "Cannot submit job currently."
     job.kill(True)
     sys.exit(1)
 
 # TODO -- remove. just for debugging
-while not job.isFinished():
-    time.sleep(3)
+#while not job.isFinished():
+#    time.sleep(3)
 
-print "standard out: \n", job.getStdOutContent()
-print "standard err: \n", job.getStdErrContent()
+#print "standard out: \n", job.getStdOutContent()
+#print "standard err: \n", job.getStdErrContent()
 
 # That's all folks!
 sys.exit(0)
