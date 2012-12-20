@@ -12,7 +12,10 @@ import shutil
 from subprocess import call
 
 #FIXME this needs to be sorted out some other way
-nesi_script_location = "lib/galaxy/jobs/runners/"
+nesi_script_location = os.path.abspath("lib/galaxy/jobs/runners/")
+
+#FIXME --- setting jobstatus file to a hard coded location for now. for the lols.
+jobstatus_file = os.path.abspath("lib/galaxy/jobs/runners/jobstatus_file.tmp")
 
 egg_messages = """
 
@@ -55,7 +58,6 @@ class NesiJobState( object ):
         self.efile = None
         self.ecfile = None
         self.nesi_jobname_file = None
-        self.nesi_jobstatus_file = None
         self.runner_url = None
         self.check_count=0
         self.stop_job = False
@@ -162,7 +164,7 @@ class NesiJobRunner(BaseJobRunner):
                 log.exception("Uncaught exception checking jobs")
 
             #sleep a bit before the next state is checked
-            time.sleep(10)
+            time.sleep(30)
 
     def check_watched_items(self):
         """Called by the monitor thread to look at each of the jobs and deal 
@@ -171,11 +173,7 @@ class NesiJobRunner(BaseJobRunner):
         nesi_server= self.determine_nesi_server(self.app.config.default_cluster_job_runner)
         nesi_runner= self.determine_nesi_runner(self.app.config.default_cluster_job_runner)
         
-        for nesi_job_state in self.watched:
-            jobstatus_file = nesi_job_state.nesi_jobstatus_file
-            break
-
-        rc = call([nesi_script_location + "./check_jobs.py", "-b BeSTGRID", jobstatus_file])
+        rc = call([nesi_script_location + "/./check_jobs.py", "-b BeSTGRID", jobstatus_file])
 
         for nesi_job_state in self.watched:
             job_name = nesi_job_state.job_name
@@ -242,14 +240,13 @@ class NesiJobRunner(BaseJobRunner):
         ofile  = "%s/%s.o" %(self.app.config.cluster_files_directory,job_wrapper.job_id)
         efile = "%s/%s.e" %(self.app.config.cluster_files_directory,job_wrapper.job_id)
         nesi_jobname_file = "%s/%s.njf" %(self.app.config.cluster_files_directory,job_wrapper.job_id)
-        nesi_jobstatus_file = "%s/%s.jsf" %(self.app.config.cluster_files_directory,job_wrapper.job_id)
         exec_dir = os.path.abspath( job_wrapper.working_directory )
 
         #TODO stip file paths here. to make it relative path for nesi
         if job_wrapper.get_state() == model.Job.states.DELETED:
             log.debug("Job %s deleted by user before it entered the Nesi queue" % job_wrapper.job_id)
             if self.app.config.cleanup_job in ("always", "onsuccess"):
-                job_wrapper.cleanup((ofile,efile,ecfile,nesi_jobname_file,nesi_jobstatus_file))
+                job_wrapper.cleanup((ofile,efile,ecfile,nesi_jobname_file, jobstatus_file))
             return
 
         #submit
@@ -260,9 +257,11 @@ class NesiJobRunner(BaseJobRunner):
         #TODO need to add the files to be staged in here.. niggly if they arelady in commandline
 
         # TODO get names of input files
+        print "HERES THE FUCKING TYPE OF THE FUCKING FNAMES YOLL"
         print type(job_wrapper.get_input_fnames())
 
-        rc = call([nesi_script_location + "./submit_job.py", "-b BeSTGRID", nesi_server, self.nesi_group, galaxy_job_id, command_line, nesi_jobname_file])
+        #TODO get files from job_wrapper inputs.getfnames or whatever
+        rc = call([nesi_script_location + "/./submit_job.py", "-b BeSTGRID", nesi_server, self.nesi_group, galaxy_job_id, nesi_jobname_file, command_line])
 
         # get nesi jobname
         njn = open(nesi_jobname_file, 'r')
@@ -288,7 +287,6 @@ class NesiJobRunner(BaseJobRunner):
         nesi_job_state.ofile = ofile
         nesi_job_state.efile = efile
         nesi_job_state.nesi_jobname_file=nesi_jobname_file
-        nesi_job_state.nesi_jobstatus_file=nesi_jobstatus_file
         # Add to our queue of jobs to monitor
         self.monitor_queue.put(nesi_job_state)
 
@@ -320,7 +318,7 @@ class NesiJobRunner(BaseJobRunner):
     def stop_job(self,job):
         """Attempts to remove a job from the Nesi queue"""
 
-        rc = call([nesi_script_location + "./stop_job.py", "-b BeSTGRID", nesi_job_name])
+        rc = call([nesi_script_location + "/./stop_job.py", "-b BeSTGRID", nesi_job_name])
 
         #TODO have more verbose error codes / checking
         if rc != 0:
@@ -334,19 +332,18 @@ class NesiJobRunner(BaseJobRunner):
         ofile = nesi_job_state.ofile
         efile = nesi_job_state.efile
         jobname_file = nesi_job_state.nesi_jobname_file
-        jobstatus_file = nesi_job_state.nesi_jobstatus_file
         runner_url=nesi_job_state.job_wrapper.get_job_runner_url()
         nesi_server=self.determine_nesi_server(runner_url)
         nesi_job_name = nesi_job_state.job_name
         
         # get results
-        rc = call([nesi_script_location + "./get_results.py", "-b BeSTGRID", ofile, efile, ecfile, nesi_jobstatus_file, nesi_job_name])
+        rc = call([nesi_script_location + "/./get_results.py", "-b BeSTGRID", ofile, efile, ecfile, jobstatus_file, nesi_job_name])
         
         # can't hit server for some reason
         if rc != 0:
             # lets just sleep for a bit and try again
             time.sleep(10)
-            rc = call([nesi_script_location + "./get_results.py", "-b BeSTGRID", ofile, efile, ecfile, nesi_jobstatus_file, nesi_job_name])
+            rc = call([nesi_script_location + "/./get_results.py", "-b BeSTGRID", ofile, efile, ecfile, jobstatus_file, nesi_job_name])
             if rc != 0:
                 # no luck for some reason 
                 job_wrapper.fail("Cannot get results for this execution")
