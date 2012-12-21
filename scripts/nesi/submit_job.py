@@ -37,7 +37,6 @@ jobname_file    = sys.argv[4]
 command         = sys.argv[5]
 input_files     = list()
 
-
 if group == '':
     group = DEFAULT_GROUP
 if queue == '':
@@ -45,11 +44,6 @@ if queue == '':
 
 for f in sys.argv[6:]:
     input_files.append(f)
-
-
-#TODO - think about how exactly files are going to work.. what about files already staged on the nesi server?
-
-#FIXME why isn't it catting my files properly? its the same as there example..
 
 job = JobObject(si) 
 job.setSubmissionLocation(queue)
@@ -63,7 +57,17 @@ njn = open(jobname_file, "w")
 njn.write(job.getJobname())
 njn.close()
 
-job.setCommandline(command)
+# NOTE: I only looks at .dat files for now.
+command_arguments = command.split()
+new_commandline = ""
+
+for arg in command_arguments:
+    if arg.endswith(".dat"):
+        new_commandline += (" " + os.path.basename(arg))
+    else:
+        new_commandline += (" " + arg)
+
+job.setCommandline(new_commandline)
 
 for inputs in input_files:
     print inputs
@@ -79,13 +83,6 @@ except:
     print "Cannot submit job currently."
     job.kill(True)
     sys.exit(1)
-
-# TODO -- remove. just for debugging
-#while not job.isFinished():
-#    time.sleep(3)
-
-#print "standard out: \n", job.getStdOutContent()
-#print "standard err: \n", job.getStdErrContent()
 
 # That's all folks!
 sys.exit(0)
