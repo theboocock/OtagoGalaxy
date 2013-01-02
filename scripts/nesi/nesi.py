@@ -61,6 +61,7 @@ class NesiJobState( object ):
         self.runner_url = None
         self.check_count=0
         self.stop_job = False
+        self.wall_time_mins = 0
 
 class NesiJobRunner(BaseJobRunner):
     """
@@ -93,10 +94,6 @@ class NesiJobRunner(BaseJobRunner):
     default_cluster_runner for now
     
     Format is up to the galaxy wiki standards.
-
-    for now 
-
-        runner://<server>
     """
     def determine_nesi_runner(self, url, rewrite=False):
         """Determine what Nesi cluster we are connecting to"""
@@ -151,7 +148,7 @@ class NesiJobRunner(BaseJobRunner):
                 while 1:
                     nesi_job_state=self.monitor_queue.get_nowait()
                     if nesi_job_state is self.STOP_SIGNAL:
-                        # TODO:This is where any cleanup would occur
+                        self.cleanup()
                         return
                     self.watched.append(nesi_job_state)
             except Empty:
@@ -205,14 +202,18 @@ class NesiJobRunner(BaseJobRunner):
             if status != old_state:          
                 log.debug("(%s/%s) NeSI Jobs state changed from %s to %s" % (galaxy_job_id, job_name,old_state,status))
             if status == "Active" and not nesi_job_state.running:
+                nesi_job_state.old_state=job_status[3]
                 nesi_job_state.running=True
                 nesi_job_state.job_wrapper.change_state(model.Job.states.RUNNING)
                 new_watched.append(nesi_job_state)
             elif status == "Active" and nesi_job_state.running:
+                nesi_job_state.old_state=job_status[3]
                 new_watched.append(nesi_job_state)
             elif status == "Failed" or "Job killed" or "Undefined":
-                self.work_queue.put(('finish', nesi_job_state))
+                nesi_job_state.old_state=job_status[2]
+                self.work_queue.put(('fail', nesi_job_state))
             elif status == "Done":
+                nesi_job_state.old_state=job_status[0]
                 self.work_queue.put(('finish',nesi_job_state))
             else:
                 new_watched.append(nesi_job_state)
@@ -260,8 +261,6 @@ class NesiJobRunner(BaseJobRunner):
         galaxy_job_id = job_wrapper.get_id_tag()
         log.debug("(%s) Submitting: %s" % (galaxy_job_id, command_line))
                
-        # TODO get names of input files
-        # TODO need to rewrite command line with proper locations for nesi
         input_files = " ".join(job_wrapper.get_input_fnames())
         print "INPUT_FILES: " + input_files
 
@@ -289,7 +288,7 @@ class NesiJobRunner(BaseJobRunner):
         nesi_job_state.job_wrapper = job_wrapper
         nesi_job_state.job_name= nesi_job_name
         nesi_job_state.ecfile=ecfile
-        nesi_job_state.old_state= job_status[0]
+        nesi_job_state.old_state= job_status[1]
         nesi_job_state.running=False
         nesi_job_state.runner_url=runner_url 
         nesi_job_state.ofile = ofile
@@ -355,7 +354,7 @@ class NesiJobRunner(BaseJobRunner):
             #TODO: have more verbose error checking
             if rc != 0:
                 # no luck for some reason 
-                job_wrapper.fail("Cannot get results for this execution")
+                nesi_job_state.job_wrapper.fail("Cannot get results for this execution")
                 log.error("Cannot get results from NeSI Server")
 
         try:
@@ -390,6 +389,63 @@ class NesiJobRunner(BaseJobRunner):
         if self.app.config.cleanup_job == "always" or ( not stderr and self.app.config.cleanup_job == "onsuccess" ):
             self.cleanup((ecfile,ofile,efile,jobname_file,jobstatus_file))
     
+    def fail_job(self, nesi_job_state):
+        """Finishes a failed job sent to nesi"""
+        ecfile = nesi_job_state.ecfile 
+        ofile = nesi_job_state.ofile
+        efile = nesi_job_state.efile
+        jobname_file = nesi_job_state.nesi_jobname_file
+        runner_url=nesi_job_state.job_wrapper.get_job_runner_url()
+        nesi_server=self.determine_nesi_server(runner_url)
+        nesi_job_name = nesi_job_state.job_name
+        
+        # get results
+        rc = call(nesi_script_location + "/./get_results.py " + "-b BeSTGRID " + ofile + " " + efile + " " + ecfile + " " + jobstatus_file + " " + nesi_job_name, shell=True)
+        
+        # can't hit server for some reason
+        if rc != 0:
+            # lets just sleep for a bit and try again
+            time.sleep(10)
+            rc = call(nesi_script_location + "/./get_results.py" + " -b BeSTGRID " + ofile + " " + efile + " " + ecfile + " " + nesi_job_name, shell=True)
+
+            #TODO: have more verbose error checking
+            if rc != 0:
+                # no luck for some reason 
+                nesi_job_state.job_wrapper.fail("Cannot get results for this execution")
+                log.error("Cannot get results from NeSI Server")
+
+        try:
+            efh=file(nesi_job_state.efile,"r")
+            ofh=file(nesi_job_state.ofile, "r")
+            stdout = ofh.read(32768)
+            stderr = efh.read(32768)
+            #FIXME: print it?
+            print stderr,stdout
+
+        except:
+            stdout = ''
+            stderr = 'Job output not returned by Nesi: The job was manually dequeued or there was a cluster error'
+            log.debug("Could not open stdout/stderr files")
+
+        try:
+            ecfh = file(ecfile, "r")
+            exit_code_str= ecfh.read(32)
+            exit_code = int (exit_code_str)
+
+        except:
+            exit_code_str=""
+            log.warning("Exit code" + exit_code_str + " was invalid or missing, using 0." )
+            exit_code = 0
+
+        try:
+            nesi_job_state.job_wrapper.fail(stderr, stderr=stderr, stdout=stdout, exit_code=exit_code_str)
+        except:
+            log.exception("Job Wrapper finish method failed")
+            nesi_job_state.job_wrapper.fail("Unable to finish job", exception=True)
+
+        if self.app.config.cleanup_job == "always" or ( not stderr and self.app.config.cleanup_job == "onsuccess" ):
+            self.cleanup((ecfile,ofile,efile,jobname_file,jobstatus_file))
+
     def cleanup( self, files ):
         for file in files:
             try:
@@ -399,7 +455,31 @@ class NesiJobRunner(BaseJobRunner):
 
     #TODO -- recover a nesi job if galaxy dies in between
     def recover (self, job,job_wrapper):
-        pass
+        """Recovers jobs stuck in the queued / running state when galaxy started"""
+        job_id = job.get_job_runner_external_id()
+        if job_id is None:
+            self.put(job_wrapper)
+            return
+
+        nesi_job_state=NesiJobState()
+        nesi_job_state.ofile= "%s/%s.o" % (self.app.config.cluster_files_directory, job.id)
+        nesi_job_state.efile= "%s/%s.e" % (self.app.config.cluster_files_directory, job.id)
+        nesi_job_state.ecfile "%s/%s.ec" % (self.app.config.cluster_files_directory, job.id)
+        nesi_job_state.job_file= "%s/%s.sh" % (self.app.config.cluster_files_directory,job.id)
+        nesi_job_state.job_id=str(job_id)
+        nesi_job_state.runner_url=job_wrapper.get_job_runner_url()
+        nesi_job_state.job_wrapper= job_wrapper
+
+        if job.state == model.Job.states.RUNNING:
+            log.debug ("(%s/%s) is still running, adding to the nesi queue" %(job.id,job.get_job_runner_external_id()))
+            nesi_job_state.old_state=nesi_job_state[2]
+            nesi_job_state.running = True
+            self.monitor_queue.put(nesi_job_state)
+        elif job.state == model.job.states.QUEUED:
+            log.debug ("(%s/%s) is still in nesi queued state, adding to the nesi queue" % (job.id,job.get_job_runner_external_id()))
+            nesi_job_state.old_state = job_status[1]
+            nesi_job_state.running=False
+            self.monitor_queue.put(nesi_job_state)
 
     def shutdown( self ):
         """Attempts to gracefully shut down the monitor thread"""

@@ -174,7 +174,8 @@ class XGRIDJobRunner(BaseJobRunner):
         script= xgrid_template %(job_wrapper.galaxy_lib_dir,job_wrapper.get_env_setup_clause(),
         exec_dir,command_line,ecfile)
         job_file ="%s/%s.sh" % (self.app.config.cluster_files_directory, job_wrapper.job_id)
-        #TODO 
+        #TODO
+        print self.xgrid_nfs_mount_location
         if self.xgrid_nfs_mount_location is not None:
             orig_path=self.xgrid_nfs_mount_location.split(':')[0]
             new_path=self.xgrid_nfs_mount_location.split(':')[1]
@@ -231,22 +232,27 @@ class XGRIDJobRunner(BaseJobRunner):
             except:
                 log.debug("Could not check job status becaues XGRID connection failed")
             status=job.getStatus()
-            print status
             if status != old_state:          
                 log.debug("(%s/%s) XGRID Jobs state changed from %s to %s" % (galaxy_job_id, job_id,old_state,status))
             if status == "Running" and not xgrid_job_state.running:
+                xgrid_job_state.old_state=job_status[1]
                 xgrid_job_state.running=True
                 xgrid_job_state.job_wrapper.change_state(model.Job.states.RUNNING)
                 new_watched.append(xgrid_job_state)
             elif status == "Running" and xgrid_job_state.running:
                 new_watched.append(xgrid_job_state)
             elif status == "Failed" or status == "Fail":
+                xgrid_job_state.old_state=job_status[3]
                 self.work_queue.put(('finish', xgrid_job_state))
             elif status == "Pending":
+                xgrid_job_state.old_state=job_status[0]
                 new_watched.append(xgrid_job_state)
             elif status == "Finished":
+                xgrid_job_state.old_state=job_status[2]
                 self.work_queue.put(('finish',xgrid_job_state))
+
         self.watched= new_watched
+
     def queue_job(self, job_wrapper):
         """Queue a xgrid job"""
         try:
@@ -284,12 +290,6 @@ class XGRIDJobRunner(BaseJobRunner):
         
         exec_dir = os.path.abspath( job_wrapper.working_directory )
         job_file = self.nfs_mount_location(job_wrapper,command_line,ecfile)
-        #script= xgrid_template %(job_wrapper.galaxy_lib_dir,job_wrapper.get_env_setup_clause(),
-        #exec_dir,command_line,ecfile)
-        #job_file ="%s/%s.sh" % (self.app.config.cluster_files_directory, job_wrapper.job_id)
-        #fh= file(job_file, "w")
-        #fh.write(script)
-        #fh.close()
         if job_wrapper.get_state() == model.Job.states.DELETED:
             log.debug("Job %s deleted by user before it entered the XGRID queue" % job_wrapper.job_id)
             if self.app.config.cleanup_job in ("always", "onsuccess"):
@@ -326,6 +326,7 @@ class XGRIDJobRunner(BaseJobRunner):
         xgrid_job_state.efile = efile
         #Add to our queue of jobs to monitor
         self.monitor_queue.put(xgrid_job_state)
+
     @xg.autorelease
     def run_next( self ):
         """
@@ -351,16 +352,26 @@ class XGRIDJobRunner(BaseJobRunner):
         job_wrapper.change_state(model.Job.states.QUEUED)
         self.work_queue.put(('queue',job_wrapper))
 
-
-
     def stop_job(self,job):
         """Attempts to remove a job from the XGRID queue"""
-
-
+        job_tag = ("(%s/%s)" % (job.get_id_tag(),job.get_job_runner_external_id())
+        log.debug("%s Stopping xgrid job" % job_tag)
+        xgrid_server=self.determine_xg_server(runner_url)
+        xgrid_password=self.determine_xg_password(runner_url)
+        xgrid_grid_id=self.determine_xg_grid(runner_url)
+        conn = xg.Connection(hostname=xgrid_server,password=xgrid_password)
+        try:
+            cont = xg.Controller(conn)
+        except:
+            log.debug("Could not stop job becaues XGRID connection failed")
+        job=cont.job(xgrid_job_state.job_id)
+	try:
+	   	job.stop()
+	except:
+	 	log.debug("Could not stop xgrid job")
 
     def finish_job(self, xgrid_job_state):
         """Finishes a job sent to xgrid"""
-        print self.work_queue
         ecfile = xgrid_job_state.ecfile 
         ofile = xgrid_job_state.ofile
         efile = xgrid_job_state.efile
@@ -382,7 +393,6 @@ class XGRIDJobRunner(BaseJobRunner):
             ofh=file(xgrid_job_state.ofile, "r")
             stdout = ofh.read(32768)
             stderr = efh.read(32768)
-            print stderr,stdout
         except:
             log.debug("Could not open stdout/stderr files")
         try:
@@ -414,7 +424,30 @@ class XGRIDJobRunner(BaseJobRunner):
                 log.warning( "Unable to cleanup: %s" % str( e ) )
 
     def recover (self, job,job_wrapper):
-        return 1
+    	"""Recovers jobs stuck in the queued / running state when galaxy started"""
+        job_id = job.get_job_runner_external_id()
+        if job_id is None:
+            self.put(job_wrapper)
+            return
+        xgrid_job_state=XGridJobState()
+        xgrid_job_state.ofile= "%s/%s.o" % (self.app.config.cluster_files_directory, job.id)
+        xgrid_job_state.efile= "%s/%s.e" % (self.app.config.cluster_files_directory, job.id)
+        xgrid_job_state.ecfile "%s/%s.ec" % (self.app.config.cluster_files_directory, job.id)
+        xgrid_job_state.job_file= "%s/%s.sh" % (self.app.config.cluster_files_directory,job.id)
+        xgrid_job_state.job_id=str(job_id)
+        xgrid_job_state.runner_url=job_wrapper.get_job_runner_url()
+        xgrid_job_state.job_wrapper= job_wrapper
+        if job.state == model.Job.states.RUNNING:
+            log.debug ("(%s/%s) is still running, adding to the xgrid queue" %(job.id,job.get_job_runner_external_id()))
+            xgrid_job_state.old_state=xgrid_job_state[2]
+            xgrid_job_state.running = True
+            self.monitor_queue.put(xgrid_job_state)
+        elif job.state == model.job.states.QUEUED:
+            log.debug ("(%s/%s) is still in XGRID queued state, adding to the XGRID queue" % (job.id,job.get_job_runner_external_id()))
+            xgrid_job_state.old_state = job_status[0]
+            xgrid_job_state.running=False
+            self.monitor_queue.put(xgrid_job_state)
+
     def shutdown( self ):
         """Attempts to gracefully shut down the monitor thread"""
         log.info( "sending stop signal to worker threads" )
