@@ -462,10 +462,10 @@ class NesiJobRunner(BaseJobRunner):
             return
 
         nesi_job_state=NesiJobState()
-        nesi_job_state.ofile= "%s/%s.o" % (self.app.config.cluster_files_directory, job.id)
-        nesi_job_state.efile= "%s/%s.e" % (self.app.config.cluster_files_directory, job.id)
-        nesi_job_state.ecfile "%s/%s.ec" % (self.app.config.cluster_files_directory, job.id)
-        nesi_job_state.job_file= "%s/%s.sh" % (self.app.config.cluster_files_directory,job.id)
+        nesi_job_state.ofile = "%s/%s.o" % (self.app.config.cluster_files_directory, job.id)
+        nesi_job_state.efile = "%s/%s.e" % (self.app.config.cluster_files_directory, job.id)
+        nesi_job_state.ecfile = "%s/%s.ec" % (self.app.config.cluster_files_directory, job.id)
+        nesi_job_state.job_file = "%s/%s.sh" % (self.app.config.cluster_files_directory,job.id)
         nesi_job_state.job_id=str(job_id)
         nesi_job_state.runner_url=job_wrapper.get_job_runner_url()
         nesi_job_state.job_wrapper= job_wrapper
