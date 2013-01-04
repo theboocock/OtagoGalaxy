@@ -15,6 +15,8 @@
 # argv6-n   = files to be staged in
 
 # TODO: !! Add tool specific walltime !!
+# TODO: !! Add tool specific memory usage !! 
+
 # TODO: add possibiility for emailing user if defined in galaxy config
 # TODO: get application and check that it is ok to run on queue
 
@@ -29,8 +31,11 @@ import os
 
 DEFAULT_GROUP = '/nz/nesi'
 DEFAULT_QUEUE = 'pan:pan.nesi.org.nz'
+DEFAULT_MEMORY = 2147483648 # 2 GB
+DEFAULT_WALLTIME = 600 # 10 minutes
 
 current_dir = os.path.abspath(os.path.curdir)
+# TODO not use argv like this. use command line args instead
 queue           = sys.argv[1]
 group           = sys.argv[2]
 galaxy_job_id   = sys.argv[3]
@@ -50,6 +55,9 @@ job = JobObject(si)
 job.setSubmissionLocation(queue)
 job.setTimestampJobname("galaxy_" + galaxy_job_id)
 
+job.setMemory(DEFAULT_MEMORY)
+job.setWalltimeInSeconds(DEFAULT_WALLTIME)
+
 # stop annoying stats from being written to stderr
 job.addEnvironmentVariable("SUPPRESS_STATS", "true")
 
@@ -58,15 +66,14 @@ njn = open(jobname_file, "w")
 njn.write(job.getJobname())
 njn.close()
 
-# NOTE: I only looks at .dat files for now.
+# NOTE: Strips all absolute locations and makes them relatiove.
+#       Will probably change when files are stored in a proper location.
+
 command_arguments = command.split()
 new_commandline = ""
 
 for arg in command_arguments:
-    if arg.endswith(".dat"):
-        new_commandline += (" " + os.path.basename(arg))
-    else:
-        new_commandline += (" " + arg)
+        new_commandline += (os.path.basename(arg) + " ")
 
 job.setCommandline(new_commandline)
 
