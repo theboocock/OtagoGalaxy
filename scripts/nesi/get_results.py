@@ -45,13 +45,12 @@ err.write(job.getStdErrContent())
 err.close()
 
 ec = open(error_codefile, "w")
-#NOTE: Will not be status of job run as of yet, waiting for markus to restart NeSI
 exit_code = job.getStatus(False) - 1000
 ec.write(str(exit_code))
 ec.close()
 
 # clean it up
-job.kill(True)
+#job.kill(True)
 
 # That's all folks!
 sys.exit(0)

@@ -23,9 +23,6 @@ job_statuses = open(job_statuses_file, "w")
 
 for job in jobs:
     
-    # Prints execute code
-    #print job.jobname() + ":" + str(job.getStatus())
-
     # Prints string status
     job_status = job.jobname() + ":" + JobConstants.translateStatus(job.getStatus())
     job_statuses.write(job_status + "\n")

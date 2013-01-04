@@ -173,7 +173,7 @@ class NesiJobRunner(BaseJobRunner):
         rc = call(nesi_script_location + "/./check_jobs.py " + "-b BeSTGRID " + jobstatus_file, shell=True)
 
         if rc != 0:
-            log.debug("Call failed: " + nesi_script_location + "/./check_jobs.py" + " -b BeSTGRID" + " " + jobstatus_file)
+            log.debug("Call failed: python " + nesi_script_location + "/./check_jobs.py" + " -b BeSTGRID" + " " + jobstatus_file)
             log.error("Could not check NeSI servers to obtain job statuses")
             return
 
@@ -431,6 +431,7 @@ class NesiJobRunner(BaseJobRunner):
             ecfh = file(ecfile, "r")
             exit_code_str= ecfh.read(32)
             exit_code = int (exit_code_str)
+            print "Exit Code: ", exit_code
 
         except:
             exit_code_str=""
@@ -438,6 +439,8 @@ class NesiJobRunner(BaseJobRunner):
             exit_code = 0
 
         try:
+            if stderr == '':
+                stderr = "This tool was unable to run on the NeSI Queue. Please contact an administrator"
             nesi_job_state.job_wrapper.fail(stderr, stderr=stderr, stdout=stdout, exit_code=exit_code_str)
         except:
             log.exception("Job Wrapper finish method failed")

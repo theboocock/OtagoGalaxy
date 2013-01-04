@@ -14,6 +14,7 @@
 # argv5     = command line
 # argv6-n   = files to be staged in
 
+# TODO: !! Add tool specific walltime !!
 # TODO: add possibiility for emailing user if defined in galaxy config
 # TODO: get application and check that it is ok to run on queue
 
@@ -81,7 +82,7 @@ try:
 except:
     # Just catch all exceptions for time being. TODO
     print "Cannot submit job currently."
-    job.kill(True)
+#    job.kill(True)
     sys.exit(1)
 
 # That's all folks!
