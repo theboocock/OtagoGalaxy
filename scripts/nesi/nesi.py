@@ -267,9 +267,16 @@ class NesiJobRunner(BaseJobRunner):
         #Submit the job to nesi
         rc = call(nesi_script_location + "/./submit_job.py" + " -b BeSTGRID " + nesi_server + " " + self.nesi_group + " " + galaxy_job_id + " " + nesi_jobname_file + " '" + command_line + "' " + input_files, shell=True)
 
+        if rc == -2:
+            job_wrapper.fail("NeSI job submitter returned an unsuccessful error code. Unable to submit NeSI job currently.")
+            log.error("Jobname file could not be created. Cannot submit NeSI job currently.")
+            log.debug("Call: " + nesi_script_location + "/./submit_job.py" + " -b BeSTGRID " + nesi_server + " " + self.nesi_group + " " + galaxy_job_id + " " + nesi_jobname_file + " '" + command_line + "' " + input_filese)
+            return
+
         if rc != 0:
-            job_wrapper.fail("Unable to submit NeSI job currently.")
+            job_wrapper.fail("NeSI job submitter returned an unsuccessful error code. Unable to submit NeSI job currently.")
             log.error("Cannot submit NeSI job currently.")
+            log.debug("Call: " + nesi_script_location + "/./submit_job.py" + " -b BeSTGRID " + nesi_server + " " + self.nesi_group + " " + galaxy_job_id + " " + nesi_jobname_file + " '" + command_line + "' " + input_filese)
             return
 
         # get nesi jobname

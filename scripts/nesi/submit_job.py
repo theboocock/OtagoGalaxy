@@ -61,16 +61,22 @@ job.setWalltimeInSeconds(DEFAULT_WALLTIME)
 # stop annoying stats from being written to stderr
 job.addEnvironmentVariable("SUPPRESS_STATS", "true")
 
+job.addInputFileURL("job.sh")
+
+try:
 # save jobname for job
-njn = open(jobname_file, "w")
-njn.write(job.getJobname())
-njn.close()
+    njn = open(jobname_file, "w")
+    njn.write(job.getJobname())
+    njn.close()
+except:
+    print "Cannot write jobname to file"
+    sys.exit(-2)
 
 # NOTE: Strips all absolute locations and makes them relatiove.
 #       Will probably change when files are stored in a proper location.
 
 command_arguments = command.split()
-new_commandline = "bash job.sh \""
+new_commandline = "bash job.sh -c \""
 
 for arg in command_arguments:
     if arg == ">":
@@ -80,7 +86,6 @@ for arg in command_arguments:
         arg = "-e"
     else:
         new_commandline += (os.path.basename(arg) + " ")
-
 
 job.setCommandline(new_commandline)
 
@@ -96,7 +101,7 @@ try:
 except:
     # Just catch all exceptions for time being. TODO
     print "Cannot submit job currently."
-#    job.kill(True)
+    job.kill(True)
     sys.exit(1)
 
 # That's all folks!
