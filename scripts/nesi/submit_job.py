@@ -70,10 +70,17 @@ njn.close()
 #       Will probably change when files are stored in a proper location.
 
 command_arguments = command.split()
-new_commandline = ""
+new_commandline = "bash job.sh \""
 
 for arg in command_arguments:
+    if arg == ">":
+        new_commandline += "\" "
+        arg = "-o"
+    elif arg == "2>":
+        arg = "-e"
+    else:
         new_commandline += (os.path.basename(arg) + " ")
+
 
 job.setCommandline(new_commandline)
 

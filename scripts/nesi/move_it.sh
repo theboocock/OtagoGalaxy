@@ -2,6 +2,7 @@
 
 echo "Moving:
 submit_job.py
+job.sh
 check_jobs.py
 get_results.py
 stop_job.py
@@ -11,6 +12,7 @@ universe_wsgi.ini
 "
 
 cp -f submit_job.py ../../../../lib/galaxy/jobs/runners/
+cp -f job.sh ../../../../lib/galaxy/jobs/runners/
 cp -f check_jobs.py ../../../../lib/galaxy/jobs/runners/
 cp -f get_results.py ../../../../lib/galaxy/jobs/runners/
 cp -f stop_job.py ../../../../lib/galaxy/jobs/runners/
