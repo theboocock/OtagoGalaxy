@@ -254,7 +254,6 @@ class NesiJobRunner(BaseJobRunner):
         nesi_jobname_file = "%s/%s.njf" %(self.app.config.cluster_files_directory,job_wrapper.job_id)
         exec_dir = os.path.abspath( job_wrapper.working_directory )
 
-        #TODO stip file paths here. to make it relative path for nesi
         if job_wrapper.get_state() == model.Job.states.DELETED:
             log.debug("Job %s deleted by user before it entered the Nesi queue" % job_wrapper.job_id)
             if self.app.config.cleanup_job in ("always", "onsuccess"):
@@ -437,7 +436,11 @@ class NesiJobRunner(BaseJobRunner):
             time.sleep(10)
             rc = call(nesi_script_location + "/./get_results.py" + " -b BeSTGRID " + ofile + " " + efile + " " + ecfile + " " + nesi_job_name, shell=True)
 
-            #TODO: have more verbose error checking
+            if rc == -2:
+                nesi_job_state.job_wrapper.fail("Cannot currently get results for this job.")
+                log.error("Cannot create files to write results to.")
+                return
+
             if rc != 0:
                 # no luck for some reason 
                 nesi_job_state.job_wrapper.fail("Cannot currently get results for this job.")
@@ -484,7 +487,6 @@ class NesiJobRunner(BaseJobRunner):
             except Exception, e:
                 log.warning( "Unable to cleanup: %s" % str( e ) )
 
-    #TODO -- recover a nesi job if galaxy dies in between
     def recover (self, job,job_wrapper):
         """Recovers jobs stuck in the queued / running state when galaxy started"""
         job_id = job.get_job_runner_external_id()
