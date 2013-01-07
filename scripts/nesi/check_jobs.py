@@ -20,15 +20,19 @@ uem = registry.getUserEnvironmentManager()
 
 jobs = uem.getCurrentJobs(True)
 
-job_statuses = open(job_statuses_file, "w")
+try:
+    job_statuses = open(job_statuses_file, "w")
 
-for job in jobs:
-    
-    # Prints string status
-    job_status = job.jobname() + ":" + JobConstants.translateStatus(job.getStatus())
-    job_statuses.write(job_status + "\n")
+    for job in jobs:
+        
+        # Prints string status
+        job_status = job.jobname() + ":" + JobConstants.translateStatus(job.getStatus())
+        job_statuses.write(job_status + "\n")
 
-job_statuses.close()
+    job_statuses.close()
+except:
+    print "Cannot write status to " + job_statuses_file
+    sys.exit(-2)
 
 sys.exit(0)
 

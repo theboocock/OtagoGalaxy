@@ -32,7 +32,7 @@ job_status= {
     3: "Active",
     4: "No such job",
     5: "Job created",
-    6: "Read to submit",
+    6: "Ready to submit",
     7: "Staging in",
     8: "Unsubmitted",
     9: "Cleaning up",
@@ -168,6 +168,11 @@ class NesiJobRunner(BaseJobRunner):
         jobstatus_file = os.path.abspath(nesi_script_location + "jobstatus_file.tmp")
         
         rc = call(nesi_script_location + "/./check_jobs.py " + "-b BeSTGRID " + jobstatus_file, shell=True)
+
+        if rc == -2:
+            log.debug("Call failed: python " + nesi_script_location + "/./check_jobs.py" + " -b BeSTGRID" + " " + jobstatus_file)
+            log.error("Could not write job statuses to %s file." % jobstatus_file)
+            return
 
         if rc != 0:
             log.debug("Call failed: python " + nesi_script_location + "/./check_jobs.py" + " -b BeSTGRID" + " " + jobstatus_file)
