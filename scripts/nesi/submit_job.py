@@ -62,7 +62,7 @@ job.setWalltimeInSeconds(DEFAULT_WALLTIME)
 # stop annoying stats from being written to stderr
 job.addEnvironmentVariable("SUPPRESS_STATS", "true")
 
-job.addInputFileURL("job.sh")
+job.addInputFileUrl("job.sh")
 
 try:
 # save jobname for job
@@ -85,8 +85,14 @@ for arg in command_arguments:
         arg = "-o"
     elif arg == "2>":
         arg = "-e"
-    else:
-        new_commandline += (os.path.basename(arg) + " ")
+
+    # If its a file but not a .dat then stage it in. should only be a script really.
+    if os.path.exists(arg) and not arg.endswith(".dat"):
+        job.addInputFileUrl(arg)
+
+    new_commandline += (os.path.basename(arg) + " ")
+
+print new_commandline
 
 job.setCommandline(new_commandline)
 
