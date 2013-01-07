@@ -9,7 +9,10 @@
 # e.g. cat this_file.txt > that_file.txt would be run as 
 #       ./job.sh "cat this_file.txt" that_file.txt
 #
-# FIXME: YUCK - no can do
+
+OUTPUT=0
+ERROR=0
+commandline=""
 
 while getopts "c:o:e:" opt; do
     case $opt in
@@ -18,9 +21,11 @@ while getopts "c:o:e:" opt; do
          ;;
         o)
          output_file=$OPTARG
+         OUTPUT=1
          ;;
         e)
          error_file=$OPTARG
+         ERROR=1
          ;;
         ?)
          echo "Invalid option" >&2
@@ -29,8 +34,13 @@ while getopts "c:o:e:" opt; do
     esac
 done
 
-if [ "$error_file" != "" ]; then
+
+if [ $OUTPUT == 1 ] && [ $ERROR == 1 ]; then
     $commandline > $output_file 2> $error_file
-else
+elif [ $OUTPUT == 1 ] && [ $ERROR == 0 ]; then
     $commandline > $output_file
+elif [ $OUTPUT == 0 ] && [ $ERROR == 1 ]; then
+    $commandline 2> $error_file
+else
+    $commandline
 fi
