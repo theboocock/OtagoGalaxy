@@ -11,9 +11,11 @@ import shutil
 
 from subprocess import call
 
+#TODO get this to check if scripts exist
+# TODO get this to check if grython is installed correctly
+# ^^ this may change if we switch to the deb package..
 
 egg_messages = """
-
 The 'nesi' runner depends on 'grython' which is not installed or not configured properly.
 For this job runner to work a mac version of galaxy is required and that the 
 Additional Errors may follow:
