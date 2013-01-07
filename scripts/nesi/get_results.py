@@ -36,21 +36,25 @@ job_name        = sys.argv[4]
 job = JobObject(si, job_name)
 
 # Save stdout and stderr to files to be read by galaxy
-out = open(outfile, "w")
-out.write(job.getStdOutContent())
-out.close()
+try:
+    out = open(outfile, "w")
+    out.write(job.getStdOutContent())
+    out.close()
 
-err = open(errfile, "w")
-err.write(job.getStdErrContent())
-err.close()
+    err = open(errfile, "w")
+    err.write(job.getStdErrContent())
+    err.close()
 
-ec = open(error_codefile, "w")
-exit_code = job.getStatus(False) - 1000
-ec.write(str(exit_code))
-ec.close()
+    ec = open(error_codefile, "w")
+    exit_code = job.getStatus(False) - 1000
+    ec.write(str(exit_code))
+    ec.close()
+except:
+    print "Cannot open files to write results to"
+    sys.exit(-2)
 
 # clean it up
-#job.kill(True)
+job.kill(True)
 
 # That's all folks!
 sys.exit(0)

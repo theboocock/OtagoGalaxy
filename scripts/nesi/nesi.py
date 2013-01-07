@@ -161,7 +161,7 @@ class NesiJobRunner(BaseJobRunner):
                 log.exception("Uncaught exception checking jobs")
 
             #sleep a bit before the next state is checked
-            time.sleep(10)
+            time.sleep(5)
 
     def check_watched_items(self):
         """Called by the monitor thread to look at each of the jobs and deal 
@@ -270,13 +270,13 @@ class NesiJobRunner(BaseJobRunner):
         if rc == -2:
             job_wrapper.fail("NeSI job submitter returned an unsuccessful error code. Unable to submit NeSI job currently.")
             log.error("Jobname file could not be created. Cannot submit NeSI job currently.")
-            log.debug("Call: " + nesi_script_location + "/./submit_job.py" + " -b BeSTGRID " + nesi_server + " " + self.nesi_group + " " + galaxy_job_id + " " + nesi_jobname_file + " '" + command_line + "' " + input_filese)
+            log.debug("Call: " + nesi_script_location + "/./submit_job.py" + " -b BeSTGRID " + nesi_server + " " + self.nesi_group + " " + galaxy_job_id + " " + nesi_jobname_file + " '" + command_line + "' " + input_files)
             return
 
         if rc != 0:
             job_wrapper.fail("NeSI job submitter returned an unsuccessful error code. Unable to submit NeSI job currently.")
             log.error("Cannot submit NeSI job currently.")
-            log.debug("Call: " + nesi_script_location + "/./submit_job.py" + " -b BeSTGRID " + nesi_server + " " + self.nesi_group + " " + galaxy_job_id + " " + nesi_jobname_file + " '" + command_line + "' " + input_filese)
+            log.debug("Call: " + nesi_script_location + "/./submit_job.py" + " -b BeSTGRID " + nesi_server + " " + self.nesi_group + " " + galaxy_job_id + " " + nesi_jobname_file + " '" + command_line + "' " + input_files)
             return
 
         # get nesi jobname
@@ -353,6 +353,11 @@ class NesiJobRunner(BaseJobRunner):
         rc = call(nesi_script_location + "/./get_results.py " + "-b BeSTGRID " + ofile + " " + efile + " " + ecfile + " " + jobstatus_file + " " + nesi_job_name, shell=True)
         
         # can't hit server for some reason
+        if rc == -2:
+            nesi_job_state.job_wrapper.fail("Cannot currently get results for this job.")
+            log.error("Cannot create files to write results to.")
+            return
+
         if rc != 0:
             # lets just sleep for a bit and try again
             time.sleep(10)
@@ -363,6 +368,7 @@ class NesiJobRunner(BaseJobRunner):
                 # no luck for some reason 
                 nesi_job_state.job_wrapper.fail("Cannot get results for this execution")
                 log.error("Cannot get results from NeSI Server")
+                return
 
         try:
             efh=file(nesi_job_state.efile,"r")
@@ -409,6 +415,11 @@ class NesiJobRunner(BaseJobRunner):
         # get results
         rc = call(nesi_script_location + "/./get_results.py " + "-b BeSTGRID " + ofile + " " + efile + " " + ecfile + " " + jobstatus_file + " " + nesi_job_name, shell=True)
         
+        if rc == -2:
+            nesi_job_state.job_wrapper.fail("Cannot currently get results for this job.")
+            log.error("Cannot create files to write results to.")
+            return
+
         # can't hit server for some reason
         if rc != 0:
             # lets just sleep for a bit and try again
@@ -418,8 +429,9 @@ class NesiJobRunner(BaseJobRunner):
             #TODO: have more verbose error checking
             if rc != 0:
                 # no luck for some reason 
-                nesi_job_state.job_wrapper.fail("Cannot get results for this execution")
+                nesi_job_state.job_wrapper.fail("Cannot currently get results for this job.")
                 log.error("Cannot get results from NeSI Server")
+                return
 
         try:
             efh=file(nesi_job_state.efile,"r")
