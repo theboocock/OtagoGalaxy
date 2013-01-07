@@ -11,11 +11,6 @@ import shutil
 
 from subprocess import call
 
-#FIXME this needs to be sorted out some other way
-nesi_script_location = os.path.abspath("lib/galaxy/jobs/runners/")
-
-#FIXME --- setting jobstatus file to a hard coded location for now. for the lols.
-jobstatus_file = os.path.abspath("lib/galaxy/jobs/runners/jobstatus_file.tmp")
 
 egg_messages = """
 
@@ -169,6 +164,8 @@ class NesiJobRunner(BaseJobRunner):
         new_watched=[]
         nesi_server= self.determine_nesi_server(self.app.config.default_cluster_job_runner)
         nesi_runner= self.determine_nesi_runner(self.app.config.default_cluster_job_runner)
+        nesi_script_location = os.path.abspath(self.app.config.nesi_scripts_directory)
+        jobstatus_file = os.path.abspath(nesi_script_location + "jobstatus_file.tmp")
         
         rc = call(nesi_script_location + "/./check_jobs.py " + "-b BeSTGRID " + jobstatus_file, shell=True)
 
@@ -244,6 +241,8 @@ class NesiJobRunner(BaseJobRunner):
 
         runner_url=job_wrapper.get_job_runner_url()
         nesi_server=self.determine_nesi_server(runner_url)
+        nesi_script_location = os.path.abspath(self.app.config.nesi_scripts_directory)
+        jobstatus_file = os.path.abspath(nesi_script_location + "jobstatus_file.tmp")
         ecfile = "%s/%s.ec" % (self.app.config.cluster_files_directory, job_wrapper.job_id)
         ofile  = "%s/%s.o" %(self.app.config.cluster_files_directory,job_wrapper.job_id)
         efile = "%s/%s.e" %(self.app.config.cluster_files_directory,job_wrapper.job_id)
@@ -328,15 +327,18 @@ class NesiJobRunner(BaseJobRunner):
         job_wrapper.change_state(model.Job.states.QUEUED)
         self.work_queue.put(('queue',job_wrapper))
 
-    # TODO figure out how job helps us get our job_name
     def stop_job(self,job):
         """Attempts to remove a job from the Nesi queue"""
     
+        nesi_script_location = os.path.abspath(self.app.config.nesi_scripts_directory)
+
         rc = call(nesi_script_location + "/./stop_job.py " + "-b BeSTGRID " + job.get_job_runner_external_id(), shell=True)
 
-        #TODO have more verbose error codes / checking
+        if rc == 1:
+            log.error("Cannot kill job %s" % job.get_job_runner_external_id())
+            return
         if rc != 0:
-            log.error("Removal of job from the NeSI queue failed.")
+            log.error("Cannot kill job %s" % job.get_job_runner_external_id())
             return
 
     def finish_job(self, nesi_job_state):
@@ -347,6 +349,8 @@ class NesiJobRunner(BaseJobRunner):
         jobname_file = nesi_job_state.nesi_jobname_file
         runner_url=nesi_job_state.job_wrapper.get_job_runner_url()
         nesi_server=self.determine_nesi_server(runner_url)
+        nesi_script_location = os.path.abspath(self.app.config.nesi_scripts_directory)
+        jobstatus_file = os.path.abspath(nesi_script_location + "jobstatus_file.tmp")
         nesi_job_name = nesi_job_state.job_name
         
         # get results
@@ -357,13 +361,15 @@ class NesiJobRunner(BaseJobRunner):
             nesi_job_state.job_wrapper.fail("Cannot currently get results for this job.")
             log.error("Cannot create files to write results to.")
             return
-
         if rc != 0:
             # lets just sleep for a bit and try again
             time.sleep(10)
             rc = call(nesi_script_location + "/./get_results.py" + " -b BeSTGRID " + ofile + " " + efile + " " + ecfile + " " + nesi_job_name, shell=True)
 
-            #TODO: have more verbose error checking
+            if rc == -2:
+                nesi_job_state.job_wrapper.fail("Cannot currently get results for this job.")
+                log.error("Cannot create files to write results to.")
+                return
             if rc != 0:
                 # no luck for some reason 
                 nesi_job_state.job_wrapper.fail("Cannot get results for this execution")
@@ -375,8 +381,6 @@ class NesiJobRunner(BaseJobRunner):
             ofh=file(nesi_job_state.ofile, "r")
             stdout = ofh.read(32768)
             stderr = efh.read(32768)
-            #FIXME: print it?
-            print stderr,stdout
 
         except:
             stdout = ''
@@ -410,6 +414,8 @@ class NesiJobRunner(BaseJobRunner):
         jobname_file = nesi_job_state.nesi_jobname_file
         runner_url=nesi_job_state.job_wrapper.get_job_runner_url()
         nesi_server=self.determine_nesi_server(runner_url)
+        nesi_script_location = os.path.abspath(self.app.config.nesi_scripts_directory)
+        jobstatus_file = os.path.abspath(nesi_script_location + "jobstatus_file.tmp")
         nesi_job_name = nesi_job_state.job_name
         
         # get results
@@ -438,8 +444,6 @@ class NesiJobRunner(BaseJobRunner):
             ofh=file(nesi_job_state.ofile, "r")
             stdout = ofh.read(32768)
             stderr = efh.read(32768)
-            #FIXME: print it?
-            print stderr,stdout
 
         except:
             stdout = ''

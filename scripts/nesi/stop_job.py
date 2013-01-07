@@ -1,4 +1,5 @@
 #!/home/edwardhills/NeSI_Tools/bin/grython
+# FIXME: need an installer type thing to do ^^ correctly
 #
 # Author: Ed hills
 # Date: 17/12/12
@@ -23,7 +24,7 @@ try:
     si.kill(job_name, True)
 except Exception:
     print "Can not kill job: ",e
-
+    sys.exit(1)
 
 # That's all folks!
 sys.exit(0)

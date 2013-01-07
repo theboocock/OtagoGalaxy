@@ -134,7 +134,9 @@ class Configuration( object ):
         self.pbs_stage_path = kwargs.get('pbs_stage_path', "" )
         #Xgrid NFS mount
         self.xgrid_nfs_mount_location = (kwargs.get("xgrid_nfs_mount_location",None))
+        #NeSI Variables 
         self.nesi_group = kwargs.get("nesi_group", None)
+        self.nesi_scripts_directory = kwargs.get("nesi_scripts_directory", None)
 
         self.drmaa_external_runjob_script = kwargs.get('drmaa_external_runjob_script', None )
         self.drmaa_external_killjob_script = kwargs.get('drmaa_external_killjob_script', None)

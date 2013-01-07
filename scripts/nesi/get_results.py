@@ -1,4 +1,5 @@
 #!/home/edwardhills/NeSI_Tools/bin/grython
+# FIXME: need an installer type thing to do ^^ correctly
 #
 # Author: Ed hills
 # Date: 17/12/12
