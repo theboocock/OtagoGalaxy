@@ -1,38 +1,61 @@
 <tool id="shape_it" name="ShapeIT phasing tool" version="1.0.0"/>
-<command>
-#if $input_type_param.input_type_param
+    <description>performs pre-phasing on genotypic data</description>
+    <command interpreter="bash">
 
+        shape_it.sh -g ${input_gen} -s ${input_sample} -m ${input_gen-threshold} 
+        #if #use_reference == "yes":
+            -r
+        #end if
+        #if $phased_in_window.phase_window == "yes":
+            -f $from
+            -t $to
+        #end if
+        -h ${phased_haps} -o ${phased_sample}
+        -R ${__root_dir__}
+        -c ${chromsome}
 
-</command>
-<description>performs haplotype phasing</description>
-<inputs>
-    <conditional name="input_type_param">
-    <param name="input_type" type="select" label="Please select input data format">
-    <option value="lped">Lped Input</option>
-    <option value="pbed">Pbed Input</option>
-    <option value="gen"/>Gen/Sample Input</option>
-    <when value="lped">
-        <param name="input_lped" type="data" format="lped" label="lped file"/>
-    </when>
-    <when value="pbed">
-        <param name="input_pbed" type="data" format="pbed" label="pbed file"/>
-    </when>
-    <when value="gen">
+    </command>
+
+    <inputs>
         <param name="input_gen" type="data" format="gen" label="Input Gen File" />
-        <param name="input_samp" type="data" format="sample"  label="Input Sample File" />
-    </when>
-    </param>
-</inputs>
-<outputs>
-    <param name=""/>
-    <param name=""/>
-</outputs>
-<help>
-    SHAPEIT is a fast and accurate haplotype inference software 
-    more details can be found by following this link.
+        <param name="input_sample" type="data" format="sample"  label="Input Sample File" />
+        <param name="input_gen-threshold" type="float" value="0.90"  label="Input Gen-threshold" help="Will use the most likely genotype if that probability exceeds the threshold, otherwise will be considered missing."/>
 
-     http://www.shapeit.fr/        
+        <param name="use_reference" type="select" label="Use 1000 Genomes Reference Panel?">
+            <option value="yes" selected="True">Yes</option>
+            <option value="no">No</option>
+        </param>
 
-</help>
+        <conditional name="phased_in_window">
+            <param name="phase_window" type="select" label="Phase SNPs only within a set window?">
+                <option value="no" selected="True">No</option>
+                <option value="yes">Yes</option>
+            </param>
+
+            <when value="yes">
+                <param name="from" type="text" value="0" label="Lower Bound of the window" help="In bp e.g. 23.2e6">
+                <param name="to" type="text" value="10e9" label="Upper Bound of the window" help="In bp e.g. 23.8e6">
+            </when>
+
+        </conditional>
+
+        <param name="chromosome" type="text" value="1" label="Chromsome" help="Must be number as represented by 1000 Genomes. From 1-22 and x." /> 
+
+    </inputs>
+
+    <outputs>
+        <param name="phased_haps" format="haps"/>
+        <param name="phased_sample" format="sample"/>
+    </outputs>
+
+    <help>
+        SHAPEIT is a fast and accurate haplotype inference software 
+        more details can be found by following this link.
+
+        http://www.shapeit.fr/        
+
+        It is usually used before IMPUTE2 which then imputes the pre-phased data. Pre-phasing can drastically speed up the time taken to impute haplotypes.
+
+    </help>
 
 </tool>
