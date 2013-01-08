@@ -8,8 +8,8 @@ echo "Moving
 
 into proper locations..."
 
-cp -f ../datatypes/genetics.py ~/galaxy-dist/lib/galaxy/datatypes/
-cp -f tool_conf.xml ~/galaxy-dist/
-cp -f datatypes_conf.xml ~/galaxy-dist/
+cp -f ../datatypes/genetics.py ../../../lib/galaxy/datatypes/
+cp -f tool_conf.xml ../../../
+cp -f datatypes_conf.xml ../../../
 
 echo -e "\nDone!"

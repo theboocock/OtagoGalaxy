@@ -40,6 +40,7 @@
    <tool file="SOER1000genes/galaxy/treemix/treemix.xml" />
    <tool file="SOER1000genes/galaxy/ihs/ihs_calc.xml" />
    <tool file="SOER1000genes/galaxy/impute2/impute2.xml" />
+   <tool file="SOER1000genes/galaxy/shapeit/shape_it.xml" />
    <tool file="SOER1000genes/galaxy/snptest/snptest.xml" />
    <tool file="SOER1000genes/galaxy/xpehh/xpehh.xml" />
    </section>

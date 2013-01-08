@@ -76,7 +76,9 @@ except:
 # NOTE: Strips all absolute locations and makes them relatiove.
 #       Will probably change when files are stored in a proper location.
 
+print "Original Command: " + command
 command_arguments = command.split()
+print "Arguments: " + command_arguments
 new_commandline = "bash job.sh -c \""
 
 for arg in command_arguments:
@@ -92,8 +94,9 @@ for arg in command_arguments:
 
     new_commandline += (os.path.basename(arg) + " ")
 
-print new_commandline
+print "New commandline: " + new_commandline
 
+sys.exit(0)
 job.setCommandline(new_commandline)
 
 for inputs in input_files:

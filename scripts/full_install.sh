@@ -286,17 +286,11 @@ sudo cp -f start_webapp.sh /home/galaxy/galaxy-dist/
 
 # Copy config files to root directory
 sudo cp -f universe_wsgi.ini /home/galaxy/galaxy-dist/
-sudo cp -f universe_wsgi.runner.ini /home/galaxy/galaxy-dist/
-sudo cp -f universe_wsgi.webapp.ini /home/galaxy/galaxy-dist/
-
-# Setup tool_conf.xml
-#TODO James get tool_conf working
 
 #Migrate data
 
 source /home/galaxy/.bashrc
 sudo echo "* * * * * chmod -R 777 /home/galaxy/galaxy-dist/database/ftp/*" | crontab
-
 
 sudo su galaxy -c '/home/galaxy/galaxy-dist/./start_galaxy.sh'
 sudo chown galaxy:galaxy /home/galaxy/galaxy-dist
