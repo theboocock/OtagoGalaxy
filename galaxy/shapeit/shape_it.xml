@@ -1,4 +1,4 @@
-<tool id="shape_it" name="ShapeIT phasing tool" version="1.0.0"/>
+<tool id="shape_it" name="ShapeIT" version="1.0.0" >
     <description>performs pre-phasing on genotypic data</description>
     <command interpreter="bash">
 
@@ -12,7 +12,7 @@
         #end if
         -h ${phased_haps} -o ${phased_sample}
         -R ${__root_dir__}
-        -c ${chromsome}
+        -c ${chromosome}
 
     </command>
 
@@ -33,8 +33,8 @@
             </param>
 
             <when value="yes">
-                <param name="from" type="text" value="0" label="Lower Bound of the window" help="In bp e.g. 23.2e6">
-                <param name="to" type="text" value="10e9" label="Upper Bound of the window" help="In bp e.g. 23.8e6">
+                <param name="from" type="text" value="0" label="Lower Bound of the window" help="In bp e.g. 23.2e6"/>
+                <param name="to" type="text" value="10e9" label="Upper Bound of the window" help="In bp e.g. 23.8e6"/>
             </when>
 
         </conditional>
