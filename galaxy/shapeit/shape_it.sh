@@ -16,11 +16,6 @@
 # $7 = output - sample
 # $8 = chromosome
 
-REF_HAP="$ROOT_DIR/tools/data/1kg/impute2/ALL_1000G_phase1integrated_v3_impute/ALL_1000G_phase1integrated_v3_chr${CHR}_impute.hap"
-MAP_FILE="$ROOT_DIR/tools/data/1kg/impute2/ALL_1000G_phase1integrated_v3_impute/ALL_1000G_phase1integrated_v3_chr${CHR}_impute.map"
-REF_LEGEND="$ROOT_DIR/tools/data/1kg/impute2/ALL_1000G_phase1integrated_v3_impute/ALL_1000G_phase1integrated_v3_chr${CHR}_impute.legend"
-REF_LEGEND="$ROOT_DIR/tools/data/1kg/impute2/ALL_1000G_phase1integrated_v3_impute/ALL_1000G_phase1integrated_v3_chr${CHR}_impute.sample"
-
 while getopts "g:s:m:rf:t:h:o:" opt; do
     case $opt in
         g)
@@ -62,6 +57,13 @@ while getopts "g:s:m:rf:t:h:o:" opt; do
 
 done
 
+# FIXME Get the hardcoded files.. yucky. For cluster will ovbiously need to change. again should be symlinked like all of our stuff. god knows why we didnt
+REF_HAP="$ROOT_DIR/tools/data/1kg/impute2/ALL_1000G_phase1integrated_v3_impute/ALL_1000G_phase1integrated_v3_chr${CHR}_impute.hap"
+MAP_FILE="$ROOT_DIR/tools/data/1kg/impute2/ALL_1000G_phase1integrated_v3_impute/ALL_1000G_phase1integrated_v3_chr${CHR}_impute.map"
+REF_LEGEND="$ROOT_DIR/tools/data/1kg/impute2/ALL_1000G_phase1integrated_v3_impute/ALL_1000G_phase1integrated_v3_chr${CHR}_impute.legend"
+REF_LEGEND="$ROOT_DIR/tools/data/1kg/impute2/ALL_1000G_phase1integrated_v3_impute/ALL_1000G_phase1integrated_v3_chr${CHR}_impute.sample"
+
+# Shape it or shape out!
 shapeit --input-gen $INPUT_GEN $INPUT_SAMPLE --input-thr $THRESHOLD --input-map $MAP_FILE $FROM $TO $REF --output-max $OUTPUT_HAPS $OUTPUT_SAMPLE
 
 # Print log to stdout to be picked up by Galaxy
