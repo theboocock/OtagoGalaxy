@@ -283,6 +283,12 @@ class NesiJobRunner(BaseJobRunner):
             log.debug("Call: " + nesi_script_location + "/./submit_job.py" + " -b BeSTGRID " + nesi_server + " " + self.nesi_group + " " + galaxy_job_id + " " + nesi_jobname_file + " '" + command_line + "' " + input_files)
             return
 
+        if rc == -3:
+            job_wrapper.fail("NeSI job submitter returned an unsuccessful error code. Unable to stage in files.")
+            log.error("Could not stage in files. Cannot submit NeSI job currently.")
+            log.debug("Call: " + nesi_script_location + "/./submit_job.py" + " -b BeSTGRID " + nesi_server + " " + self.nesi_group + " " + galaxy_job_id + " " + nesi_jobname_file + " '" + command_line + "' " + input_files)
+            return
+
         if rc != 0:
             job_wrapper.fail("NeSI job submitter returned an unsuccessful error code. Unable to submit NeSI job currently.")
             log.error("Cannot submit NeSI job currently.")

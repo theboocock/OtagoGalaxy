@@ -96,6 +96,8 @@ for arg in command_arguments:
         except Exception, e:
             print "Cannot stage in: " + arg
             print e
+       #    job.kill(True)
+            sys.exit(-3)
 
     new_commandline += (os.path.basename(arg) + " ")
 
@@ -109,6 +111,8 @@ for inputs in input_files:
     except Exception, e:
         print "Cannot stage in: " + arg
         print e
+#    job.kill(True)
+        sys.exit(-3)
 
 job.createJob(group)
 
