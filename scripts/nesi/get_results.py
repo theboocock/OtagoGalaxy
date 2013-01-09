@@ -55,7 +55,7 @@ except:
     sys.exit(-2)
 
 # clean it up
-job.kill(True)
+#job.kill(True)
 
 # That's all folks!
 sys.exit(0)

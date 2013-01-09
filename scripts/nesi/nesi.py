@@ -176,6 +176,11 @@ class NesiJobRunner(BaseJobRunner):
             log.error("Could not write job statuses to %s file." % jobstatus_file)
             return
 
+        if rc == -1:
+            log.debug("Call failed: python " + nesi_script_location + "/./check_jobs.py" + " -b BeSTGRID" + " " + jobstatus_file)
+            log.error("%s was not provided." % jobstatus_file)
+            return
+
         if rc != 0:
             log.debug("Call failed: python " + nesi_script_location + "/./check_jobs.py" + " -b BeSTGRID" + " " + jobstatus_file)
             log.error("Could not check NeSI servers to obtain job statuses")
@@ -195,7 +200,7 @@ class NesiJobRunner(BaseJobRunner):
                             status = line[1]
 
                     if status == "":
-                        log.debug("Could not find job in NeSI queue that matched: ", job_name)
+                        log.debug("Could not find job in NeSI queue that matched: %s" % job_name)
 
             except:
                 print "Call failed: " + nesi_script_location + "/./check_jobs.py" + " -b BeSTGRID" + " " + jobstatus_file
@@ -367,6 +372,7 @@ class NesiJobRunner(BaseJobRunner):
             nesi_job_state.job_wrapper.fail("Cannot currently get results for this job.")
             log.error("Cannot create files to write results to.")
             return
+
         if rc != 0:
             # lets just sleep for a bit and try again
             time.sleep(10)
@@ -376,6 +382,7 @@ class NesiJobRunner(BaseJobRunner):
                 nesi_job_state.job_wrapper.fail("Cannot currently get results for this job.")
                 log.error("Cannot create files to write results to.")
                 return
+
             if rc != 0:
                 # no luck for some reason 
                 nesi_job_state.job_wrapper.fail("Cannot get results for this execution")
@@ -445,6 +452,7 @@ class NesiJobRunner(BaseJobRunner):
 
             if rc != 0:
                 # no luck for some reason 
+                print "Failed. Call: " + nesi_script_location + "/./get_results.py" + " -b BeSTGRID " + ofile + " " + efile + " " + ecfile + " " + nesi_job_name
                 nesi_job_state.job_wrapper.fail("Cannot currently get results for this job.")
                 log.error("Cannot get results from NeSI Server")
                 return
