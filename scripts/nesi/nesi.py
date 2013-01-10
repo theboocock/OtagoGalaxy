@@ -220,8 +220,8 @@ class NesiJobRunner(BaseJobRunner):
             elif status == "Active" and nesi_job_state.running:
                 nesi_job_state.old_state=job_status[3]
                 new_watched.append(nesi_job_state)
-            elif status == "Failed" or "Job killed" or "Undefined":
-                log.debug("Old state: %s is now %s and put into fail queue." % (old_state, job_status[2]))
+            elif (status == "Failed") or (status == "Job killed") or (status == "Undefined"):
+                log.debug("Old state: %s is now %s and put into fail queue." % (old_state, status))
                 nesi_job_state.old_state=job_status[2]
                 self.work_queue.put(('fail', nesi_job_state))
             elif status == "Done":
@@ -356,9 +356,6 @@ class NesiJobRunner(BaseJobRunner):
 
         rc = call(nesi_script_location + "/./stop_job.py " + "-b BeSTGRID " + job.get_job_runner_external_id(), shell=True)
 
-        if rc == 1:
-            log.error("Cannot kill job %s" % job.get_job_runner_external_id())
-            return
         if rc != 0:
             log.error("Cannot kill job %s" % job.get_job_runner_external_id())
             return
