@@ -12,7 +12,11 @@ from grisu.model import GrisuRegistryManager
 import sys
 from grisu.control import JobConstants
 
-job_statuses_file = sys.argv[1]
+try:
+    job_statuses_file = sys.argv[1]
+except:
+    print "Did not provide a file"
+    sys.exit(-1)
 
 registry = GrisuRegistryManager.getDefault(si)
 
