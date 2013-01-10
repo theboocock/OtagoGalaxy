@@ -231,7 +231,7 @@ class NesiJobRunner(BaseJobRunner):
             else:
                 new_watched.append(nesi_job_state)
 
-        self.watched= new_watched
+            self.watched= new_watched
 
     def queue_job(self, job_wrapper):
         """Queue a nesi job"""
@@ -531,7 +531,7 @@ class NesiJobRunner(BaseJobRunner):
             nesi_job_state.old_state=nesi_job_state[2]
             nesi_job_state.running = True
             self.monitor_queue.put(nesi_job_state)
-        elif job.state == model.job.states.QUEUED:
+        elif job.state == model.Job.states.QUEUED:
             log.debug ("(%s/%s) is still in nesi queued state, adding to the nesi queue" % (job.id,job.get_job_runner_external_id()))
             nesi_job_state.old_state = job_status[1]
             nesi_job_state.running=False
