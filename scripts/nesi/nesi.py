@@ -49,7 +49,7 @@ class NesiJobState( object ):
         """
         self.job_wrapper = None
         self.job_name = None
-        self.old_state = None
+        self.old_state = job_status[1]
         self.running = False
         self.ofile = None
         self.efile = None
@@ -198,6 +198,7 @@ class NesiJobRunner(BaseJobRunner):
                         state_jobname = line[0]
                         if state_jobname == job_name:
                             status = line[1]
+                            break
 
                     if status == "":
                         log.error("Could not find job in NeSI queue that matched: %s" % job_name)
