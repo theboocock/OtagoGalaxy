@@ -2,8 +2,8 @@
     <description>performs pre-phasing on genotypic data</description>
     <command interpreter="bash">
 
-        shape_it.sh -g ${input_gen} -s ${input_sample} -m ${input_gen-threshold} 
-        #if #use_reference == "yes":
+        shape_it.sh -g ${input_gen} -s ${input_sample} -m ${threshold} 
+        #if $use_reference == "yes":
             -r
         #end if
         #if $phased_in_window.phase_window == "yes":
@@ -19,7 +19,7 @@
     <inputs>
         <param name="input_gen" type="data" format="gen" label="Input Gen File" />
         <param name="input_sample" type="data" format="sample"  label="Input Sample File" />
-        <param name="input_gen-threshold" type="float" value="0.90"  label="Input Gen-threshold" help="Will use the most likely genotype if that probability exceeds the threshold, otherwise will be considered missing."/>
+        <param name="threshold" type="float" value="0.90"  label="Threshold" help="Will use the most likely genotype if that probability exceeds the threshold, otherwise will be considered missing."/>
 
         <param name="use_reference" type="select" label="Use 1000 Genomes Reference Panel?">
             <option value="yes" selected="True">Yes</option>
@@ -44,8 +44,8 @@
     </inputs>
 
     <outputs>
-        <param name="phased_haps" format="txt" />>
-        <param name="phased_sample" format="txt"/>
+        <data name="phased_haps" format="txt" />
+        <data name="phased_sample" format="txt"/>
     </outputs>
 
     <help>

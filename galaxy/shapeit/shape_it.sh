@@ -58,13 +58,22 @@ while getopts "g:s:m:rf:t:h:o:" opt; do
 done
 
 # FIXME Get the hardcoded files.. yucky. For cluster will ovbiously need to change. again should be symlinked like all of our stuff. god knows why we didnt
+
 REF_HAP="$ROOT_DIR/tools/data/1kg/impute2/ALL_1000G_phase1integrated_v3_impute/ALL_1000G_phase1integrated_v3_chr${CHR}_impute.hap"
-MAP_FILE="$ROOT_DIR/tools/data/1kg/impute2/ALL_1000G_phase1integrated_v3_impute/ALL_1000G_phase1integrated_v3_chr${CHR}_impute.map"
+MAP_FILE="$ROOT_DIR/tools/data/1kg/impute2/ALL_1000G_phase1integrated_v3_impute/genetic_map_chr${CHR}_combined_b37.txt"
 REF_LEGEND="$ROOT_DIR/tools/data/1kg/impute2/ALL_1000G_phase1integrated_v3_impute/ALL_1000G_phase1integrated_v3_chr${CHR}_impute.legend"
-REF_LEGEND="$ROOT_DIR/tools/data/1kg/impute2/ALL_1000G_phase1integrated_v3_impute/ALL_1000G_phase1integrated_v3_chr${CHR}_impute.sample"
+REF_SAMPLE="$ROOT_DIR/tools/data/1kg/impute2/ALL_1000G_phase1integrated_v3_impute/ALL_1000G_phase1integrated_v3.sample"
+
+CHRX_TAG=""
+
+if [ "$CHR" == "x" ] ; then
+
+   CHRX_TAG="--chrX" 
+
+fi
 
 # Shape it or shape out!
-shapeit --input-gen $INPUT_GEN $INPUT_SAMPLE --input-thr $THRESHOLD --input-map $MAP_FILE $FROM $TO $REF --output-max $OUTPUT_HAPS $OUTPUT_SAMPLE
+shapeit --input-gen $INPUT_GEN $INPUT_SAMPLE --input-thr $THRESHOLD --input-map $MAP_FILE $FROM $TO $REF --output-max $OUTPUT_HAPS $OUTPUT_SAMPLE $CHRX_TAG
 
 # Print log to stdout to be picked up by Galaxy
 echo shapeit_*.log
