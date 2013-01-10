@@ -200,14 +200,15 @@ class NesiJobRunner(BaseJobRunner):
                             status = line[1]
 
                     if status == "":
-                        log.debug("Could not find job in NeSI queue that matched: %s" % job_name)
+                        log.error("Could not find job in NeSI queue that matched: %s" % job_name)
+                        self.work_queue.put(('fail', nesi_job_state))
 
             except:
                 print "Call failed: " + nesi_script_location + "/./check_jobs.py" + " -b BeSTGRID" + " " + jobstatus_file
                 log.exception("Could not access jobs to check job status.")
                 return
 
-            print status
+            log.debug("Status for " + job_name + " is: " + status) 
             if status != old_state:          
                 log.debug("(%s/%s) NeSI Jobs state changed from %s to %s" % (galaxy_job_id, job_name,old_state,status))
             if status == "Active" and not nesi_job_state.running:
@@ -219,6 +220,7 @@ class NesiJobRunner(BaseJobRunner):
                 nesi_job_state.old_state=job_status[3]
                 new_watched.append(nesi_job_state)
             elif status == "Failed" or "Job killed" or "Undefined":
+                log.debug("Old state: %s is now %s and put into fail queue." % (old_state, job_status[2]))
                 nesi_job_state.old_state=job_status[2]
                 self.work_queue.put(('fail', nesi_job_state))
             elif status == "Done":
