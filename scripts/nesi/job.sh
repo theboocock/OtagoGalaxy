@@ -6,8 +6,8 @@
 # $1 = command to be run
 # $2 = output file
 # 
-# e.g. cat this_file.txt > that_file.txt would be run as 
-#       ./job.sh "cat this_file.txt" that_file.txt
+# e.g. cat this_file.txt > that_file.txt 2> err.stderr would be run as 
+#       ./job.sh -c "cat this_file.txt" -o that_file.txt -e err.stderr
 #
 
 OUTPUT=0

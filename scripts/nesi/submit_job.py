@@ -44,6 +44,14 @@ jobname_file    = sys.argv[4]
 command         = sys.argv[5]
 input_files     = list()
 
+print "ARGS:"
+print sys.argv[1]
+print sys.argv[2]
+print sys.argv[3]
+print sys.argv[4]
+print sys.argv[5]
+print sys.argv[6]
+
 if group == '':
     group = DEFAULT_GROUP
 if queue == '':
@@ -62,7 +70,7 @@ job.setWalltimeInSeconds(DEFAULT_WALLTIME)
 # stop annoying stats from being written to stderr
 job.addEnvironmentVariable("SUPPRESS_STATS", "true")
 
-#job.addInputFileUrl("job.sh")
+job.addInputFileUrl("~/galaxy-central/lib/galaxy/jobs/runners/job.sh")
 
 try:
 # save jobname for job
@@ -84,7 +92,7 @@ new_commandline = ""
 for arg in command_arguments:
  #   if arg == ">":
   #      new_commandline += "\" "
-   #     arg = "-o"
+  #      arg = "-o"
  #   elif arg == "2>":
  #       arg = "-e"
 
@@ -92,7 +100,8 @@ for arg in command_arguments:
     if os.path.exists(arg) and not arg.endswith(".dat"):
         print "Staging in: " + arg
         try:
-            job.addInputFileUrl(arg)
+#            job.addInputFileUrl(arg)
+            print "ARG:" + arg
         except Exception, e:
             print "Cannot stage in: " + arg
             print e
@@ -107,7 +116,8 @@ job.setCommandline(new_commandline)
 
 for inputs in input_files:
     try:
-        job.addInputFileUrl(inputs)
+ #       job.addInputFileUrl(inputs)
+        print "input: " + inputs
     except Exception, e:
         print "Cannot stage in: " + arg
         print e
