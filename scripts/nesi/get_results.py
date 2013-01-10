@@ -32,8 +32,6 @@ errfile         = sys.argv[2]
 error_codefile  = sys.argv[3]
 job_name        = sys.argv[4]
 
-#job = JobObject(si) 
-
 job = JobObject(si, job_name)
 
 # Save stdout and stderr to files to be read by galaxy
@@ -43,13 +41,21 @@ try:
     out.close()
 
     err = open(errfile, "w")
-    err.write(job.getStdErrContent())
+    try:
+        err.write(job.getStdErrContent())
+    except:
+        # There is no stderr so just write blank file
+        err.write("")
     err.close()
 
     ec = open(error_codefile, "w")
     exit_code = job.getStatus(False) - 1000
     ec.write(str(exit_code))
     ec.close()
+
+#TODO get other files that have been created
+# TODO needs to contain a list of output files then move them to the respective place within galaxy
+# TODO get passed the absolute paths of galaxy outputs, strip it, download it and save in abs path
 except:
     print "Cannot open files to write results to"
     sys.exit(-2)

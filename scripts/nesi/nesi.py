@@ -376,7 +376,7 @@ class NesiJobRunner(BaseJobRunner):
         # can't hit server for some reason
         if rc == -2:
             nesi_job_state.job_wrapper.fail("Cannot currently get results for this job.")
-            log.error("Cannot create files to write results to.")
+            log.error("Unable to download and create stderr, stdout, and errorcode files.")
             return
 
         if rc != 0:
@@ -386,7 +386,7 @@ class NesiJobRunner(BaseJobRunner):
 
             if rc == -2:
                 nesi_job_state.job_wrapper.fail("Cannot currently get results for this job.")
-                log.error("Cannot create files to write results to.")
+                log.error("Unable to download and create stderr, stdout, and errorcode files.")
                 return
 
             if rc != 0:
@@ -404,7 +404,7 @@ class NesiJobRunner(BaseJobRunner):
         except:
             stdout = ''
             stderr = 'Job output not returned by Nesi: The job was manually dequeued or there was a cluster error'
-            log.debug("Could not open stdout/stderr files")
+            log.error("Could not open stdout/stderr files")
 
         try:
             ecfh = file(ecfile, "r")

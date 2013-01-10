@@ -44,14 +44,6 @@ jobname_file    = sys.argv[4]
 command         = sys.argv[5]
 input_files     = list()
 
-print "ARGS:"
-print sys.argv[1]
-print sys.argv[2]
-print sys.argv[3]
-print sys.argv[4]
-print sys.argv[5]
-print sys.argv[6]
-
 if group == '':
     group = DEFAULT_GROUP
 if queue == '':
@@ -114,12 +106,12 @@ job.setCommandline(new_commandline)
 
 for inputs in input_files:
     try:
-#       job.addInputFileUrl(inputs)
+        job.addInputFileUrl(inputs)
         print "input: " + inputs
     except Exception, e:
         print "Cannot stage in: " + arg
         print e
-#    job.kill(True)
+        #job.kill(True)
         sys.exit(-3)
 
 job.createJob(group)
