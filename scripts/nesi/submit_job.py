@@ -87,13 +87,12 @@ except:
 command_arguments = command.split()
 
 new_commandline = "bash job.sh -c \""
-new_commandline = ""
 for arg in command_arguments:
-   if arg == ">":
-      new_commandline += "\" "
-      arg = "-o"
-   elif arg == "2>":
-      arg = "-e"
+    if arg == ">":
+        new_commandline += "\" "
+        arg = "-o"
+    elif arg == "2>":
+        arg = "-e"
 
     # If its a file but not a .dat then stage it in. should only be a script really.
     if os.path.exists(arg) and not arg.endswith(".dat"):
