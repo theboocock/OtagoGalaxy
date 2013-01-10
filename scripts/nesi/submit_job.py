@@ -84,23 +84,22 @@ except:
 # NOTE: Strips all absolute locations and makes them relatiove.
 #       Will probably change when files are stored in a proper location.
 
-#print "Original Command: " + command
 command_arguments = command.split()
-#print "Arguments: " + command_arguments
-#new_commandline = "bash job.sh -c \""
+
+new_commandline = "bash job.sh -c \""
 new_commandline = ""
 for arg in command_arguments:
- #   if arg == ">":
-  #      new_commandline += "\" "
-  #      arg = "-o"
- #   elif arg == "2>":
- #       arg = "-e"
+   if arg == ">":
+      new_commandline += "\" "
+      arg = "-o"
+   elif arg == "2>":
+      arg = "-e"
 
     # If its a file but not a .dat then stage it in. should only be a script really.
     if os.path.exists(arg) and not arg.endswith(".dat"):
         print "Staging in: " + arg
         try:
-#            job.addInputFileUrl(arg)
+            job.addInputFileUrl(arg)
             print "ARG:" + arg
         except Exception, e:
             print "Cannot stage in: " + arg
@@ -110,13 +109,13 @@ for arg in command_arguments:
 
     new_commandline += (os.path.basename(arg) + " ")
 
-#print "New commandline: " + new_commandline
+print "New commandline: " + new_commandline
 
 job.setCommandline(new_commandline)
 
 for inputs in input_files:
     try:
- #       job.addInputFileUrl(inputs)
+#       job.addInputFileUrl(inputs)
         print "input: " + inputs
     except Exception, e:
         print "Cannot stage in: " + arg
