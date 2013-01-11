@@ -16,7 +16,7 @@
 # $7 = output - sample
 # $8 = chromosome
 
-while getopts "g:s:m:rf:t:h:o:" opt; do
+while getopts "l:c:g:s:m:rf:t:h:o:R:" opt; do
     case $opt in
         g)
             INPUT_GEN=$OPTARG
@@ -48,6 +48,9 @@ while getopts "g:s:m:rf:t:h:o:" opt; do
         c)
             CHR=$OPTARG
         ;;
+        l)
+            LOG=$OPTARG
+        ;;
         ?)
             echo "Options were not correctly sent" >&2
             exit 1
@@ -59,10 +62,10 @@ done
 
 # FIXME Get the hardcoded files.. yucky. For cluster will ovbiously need to change. again should be symlinked like all of our stuff. god knows why we didnt
 
-REF_HAP="$ROOT_DIR/tools/data/1kg/impute2/ALL_1000G_phase1integrated_v3_impute/ALL_1000G_phase1integrated_v3_chr${CHR}_impute.hap"
-MAP_FILE="$ROOT_DIR/tools/data/1kg/impute2/ALL_1000G_phase1integrated_v3_impute/genetic_map_chr${CHR}_combined_b37.txt"
-REF_LEGEND="$ROOT_DIR/tools/data/1kg/impute2/ALL_1000G_phase1integrated_v3_impute/ALL_1000G_phase1integrated_v3_chr${CHR}_impute.legend"
-REF_SAMPLE="$ROOT_DIR/tools/data/1kg/impute2/ALL_1000G_phase1integrated_v3_impute/ALL_1000G_phase1integrated_v3.sample"
+REF_HAP="$ROOT_DIR/tools/SOER1000genes/data/1kg/impute2/ALL_1000G_phase1integrated_v3_chr${CHR}_impute.hap"
+MAP_FILE="$ROOT_DIR/tools/SOER1000genes/data/1kg/impute2/genetic_map_chr${CHR}_combined_b37.txt"
+REF_LEGEND="$ROOT_DIR/tools/SOER1000genes/data/1kg/impute2/ALL_1000G_phase1integrated_v3_chr${CHR}_impute.legend"
+REF_SAMPLE="$ROOT_DIR/tools/SOER1000genes/data/1kg/impute2/ALL_1000G_phase1integrated_v3.sample"
 
 CHRX_TAG=""
 
@@ -73,9 +76,9 @@ if [ "$CHR" == "x" ] ; then
 fi
 
 # Shape it or shape out!
-shapeit --input-gen $INPUT_GEN $INPUT_SAMPLE --input-thr $THRESHOLD --input-map $MAP_FILE $FROM $TO $REF --output-max $OUTPUT_HAPS $OUTPUT_SAMPLE $CHRX_TAG
+shapeit --input-gen $INPUT_GEN $INPUT_SAMPLE --input-gen-threshold $THRESHOLD --input-map $MAP_FILE $FROM $TO $REF --output-max $OUTPUT_HAPS $OUTPUT_SAMPLE $CHRX_TAG
 
 # Print log to stdout to be picked up by Galaxy
-echo shapeit_*.log
+cat shapeit_*.log > $LOG
 
 exit 0

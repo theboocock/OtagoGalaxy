@@ -13,6 +13,7 @@
         -h ${phased_haps} -o ${phased_sample}
         -R ${__root_dir__}
         -c ${chromosome}
+        -l ${log}
 
     </command>
 
@@ -46,6 +47,7 @@
     <outputs>
         <data name="phased_haps" format="txt" />
         <data name="phased_sample" format="txt"/>
+        <data name="log" format="txt"/>
     </outputs>
 
     <help>
