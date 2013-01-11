@@ -377,7 +377,7 @@ class NesiJobRunner(BaseJobRunner):
         output_files = " ".join(nesi_job_state.job_wrapper.get_output_fnames())
 
         # get results
-        rc = call(nesi_script_location + "/./get_results.py" + " -b BeSTGRID " + ofile + " " + efile + " " + ecfile + " " + nesi_job_name output_files, shell=True)
+        rc = call(nesi_script_location + "/./get_results.py" + " -b BeSTGRID " + ofile + " " + efile + " " + ecfile + " " + nesi_job_name + " " + output_files, shell=True)
         
         # can't hit server for some reason
         if rc == -2:
