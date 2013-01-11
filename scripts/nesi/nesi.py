@@ -374,31 +374,34 @@ class NesiJobRunner(BaseJobRunner):
         jobstatus_file = os.path.abspath(nesi_script_location + "/jobstatus_file.tmp")
         nesi_job_name = nesi_job_state.job_name
         
+        output_files = " ".join(nesi_job_state.job_wrapper.get_output_fnames())
+
         # get results
-        rc = call(nesi_script_location + "/./get_results.py" + " -b BeSTGRID " + ofile + " " + efile + " " + ecfile + " " + nesi_job_name, shell=True)
+        rc = call(nesi_script_location + "/./get_results.py" + " -b BeSTGRID " + ofile + " " + efile + " " + ecfile + " " + nesi_job_name output_files, shell=True)
         
         # can't hit server for some reason
         if rc == -2:
             nesi_job_state.job_wrapper.fail("Cannot currently get results for this job.")
-            log.debug("Failed. Call: " + nesi_script_location + "/./get_results.py" + " -b BeSTGRID " + ofile + " " + efile + " " + ecfile + " " + nesi_job_name)
+            log.debug("Failed. Call: " + nesi_script_location + "/./get_results.py" + " -b BeSTGRID " + ofile + " " + efile + " " + ecfile + " " + nesi_job_name + " " + output_files)
             log.error("Unable to download and create stderr, stdout, and errorcode files.")
             return
 
         if rc != 0:
             # lets just sleep for a bit and try again
             time.sleep(10)
+            log.debug("Failed. Call: " + nesi_script_location + "/./get_results.py" + " -b BeSTGRID " + ofile + " " + efile + " " + ecfile + " " + nesi_job_name + " " + output_files)
             rc = call(nesi_script_location + "/./get_results.py" + " -b BeSTGRID " + ofile + " " + efile + " " + ecfile + " " + nesi_job_name, shell=True)
 
             if rc == -2:
                 nesi_job_state.job_wrapper.fail("Cannot currently get results for this job.")
-                log.debug("Failed. Call: " + nesi_script_location + "/./get_results.py" + " -b BeSTGRID " + ofile + " " + efile + " " + ecfile + " " + nesi_job_name)
+                log.debug("Failed. Call: " + nesi_script_location + "/./get_results.py" + " -b BeSTGRID " + ofile + " " + efile + " " + ecfile + " " + nesi_job_name + " " + output_files)
                 log.error("Unable to download and create stderr, stdout, and errorcode files.")
                 return
 
             if rc != 0:
                 # no luck for some reason 
                 nesi_job_state.job_wrapper.fail("Cannot get results for this execution")
-                log.debug("Failed. Call: " + nesi_script_location + "/./get_results.py" + " -b BeSTGRID " + ofile + " " + efile + " " + ecfile + " " + nesi_job_name)
+                log.debug("Failed. Call: " + nesi_script_location + "/./get_results.py" + " -b BeSTGRID " + ofile + " " + efile + " " + ecfile + " " + nesi_job_name + " " + output_files)
                 log.error("Cannot get results from NeSI Server")
                 return
 
