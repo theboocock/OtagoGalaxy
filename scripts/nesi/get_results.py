@@ -59,10 +59,14 @@ try:
     ec.close()
 
     for f in output_files:
-        of = open(f, "w")
-        rel_f = os.path.basename(f)
-        of.write(job.getFileContent()
-        of.close()
+        try:
+            of = open(f, "w")
+            rel_f = os.path.basename(f)
+            of.write(job.getFileContent()
+            of.close()
+        except:
+            print "Cannot find file " + rel_f
+            sys.exit(-3)
 
 except:
     print "Cannot open files to write results to"

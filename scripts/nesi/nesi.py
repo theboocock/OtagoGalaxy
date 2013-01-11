@@ -386,6 +386,11 @@ class NesiJobRunner(BaseJobRunner):
             log.error("Unable to download and create stderr, stdout, and errorcode files.")
             return
 
+        if rc == -3:
+            nesi_job_state.job_wrapper.fail("Cannot currently get results for this job")
+            log.debug("Failed. Call: " + nesi_script_location + "/./get_results.py" + " -b BeSTGRID " + ofile + " " + efile + " " + ecfile + " " + nesi_job_name + " " + output_files)
+            log.error("Extra files can't be downloaded from NeSI for some reason")
+            return
         if rc != 0:
             # lets just sleep for a bit and try again
             time.sleep(10)
