@@ -44,14 +44,6 @@ jobname_file    = sys.argv[4]
 command         = sys.argv[5]
 input_files     = list()
 
-print "ARGS:"
-print sys.argv[1]
-print sys.argv[2]
-print sys.argv[3]
-print sys.argv[4]
-print sys.argv[5]
-print sys.argv[6]
-
 if group == '':
     group = DEFAULT_GROUP
 if queue == '':
@@ -70,7 +62,7 @@ job.setWalltimeInSeconds(DEFAULT_WALLTIME)
 # stop annoying stats from being written to stderr
 job.addEnvironmentVariable("SUPPRESS_STATS", "true")
 
-job.addInputFileUrl("~/galaxy-central/lib/galaxy/jobs/runners/job.sh")
+job.addInputFileUrl("job.sh")
 
 try:
 # save jobname for job
@@ -81,47 +73,41 @@ except:
     print "Cannot write jobname to file"
     sys.exit(-2)
 
-# NOTE: Strips all absolute locations and makes them relatiove.
-#       Will probably change when files are stored in a proper location.
-
-#print "Original Command: " + command
 command_arguments = command.split()
-#print "Arguments: " + command_arguments
-#new_commandline = "bash job.sh -c \""
-new_commandline = ""
+
+new_commandline = "bash job.sh -c \""
 for arg in command_arguments:
- #   if arg == ">":
-  #      new_commandline += "\" "
-  #      arg = "-o"
- #   elif arg == "2>":
- #       arg = "-e"
+    if arg == ">":
+        new_commandline += "\" "
+        arg = "-o"
+    elif arg == "2>":
+        arg = "-e"
 
     # If its a file but not a .dat then stage it in. should only be a script really.
     if os.path.exists(arg) and not arg.endswith(".dat"):
         print "Staging in: " + arg
         try:
-#            job.addInputFileUrl(arg)
-            print "ARG:" + arg
+            job.addInputFileUrl(arg)
         except Exception, e:
             print "Cannot stage in: " + arg
             print e
-       #    job.kill(True)
+            job.kill(True)
             sys.exit(-3)
 
     new_commandline += (os.path.basename(arg) + " ")
 
-#print "New commandline: " + new_commandline
+print "New commandline: " + new_commandline
 
 job.setCommandline(new_commandline)
 
 for inputs in input_files:
     try:
- #       job.addInputFileUrl(inputs)
+        job.addInputFileUrl(inputs)
         print "input: " + inputs
     except Exception, e:
         print "Cannot stage in: " + arg
         print e
-#    job.kill(True)
+        job.kill(True)
         sys.exit(-3)
 
 job.createJob(group)
@@ -133,7 +119,7 @@ except Exception, e:
     # Just catch all exceptions for time being. TODO
     print "Cannot submit job currently."
     print e
-#    job.kill(True)
+    job.kill(True)
     sys.exit(1)
 
 # That's all folks!

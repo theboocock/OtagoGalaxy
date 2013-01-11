@@ -49,7 +49,7 @@ class NesiJobState( object ):
         """
         self.job_wrapper = None
         self.job_name = None
-        self.old_state = None
+        self.old_state = None 
         self.running = False
         self.ofile = None
         self.efile = None
@@ -167,7 +167,7 @@ class NesiJobRunner(BaseJobRunner):
         nesi_server= self.determine_nesi_server(self.app.config.default_cluster_job_runner)
         nesi_runner= self.determine_nesi_runner(self.app.config.default_cluster_job_runner)
         nesi_script_location = os.path.abspath(self.app.config.nesi_scripts_directory)
-        jobstatus_file = os.path.abspath(nesi_script_location + "jobstatus_file.tmp")
+        jobstatus_file = os.path.abspath(nesi_script_location + "/jobstatus_file.tmp")
         
         rc = call(nesi_script_location + "/./check_jobs.py " + "-b BeSTGRID " + jobstatus_file, shell=True)
 
@@ -197,17 +197,19 @@ class NesiJobRunner(BaseJobRunner):
                         line = line.split(":")
                         state_jobname = line[0]
                         if state_jobname == job_name:
-                            status = line[1]
+                            status = line[1].strip()
+                            break
 
                     if status == "":
-                        log.debug("Could not find job in NeSI queue that matched: %s" % job_name)
+                        log.error("Could not find job in NeSI queue that matched: %s" % job_name)
+                        self.work_queue.put(('fail', nesi_job_state))
 
             except:
                 print "Call failed: " + nesi_script_location + "/./check_jobs.py" + " -b BeSTGRID" + " " + jobstatus_file
                 log.exception("Could not access jobs to check job status.")
                 return
 
-            print status
+            log.debug("Status for " + job_name + " is: " + status) 
             if status != old_state:          
                 log.debug("(%s/%s) NeSI Jobs state changed from %s to %s" % (galaxy_job_id, job_name,old_state,status))
             if status == "Active" and not nesi_job_state.running:
@@ -218,13 +220,17 @@ class NesiJobRunner(BaseJobRunner):
             elif status == "Active" and nesi_job_state.running:
                 nesi_job_state.old_state=job_status[3]
                 new_watched.append(nesi_job_state)
-            elif status == "Failed" or "Job killed" or "Undefined":
+            elif (status == "Failed") or (status == "Job killed") or (status == "Undefined"):
+                log.debug("Old state: %s is now %s and put into fail queue." % (old_state, status))
                 nesi_job_state.old_state=job_status[2]
                 self.work_queue.put(('fail', nesi_job_state))
-            elif status == "Done":
+
+            if status == "Done":
+                log.debug("Adding job %s to finish queue" % nesi_job_state.job_name)
                 nesi_job_state.old_state=job_status[0]
                 self.work_queue.put(('finish',nesi_job_state))
             else:
+                log.debug("Appending new nesi_job_state")
                 new_watched.append(nesi_job_state)
 
         self.watched= new_watched
@@ -254,7 +260,7 @@ class NesiJobRunner(BaseJobRunner):
         runner_url=job_wrapper.get_job_runner_url()
         nesi_server=self.determine_nesi_server(runner_url)
         nesi_script_location = os.path.abspath(self.app.config.nesi_scripts_directory)
-        jobstatus_file = os.path.abspath(nesi_script_location + "jobstatus_file.tmp")
+        jobstatus_file = os.path.abspath(nesi_script_location + "/jobstatus_file.tmp")
         ecfile = "%s/%s.ec" % (self.app.config.cluster_files_directory, job_wrapper.job_id)
         ofile  = "%s/%s.o" %(self.app.config.cluster_files_directory,job_wrapper.job_id)
         efile = "%s/%s.e" %(self.app.config.cluster_files_directory,job_wrapper.job_id)
@@ -317,6 +323,7 @@ class NesiJobRunner(BaseJobRunner):
         nesi_job_state.ofile = ofile
         nesi_job_state.efile = efile
         nesi_job_state.nesi_jobname_file=nesi_jobname_file
+
         # Add to our queue of jobs to monitor
         self.monitor_queue.put(nesi_job_state)
 
@@ -351,9 +358,6 @@ class NesiJobRunner(BaseJobRunner):
 
         rc = call(nesi_script_location + "/./stop_job.py " + "-b BeSTGRID " + job.get_job_runner_external_id(), shell=True)
 
-        if rc == 1:
-            log.error("Cannot kill job %s" % job.get_job_runner_external_id())
-            return
         if rc != 0:
             log.error("Cannot kill job %s" % job.get_job_runner_external_id())
             return
@@ -367,50 +371,60 @@ class NesiJobRunner(BaseJobRunner):
         runner_url=nesi_job_state.job_wrapper.get_job_runner_url()
         nesi_server=self.determine_nesi_server(runner_url)
         nesi_script_location = os.path.abspath(self.app.config.nesi_scripts_directory)
-        jobstatus_file = os.path.abspath(nesi_script_location + "jobstatus_file.tmp")
+        jobstatus_file = os.path.abspath(nesi_script_location + "/jobstatus_file.tmp")
         nesi_job_name = nesi_job_state.job_name
         
+        output_files = " ".join(nesi_job_state.job_wrapper.get_output_fnames())
+
         # get results
-        rc = call(nesi_script_location + "/./get_results.py " + "-b BeSTGRID " + ofile + " " + efile + " " + ecfile + " " + jobstatus_file + " " + nesi_job_name, shell=True)
+        rc = call(nesi_script_location + "/./get_results.py" + " -b BeSTGRID " + ofile + " " + efile + " " + ecfile + " " + nesi_job_name + " " + output_files, shell=True)
         
         # can't hit server for some reason
         if rc == -2:
             nesi_job_state.job_wrapper.fail("Cannot currently get results for this job.")
-            log.error("Cannot create files to write results to.")
+            log.debug("Failed. Call: " + nesi_script_location + "/./get_results.py" + " -b BeSTGRID " + ofile + " " + efile + " " + ecfile + " " + nesi_job_name + " " + output_files)
+            log.error("Unable to download and create stderr, stdout, and errorcode files.")
             return
 
+        if rc == -3:
+            nesi_job_state.job_wrapper.fail("Cannot currently get results for this job")
+            log.debug("Failed. Call: " + nesi_script_location + "/./get_results.py" + " -b BeSTGRID " + ofile + " " + efile + " " + ecfile + " " + nesi_job_name + " " + output_files)
+            log.error("Extra files can't be downloaded from NeSI for some reason")
+            return
         if rc != 0:
             # lets just sleep for a bit and try again
             time.sleep(10)
+            log.debug("Failed. Call: " + nesi_script_location + "/./get_results.py" + " -b BeSTGRID " + ofile + " " + efile + " " + ecfile + " " + nesi_job_name + " " + output_files)
             rc = call(nesi_script_location + "/./get_results.py" + " -b BeSTGRID " + ofile + " " + efile + " " + ecfile + " " + nesi_job_name, shell=True)
 
             if rc == -2:
                 nesi_job_state.job_wrapper.fail("Cannot currently get results for this job.")
-                log.error("Cannot create files to write results to.")
+                log.debug("Failed. Call: " + nesi_script_location + "/./get_results.py" + " -b BeSTGRID " + ofile + " " + efile + " " + ecfile + " " + nesi_job_name + " " + output_files)
+                log.error("Unable to download and create stderr, stdout, and errorcode files.")
                 return
 
             if rc != 0:
                 # no luck for some reason 
                 nesi_job_state.job_wrapper.fail("Cannot get results for this execution")
+                log.debug("Failed. Call: " + nesi_script_location + "/./get_results.py" + " -b BeSTGRID " + ofile + " " + efile + " " + ecfile + " " + nesi_job_name + " " + output_files)
                 log.error("Cannot get results from NeSI Server")
                 return
 
         try:
-            efh=file(nesi_job_state.efile,"r")
-            ofh=file(nesi_job_state.ofile, "r")
+            efh=file(efile,"r")
+            ofh=file(ofile, "r")
             stdout = ofh.read(32768)
             stderr = efh.read(32768)
 
         except:
             stdout = ''
             stderr = 'Job output not returned by Nesi: The job was manually dequeued or there was a cluster error'
-            log.debug("Could not open stdout/stderr files")
+            log.error("Could not open stdout/stderr files")
 
         try:
             ecfh = file(ecfile, "r")
             exit_code_str= ecfh.read(32)
             exit_code = int (exit_code_str)
-
         except:
             exit_code_str=""
             log.warning("Exit code" + exit_code_str + " was invalid or missing, using 0." )
@@ -434,14 +448,15 @@ class NesiJobRunner(BaseJobRunner):
         runner_url=nesi_job_state.job_wrapper.get_job_runner_url()
         nesi_server=self.determine_nesi_server(runner_url)
         nesi_script_location = os.path.abspath(self.app.config.nesi_scripts_directory)
-        jobstatus_file = os.path.abspath(nesi_script_location + "jobstatus_file.tmp")
+        jobstatus_file = os.path.abspath(nesi_script_location + "/jobstatus_file.tmp")
         nesi_job_name = nesi_job_state.job_name
         
         # get results
-        rc = call(nesi_script_location + "/./get_results.py " + "-b BeSTGRID " + ofile + " " + efile + " " + ecfile + " " + jobstatus_file + " " + nesi_job_name, shell=True)
+        rc = call(nesi_script_location + "/./get_results.py" + " -b BeSTGRID " + ofile + " " + efile + " " + ecfile + " " + nesi_job_name, shell=True)
         
         if rc == -2:
             nesi_job_state.job_wrapper.fail("Cannot currently get results for this job.")
+            log.debug("Failed. Call: " + nesi_script_location + "/./get_results.py" + " -b BeSTGRID " + ofile + " " + efile + " " + ecfile + " " + nesi_job_name)
             log.error("Cannot create files to write results to.")
             return
 
@@ -449,16 +464,18 @@ class NesiJobRunner(BaseJobRunner):
         if rc != 0:
             # lets just sleep for a bit and try again
             time.sleep(10)
+
             rc = call(nesi_script_location + "/./get_results.py" + " -b BeSTGRID " + ofile + " " + efile + " " + ecfile + " " + nesi_job_name, shell=True)
 
             if rc == -2:
                 nesi_job_state.job_wrapper.fail("Cannot currently get results for this job.")
+                log.debug("Failed. Call: " + nesi_script_location + "/./get_results.py" + " -b BeSTGRID " + ofile + " " + efile + " " + ecfile + " " + nesi_job_name)
                 log.error("Cannot create files to write results to.")
                 return
 
             if rc != 0:
                 # no luck for some reason 
-                print "Failed. Call: " + nesi_script_location + "/./get_results.py" + " -b BeSTGRID " + ofile + " " + efile + " " + ecfile + " " + nesi_job_name
+                log.debug("Failed. Call: " + nesi_script_location + "/./get_results.py" + " -b BeSTGRID " + ofile + " " + efile + " " + ecfile + " " + nesi_job_name)
                 nesi_job_state.job_wrapper.fail("Cannot currently get results for this job.")
                 log.error("Cannot get results from NeSI Server")
                 return
@@ -524,7 +541,7 @@ class NesiJobRunner(BaseJobRunner):
             nesi_job_state.old_state=nesi_job_state[2]
             nesi_job_state.running = True
             self.monitor_queue.put(nesi_job_state)
-        elif job.state == model.job.states.QUEUED:
+        elif job.state == model.Job.states.QUEUED:
             log.debug ("(%s/%s) is still in nesi queued state, adding to the nesi queue" % (job.id,job.get_job_runner_external_id()))
             nesi_job_state.old_state = job_status[1]
             nesi_job_state.running=False

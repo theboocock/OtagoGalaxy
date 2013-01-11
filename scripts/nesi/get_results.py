@@ -31,8 +31,11 @@ outfile         = sys.argv[1]
 errfile         = sys.argv[2]
 error_codefile  = sys.argv[3]
 job_name        = sys.argv[4]
+output_files    = list()
 
-#job = JobObject(si) 
+# get list of output files for this job
+for f in sys.argv[5:]
+    output_files.append(f)
 
 job = JobObject(si, job_name)
 
@@ -43,19 +46,34 @@ try:
     out.close()
 
     err = open(errfile, "w")
-    err.write(job.getStdErrContent())
+    try:
+        err.write(job.getStdErrContent())
+    except:
+        # There is no stderr so just write blank file
+        err.write("")
     err.close()
 
     ec = open(error_codefile, "w")
     exit_code = job.getStatus(False) - 1000
     ec.write(str(exit_code))
     ec.close()
+
+    for f in output_files:
+        try:
+            of = open(f, "w")
+            rel_f = os.path.basename(f)
+            of.write(job.getFileContent()
+            of.close()
+        except:
+            print "Cannot find file " + rel_f
+            sys.exit(-3)
+
 except:
     print "Cannot open files to write results to"
     sys.exit(-2)
 
 # clean it up
-#job.kill(True)
+job.kill(True)
 
 # That's all folks!
 sys.exit(0)
