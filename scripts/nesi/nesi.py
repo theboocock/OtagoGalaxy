@@ -197,7 +197,7 @@ class NesiJobRunner(BaseJobRunner):
                         line = line.split(":")
                         state_jobname = line[0]
                         if state_jobname == job_name:
-                            status = line[1]
+                            status = line[1].strip()
                             break
 
                     if status == "":
@@ -224,7 +224,8 @@ class NesiJobRunner(BaseJobRunner):
                 log.debug("Old state: %s is now %s and put into fail queue." % (old_state, status))
                 nesi_job_state.old_state=job_status[2]
                 self.work_queue.put(('fail', nesi_job_state))
-            elif status == "Done":
+
+            if status == "Done":
                 log.debug("Adding job %s to finish queue" % nesi_job_state.job_name)
                 nesi_job_state.old_state=job_status[0]
                 self.work_queue.put(('finish',nesi_job_state))
