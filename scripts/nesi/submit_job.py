@@ -62,7 +62,7 @@ job.setWalltimeInSeconds(DEFAULT_WALLTIME)
 # stop annoying stats from being written to stderr
 job.addEnvironmentVariable("SUPPRESS_STATS", "true")
 
-job.addInputFileUrl("~/galaxy-central/lib/galaxy/jobs/runners/job.sh")
+job.addInputFileUrl("job.sh")
 
 try:
 # save jobname for job
@@ -72,9 +72,6 @@ try:
 except:
     print "Cannot write jobname to file"
     sys.exit(-2)
-
-# NOTE: Strips all absolute locations and makes them relatiove.
-#       Will probably change when files are stored in a proper location.
 
 command_arguments = command.split()
 
@@ -91,11 +88,10 @@ for arg in command_arguments:
         print "Staging in: " + arg
         try:
             job.addInputFileUrl(arg)
-            print "ARG:" + arg
         except Exception, e:
             print "Cannot stage in: " + arg
             print e
-       #    job.kill(True)
+            job.kill(True)
             sys.exit(-3)
 
     new_commandline += (os.path.basename(arg) + " ")
@@ -111,7 +107,7 @@ for inputs in input_files:
     except Exception, e:
         print "Cannot stage in: " + arg
         print e
-        #job.kill(True)
+        job.kill(True)
         sys.exit(-3)
 
 job.createJob(group)
@@ -123,7 +119,7 @@ except Exception, e:
     # Just catch all exceptions for time being. TODO
     print "Cannot submit job currently."
     print e
-#    job.kill(True)
+    job.kill(True)
     sys.exit(1)
 
 # That's all folks!

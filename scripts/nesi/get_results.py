@@ -31,6 +31,11 @@ outfile         = sys.argv[1]
 errfile         = sys.argv[2]
 error_codefile  = sys.argv[3]
 job_name        = sys.argv[4]
+output_files    = list()
+
+# get list of output files for this job
+for f in sys.argv[5:]
+    output_files.append(f)
 
 job = JobObject(si, job_name)
 
@@ -53,15 +58,18 @@ try:
     ec.write(str(exit_code))
     ec.close()
 
-#TODO get other files that have been created
-# TODO needs to contain a list of output files then move them to the respective place within galaxy
-# TODO get passed the absolute paths of galaxy outputs, strip it, download it and save in abs path
+    for f in output_files:
+        of = open(f, "w")
+        rel_f = os.path.basename(f)
+        of.write(job.getFileContent()
+        of.close()
+
 except:
     print "Cannot open files to write results to"
     sys.exit(-2)
 
 # clean it up
-#job.kill(True)
+job.kill(True)
 
 # That's all folks!
 sys.exit(0)
