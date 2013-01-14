@@ -3,23 +3,29 @@
 
     <command>
     <!-- FIXME TODO Don't think this actually does anything at all.. -->
-        ./bgl_to_ped $bgl_input 'awk {$1 $2 $3 $4 $5'
+        
+        awk '{ print $1,$2,$3,$4,$5,$6; }' ${os.path.join($inputs.extra_files_path, $inputs.metadata.base_name +".ped")} > out.fam;
+        ./bgl_to_ped $bgl_input out.fam $phased_type
+        python ${__root_dir__}/tool-data/shared/composite_datatypes/create_composite_rgenetics.py 'lped' $phased_lped $phased_lped.metadata.base_name $output_lped.extra_files_path
     </command>
 
     <inputs>
         <param name="bgl_input" type="data" format="bgl" label="phased beagle output"/>
         <param name="lped_input" type="data" format="lped" label="original lped input"/>
+        <param name="phased_type" type="integer" value="0" label="Phased data type <0/2/3 for unrelated/pairs/trios" />
     </inputs>
 
     <outputs>
 
-        <data name="phased_lped" format="lped" /> 
+        <data name="phased_lped" format="lped" metadata_source="lped_input"/> 
 
     </outputs>
 
     <help>
         Given the nature of the formats the script required the original 
-        lped/pbed is supplied also so that it can be converted back into ped
+        lped/pbed is supplied also so that it can be converted back into a phased ped/map
+        This is because some information is removed in the conversion to beagle
+        and to translate that back into lped data the original files are required.
     </help>
 
 </tool>

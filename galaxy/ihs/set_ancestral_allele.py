@@ -20,7 +20,7 @@ def main():
     leg_p=leg_line[1]
     with open(vcf_file, 'r') as vcf:
         for line in vcf:
-            if not re.match('^#',line)
+            if not re.match('^#',line):
                 line=line.split()
                 position=line[1]
                 while leg_p < position:
