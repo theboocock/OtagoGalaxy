@@ -2,7 +2,7 @@
     <description>Convert PED and MAP (lped) to BEAGLE format</description>
 
     <command>
-        ${__root_dir__}/tools/SOER1000genes/galaxy/beagle/./ped_to_bgl ${os.path.join($input.extra_files_path, $input.metadata.base_name + ".ped")} ${os.path.join($input.extra_files_path, $input.metadata.base_name + ".map")} > $output
+        ${__root_dir__}/tools/SOER1000genes/galaxy/beagle/./ped_to_bgl ${os.path.join($input.extra_files_path, $input.metadata.base_name + ".ped")} ${os.path.join($input.extra_files_path, $input.metadata.base_name + ".map")} > $output 2> /dev/null
     </command>
 
     <inputs>

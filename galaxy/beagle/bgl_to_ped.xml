@@ -2,17 +2,17 @@
     <description> Turns Beagle back into ped  </description>
 
     <command>
-    <!-- FIXME TODO Don't think this actually does anything at all.. -->
         
-        awk '{ print $1,$2,$3,$4,$5,$6; }' ${os.path.join($inputs.extra_files_path, $inputs.metadata.base_name +".ped")} > out.fam;
-        ./bgl_to_ped $bgl_input out.fam $phased_type
-        python ${__root_dir__}/tool-data/shared/composite_datatypes/create_composite_rgenetics.py 'lped' $phased_lped $phased_lped.metadata.base_name $output_lped.extra_files_path
+        awk '{ print $1,$2,$3,$4,$5,$6; }' ${os.path.join($lped_input.extra_files_path, $lped_input.metadata.base_name +".ped")} > out.fam;
+        ${__root_dir__}/tools/SOER1000genes/galaxy/beagle/./bgl_to_ped $bgl_input out.fam $phased_type > ${lped_input.metadata.base_name}.ped 2> /dev/null;
+        cp ${os.path.join($lped_input.extra_files_path, $lped_input.metadata.base_name + ".map")} .;
+        python ${__root_dir__}/tool-data/shared/composite_datatypes/create_composite_rgenetics.py 'lped' $phased_lped $phased_lped.metadata.base_name $phased_lped.extra_files_path
     </command>
 
     <inputs>
-        <param name="bgl_input" type="data" format="bgl" label="phased beagle output"/>
-        <param name="lped_input" type="data" format="lped" label="original lped input"/>
-        <param name="phased_type" type="integer" value="0" label="Phased data type <0/2/3 for unrelated/pairs/trios" />
+        <param name="bgl_input" type="data" format="bgl" label="Phased Beagle Output"/>
+        <param name="lped_input" type="data" format="lped" label="Original Lped Input"/>
+        <param name="phased_type" type="integer" value="0" label="Phased Data Type (0/2/3 for unrelated/pairs/trios)" />
     </inputs>
 
     <outputs>
