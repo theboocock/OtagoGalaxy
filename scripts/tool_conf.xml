@@ -530,19 +530,6 @@
   <section name="Human Genome Variation" id="hgv">
     <tool file="evolution/codingSnps.xml" />
     <tool file="evolution/add_scores.xml" />
-    <tool file="human_genome_variation/sift.xml" />
-    <tool file="human_genome_variation/linkToGProfile.xml" />
-    <tool file="human_genome_variation/linkToDavid.xml"/>
-    <tool file="human_genome_variation/ctd.xml" />
-    <tool file="human_genome_variation/funDo.xml" />
-    <tool file="human_genome_variation/snpFreq.xml" />
-    <tool file="human_genome_variation/ldtools.xml" />
-    <tool file="human_genome_variation/pass.xml" />
-    <tool file="human_genome_variation/gpass.xml" />
-    <tool file="human_genome_variation/beam.xml" />
-    <tool file="human_genome_variation/lps.xml" />
-    <tool file="human_genome_variation/hilbertvis.xml" />
-    <tool file="human_genome_variation/freebayes.xml" />
   </section>
   <section name="Genome Diversity" id="gd">
     <tool file="genome_diversity/extract_primers.xml" />
