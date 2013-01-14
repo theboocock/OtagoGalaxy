@@ -52,17 +52,27 @@ if queue == '':
 for f in sys.argv[6:]:
     input_files.append(f)
 
-job = JobObject(si) 
-job.setSubmissionLocation(queue)
-job.setTimestampJobname("galaxy_" + galaxy_job_id)
+try:
+    job = JobObject(si) 
+    job.setSubmissionLocation(queue)
+    job.setTimestampJobname("galaxy_" + galaxy_job_id)
 
-job.setMemory(DEFAULT_MEMORY)
-job.setWalltimeInSeconds(DEFAULT_WALLTIME)
+    job.setMemory(DEFAULT_MEMORY)
+    job.setWalltimeInSeconds(DEFAULT_WALLTIME)
 
-# stop annoying stats from being written to stderr
-job.addEnvironmentVariable("SUPPRESS_STATS", "true")
+    # stop annoying stats from being written to stderr
+    job.addEnvironmentVariable("SUPPRESS_STATS", "true")
 
-job.addInputFileUrl("job.sh")
+
+except:
+    print "Cannot setup stuff"
+    sys.exit(-4)
+
+try:
+    job.addInputFileUrl("~/galaxy-dist/lib/galaxy/job/runners/job.sh")
+except:
+    print "Cannot stage in job.sh"
+    sys.exit(-5)
 
 try:
 # save jobname for job
@@ -112,7 +122,7 @@ for inputs in input_files:
 
 job.createJob(group)
 
-#print "Submitting job..."
+print "Submitting job..."
 try:
     job.submitJob()
 except Exception, e:
