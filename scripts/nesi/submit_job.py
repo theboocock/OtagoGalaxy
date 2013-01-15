@@ -86,14 +86,18 @@ except:
 command_arguments = command.split()
 
 new_commandline = "bash job.sh -c \""
+seen_end_of_command=False
 for arg in command_arguments:
     if arg == ">":
         new_commandline += "\" "
+        seen_end_of_command = True
         arg = "-o"
     elif arg == "2>":
+        seen_end_of_command = True
         arg = "-e"
 
-    # If its a file but not a .dat then stage it in. should only be a script really.
+        
+    # If its a file but not a .dat then stage it in. should only be a script really
     if os.path.exists(arg) and not arg.endswith(".dat"):
         print "Staging in: " + arg
         try:
@@ -103,9 +107,10 @@ for arg in command_arguments:
             print e
             job.kill(True)
             sys.exit(-3)
-
+    
     new_commandline += (os.path.basename(arg) + " ")
-
+if (!seen_end_of_command):
+    new_commandline += "\""
 print "New commandline: " + new_commandline
 
 job.setCommandline(new_commandline)
