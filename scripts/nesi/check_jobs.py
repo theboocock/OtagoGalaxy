@@ -1,4 +1,4 @@
-#!/home/edwardhills/NeSI_Tools/bin/grython
+#!/home/jamesboocock/NeSI_Tools/bin/grython
 # FIXME: need an installer type thing to do ^^ correctly
 #
 # Author: Edward Hills
