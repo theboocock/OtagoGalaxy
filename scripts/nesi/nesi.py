@@ -278,11 +278,9 @@ class NesiJobRunner(BaseJobRunner):
         log.debug("(%s) Submitting: %s" % (galaxy_job_id, command_line))
                
         input_files = " ".join(job_wrapper.get_input_fnames())
-        print "INPUT_FILES: " + input_files
-
         #Submit the job to nesi
         rc = call(nesi_script_location + "/./submit_job.py" + " -b BeSTGRID " + nesi_server + " " + self.nesi_group + " " + galaxy_job_id + " " + nesi_jobname_file + " '" + command_line + "' " + input_files, shell=True)
-
+        log.debug("Call: " + nesi_script_location + "/./submit_job.py" + " -b BeSTGRID " + nesi_server + " " + self.nesi_group + " " + galaxy_job_id + " " + nesi_jobname_file + " '" + command_line + "' " + input_files)
         if rc == -2:
             job_wrapper.fail("NeSI job submitter returned an unsuccessful error code. Unable to submit NeSI job currently.")
             log.error("Jobname file could not be created. Cannot submit NeSI job currently.")
@@ -373,8 +371,9 @@ class NesiJobRunner(BaseJobRunner):
         nesi_script_location = os.path.abspath(self.app.config.nesi_scripts_directory)
         jobstatus_file = os.path.abspath(nesi_script_location + "/jobstatus_file.tmp")
         nesi_job_name = nesi_job_state.job_name
-        
-        output_files = " ".join(nesi_job_state.job_wrapper.get_output_fnames())
+        output_fnames = nesi_job_state.job_wrapper.get_output_fnames()
+        output_files = [ str( o ) for o in output_fnames]
+        output_files = " ".join(output_files)
 
         # get results
         rc = call(nesi_script_location + "/./get_results.py" + " -b BeSTGRID " + ofile + " " + efile + " " + ecfile + " " + nesi_job_name + " " + output_files, shell=True)

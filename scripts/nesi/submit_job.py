@@ -65,11 +65,11 @@ try:
 
 
 except:
-    print "Cannot setup stuff"
+    print "Cannot setup the job environment"
     sys.exit(-4)
 
 try:
-    job.addInputFileUrl("~/galaxy-dist/lib/galaxy/job/runners/job.sh")
+    job.addInputFileUrl("~/galaxy-dist/lib/galaxy/jobs/runners/job.sh")
 except:
     print "Cannot stage in job.sh"
     sys.exit(-5)
@@ -98,7 +98,7 @@ for arg in command_arguments:
 
         
     # If its a file but not a .dat then stage it in. should only be a script really
-    if os.path.exists(arg) and not arg.endswith(".dat"):
+    elif os.path.exists(arg) and not seen_end_of_command:
         print "Staging in: " + arg
         try:
             job.addInputFileUrl(arg)
@@ -109,7 +109,7 @@ for arg in command_arguments:
             sys.exit(-3)
     
     new_commandline += (os.path.basename(arg) + " ")
-if (!seen_end_of_command):
+if not (seen_end_of_command):
     new_commandline += "\""
 print "New commandline: " + new_commandline
 

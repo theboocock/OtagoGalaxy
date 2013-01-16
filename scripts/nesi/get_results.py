@@ -34,7 +34,7 @@ job_name        = sys.argv[4]
 output_files    = list()
 
 # get list of output files for this job
-for f in sys.argv[5:]
+for f in sys.argv[5:]:
     output_files.append(f)
 
 job = JobObject(si, job_name)
@@ -62,7 +62,7 @@ try:
         try:
             of = open(f, "w")
             rel_f = os.path.basename(f)
-            of.write(job.getFileContent()
+            of.write(job.getFileContent())
             of.close()
         except:
             print "Cannot find file " + rel_f
