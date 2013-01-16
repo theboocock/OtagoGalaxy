@@ -7,12 +7,10 @@
     </command>
 
     <inputs>
-
         <param name="input_map" type="data" format="ihsmap" label="Map Input file" help="Columns must be: rs#, physical position, genetic position and alleles corresponding to 0 and 1."/>
         <param name="input_hap1" type="data" format="ihshap" label="First Hap Input file" help="Must be on haplotype per line, with alleles coded as 1 and 0."/>
         <param name="input_hap2" type="data" format="ihshap" label="Second Hap Input file" help="Must be on haplotype per line, with alleles coded as 1 and 0."/>
-
-        <param name="correction" type="select" label="Disable distance correction factor" help="The standard XP-EHH run ignores SNPs when it runs into a distance of over 200kb between adjacent markers while doing the integration, and includes a correction factor for markers with a distance > 20kb. For dense human data, this filter is recommended, but for other organisms it may be suboptimal.">
+        <param name="correction" type="select" label="Disable distance correction factor" help="The standard XP-EHH run ignores SNPs when it runs into a distance of over 200kb between adjacent markers while doing the integration, and includes a correction factor for markers with a distance > 20kb. For dense human data, this filter is recommended, but for other organisms it may be suboptimal."/>
 
         <option value="" selected="True">No</option>
         <option value="-nd">Yes</option>

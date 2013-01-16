@@ -103,10 +103,12 @@
    <tool file="SOER1000genes/galaxy/plink/ped_to_tped.xml"/>
    <tool file="SOER1000genes/galaxy/tped_to_lped/tped_to_lped.xml"/>
    <tool file="SOER1000genes/galaxy/beagle/vcf_to_beagle.xml"/>
+   <tool file="SOER1000genes/galaxy/ihs/lpedgen_to_ihs.xml"/>
    <tool file="SOER1000genes/galaxy/vcf_to_tped/vcf_to_tped.xml"/>
    <tool file="SOER1000genes/galaxy/vcf_to_ped/vcf_to_ped.xml"/>
    <tool file="SOER1000genes/galaxy/vcf_to_csv/vcf_to_csv.xml"/>
    <tool file="SOER1000genes/galaxy/beagle/ped_to_beagle.xml" />
+   <tool file="SOER1000genes/galaxy/beagle/bgl_to_ped.xml" />
     <tool file="SOER1000genes/galaxy/gtool/lped_to_gen.xml"/>
     <tool file="SOER1000genes/galaxy/gtool/gen_to_lped.xml"/>
  </section>
