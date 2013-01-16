@@ -29,13 +29,32 @@ def main():
                         break
                     leg_p=leg_line[1]
                 if leg_p==position:
+                    info=line[7];
+                    info=info.split(';');
+                    for each_part in info:
+                        if(each_part.split("=")[0] == "AA"):
+                            aa= each_part.split("=")[1];
+                    #now since the aa equals this we need to check what the other aa 
+                    #is
+                    if aa is not None:
+                        if leg_line[4] == aa:
+                            print ' '.join(leg_line)
+                        elif leg_line[3] == aa:
+                            temp = leg_line[3]
+                            leg_line[3] = leg_line[4]
+                            leg_line[4] = leg_line[3]
+                            print ' '.join(leg_line)
+                        else:
+                            leg_line[4] = aa
+                            print ' '.join(leg_line)
+                            #dont know what to do
                     #print the line and annotate the correct ancestral allele
                     #check nacestral allele                    
                     leg_line=legend.readline().split()
                     if not leg_line:
                         break
                     leg_p=leg_line[1]
-                    
+                     
 
 
 if __name__=="__main__":main()
