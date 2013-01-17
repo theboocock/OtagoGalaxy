@@ -1,13 +1,14 @@
 <tool id="cm_to_lped" name="Annotate Lped with CentiMorgans from HapMap" version="1.0.0">
     <description>The tool annotates your ped file with centimorgan values from the hapmap recombination maps</description>
 <command interpreter="bash"> 
-cm_to_lped.sh $input_lped.extra_files_path $input_lped.metadata.base_name ${__root_dir__}/tools/SOER1000genes/data/1kg/ihs ${__root_dir__}
+cm_to_lped.sh $input_lped.extra_files_path $input_lped.metadata.base_name ${__root_dir__}/tools/SOER1000genes/data/1kg/ihs ${__root_dir__} $missing_value
 ;
 python ${__root_dir__}/tool-data/shared/composite_datatypes/create_composite_rgenetics.py 'lped' $output_lped $output_lped.metadata.base_name $output_lped.extra_files_path
 
 </command>
 <inputs>
     <param name="input_lped" type="data" format="lped" label="Lped input file"/>
+    <param name="missing_value" type="text" value="-9" label="missing centimorgan value in the map file e.g -9">
 
 </inputs>
 <outputs>

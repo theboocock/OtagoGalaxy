@@ -7,7 +7,7 @@
 # $2 basename
 # $3 galaxy impute data folder containing the centimorgan files
 # $4 galaxy root dir
-#
+# $5 missing_cm value
 #
 #
 
@@ -19,13 +19,13 @@ while read chrom
 do
     
     if [ $chrom == "23" ]; then
-        chrom="X_PAR2"
+        chrom="x"
     fi
     MAP_FILE=${3}genetic_map_chr${chrom}_combined_b37.txt
     if [ ${chrom} != "26" ]  && [ ${chrom} != "24" ]; then
-         python $4/tools/SOER1000genes/galaxy/cm_to_lped/annotate_cm.py $MAP_FILE "${1}/${2}.map" $chrom >> out.tmp
+         python $4/tools/SOER1000genes/galaxy/cm_to_lped/annotate_cm.py $MAP_FILE "${1}/${2}.map" $chrom $5>> out.tmp
     else
-        python $4/tools/SOER1000genes/galaxy/cm_to_lped/add_999.py "${1}/${2}.map" >> out.tmp
+        python $4/tools/SOER1000genes/galaxy/cm_to_lped/add_999.py "${1}/${2}.map" $5 >> out.tmp
     fi
 
 done < chromosomes

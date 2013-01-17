@@ -4,7 +4,7 @@
 # $1 GENETIC_MAP FILE
 # $2 user_MAP FILE
 # $3 chrom
-# 
+# $4 missing value
 # Annotates genetic map positions from chromosome based cm files in the hapmap3/impute format
 # @author James Boocock
 # @date   16/11/2012
@@ -18,12 +18,15 @@ def main():
     genetic_map_file=sys.argv[1]
     # user map file
     user_map_file=sys.argv[2]
+    missing_value=sys.argv[4]
     count = 0
     if (sys.argv[3] == 'X_PAR2'):
         sys.argv[3] = '23'
     with open(user_map_file, 'r') as umap:
         with open(genetic_map_file, 'r') as gmap:
             u_line_temp=umap.readline()
+            g_line_temp=gmap.readline()
+            #skip a line for the header.
             g_line_temp=gmap.readline()
             if (g_line_temp.split()[0] == "position"):
                 g_line_temp=gmap.readline()
@@ -38,7 +41,7 @@ def main():
                         u_line_temp=umap.readline()
                         g_line_temp=gmap.readline()
                     elif (long(u_pos1) < long(g_pos1)):
-                        print u_line[0] + '\t' + u_line[1]+ '\t' + '-9' + '\t' + u_line[3]
+                        print u_line[0] + '\t' + u_line[1]+ '\t' + missing_value + '\t' + u_line[3]
                         u_line_temp=umap.readline()
                     else:
                         g_line_temp=gmap.readline()
@@ -48,7 +51,7 @@ def main():
             while(u_line_temp):
                 u_line=u_line_temp.split()
                 if (u_line[0] == sys.argv[3]):
-                    print u_line[0] + '\t' + u_line[1]+ '\t' + '-9' + '\t' + u_line[3]
+                    print u_line[0] + '\t' + u_line[1]+ '\t' + missing_value + '\t' + u_line[3]
                 u_line_temp=umap.readline()
 
 
