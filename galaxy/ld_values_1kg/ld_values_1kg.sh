@@ -127,7 +127,9 @@ fi
 	PLINK_COMMAND="p-link --tped plinkfile.tped --tfam plinkfile.tfam --r2 --noweb --matrix"
 	fi
 	eval	$PLINK_COMMAND > /dev/null
-	mv plink.ld $PLINK_OUTPUT
+    if [ "$HAPLOVIEW" == ""]; then
+            mv plink.ld $PLINK_OUTPUT
+    fi
 	mv plink.log $PLINK_LOG
     fi
     if [ "$HAPLOVIEW" != "" ]; then
