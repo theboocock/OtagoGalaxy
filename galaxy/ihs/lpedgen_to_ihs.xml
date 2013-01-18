@@ -1,18 +1,16 @@
 <tool id="lped_to_ihs" name="Lped to IHS format converter" version="1.0.0">
 <description>Requires the gen file from lped to gen conversion</description>
-<command interpreter="python">
-    gtool -P --ped ${os.path.join($input.extra_files_path, $input.metadata.base_name " + ".ped")}
-    --map ${os.path.join($input.extra_files_path, $input.metadata.base_name + ".map")}
+<command>
+    gtool -P --ped ${os.path.join($input.extra_files_path, $input.metadata.base_name + '.ped')}
+    --map ${os.path.join($input.extra_files_path, $input.metadata.base_name + '.map')}
     --og output_gen.tmp --os output_samp.tmp
-    ;
-    lpedgen_to_ihs.py $input_ihs.metadata.base_name $input_ihs.extra_files_path output_gen.tmp 
+    python lpedgen_to_ihs.py $input_ihs.metadata.base_name $input_ihs.extra_files_path output_gen.tmp
     $ihs_hap $ihs_map
 
 </command>
 
 <inputs>
-    <param name="input_ihs" type="data" format="lped" label="phased lped data with centimorgan annotation" help="For IHS and XPEHH your data needs to be phased 
-    in order for the calculations to make any sense"/>
+    <param name="input_ihs" type="data" format="lped" label="phased lped data with centimorgan annotation" help="For IHS and XPEHH your data needs to be phased in order for the calculations to make any sense"/>
 </inputs>
 
 <outputs>
@@ -22,8 +20,5 @@
 </outputs>
 <help>
     Converts File to the format required for input to IHS calc and XP-EHH
-
 </help>
-
-
 </tool>

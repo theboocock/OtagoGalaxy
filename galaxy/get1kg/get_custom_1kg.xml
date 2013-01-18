@@ -1,0 +1,8 @@
+<tool id="get_custom_1kg" name="Get Custom 1000Genomes VCF"version="1.0.0" />
+    <description>using a region specified by the user</description>
+
+    <help>
+        This tool is useful if you need 1000 genomes data that is not provided
+        in the data libraries on galaxy.
+    </help>
+</tool>
