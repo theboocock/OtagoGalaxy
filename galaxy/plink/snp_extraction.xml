@@ -4,10 +4,10 @@
     </description>
     <command>
         #if ($snp_or_region.display_snp_or_region == "snps"):
-            echo $snp_or_region.snplist | tr -s "__cr____cn__" "\n" > snplist.txt
+            echo $snp_or_region.snplist | sed s'/__cr____cn__/\n/g' > snplist.txt
             ;
         #else
-            echo $snp_or_region.region | tr -s "__cr____cn__" "\n" > region.txt
+            echo $snp_or_region.region | sed s'/__cr____cn__/\n/g' > region.txt
             ;
         #end if
         plink --noweb --file "$input_lped.extra_files_path/$input_lped.metadata.base_name"

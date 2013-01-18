@@ -26,15 +26,15 @@ def main():
     except:
         pass
     if rg == "lped":
-        shutil.move(base_name + '.ped', os.path.join(extra_files, base_name + '.ped'))
-        shutil.move(base_name + '.map', os.path.join(extra_files, base_name + '.map'))
+        shutil.copy(base_name + '.ped', os.path.join(extra_files, base_name + '.ped'))
+        shutil.copy(base_name + '.map', os.path.join(extra_files, base_name + '.map'))
     elif rg == "tped":
-        shutil.move(base_name + '.tped', os.path.join(extra_files, base_name + '.tped'))
-        shutil.move(base_name + '.tfam', os.path.join(extra_files, base_name + '.tfam'))
+        shutil.copy(base_name + '.tped', os.path.join(extra_files, base_name + '.tped'))
+        shutil.copy(base_name + '.tfam', os.path.join(extra_files, base_name + '.tfam'))
     elif rg == "pbed":
-        shutil.move(base_name + '.bim', os.path.join(extra_files, base_name + '.bim'))
-        shutil.move(base_name + '.bed', os.path.join(extra_files, base_name + '.bed'))
-        shutil.move(base_name + '.fam', os.path.join(extra_files, base_name + '.fam'))
+        shutil.copy(base_name + '.bim', os.path.join(extra_files, base_name + '.bim'))
+        shutil.copy(base_name + '.bed', os.path.join(extra_files, base_name + '.bed'))
+        shutil.copy(base_name + '.fam', os.path.join(extra_files, base_name + '.fam'))
 
     html_creation.create_html(extra_files,html_out, base_name + '/')
 

@@ -5,6 +5,7 @@
 # Date: 17/12/12
 # Descr: This grython script will submit a job to the NeSI grid. This has not
 #        been made for batch jobs, only single jobs. Still early design. Is not
+
 #        complete.
 
 # Arguments:
@@ -42,7 +43,15 @@ group           = sys.argv[2]
 galaxy_job_id   = sys.argv[3]
 jobname_file    = sys.argv[4]
 command         = sys.argv[5]
+job_script_folder = sys.argv[6]
 input_files     = list()
+
+job_header="""
+
+"""
+
+
+print job_script
 
 if group == '':
     group = DEFAULT_GROUP
@@ -63,15 +72,20 @@ try:
     # stop annoying stats from being written to stderr
     job.addEnvironmentVariable("SUPPRESS_STATS", "true")
 
+#create the job script#
 
 except:
     print "Cannot setup the job environment"
     sys.exit(-4)
 
+#create nesi job_script
+
+
+
 try:
-    job.addInputFileUrl("~/galaxy-dist/lib/galaxy/jobs/runners/job.sh")
+    job.addInputFileUrl()
 except:
-    print "Cannot stage in job.sh"
+    print "Cannot stage nesi job script"
     sys.exit(-5)
 
 try:

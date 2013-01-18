@@ -25,7 +25,9 @@ def main():
                     list_gen=line_gen.split()
                     while(line_gen and line_map):
                         legend_file.write(list_map[1]+ ' ' + list_map[3]+ ' '+ list_map[2]+' '+list_gen[3] + ' ' + list_gen[4] + '\n')
-                        hap_file.write(' '.join(list_gen[5:]
+                        hap_file.write(' '.join(list_gen[5:]) + '\n')
+                        line_map=map_file.readline()
+                        line_gen=gen_file.readline()
                         list_map=line_map.split()
                         list_gen=line_gen.split()
 

@@ -265,6 +265,7 @@ class NesiJobRunner(BaseJobRunner):
         ofile  = "%s/%s.o" %(self.app.config.cluster_files_directory,job_wrapper.job_id)
         efile = "%s/%s.e" %(self.app.config.cluster_files_directory,job_wrapper.job_id)
         nesi_jobname_file = "%s/%s.njf" %(self.app.config.cluster_files_directory,job_wrapper.job_id)
+        job_script= "%s/%s.sh" %(self.app.config.cluster_files_directory,job_wrapper.job_id)
         exec_dir = os.path.abspath( job_wrapper.working_directory )
 
         if job_wrapper.get_state() == model.Job.states.DELETED:
@@ -279,24 +280,24 @@ class NesiJobRunner(BaseJobRunner):
                
         input_files = " ".join(job_wrapper.get_input_fnames())
         #Submit the job to nesi
-        rc = call(nesi_script_location + "/./submit_job.py" + " -b BeSTGRID " + nesi_server + " " + self.nesi_group + " " + galaxy_job_id + " " + nesi_jobname_file + " '" + command_line + "' " + input_files, shell=True)
-        log.debug("Call: " + nesi_script_location + "/./submit_job.py" + " -b BeSTGRID " + nesi_server + " " + self.nesi_group + " " + galaxy_job_id + " " + nesi_jobname_file + " '" + command_line + "' " + input_files)
+        rc = call(nesi_script_location + "/./submit_job.py" + " -b BeSTGRID " + nesi_server + " " + self.nesi_group + " " + galaxy_job_id + " " + nesi_jobname_file + " '" + command_line + "' " +" " + job_script + " "  +input_files, shell=True)
+        log.debug("Call: " + nesi_script_location + "/./submit_job.py" + " -b BeSTGRID " + nesi_server + " " + self.nesi_group + " " + galaxy_job_id + " " + nesi_jobname_file + " '" + command_line + "' " job_script + " " + input_files)
         if rc == -2:
             job_wrapper.fail("NeSI job submitter returned an unsuccessful error code. Unable to submit NeSI job currently.")
             log.error("Jobname file could not be created. Cannot submit NeSI job currently.")
-            log.debug("Call: " + nesi_script_location + "/./submit_job.py" + " -b BeSTGRID " + nesi_server + " " + self.nesi_group + " " + galaxy_job_id + " " + nesi_jobname_file + " '" + command_line + "' " + input_files)
+            log.debug("Call: " + nesi_script_location + "/./submit_job.py" + " -b BeSTGRID " + nesi_server + " " + self.nesi_group + " " + galaxy_job_id + " " + nesi_jobname_file + " '" + command_line + "' " job_script + " " + input_files)
             return
 
         if rc == -3:
             job_wrapper.fail("NeSI job submitter returned an unsuccessful error code. Unable to stage in files.")
             log.error("Could not stage in files. Cannot submit NeSI job currently.")
-            log.debug("Call: " + nesi_script_location + "/./submit_job.py" + " -b BeSTGRID " + nesi_server + " " + self.nesi_group + " " + galaxy_job_id + " " + nesi_jobname_file + " '" + command_line + "' " + input_files)
+            log.debug("Call: " + nesi_script_location + "/./submit_job.py" + " -b BeSTGRID " + nesi_server + " " + self.nesi_group + " " + galaxy_job_id + " " + nesi_jobname_file + " '" + command_line + "' " job_script + " " + input_files)
             return
 
         if rc != 0:
             job_wrapper.fail("NeSI job submitter returned an unsuccessful error code. Unable to submit NeSI job currently.")
             log.error("Cannot submit NeSI job currently.")
-            log.debug("Call: " + nesi_script_location + "/./submit_job.py" + " -b BeSTGRID " + nesi_server + " " + self.nesi_group + " " + galaxy_job_id + " " + nesi_jobname_file + " '" + command_line + "' " + input_files)
+            log.debug("Call: " + nesi_script_location + "/./submit_job.py" + " -b BeSTGRID " + nesi_server + " " + self.nesi_group + " " + galaxy_job_id + " " + nesi_jobname_file + " '" + command_line + "' " job_script + " " + input_files)
             return
 
         # get nesi jobname
