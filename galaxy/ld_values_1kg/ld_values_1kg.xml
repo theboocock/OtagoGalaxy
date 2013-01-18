@@ -11,7 +11,7 @@
     #if ($onekg_own_param.onekg_own) == "onekg_file":
         -c $onekg_own_param.region_txt
 	#end if
-	#if ($onekg_use_type_param.onekg_use_type) == 'file':
+	#if ($onekg_use_type_param.onekg_use_rs) == 'file':
 		-s $onekg_use_type_param.snplist	
 	#end if
 		-w $ld_window
@@ -35,16 +35,19 @@
         -h $plink_map
         -p $plink_ped
 	#end if 
+    #if $onekg_use_type_param.onekg_use_rs =="single":
+        -R $onekg_use_type_param.rsid
+    #end if
 </command>
 	<inputs>
 	<conditional name="onekg_use_type_param">
-		<param name="onekg_use_type" type="select" label="Single, All the Snps in the file or Provide a SNP list">
+		<param name="onekg_use_rs" type="select" label="Single, All the Snps in the file or Provide a SNP list">
 		<option value="single" selected="True">Single Snp</option>
 		<option value="all">All Snps</option>
 		<option value="file">Snp List</option>
 		</param>
 	<when value="single">
-		<param name="rsid" type="text" label="RSID of snp" />
+		<param name="rsid" value="" type="text" label="RSID of snp" />
 	</when>  
 	<when value="all">
 
