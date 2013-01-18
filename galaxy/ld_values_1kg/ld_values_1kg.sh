@@ -72,7 +72,7 @@ O)
 	PLINK_LOG=$OPTARG
 ;;
 h)
-    HAPLOVIEW=$OPTARGt
+    HAPLOVIEW=$OPTARG
 ;;
 p)
     PED_FILE=$OPTARG
@@ -126,12 +126,14 @@ fi
 	if [ "$MATRIX" == "TRUE" ]; then
 	PLINK_COMMAND="p-link --tped plinkfile.tped --tfam plinkfile.tfam --r2 --noweb --matrix"
 	fi
-	eval	$PLINK_COMMAND > /dev/null
-	mv plink.ld $PLINK_OUTPUT
+    if [ "$HAPLOVIEW" == "" ]; then
+	        eval	$PLINK_COMMAND > /dev/null
+            mv plink.ld $PLINK_OUTPUT
+    fi
 	mv plink.log $PLINK_LOG
     fi
     if [ "$HAPLOVIEW" != "" ]; then
-        vcftools --vcf temp2.vcf --plink-tped --out  plinkfile > $PLINK_LOG
+        vcftools --vcf temp2.vcf --plink-tped --remove-indels --out plinkfile > $PLINK_LOG
         p-link --tfile plinkfile  --noweb --recodeHV --out plinkfile >> $PLINK_LOG
         mv plinkfile.info $HAPLOVIEW
         mv plinkfile.ped $PED_FILE
