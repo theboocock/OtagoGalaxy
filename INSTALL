@@ -20,6 +20,13 @@ These are listed below
     -tabix
 
 
+If you already have some of you own custom tools installed 
+and do not want to overwrite you tool_conf.xml file pass the argument
+-n and no tools will be overwritten.
+
+To add the tools to you install then just copy the Otago sections to your
+tool_conf.xml. tool_conf.xml is located in the scripts folder.
+
 Xgrid-Galaxy
 ------------
 
@@ -44,6 +51,11 @@ This command will install the nesi module to your local galaxy instance.
 The GALAXY_HOME_FOLDER environment variable needs to be set to your local
 galaxy instance location.
 
+You will need to open the script and set the NESI_TOOL_PATH variable
+to something that makes sense on your system.
+
+e.g gedit installers/nesi_tools and change the NESI_TOOL_PATH variable to
+match the location of you Nesi_Tools bin folder.
 
 If you are going to install the xgrid module also you will need to 
 run 'bash installers/xgrid_nesi.sh' which will install them both.

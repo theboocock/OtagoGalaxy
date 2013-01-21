@@ -1,6 +1,6 @@
 <tool id="snpEff_download" name="SnpEff Download" version="1.0">
 	<description>Download a new database</description>
-	<command>java -jar ${__root_dir__}/tool-data/shared/jars/snpEff/snpEff.jar download -c ${__root_dir__}/tool-data/shared/jars/snpEff/snpEff.config $genomeVersion > $logfile </command>
+    <command>java -jar ${__root_dir__}/tool-data/shared/jars/snpEff/snpEff.jar download -c ${__root_dir__}/tool-data/shared/jars/snpEff/snpEff.config $genomeVersion > $logfile </command>
 	<inputs>
 		<param name="genomeVersion" type="select" label="Genome">
 				<option value="ailmel1.61">Ailuropoda melanoleuca : ailmel1.61</option>

@@ -37,83 +37,81 @@
     <tool file="genomespace/genomespace_exporter.xml" />
   </section>
 <section name="Otago - Selection Tools" id="ou_select">
-   <tool file="SOER1000genes/galaxy/beagle/beagle.xml" />
-   <tool file="SOER1000genes/galaxy/presto/presto.xml" />
-   <tool file="SOER1000genes/galaxy/lamarc/lamarc.xml" />
-   <tool file="SOER1000genes/galaxy/treemix/treemix.xml" />
-   <tool file="SOER1000genes/galaxy/ihs/ihs_calc.xml" />
-   <tool file="SOER1000genes/galaxy/impute2/impute2.xml" />
-   <tool file="SOER1000genes/galaxy/shapeit/shape_it.xml" />
-   <tool file="SOER1000genes/galaxy/snptest/snptest.xml" />
-   <tool file="SOER1000genes/galaxy/xpehh/xpehh.xml" />
+   <tool file="OtagoGalaxy/galaxy/beagle/beagle.xml" />
+   <tool file="OtagoGalaxy/galaxy/presto/presto.xml" />
+   <tool file="OtagoGalaxy/galaxy/lamarc/lamarc.xml" />
+   <tool file="OtagoGalaxy/galaxy/treemix/treemix.xml" />
+   <tool file="OtagoGalaxy/galaxy/ihs/ihs_calc.xml" />
+   <tool file="OtagoGalaxy/galaxy/impute2/impute2.xml" />
+   <tool file="OtagoGalaxy/galaxy/shapeit/shape_it.xml" />
+   <tool file="OtagoGalaxy/galaxy/snptest/snptest.xml" />
+   <tool file="OtagoGalaxy/galaxy/xpehh/xpehh.xml" />
    </section>
 <section name="Otago - Variant Effect Predictors" id="ou_vep" >
 <!--
-   <tool file="SOER1000genes/galaxy/ensemblVEP/ensembl_vep.xml"/>
-   <tool file="SOER1000genes/galaxy/variantAnnotator/variant_annotator.xml" />
+   <tool file="OtagoGalaxy/galaxy/ensemblVEP/ensembl_vep.xml"/>
+   <tool file="OtagoGalaxy/galaxy/variantAnnotator/variant_annotator.xml" />
 -->
-   <tool file="SOER1000genes/galaxy/dbsnpRegionExtraction/dbsnp_region_extraction.xml" />
+   <tool file="OtagoGalaxy/galaxy/dbsnpRegionExtraction/dbsnp_region_extraction.xml" />
    </section>
  <section name="Otago - SnpEff tools" id="snpEff_tools">
-   <tool file="SOER1000genes/galaxy/snpEff/snpEff.xml" />
-<!--
-   <tool file="SOER1000genes/galaxy/snpEff/snpEff_download.xml" />
--->
-   <tool file="SOER1000genes/galaxy/snpEff/snpSift_annotate.xml" />
-   <tool file="SOER1000genes/galaxy/snpEff/snpSift_caseControl.xml" />    
-   <tool file="SOER1000genes/galaxy/snpEff/snpSift_filter.xml" />
-   <tool file="SOER1000genes/galaxy/snpEff/snpSift_int.xml" />
+   <tool file="OtagoGalaxy/galaxy/snpEff/snpEff.xml" />-
+   <tool file="OtagoGalaxy/galaxy/snpEff/snpEff_download.xml" />
+   <tool file="OtagoGalaxy/galaxy/snpEff/snpSift_annotate.xml" />
+   <tool file="OtagoGalaxy/galaxy/snpEff/snpSift_caseControl.xml" />    
+   <tool file="OtagoGalaxy/galaxy/snpEff/snpSift_filter.xml" />
+   <tool file="OtagoGalaxy/galaxy/snpEff/snpSift_int.xml" />
 </section>
    <section name="Otago - Filters" id="ou_filt">
-   <tool file="SOER1000genes/galaxy/regionEffectFilter/region_effect_filter.xml"/>
-   <tool file="SOER1000genes/galaxy/getAlleleFreq/getAlleleFreq.xml"/>
-   <tool file="SOER1000genes/galaxy/getSnps/get_snps.xml"/>
-   <tool file="SOER1000genes/galaxy/qualityFilter/quality_filter.xml"/>
-   <tool file="SOER1000genes/galaxy/indelQualityFilter/indelQual_filter.xml"/>
-   <tool file="SOER1000genes/galaxy/homozyFilter/homo_multi.xml"/>
-   <tool file="SOER1000genes/galaxy/multiRegionSelect/multiple_region_extraction.xml"/>
-   <tool file="SOER1000genes/galaxy/readDepthFilter/read_depth_filter.xml"/></section>
+   <tool file="OtagoGalaxy/galaxy/regionEffectFilter/region_effect_filter.xml"/>
+   <tool file="OtagoGalaxy/galaxy/getAlleleFreq/getAlleleFreq.xml"/>
+   <tool file="OtagoGalaxy/galaxy/getSnps/get_snps.xml"/>
+   <tool file="OtagoGalaxy/galaxy/qualityFilter/quality_filter.xml"/>
+   <tool file="OtagoGalaxy/galaxy/indelQualityFilter/indelQual_filter.xml"/>
+   <tool file="OtagoGalaxy/galaxy/homozyFilter/homo_multi.xml"/>
+   <tool file="OtagoGalaxy/galaxy/multiRegionSelect/multiple_region_extraction.xml"/>
+   <tool file="OtagoGalaxy/galaxy/readDepthFilter/read_depth_filter.xml"/></section>
 <section name="Otago - Calculations" id="ou_calc">
-   <tool file="SOER1000genes/galaxy/haploview/haploview.xml" />
-   <tool file="SOER1000genes/galaxy/calcTsTv/calc_ts_tv.xml" />
+   <tool file="OtagoGalaxy/galaxy/haploview/haploview.xml" />
+   <tool file="OtagoGalaxy/galaxy/calcTsTv/calc_ts_tv.xml" />
 </section>
 <section name="Otago - VCF file Manipulation" id="ou_vcf-manip" >
-   <tool file="SOER1000genes/galaxy/regionExtraction/region_extraction.xml" />
-   <tool file="SOER1000genes/galaxy/vcfMerge/merge_vcfs.xml"/>
-   <tool file="SOER1000genes/galaxy/extractSampleId/get_sample_id.xml" />
-   <tool file="SOER1000genes/galaxy/vcfSubset/select_samples.xml"/>
-   <tool file="SOER1000genes/galaxy/vcfConsensus/vcfConsensus.xml"/>
+   <tool file="OtagoGalaxy/galaxy/regionExtraction/region_extraction.xml" />
+   <tool file="OtagoGalaxy/galaxy/vcfMerge/merge_vcfs.xml"/>
+   <tool file="OtagoGalaxy/galaxy/extractSampleId/get_sample_id.xml" />
+   <tool file="OtagoGalaxy/galaxy/vcfSubset/select_samples.xml"/>
+   <tool file="OtagoGalaxy/galaxy/vcfConsensus/vcfConsensus.xml"/>
 </section>
 <section name="Otago - Work with 1000 Genomes Data" id="ou_1kg" >
-   <tool file="SOER1000genes/galaxy/ld_values_1kg/ld_values_1kg.xml"/>
-   <tool file="SOER1000genes/galaxy/getPopAlleleFreq/getPopAF.xml"/>
+   <tool file="OtagoGalaxy/galaxy/ld_values_1kg/ld_values_1kg.xml"/>
+   <tool file="OtagoGalaxy/galaxy/getPopAlleleFreq/getPopAF.xml"/>
 </section>
 <section name="Otago - Query Databases" id="ou_datab" >
-   <tool file="SOER1000genes/galaxy/evs/evs.xml" />
-   <tool file="SOER1000genes/galaxy/compare1kg/compare1kg.xml"/>
-   <tool file="SOER1000genes/galaxy/get1kgAF/get1kgAF.xml" />
+   <tool file="OtagoGalaxy/galaxy/evs/evs.xml" />
+   <tool file="OtagoGalaxy/galaxy/compare1kg/compare1kg.xml"/>
+   <tool file="OtagoGalaxy/galaxy/get1kgAF/get1kgAF.xml" />
 </section>
 <section name="Otago - Plink tools" id="ou_plink">
-    <tool file="SOER1000genes/galaxy/plink/plink_filter.xml"/>
-    <tool file="SOER1000genes/galaxy/plink/snp_extraction.xml"/>
-    <tool file="SOER1000genes/galaxy/plink/common_snps.xml"/>
-    <tool file="SOER1000genes/galaxy/plink/linear_regression.xml"/>
-    <tool file="SOER1000genes/galaxy/plink/plink_hwe.xml"/>
+    <tool file="OtagoGalaxy/galaxy/plink/plink_filter.xml"/>
+    <tool file="OtagoGalaxy/galaxy/plink/snp_extraction.xml"/>
+    <tool file="OtagoGalaxy/galaxy/plink/common_snps.xml"/>
+    <tool file="OtagoGalaxy/galaxy/plink/linear_regression.xml"/>
+    <tool file="OtagoGalaxy/galaxy/plink/plink_hwe.xml"/>
 </section>
  <section name="Otago - File converters" id="ou_converters" >
-   <tool file="SOER1000genes/galaxy/cm_to_lped/cm_to_lped.xml"/>
-   <tool file="SOER1000genes/galaxy/cm_to_lped/remove_missing_cm.xml"/>
-   <tool file="SOER1000genes/galaxy/plink/ped_to_tped.xml"/>
-   <tool file="SOER1000genes/galaxy/tped_to_lped/tped_to_lped.xml"/>
-   <tool file="SOER1000genes/galaxy/beagle/vcf_to_beagle.xml"/>
-   <tool file="SOER1000genes/galaxy/ihs/lpedgen_to_ihs.xml"/>
-   <tool file="SOER1000genes/galaxy/vcf_to_tped/vcf_to_tped.xml"/>
-   <tool file="SOER1000genes/galaxy/vcf_to_ped/vcf_to_ped.xml"/>
-   <tool file="SOER1000genes/galaxy/vcf_to_csv/vcf_to_csv.xml"/>
-   <tool file="SOER1000genes/galaxy/beagle/ped_to_beagle.xml" />
-   <tool file="SOER1000genes/galaxy/beagle/bgl_to_ped.xml" />
-    <tool file="SOER1000genes/galaxy/gtool/lped_to_gen.xml"/>
-    <tool file="SOER1000genes/galaxy/gtool/gen_to_lped.xml"/>
+   <tool file="OtagoGalaxy/galaxy/cm_to_lped/cm_to_lped.xml"/>
+   <tool file="OtagoGalaxy/galaxy/cm_to_lped/remove_missing_cm.xml"/>
+   <tool file="OtagoGalaxy/galaxy/plink/ped_to_tped.xml"/>
+   <tool file="OtagoGalaxy/galaxy/tped_to_lped/tped_to_lped.xml"/>
+   <tool file="OtagoGalaxy/galaxy/beagle/vcf_to_beagle.xml"/>
+   <tool file="OtagoGalaxy/galaxy/ihs/lpedgen_to_ihs.xml"/>
+   <tool file="OtagoGalaxy/galaxy/vcf_to_tped/vcf_to_tped.xml"/>
+   <tool file="OtagoGalaxy/galaxy/vcf_to_ped/vcf_to_ped.xml"/>
+   <tool file="OtagoGalaxy/galaxy/vcf_to_csv/vcf_to_csv.xml"/>
+   <tool file="OtagoGalaxy/galaxy/beagle/ped_to_beagle.xml" />
+   <tool file="OtagoGalaxy/galaxy/beagle/bgl_to_ped.xml" />
+    <tool file="OtagoGalaxy/galaxy/gtool/lped_to_gen.xml"/>
+    <tool file="OtagoGalaxy/galaxy/gtool/gen_to_lped.xml"/>
  </section>
   <section name="ENCODE Tools" id="EncodeTools">
     <tool file="encode/gencode_partition.xml" />
