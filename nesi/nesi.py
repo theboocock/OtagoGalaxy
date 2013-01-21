@@ -154,9 +154,9 @@ class NesiJobRunner(BaseJobRunner):
             #Iterate over the list of watched jobs and check state.
             if len(self.watched) > 0:
                 try:
-                self.check_watched_items()
-            except:
-                log.exception("Uncaught exception checking jobs")
+                    self.check_watched_items()
+                except:
+                    log.exception("Uncaught exception checking jobs")
 
             #sleep a bit before the next state is checked
             time.sleep(5)
@@ -174,17 +174,17 @@ class NesiJobRunner(BaseJobRunner):
         rc = call(nesi_script_location + "/./check_jobs.py " + "-b BeSTGRID " + jobstatus_file, shell=True)
 
         if rc == -2:
-            log.debug("Call failed: python " + nesi_script_location + "/./check_jobs.py" + " -b BeSTGRID" + " " + jobstatus_file)
+            log.debug("Call failed: " + nesi_script_location + "/./check_jobs.py" + " -b BeSTGRID" + " " + jobstatus_file)
             log.error("Could not write job statuses to %s file." % jobstatus_file)
             return
 
         if rc == -1:
-            log.debug("Call failed: python " + nesi_script_location + "/./check_jobs.py" + " -b BeSTGRID" + " " + jobstatus_file)
+            log.debug("Call failed: " + nesi_script_location + "/./check_jobs.py" + " -b BeSTGRID" + " " + jobstatus_file)
             log.error("%s was not provided." % jobstatus_file)
             return
 
         if rc != 0:
-            log.debug("Call failed: python " + nesi_script_location + "/./check_jobs.py" + " -b BeSTGRID" + " " + jobstatus_file)
+            log.debug("Call failed: " + nesi_script_location + "/./check_jobs.py" + " -b BeSTGRID" + " " + jobstatus_file)
             log.error("Could not check NeSI servers to obtain job statuses")
             return
 
@@ -226,7 +226,6 @@ class NesiJobRunner(BaseJobRunner):
                 log.debug("Old state: %s is now %s and put into fail queue." % (old_state, status))
                 nesi_job_state.old_state=job_status[2]
                 self.work_queue.put(('fail', nesi_job_state))
-
             if status == "Done":
                 log.debug("Adding job %s to finish queue" % nesi_job_state.job_name)
                 nesi_job_state.old_state=job_status[0]
@@ -282,8 +281,8 @@ class NesiJobRunner(BaseJobRunner):
                
         input_files = " ".join(job_wrapper.get_input_fnames())
         #Submit the job to nesi
-        rc = call(nesi_script_location + "/./submit_job.py" + " -b BeSTGRID " + nesi_server + " " + self.nesi_group + " " + galaxy_job_id + " " + nesi_jobname_file + " '" + command_line + "' " +" " + job_script + " "  +input_files, shell=True)
         log.debug("Call: " + nesi_script_location + "/./submit_job.py" + " -b BeSTGRID " + nesi_server + " " + self.nesi_group + " " + galaxy_job_id + " " + nesi_jobname_file + " '" + command_line + "' " + job_script + " " + input_files)
+        rc = call(nesi_script_location + "/./submit_job.py" + " -b BeSTGRID " + nesi_server + " " + self.nesi_group + " " + galaxy_job_id + " " + nesi_jobname_file + " '" + command_line + "' " +" " + job_script + " "  +input_files, shell=True)
         if rc == -2:
             job_wrapper.fail("NeSI job submitter returned an unsuccessful error code. Unable to submit NeSI job currently.")
             log.error("Jobname file could not be created. Cannot submit NeSI job currently.")
@@ -377,7 +376,7 @@ class NesiJobRunner(BaseJobRunner):
         output_fnames = nesi_job_state.job_wrapper.get_output_fnames()
         output_files = [ str( o ) for o in output_fnames]
         output_files = " ".join(output_files)
-
+        
         # get results
         rc = call(nesi_script_location + "/./get_results.py" + " -b BeSTGRID " + ofile + " " + efile + " " + ecfile + " " + nesi_job_name + " " + output_files, shell=True)
         
@@ -439,7 +438,8 @@ class NesiJobRunner(BaseJobRunner):
             nesi_job_state.job_wrapper.fail("Unable to finish job", exception=True)
 
         if self.app.config.cleanup_job == "always" or ( not stderr and self.app.config.cleanup_job == "onsuccess" ):
-            self.cleanup((ecfile,ofile,efile,jobname_file,jobstatus_file))
+            print "KEEP FILES"
+           # self.cleanup((ecfile,ofile,efile,jobname_file,jobstatus_file))
     
     def fail_job(self, nesi_job_state):
         """Finishes a failed job sent to nesi"""
@@ -513,7 +513,8 @@ class NesiJobRunner(BaseJobRunner):
             nesi_job_state.job_wrapper.fail("Unable to finish job", exception=True)
 
         if self.app.config.cleanup_job == "always" or ( not stderr and self.app.config.cleanup_job == "onsuccess" ):
-            self.cleanup((ecfile,ofile,efile,jobname_file,jobstatus_file))
+            print "KEEP FILES"
+            #self.cleanup((ecfile,ofile,efile,jobname_file,jobstatus_file))
 
     def cleanup( self, files ):
         for file in files:

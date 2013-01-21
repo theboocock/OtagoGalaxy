@@ -1,4 +1,4 @@
-#!/home/jamesboocock/NeSI_Tools/bin/grython
+#!DEFAULT_PATH/grython
 # FIXME: need an installer type thing to do ^^ correctly
 #
 # Author: Ed hills
@@ -32,7 +32,7 @@ errfile         = sys.argv[2]
 error_codefile  = sys.argv[3]
 job_name        = sys.argv[4]
 output_files    = list()
-
+print job_name
 # get list of output files for this job
 for f in sys.argv[5:]:
     output_files.append(f)
@@ -62,7 +62,7 @@ try:
         try:
             of = open(f, "w")
             rel_f = os.path.basename(f)
-            of.write(job.getFileContent())
+            of.write(job.getFileContent(rel_f))
             of.close()
         except:
             print "Cannot find file " + rel_f

@@ -1,4 +1,4 @@
-#!/home/jamesboocock/NeSI_Tools/bin/grython
+#!DEFAULT_PATH/grython
 # FIXME: need an installer type thing to do ^^ correctly
 #
 # Author: Ed hills
@@ -31,6 +31,8 @@ import time
 import sys
 import os
 
+
+
 DEFAULT_GROUP = '/nz/nesi'
 DEFAULT_QUEUE = 'pan:pan.nesi.org.nz'
 DEFAULT_MEMORY = 2147483648 # 2 GB
@@ -43,22 +45,18 @@ group           = sys.argv[2]
 galaxy_job_id   = sys.argv[3]
 jobname_file    = sys.argv[4]
 command         = sys.argv[5]
-job_script_folder = sys.argv[6]
+job_script      = sys.argv[6]
 input_files     = list()
 
-job_header="""
-
+job_header="""#!/bin/sh
+%s
 """
-
-
-print job_script
-
 if group == '':
     group = DEFAULT_GROUP
 if queue == '':
     queue = DEFAULT_QUEUE
 
-for f in sys.argv[6:]:
+for f in sys.argv[7:]:
     input_files.append(f)
 
 try:
@@ -79,15 +77,7 @@ except:
     sys.exit(-4)
 
 #create nesi job_script
-
-
-
-try:
-    job.addInputFileUrl()
-except:
-    print "Cannot stage nesi job script"
-    sys.exit(-5)
-
+print job.getJobname()
 try:
 # save jobname for job
     njn = open(jobname_file, "w")
@@ -99,36 +89,37 @@ except:
 
 command_arguments = command.split()
 
-new_commandline = "bash job.sh -c \""
-seen_end_of_command=False
+new_commandline = ""
 for arg in command_arguments:
-    if arg == ">":
-        new_commandline += "\" "
-        seen_end_of_command = True
-        arg = "-o"
-    elif arg == "2>":
-        seen_end_of_command = True
-        arg = "-e"
-
-        
-    # If its a file but not a .dat then stage it in. should only be a script really
-    elif os.path.exists(arg) and not seen_end_of_command:
-        print "Staging in: " + arg
+    if (os.path.exists(arg)) and (os.path.isfile(arg)==True) and (arg not in input_files):
         try:
             job.addInputFileUrl(arg)
+            print "Stagin in:  " + arg
         except Exception, e:
             print "Cannot stage in: " + arg
             print e
             job.kill(True)
             sys.exit(-3)
-    
     new_commandline += (os.path.basename(arg) + " ")
-if not (seen_end_of_command):
-    new_commandline += "\""
-print "New commandline: " + new_commandline
+print "bash " + job_script.split('/')[-1]
+job.setCommandline("bash "+ job_script.split('/')[-1])
+try:
+    jscript = open(job_script, 'w')
+    script = job_header % (new_commandline)
+    jscript.write(script)
+    jscript.close()
+except:
+    print "Cannot write job script"
+    sys.exit(-5)
 
-job.setCommandline(new_commandline)
+try:   
+    job.addInputFileUrl(job_script)
+except:
+    print "Cannot stage nesi job script"
+    sys.exit(-5)
 
+#open job file
+#stage in the job file
 for inputs in input_files:
     try:
         job.addInputFileUrl(inputs)

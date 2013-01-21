@@ -1,4 +1,4 @@
-#!DEFAULT_PATH/python
+#!DEFAULT_PATH/grython
 # FIXME: need an installer type thing to do ^^ correctly
 #
 # Author: Edward Hills
