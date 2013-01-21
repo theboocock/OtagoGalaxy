@@ -1,32 +1,65 @@
-# # # # # 
+ Otago Galaxy Comes Packaged with 3 major Components
+that can all be installed seperately or together.
 
-Install Instructions for 1000 & GATK galaxy
+Galaxy-Tools
+------------
 
-Run the command 
+run 'bash installers/otago_tools.sh'
 
-.scripts/setup_script.sh
+This command will install all of our tools 
+the GALAXY_HOME_FOLDER environment variable needs
+to be set to your local galaxy install location.
 
- # # # # #
 
-Default installation passwords
+Many of our tools use external dependencies not installed
+with our installer.
 
-postgres - sql admin
+These are listed below
+    -Impute2
+    -vcftools
+    -tabix
 
-password = password
-______________________
 
-galaxy - galaxy database user 
+Xgrid-Galaxy
+------------
 
-password = 1234
-______________________
+run 'bash installers/xgrid.sh'
 
-galaxyftp - galaxy ftp user
+This command will install the xgrid module to your local
+galaxy instance. THe GALAXY_HOME_FOLDER environment variable needs
+to be set to you local galaxy install location.
 
-password = 1234
+The xgrid-galaxy only works on mac galaxy because objective c is 
+used to parse strings from the xgrid-command line.
 
-# To change the passwords at setup requires altering the values in 6
-# files
+If you are going to install the nesi module also you will need to 
+run 'bash installers/xgrid_nesi.sh' which will install them both.
 
-#TODO
-Don't forget to make cron script for ftp
-Don't forget to call galaxy cleanup script
+Nesi-Galaxy
+-----------
+
+run 'bash installers/nesi.sh'
+
+This command will install the nesi module to your local galaxy instance.
+The GALAXY_HOME_FOLDER environment variable needs to be set to your local
+galaxy instance location.
+
+
+If you are going to install the xgrid module also you will need to 
+run 'bash installers/xgrid_nesi.sh' which will install them both.
+
+
+Otago-Grid-Jobs
+---------------
+
+To install our beta environment for galaxy that has many advanced options 
+for job-splitting and grid instance specific options. Currently only has
+features for xgrid, nesi. and local job runners.
+
+run 'bash installers/grid_jobs.sh'
+
+This command will install the Otago-Grid-Jobs module to your local galaxy instance.
+The GALAXY_HOME_FOLDER environment variable needs to be set to your local
+galaxy instance location.
+
+

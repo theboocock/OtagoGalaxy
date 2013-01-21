@@ -26,5 +26,5 @@ elif [ $3 == "input_file" ]; then
 else
     LEGEND_OUTPUT=$2
 fi
-ihs $LEGEND_OUTPUT $1
+$5/tool-data/shared/ihs/./ihs $LEGEND_OUTPUT $1
 exit 0

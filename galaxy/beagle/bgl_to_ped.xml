@@ -4,7 +4,7 @@
     <command>
         
         awk '{ print $1,$2,$3,$4,$5,$6; }' ${os.path.join($lped_input.extra_files_path, $lped_input.metadata.base_name +".ped")} > out.fam;
-        ${__root_dir__}/tools/SOER1000genes/galaxy/beagle/./bgl_to_ped $bgl_input out.fam $phased_type > ${lped_input.metadata.base_name}.ped 2> /dev/null;
+        ${__root_dir__}/tool-data/shared/beagle/./bgl_to_ped $bgl_input out.fam $phased_type > ${lped_input.metadata.base_name}.ped 2> /dev/null;
         cp ${os.path.join($lped_input.extra_files_path, $lped_input.metadata.base_name + ".map")} .;
         python ${__root_dir__}/tool-data/shared/composite_datatypes/create_composite_rgenetics.py 'lped' $phased_lped $phased_lped.metadata.base_name $phased_lped.extra_files_path
     </command>
