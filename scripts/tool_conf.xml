@@ -104,7 +104,9 @@
    <tool file="OtagoGalaxy/galaxy/plink/ped_to_tped.xml"/>
    <tool file="OtagoGalaxy/galaxy/tped_to_lped/tped_to_lped.xml"/>
    <tool file="OtagoGalaxy/galaxy/beagle/vcf_to_beagle.xml"/>
+   <!--
    <tool file="OtagoGalaxy/galaxy/ihs/lpedgen_to_ihs.xml"/>
+    -->
    <tool file="OtagoGalaxy/galaxy/vcf_to_tped/vcf_to_tped.xml"/>
    <tool file="OtagoGalaxy/galaxy/vcf_to_ped/vcf_to_ped.xml"/>
    <tool file="OtagoGalaxy/galaxy/vcf_to_csv/vcf_to_csv.xml"/>
