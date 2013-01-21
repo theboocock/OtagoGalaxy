@@ -62,10 +62,10 @@ done
 
 # FIXME Get the hardcoded files.. yucky. For cluster will ovbiously need to change. again should be symlinked like all of our stuff. god knows why we didnt
 
-REF_HAP="$ROOT_DIR/tools/SOER1000genes/data/1kg/impute2/ALL_1000G_phase1integrated_v3_chr${CHR}_impute.hap"
-MAP_FILE="$ROOT_DIR/tools/SOER1000genes/data/1kg/impute2/genetic_map_chr${CHR}_combined_b37.txt"
-REF_LEGEND="$ROOT_DIR/tools/SOER1000genes/data/1kg/impute2/ALL_1000G_phase1integrated_v3_chr${CHR}_impute.legend"
-REF_SAMPLE="$ROOT_DIR/tools/SOER1000genes/data/1kg/impute2/ALL_1000G_phase1integrated_v3.sample"
+REF_HAP="$ROOT_DIR/tools/OtagoGalaxy/data/1kg/impute2/ALL_1000G_phase1integrated_v3_chr${CHR}_impute.hap"
+MAP_FILE="$ROOT_DIR/tools/OtagoGalaxy/data/1kg/impute2/genetic_map_chr${CHR}_combined_b37.txt"
+REF_LEGEND="$ROOT_DIR/tools/OtagoGalaxy/data/1kg/impute2/ALL_1000G_phase1integrated_v3_chr${CHR}_impute.legend"
+REF_SAMPLE="$ROOT_DIR/tools/OtagoGalaxy/data/1kg/impute2/ALL_1000G_phase1integrated_v3.sample"
 
 CHRX_TAG=""
 
@@ -76,7 +76,7 @@ if [ "$CHR" == "x" ] ; then
 fi
 
 # Shape it or shape out!
-shapeit --input-gen $INPUT_GEN $INPUT_SAMPLE --input-gen-threshold $THRESHOLD --input-map $MAP_FILE $FROM $TO $REF --output-max $OUTPUT_HAPS $OUTPUT_SAMPLE $CHRX_TAG
+shapeit --input-gen $INPUT_GEN $INPUT_SAMPLE --input-thr $THRESHOLD --input-map $MAP_FILE $FROM $TO $REF --output-max $OUTPUT_HAPS $OUTPUT_SAMPLE $CHRX_TAG > /dev/null
 
 # Print log to stdout to be picked up by Galaxy
 cat shapeit_*.log > $LOG

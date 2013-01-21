@@ -2,7 +2,7 @@
 <description>(integrated Haplotype Score)</description>
 
 <command interpreter="bash">
-    ${__root_dir__}/tools/SOER1000genes/galaxy/ihs/ihs.sh $input_hap $input_map $ancestral_method_param.ancestral_method $output ${__root_dir__} 
+    ${__root_dir__}/tools/OtagoGalaxy/galaxy/ihs/ihs.sh $input_hap $input_map $ancestral_method_param.ancestral_method $output ${__root_dir__} 
 #if $ancestral_method_param.ancestral_method == "input_file":
     $ancestral_method_param.input_ancestral_allele
 #end if

@@ -16,7 +16,7 @@
 CHROM=`echo ${1} | awk -F[:] '{print $1}'`
 REGION=`echo ${1} | awk -F[:] '{print $2}'`
 
-tabix -fh ${4}/tools/SOER1000genes/data/1kg/vcf/ALL.wgs.phase1_release_v2*.gz $1 > $2
+tabix -fh ${4}/tools/OtagoGalaxy/data/1kg/vcf/ALL.wgs.phase1_release_v2*.gz $1 > $2
 
 java -jar ${4}/tool-data/shared/jars/alleleFreq/GetAlleleFreqSummary.jar $2 > $3
 

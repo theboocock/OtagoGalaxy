@@ -15,12 +15,12 @@
 <tests>
 
 	<test>
-		<param name="vcfinput" value="SOER1000genes/extractSampleId/multi_sample.vcf"/>
-		<output name="output" file="SOER1000genes/extractSampleId/multi_out.txt" />
+		<param name="vcfinput" value="OtagoGalaxy/extractSampleId/multi_sample.vcf"/>
+		<output name="output" file="OtagoGalaxy/extractSampleId/multi_out.txt" />
 	</test>
 	<test>
-		<param name="vcfinput" value="SOER1000genes/extractSampleId/single_sample.vcf" />
-		<output name="output" file="SOER1000genes/extractSampleId/single_out.txt"/>
+		<param name="vcfinput" value="OtagoGalaxy/extractSampleId/single_sample.vcf" />
+		<output name="output" file="OtagoGalaxy/extractSampleId/single_out.txt"/>
 	</test>
 
 </tests>

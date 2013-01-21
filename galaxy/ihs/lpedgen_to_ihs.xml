@@ -1,8 +1,8 @@
 <tool id="lped_to_ihs" name="Lped to IHS format converter" version="1.0.0">
 <description>Requires the gen file from lped to gen conversion</description>
 <command>
-    python ${__root_dir__}/tools/SOER1000genes/galaxy/ihs/shapeit_to_ihs.py
-    python ${__root_dir__}/tools/SOER1000genes/galaxy/ihs/lpedgen_to_ihs.py $input_ihs.metadata.base_name $input_ihs.extra_files_path output_gen.tmp
+    python ${__root_dir__}/tools/OtagoGalaxy/galaxy/ihs/shapeit_to_ihs.py
+    python ${__root_dir__}/tools/OtagoGalaxy/galaxy/ihs/lpedgen_to_ihs.py $input_ihs.metadata.base_name $input_ihs.extra_files_path output_gen.tmp
     $ihs_hap $ihs_map
 
 </command>

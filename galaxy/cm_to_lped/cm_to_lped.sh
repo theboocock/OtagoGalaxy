@@ -23,9 +23,9 @@ do
     fi
     MAP_FILE=${3}genetic_map_chr${chrom}_combined_b37.txt
     if [ ${chrom} != "26" ]  && [ ${chrom} != "24" ]; then
-         python $4/tools/SOER1000genes/galaxy/cm_to_lped/annotate_cm.py $MAP_FILE "${1}/${2}.map" $chrom $5>> out.tmp
+         python $4/tools/OtagoGalaxy/galaxy/cm_to_lped/annotate_cm.py $MAP_FILE "${1}/${2}.map" $chrom $5>> out.tmp
     else
-        python $4/tools/SOER1000genes/galaxy/cm_to_lped/add_999.py "${1}/${2}.map" $5 >> out.tmp
+        python $4/tools/OtagoGalaxy/galaxy/cm_to_lped/add_999.py "${1}/${2}.map" $5 >> out.tmp
     fi
 
 done < chromosomes

@@ -4,7 +4,7 @@
 <command>
     echo $samples | tr -s "__cr____cn__" "\," | sed 's/[[:space:]]\+/,/g' > samples.txt 
     ;
-    bash ${__root_dir__}/tools/SOER1000genes/galaxy/vcfSubset/select_samples.sh samples.txt ${input} ${output}
+    bash ${__root_dir__}/tools/OtagoGalaxy/galaxy/vcfSubset/select_samples.sh samples.txt ${input} ${output}
 </command>
 <!--<parallelism method="multi" split_inputs="input" shared_inputs="samples" split_mode="number_of_parts" split_size="2" merge_outputs="output"/> -->
 

@@ -36,7 +36,7 @@ done
 
 echo -e $COMMAND > ~tmp.tmp
 
-~/galaxy-dist/tools/SOER1000genes/galaxy/lamarc/lamarc/./lamarc < ~tmp.tmp > ~stderr.tmp
+~/galaxy-dist/tools/OtagoGalaxy/galaxy/lamarc/lamarc/./lamarc < ~tmp.tmp > ~stderr.tmp
 
 mv -f *outfile*.txt $2
 mv -f report.xml $3
