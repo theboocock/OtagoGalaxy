@@ -172,7 +172,6 @@ class NesiJobRunner(BaseJobRunner):
         jobstatus_file = os.path.abspath(nesi_script_location + "/jobstatus_file.tmp")
         
         rc = call(nesi_script_location + "/./check_jobs.py " + "-b BeSTGRID " + jobstatus_file, shell=True)
-
         if rc == -2:
             log.debug("Call failed: " + nesi_script_location + "/./check_jobs.py" + " -b BeSTGRID" + " " + jobstatus_file)
             log.error("Could not write job statuses to %s file." % jobstatus_file)

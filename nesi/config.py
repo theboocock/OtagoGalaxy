@@ -135,6 +135,7 @@ class Configuration( object ):
         #Xgrid NFS mount
         self.xgrid_nfs_mount_location = (kwargs.get("xgrid_nfs_mount_location",None))
         #NeSI Variables 
+        self.enable_grid_selector = string_as_bool(kwargs.get('enable_grid_selector',False))
         self.nesi_group = kwargs.get("nesi_group", None)
         self.nesi_scripts_directory = kwargs.get("nesi_scripts_directory", None)
         self.nesi_default_server  =  kwargs.get("nesi_default_server",None)

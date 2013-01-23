@@ -20,7 +20,7 @@ from grisu.model import FileManager
 from grisu.jcommons.constants import Constants
 import sys
 import os
-
+import shutil 
 DEFAULT_GROUP = '/nz/nesi'
 DEFAULT_QUEUE = 'pan:pan.nesi.org.nz'
 
@@ -44,33 +44,33 @@ try:
     out = open(outfile, "w")
     out.write(job.getStdOutContent())
     out.close()
-
     err = open(errfile, "w")
-    try:
-        err.write(job.getStdErrContent())
-    except:
-        # There is no stderr so just write blank file
-        err.write("")
+except:
+    print "Cannot open files to write results to"
+    sys.exit(-2)
+try:
+    err.write(job.getStdErrContent())
+except:
+# There is no stderr so just write blank file
+    err.write("")
     err.close()
-
+try:
     ec = open(error_codefile, "w")
     exit_code = job.getStatus(False) - 1000
     ec.write(str(exit_code))
     ec.close()
-
-    for f in output_files:
-        try:
-            of = open(f, "w")
-            rel_f = os.path.basename(f)
-            of.write(job.getFileContent(rel_f))
-            of.close()
-        except:
-            print "Cannot find file " + rel_f
-            sys.exit(-3)
-
 except:
-    print "Cannot open files to write results to"
+    print "Cannot write exit code to file"
     sys.exit(-2)
+for f in output_files:
+    try:
+        rel_f = os.path.basename(f)
+        output_file= job.downloadAndCacheOutputFile(rel_f).toString()
+        shutil.copy(output_file,f)
+    except:
+        "Cannot write output_files"
+        sys.exit(-3)
+
 
 # clean it up
 job.kill(True)
