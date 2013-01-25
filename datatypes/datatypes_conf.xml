@@ -174,11 +174,15 @@
 <datatype extension="null" type="galaxy.datatypes.data:Text" subclass="true" display_in_upload="true"/>
 <datatype extension="dag" type="galaxy.datatypes.data:Text" subclass="true" display_in_upload="true"/>
 <datatype extension="bgl" type="galaxy.datatypes.data:Text" subclass="true" display_in_upload="true">
+<!-- FIX this terrible prachtice with data files -->
 <!--
-      <converter file="bgl_to_ped.xml" target_datatype="lped"/>
+<converter file="bgl_to_ped.xml" target_datatype="lped"/>
 -->
 </datatype>
-<datatype extension="info" type="galaxy.datatypes.datatype:Text" subclass="true" display_in_upload="true" />
+
+<datatype extension="gtool" type="galaxy.datatypes.impute:Gtool" display_in_upload="true"/>
+<datatype extension="impute" type="galaxy.datatypes.impute:Impute" display_in_upload="true"/>
+<datatype extension="info" type="galaxy.datatypes.data:Text" subclass="true" display_in_upload="true" />
     <datatype extension="linecount" type="galaxy.datatypes.data:LineCount" display_in_upload="true"/>
     <datatype extension="memexml" type="galaxy.datatypes.xml:MEMEXml" mimetype="application/xml" display_in_upload="true"/>
     <datatype extension="cisml" type="galaxy.datatypes.xml:CisML" mimetype="application/xml" display_in_upload="true"/>
@@ -251,6 +255,7 @@
     <datatype extension="pheno" type="galaxy.datatypes.genetics:Pheno"/>
     <!-- phenotype file - plink format -->
     <datatype extension="pphe" type="galaxy.datatypes.genetics:Pphe" display_in_upload="true" mimetype="text/html"/>
+    <datatype extension="impute_datatypes" type="galaxy.datatypes.impute:ImputeDatatypes"/>
     <datatype extension="rexpbase" type="galaxy.datatypes.genetics:RexpBase"/>
     <datatype extension="rgenetics" type="galaxy.datatypes.genetics:Rgenetics"/>
     <datatype extension="snptest" type="galaxy.datatypes.genetics:Snptest" display_in_upload="true"/>
