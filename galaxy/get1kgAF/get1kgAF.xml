@@ -13,7 +13,6 @@
         <param name="chr" type="integer" value="1" label="Chromosome" help="Please enter in one chromosome. 1..22 and X are valid. E.g. 16" />
         <param name="reg" type="text" label="Region" help="Please enter the start region a '-' and end region. E.g. 56995835-57017756"/>
     </inputs>
-
     <outputs>
         <data format="txt" name="output"/>
     </outputs>

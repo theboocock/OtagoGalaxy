@@ -1,0 +1,19 @@
+<tool id="get_vcf_af" name="Get Allele Frequencies from a vcf file" version="1.0">
+    <description> Uses Vcf tools to get allele frequencies from a vcf"</description>
+
+    <command>
+        vcftools --vcf $input_vcf --freq --out $output
+    </command>
+
+    <inputs>
+        <param name="input_vcf" type="data" format="vcf" label="Input VCF file"/>
+    </inputs>
+    <outputs>
+        <data name="output" format="txt"/>
+    </ouputs>
+
+    <help>
+        Returns the allele frequencies from you vcf file using vcf tools.
+    </help>
+
+</tool>
