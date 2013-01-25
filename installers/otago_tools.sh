@@ -70,6 +70,8 @@ if [ "$INSTALL_OTAGO_DATATYPES" == "" ]; then
     echo "Installing Otago Datatypes"
     cp $OTAGO_GALAXY_LOCATION/datatypes/datatypes_conf.xml $GALAXY_HOME_FOLDER
     cp  $OTAGO_GALAXY_LOCATION/datatypes/genetics.py $GALAXY_HOME_FOLDER/lib/galaxy/datatypes/
+    cp $OTAGO_GALAXY_LOCATION/datatypes/impute.py $GALAXY_HOME_FOLDER/lib/galaxy/datatypes
+    cp $OTAGO_GALAXY_LOCATION/datatypes/registry.py $GALAXY_HOME_FOLDER/lib/galaxy/datatypes
 else
     echo "Did not install the Otago datatypes the tools will have to be added manually \
           relevant files are located in the datatypes directory"

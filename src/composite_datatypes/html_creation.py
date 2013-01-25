@@ -20,7 +20,7 @@ galhtmlprefix = """<?xml version="1.0" encoding="utf-8" ?>
 
 galhtmlpostfix = """</div>\n</body>\n</html>\n"""
 
-def create_html(file_dir, html_file, base_name):
+def create_html(file_dir, html_file, base_name, title_page):
     f = file(html_file, 'w')
     f.write(galhtmlprefix)
     flist = os.listdir(file_dir)

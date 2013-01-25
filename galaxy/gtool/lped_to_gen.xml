@@ -4,13 +4,14 @@
     <command>
         gtool -P --ped ${os.path.join($input.extra_files_path, $input.metadata.base_name + ".ped")} 
         --map ${os.path.join($input.extra_files_path, $input.metadata.base_name + ".map")}
-        --og ${output_gen} --os ${output_sample}
+        --og $output.metadata.base_name".gen" --os $output.metadata.base_name".sample"
         #if ($bin_pheno == "yes"):
             --binary_phenotype 1
         #end if
         #if ($family == "yes"):
             --family
         #end if
+        python ${__root_dir__}/tool-data/shared/composite_datatypes/create_composite_rgenetics.py 'gtool' $output $output.metadata.base_name $output.extra_files_path 
     </command>
 
     <inputs>
@@ -30,8 +31,7 @@
 
     <outputs>
 
-        <data format="gen" name="output_gen"  />
-        <data format="sample" name="output_sample" />
+        <data format="gtool" name="output" />
 
     </outputs>
 

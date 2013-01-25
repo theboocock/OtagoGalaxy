@@ -61,8 +61,7 @@
     <help>
         This tool performs permutation and association testing using PRESTO as developed by Browning and Browning. More detail can be found here: www.faculty.washington.edu/browning/presto/presto.html.
 
------
-        **Required arguments**
+        *Required arguments*
 
 
         *missing allele code* 
@@ -84,7 +83,7 @@
         then only the first affection status line will be used. The trait argument is required.
 
 
-        **Optional arguments**
+        *Optional arguments*
 
 
         *strata file* 
@@ -186,7 +185,6 @@
         les (rather than for the individuals). Only the allelic test can be performed when
         diplotypes=false (see the test parameter in this section). The diplotypes ar-
         gument is optional. The default value is diplotypes=true.
-
     </help>
 
 </tool>
