@@ -70,7 +70,8 @@
    <tool file="OtagoGalaxy/galaxy/indelQualityFilter/indelQual_filter.xml"/>
    <tool file="OtagoGalaxy/galaxy/homozyFilter/homo_multi.xml"/>
    <tool file="OtagoGalaxy/galaxy/multiRegionSelect/multiple_region_extraction.xml"/>
-   <tool file="OtagoGalaxy/galaxy/readDepthFilter/read_depth_filter.xml"/></section>
+   <tool file="OtagoGalaxy/galaxy/readDepthFilter/read_depth_filter.xml"/>
+</section>
 <section name="Otago - Calculations" id="ou_calc">
    <tool file="OtagoGalaxy/galaxy/haploview/haploview.xml" />
    <tool file="OtagoGalaxy/galaxy/calcTsTv/calc_ts_tv.xml" />
@@ -81,10 +82,12 @@
    <tool file="OtagoGalaxy/galaxy/extractSampleId/get_sample_id.xml" />
    <tool file="OtagoGalaxy/galaxy/vcfSubset/select_samples.xml"/>
    <tool file="OtagoGalaxy/galaxy/vcfConsensus/vcfConsensus.xml"/>
+   <tool file="OtagoGalaxy/galaxy/getvcfaf/getvcfaf.xml"/>
 </section>
 <section name="Otago - Work with 1000 Genomes Data" id="ou_1kg" >
    <tool file="OtagoGalaxy/galaxy/ld_values_1kg/ld_values_1kg.xml"/>
    <tool file="OtagoGalaxy/galaxy/getPopAlleleFreq/getPopAF.xml"/>
+   <tool file="OtagoGalaxy/galaxy/get1kg/get_custom_1kg.xml" />
 </section>
 <section name="Otago - Query Databases" id="ou_datab" >
    <tool file="OtagoGalaxy/galaxy/evs/evs.xml" />

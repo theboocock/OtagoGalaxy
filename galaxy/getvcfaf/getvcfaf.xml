@@ -2,7 +2,9 @@
     <description> Uses Vcf tools to get allele frequencies from a vcf"</description>
 
     <command>
-        vcftools --vcf $input_vcf --freq --out $output
+        vcftools --vcf $input_vcf --freq --out temp
+        ;
+        mv temp.frq $output
     </command>
 
     <inputs>
@@ -10,7 +12,7 @@
     </inputs>
     <outputs>
         <data name="output" format="txt"/>
-    </ouputs>
+    </outputs>
 
     <help>
         Returns the allele frequencies from you vcf file using vcf tools.
