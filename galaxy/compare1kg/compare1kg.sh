@@ -15,9 +15,9 @@
 
 if [ "$8" == "1kg" ] 
 then
-    DATABASE=`ls ~/galaxy-dist/tools/SOER1000genes/data/1kg/vcf/ALL.*.gz`
+    DATABASE=`ls ~/galaxy-dist/tools/OtagoGalaxy/data/1kg/vcf/ALL.*.gz`
 else
-    DATABASE=`ls ~/galaxy-dist/tools/SOER1000genes/data/evs/esp/ESP6500.ALL.snps.vcf.gz`
+    DATABASE=`ls ~/galaxy-dist/tools/OtagoGalaxy/data/evs/esp/ESP6500.ALL.snps.vcf.gz`
 fi
 
 # Filter original -fix to get positions only

@@ -2,7 +2,7 @@
 <description>Takes a lped file and removes any snps which have the specified missing code
 in the cM column</description>
 <command interpreter="python">
-${__root_dir__}/tools/SOER1000genes/galaxy/cm_to_lped/remove_missing.py $input_lped.metadata.base_name $input_lped.extra_files_path $missing > snplist
+${__root_dir__}/tools/OtagoGalaxy/galaxy/cm_to_lped/remove_missing.py $input_lped.metadata.base_name $input_lped.extra_files_path $missing > snplist
 ;
 plink --file $input_lped.extra_files_path/$input_lped.metadata.base_name --noweb --extract snplist --recode --out $input_lped.metadata.base_name
 

@@ -1,6 +1,6 @@
 #!/bin/R
 
-source("~/galaxy-dist/tools/SOER1000genes/galaxy/treemix/plotting_funcs.R")
+source("~/galaxy-dist/tools/OtagoGalaxy/galaxy/treemix/plotting_funcs.R")
 
 dir = commandArgs()
 

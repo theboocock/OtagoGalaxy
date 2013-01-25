@@ -75,7 +75,7 @@ $COMMAND > $OUT_7
 
 # make R plot thing
 
-Rscript ~/galaxy-dist/tools/SOER1000genes/galaxy/treemix/do_plots.R $R_COMMAND 2> /dev/null
+Rscript ~/galaxy-dist/tools/OtagoGalaxy/galaxy/treemix/do_plots.R $R_COMMAND 2> /dev/null
 
 mv galaxy_tree.png $OUT_8
 

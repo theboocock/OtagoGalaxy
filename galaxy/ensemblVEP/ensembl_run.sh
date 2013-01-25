@@ -39,13 +39,13 @@ then
 		fi
 	done
 # call actual script
-	perl ~/galaxy-dist/tools/SOER1000genes/galaxy/ensemblVEP/variant_effect_predictor.pl -i $1 -o ~ensemble-TMP.tmp $ENSEMBL_RUN_SCRIPT --cache --dir "~/.vep/" --hgvs --force_overwrite --buffer 50000 --fork 2
+	perl ~/galaxy-dist/tools/OtagoGalaxy/galaxy/ensemblVEP/variant_effect_predictor.pl -i $1 -o ~ensemble-TMP.tmp $ENSEMBL_RUN_SCRIPT --cache --dir "~/.vep/" --hgvs --force_overwrite --buffer 50000 --fork 2
 
 	cat ~ensemble-TMP.tmp
 	rm -f ~ensemble-TMP.tmp
 
 else # call defaults 
-	perl ~/galaxy-dist/tools/SOER1000genes/galaxy/ensemblVEP/variant_effect_predictor.pl -i $1 -o ~ensemble-TMP.tmp --check_existing --gene \
+	perl ~/galaxy-dist/tools/OtagoGalaxy/galaxy/ensemblVEP/variant_effect_predictor.pl -i $1 -o ~ensemble-TMP.tmp --check_existing --gene \
                         --cache --dir "/usr/local/ensembl_cache" \
                        --poly b --sift b --hgvs --force_overwrite  \
                        --buffer 50000 --fork 2

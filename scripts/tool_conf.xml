@@ -6,6 +6,7 @@
     <tool file="data_source/ucsc_tablebrowser_test.xml" />
     <tool file="data_source/ucsc_tablebrowser_archaea.xml" />
     <tool file="data_source/bx_browser.xml" />
+    <tool file="data_source/ebi_sra.xml"/>
     <tool file="data_source/microbial_import.xml" />
     <tool file="data_source/biomart.xml" />
     <tool file="data_source/biomart_test.xml" />
@@ -26,91 +27,93 @@
     <tool file="data_source/epigraph_import.xml" />
     <tool file="data_source/epigraph_import_test.xml" />
     <tool file="data_source/hbvar.xml" />
-    <tool file="data_source/genomespace_file_browser_dev.xml" />
+    <tool file="genomespace/genomespace_file_browser_prod.xml" />
+    <tool file="genomespace/genomespace_importer.xml" />
     <tool file="validation/fix_errors.xml" />
   </section>
   <section name="Send Data" id="send">
     <tool file="data_destination/epigraph.xml" />
     <tool file="data_destination/epigraph_test.xml" />
+    <tool file="genomespace/genomespace_exporter.xml" />
   </section>
 <section name="Otago - Selection Tools" id="ou_select">
-   <tool file="SOER1000genes/galaxy/beagle/beagle.xml" />
-   <tool file="SOER1000genes/galaxy/presto/presto.xml" />
-   <tool file="SOER1000genes/galaxy/lamarc/lamarc.xml" />
-   <tool file="SOER1000genes/galaxy/treemix/treemix.xml" />
-   <tool file="SOER1000genes/galaxy/ihs/ihs_calc.xml" />
-   <tool file="SOER1000genes/galaxy/impute2/impute2.xml" />
-   <tool file="SOER1000genes/galaxy/shapeit/shape_it.xml" />
-   <tool file="SOER1000genes/galaxy/snptest/snptest.xml" />
-   <tool file="SOER1000genes/galaxy/xpehh/xpehh.xml" />
+   <tool file="OtagoGalaxy/galaxy/beagle/beagle.xml" />
+   <tool file="OtagoGalaxy/galaxy/presto/presto.xml" />
+   <tool file="OtagoGalaxy/galaxy/lamarc/lamarc.xml" />
+   <tool file="OtagoGalaxy/galaxy/treemix/treemix.xml" />
+   <tool file="OtagoGalaxy/galaxy/ihs/ihs_calc.xml" />
+   <tool file="OtagoGalaxy/galaxy/impute2/impute2.xml" />
+   <tool file="OtagoGalaxy/galaxy/shapeit/shape_it.xml" />
+   <tool file="OtagoGalaxy/galaxy/snptest/snptest.xml" />
+   <tool file="OtagoGalaxy/galaxy/xpehh/xpehh.xml" />
    </section>
 <section name="Otago - Variant Effect Predictors" id="ou_vep" >
 <!--
-   <tool file="SOER1000genes/galaxy/ensemblVEP/ensembl_vep.xml"/>
-   <tool file="SOER1000genes/galaxy/variantAnnotator/variant_annotator.xml" />
+   <tool file="OtagoGalaxy/galaxy/ensemblVEP/ensembl_vep.xml"/>
+   <tool file="OtagoGalaxy/galaxy/variantAnnotator/variant_annotator.xml" />
 -->
-   <tool file="SOER1000genes/galaxy/dbsnpRegionExtraction/dbsnp_region_extraction.xml" />
+   <tool file="OtagoGalaxy/galaxy/dbsnpRegionExtraction/dbsnp_region_extraction.xml" />
    </section>
  <section name="Otago - SnpEff tools" id="snpEff_tools">
-   <tool file="SOER1000genes/galaxy/snpEff/snpEff.xml" />
-<!--
-   <tool file="SOER1000genes/galaxy/snpEff/snpEff_download.xml" />
--->
-   <tool file="SOER1000genes/galaxy/snpEff/snpSift_annotate.xml" />
-   <tool file="SOER1000genes/galaxy/snpEff/snpSift_caseControl.xml" />    
-   <tool file="SOER1000genes/galaxy/snpEff/snpSift_filter.xml" />
-   <tool file="SOER1000genes/galaxy/snpEff/snpSift_int.xml" />
+   <tool file="OtagoGalaxy/galaxy/snpEff/snpEff.xml" />-
+   <tool file="OtagoGalaxy/galaxy/snpEff/snpEff_download.xml" />
+   <tool file="OtagoGalaxy/galaxy/snpEff/snpSift_annotate.xml" />
+   <tool file="OtagoGalaxy/galaxy/snpEff/snpSift_caseControl.xml" />    
+   <tool file="OtagoGalaxy/galaxy/snpEff/snpSift_filter.xml" />
+   <tool file="OtagoGalaxy/galaxy/snpEff/snpSift_int.xml" />
 </section>
    <section name="Otago - Filters" id="ou_filt">
-   <tool file="SOER1000genes/galaxy/regionEffectFilter/region_effect_filter.xml"/>
-   <tool file="SOER1000genes/galaxy/getAlleleFreq/getAlleleFreq.xml"/>
-   <tool file="SOER1000genes/galaxy/getSnps/get_snps.xml"/>
-   <tool file="SOER1000genes/galaxy/qualityFilter/quality_filter.xml"/>
-   <tool file="SOER1000genes/galaxy/indelQualityFilter/indelQual_filter.xml"/>
-   <tool file="SOER1000genes/galaxy/homozyFilter/homo_multi.xml"/>
-   <tool file="SOER1000genes/galaxy/multiRegionSelect/multiple_region_extraction.xml"/>
-   <tool file="SOER1000genes/galaxy/readDepthFilter/read_depth_filter.xml"/></section>
+   <tool file="OtagoGalaxy/galaxy/regionEffectFilter/region_effect_filter.xml"/>
+   <tool file="OtagoGalaxy/galaxy/getAlleleFreq/getAlleleFreq.xml"/>
+   <tool file="OtagoGalaxy/galaxy/getSnps/get_snps.xml"/>
+   <tool file="OtagoGalaxy/galaxy/qualityFilter/quality_filter.xml"/>
+   <tool file="OtagoGalaxy/galaxy/indelQualityFilter/indelQual_filter.xml"/>
+   <tool file="OtagoGalaxy/galaxy/homozyFilter/homo_multi.xml"/>
+   <tool file="OtagoGalaxy/galaxy/multiRegionSelect/multiple_region_extraction.xml"/>
+   <tool file="OtagoGalaxy/galaxy/readDepthFilter/read_depth_filter.xml"/></section>
 <section name="Otago - Calculations" id="ou_calc">
-   <tool file="SOER1000genes/galaxy/haploview/haploview.xml" />
-   <tool file="SOER1000genes/galaxy/calcTsTv/calc_ts_tv.xml" />
+   <tool file="OtagoGalaxy/galaxy/haploview/haploview.xml" />
+   <tool file="OtagoGalaxy/galaxy/calcTsTv/calc_ts_tv.xml" />
 </section>
 <section name="Otago - VCF file Manipulation" id="ou_vcf-manip" >
-   <tool file="SOER1000genes/galaxy/regionExtraction/region_extraction.xml" />
-   <tool file="SOER1000genes/galaxy/vcfMerge/merge_vcfs.xml"/>
-   <tool file="SOER1000genes/galaxy/extractSampleId/get_sample_id.xml" />
-   <tool file="SOER1000genes/galaxy/vcfSubset/select_samples.xml"/>
-   <tool file="SOER1000genes/galaxy/vcfConsensus/vcfConsensus.xml"/>
+   <tool file="OtagoGalaxy/galaxy/regionExtraction/region_extraction.xml" />
+   <tool file="OtagoGalaxy/galaxy/vcfMerge/merge_vcfs.xml"/>
+   <tool file="OtagoGalaxy/galaxy/extractSampleId/get_sample_id.xml" />
+   <tool file="OtagoGalaxy/galaxy/vcfSubset/select_samples.xml"/>
+   <tool file="OtagoGalaxy/galaxy/vcfConsensus/vcfConsensus.xml"/>
 </section>
 <section name="Otago - Work with 1000 Genomes Data" id="ou_1kg" >
-   <tool file="SOER1000genes/galaxy/ld_values_1kg/ld_values_1kg.xml"/>
-   <tool file="SOER1000genes/galaxy/getPopAlleleFreq/getPopAF.xml"/>
+   <tool file="OtagoGalaxy/galaxy/ld_values_1kg/ld_values_1kg.xml"/>
+   <tool file="OtagoGalaxy/galaxy/getPopAlleleFreq/getPopAF.xml"/>
 </section>
 <section name="Otago - Query Databases" id="ou_datab" >
-   <tool file="SOER1000genes/galaxy/evs/evs.xml" />
-   <tool file="SOER1000genes/galaxy/compare1kg/compare1kg.xml"/>
-   <tool file="SOER1000genes/galaxy/get1kgAF/get1kgAF.xml" />
+   <tool file="OtagoGalaxy/galaxy/evs/evs.xml" />
+   <tool file="OtagoGalaxy/galaxy/compare1kg/compare1kg.xml"/>
+   <tool file="OtagoGalaxy/galaxy/get1kgAF/get1kgAF.xml" />
 </section>
 <section name="Otago - Plink tools" id="ou_plink">
-    <tool file="SOER1000genes/galaxy/plink/plink_filter.xml"/>
-    <tool file="SOER1000genes/galaxy/plink/snp_extraction.xml"/>
-    <tool file="SOER1000genes/galaxy/plink/common_snps.xml"/>
-    <tool file="SOER1000genes/galaxy/plink/linear_regression.xml"/>
-    <tool file="SOER1000genes/galaxy/plink/plink_hwe.xml"/>
+    <tool file="OtagoGalaxy/galaxy/plink/plink_filter.xml"/>
+    <tool file="OtagoGalaxy/galaxy/plink/snp_extraction.xml"/>
+    <tool file="OtagoGalaxy/galaxy/plink/common_snps.xml"/>
+    <tool file="OtagoGalaxy/galaxy/plink/linear_regression.xml"/>
+    <tool file="OtagoGalaxy/galaxy/plink/plink_hwe.xml"/>
 </section>
  <section name="Otago - File converters" id="ou_converters" >
-   <tool file="SOER1000genes/galaxy/cm_to_lped/cm_to_lped.xml"/>
-   <tool file="SOER1000genes/galaxy/cm_to_lped/remove_missing_cm.xml"/>
-   <tool file="SOER1000genes/galaxy/plink/ped_to_tped.xml"/>
-   <tool file="SOER1000genes/galaxy/tped_to_lped/tped_to_lped.xml"/>
-   <tool file="SOER1000genes/galaxy/beagle/vcf_to_beagle.xml"/>
-   <tool file="SOER1000genes/galaxy/ihs/lpedgen_to_ihs.xml"/>
-   <tool file="SOER1000genes/galaxy/vcf_to_tped/vcf_to_tped.xml"/>
-   <tool file="SOER1000genes/galaxy/vcf_to_ped/vcf_to_ped.xml"/>
-   <tool file="SOER1000genes/galaxy/vcf_to_csv/vcf_to_csv.xml"/>
-   <tool file="SOER1000genes/galaxy/beagle/ped_to_beagle.xml" />
-   <tool file="SOER1000genes/galaxy/beagle/bgl_to_ped.xml" />
-    <tool file="SOER1000genes/galaxy/gtool/lped_to_gen.xml"/>
-    <tool file="SOER1000genes/galaxy/gtool/gen_to_lped.xml"/>
+   <tool file="OtagoGalaxy/galaxy/cm_to_lped/cm_to_lped.xml"/>
+   <tool file="OtagoGalaxy/galaxy/cm_to_lped/remove_missing_cm.xml"/>
+   <tool file="OtagoGalaxy/galaxy/plink/ped_to_tped.xml"/>
+   <tool file="OtagoGalaxy/galaxy/tped_to_lped/tped_to_lped.xml"/>
+   <tool file="OtagoGalaxy/galaxy/beagle/vcf_to_beagle.xml"/>
+   <!--
+   <tool file="OtagoGalaxy/galaxy/ihs/lpedgen_to_ihs.xml"/>
+    -->
+   <tool file="OtagoGalaxy/galaxy/vcf_to_tped/vcf_to_tped.xml"/>
+   <tool file="OtagoGalaxy/galaxy/vcf_to_ped/vcf_to_ped.xml"/>
+   <tool file="OtagoGalaxy/galaxy/vcf_to_csv/vcf_to_csv.xml"/>
+   <tool file="OtagoGalaxy/galaxy/beagle/ped_to_beagle.xml" />
+   <tool file="OtagoGalaxy/galaxy/beagle/bgl_to_ped.xml" />
+    <tool file="OtagoGalaxy/galaxy/gtool/lped_to_gen.xml"/>
+    <tool file="OtagoGalaxy/galaxy/gtool/gen_to_lped.xml"/>
  </section>
   <section name="ENCODE Tools" id="EncodeTools">
     <tool file="encode/gencode_partition.xml" />
@@ -225,6 +228,7 @@
     <tool file="stats/plot_from_lda.xml" />
     <tool file="regVariation/t_test_two_samples.xml" />
     <tool file="regVariation/compute_q_values.xml" />
+    <tool file="stats/MINE.xml" />
     
     <label text="GFF" id="gff" />
     <tool file="stats/count_gff_features.xml" />
@@ -319,14 +323,6 @@
     <tool file="fastx_toolkit/fasta_nucleotide_changer.xml" />
     <tool file="fastx_toolkit/fastx_collapser.xml" />
   </section>
-  <section name="NCBI BLAST+" id="ncbi_blast_plus_tools">
-    <tool file="ncbi_blast_plus/ncbi_blastn_wrapper.xml" />
-    <tool file="ncbi_blast_plus/ncbi_blastp_wrapper.xml" />
-    <tool file="ncbi_blast_plus/ncbi_blastx_wrapper.xml" />
-    <tool file="ncbi_blast_plus/ncbi_tblastn_wrapper.xml" />
-    <tool file="ncbi_blast_plus/ncbi_tblastx_wrapper.xml" />
-    <tool file="ncbi_blast_plus/blastxml_to_tabular.xml" />
-  </section>
   <section name="NGS: QC and manipulation" id="NGS_QC">
     
     <label text="FastQC: fastq/sam/bam" id="fastqcsambam" />
@@ -376,26 +372,6 @@
     <tool file="fastx_toolkit/fastx_reverse_complement.xml" />
     <tool file="fastx_toolkit/fastx_trimmer.xml" />
   </section>
-  <section name="NGS: Picard (beta)" id="picard_beta">
-    <label text="Conversion" id="picard_conversion"/>
-    <tool file="picard/picard_FastqToSam.xml" />
-    <tool file="picard/picard_SamToFastq.xml" />
-    
-    <label text="QC/Metrics for sam/bam" id="qcsambam"/>
-    <tool file="picard/picard_BamIndexStats.xml" />
-    <tool file="picard/rgPicardASMetrics.xml" />
-    <tool file="picard/rgPicardGCBiasMetrics.xml" />
-    <tool file="picard/rgPicardLibComplexity.xml" />
-    <tool file="picard/rgPicardInsertSize.xml" />
-    <tool file="picard/rgPicardHsMetrics.xml" />
-    
-    <label text="bam/sam Cleaning" id="picard-clean" />
-    <tool file="picard/picard_AddOrReplaceReadGroups.xml" />
-    <tool file="picard/picard_ReorderSam.xml" />
-    <tool file="picard/picard_ReplaceSamHeader.xml" />
-    <tool file="picard/rgPicardFixMate.xml" />
-    <tool file="picard/rgPicardMarkDups.xml" />
-  </section>
   <!--
   Keep this section commented until it includes tools that
   will be hosted on test/main.  The velvet wrappers have been
@@ -408,12 +384,7 @@
   </section>
   -->
   <section name="NGS: Mapping" id="solexa_tools">
-    <tool file="sr_mapping/lastz_wrapper.xml" />
-    <tool file="sr_mapping/lastz_paired_reads_wrapper.xml" />
-    <tool file="sr_mapping/bowtie_wrapper.xml" />
-    <tool file="sr_mapping/bowtie_color_wrapper.xml" />
-    <tool file="sr_mapping/bwa_wrapper.xml" />
-    <tool file="sr_mapping/bwa_color_wrapper.xml" />
+    <tool file="sr_mapping/bowtie2_wrapper.xml" />
     <tool file="sr_mapping/bfast_wrapper.xml" />
     <tool file="metag_tools/megablast_wrapper.xml" />
     <tool file="metag_tools/megablast_xml_parser.xml" />
@@ -431,10 +402,13 @@
     
     <label text="RNA-seq" id="rna_seq" />
     <tool file="ngs_rna/tophat_wrapper.xml" />
+    <tool file="ngs_rna/tophat2_wrapper.xml" />
     <tool file="ngs_rna/tophat_color_wrapper.xml" />
     <tool file="ngs_rna/cufflinks_wrapper.xml" />
     <tool file="ngs_rna/cuffcompare_wrapper.xml" />
+    <tool file="ngs_rna/cuffmerge_wrapper.xml" />
     <tool file="ngs_rna/cuffdiff_wrapper.xml" />
+    <tool file="ngs_rna/express_wrapper.xml" />
     <!-- Trinity is very memory-intensive and should only be enabled/run
     on instances with sufficient resources. 
     <label text="De novo Assembly" id="de_novo_assembly "/>
@@ -450,15 +424,18 @@
     <tool file="samtools/sam_to_bam.xml" />
     <tool file="samtools/bam_to_sam.xml" />
     <tool file="samtools/sam_merge.xml" />
+    <tool file="samtools/samtools_mpileup.xml" />
     <tool file="samtools/sam_pileup.xml" />
     <tool file="samtools/pileup_parser.xml" />
     <tool file="samtools/pileup_interval.xml" />
     <tool file="samtools/samtools_flagstat.xml" />
     <tool file="samtools/samtools_rmdup.xml" />
+    <tool file="samtools/samtools_slice_bam.xml" />
   </section>
   <section name="NGS: GATK Tools (beta)" id="gatk">
     <label text="Alignment Utilities" id="gatk_bam_utilities"/>
     <tool file="gatk/depth_of_coverage.xml" />
+    <tool file="gatk/print_reads.xml" />
     
     <label text="Realignment" id="gatk_realignment" />
     <tool file="gatk/realigner_target_creator.xml" />
@@ -477,6 +454,7 @@
     
     <label text="Filtration" id="gatk_filtration" />
     <tool file="gatk/variant_filtration.xml" />
+    <tool file="gatk/variant_select.xml" />
     
     <label text="Variant Quality Score Recalibration" id="gatk_variant_quality_score_recalibration" />
     <tool file="gatk/variant_recalibrator.xml" />
@@ -529,15 +507,25 @@
     <tool file="rgenetics/rgGLM.xml"/>
     <tool file="rgenetics/rgManQQ.xml"/>
   </section>
-  <section name="Human Genome Variation" id="hgv">
+  <section name="Phenotype Association" id="hgv">
     <tool file="evolution/codingSnps.xml" />
     <tool file="evolution/add_scores.xml" />
-  </section>
-  <section name="Genome Diversity" id="gd">
-    <tool file="genome_diversity/extract_primers.xml" />
-    <tool file="genome_diversity/select_snps.xml" />
-    <tool file="genome_diversity/select_restriction_enzymes.xml" />
-    <tool file="genome_diversity/extract_flanking_dna.xml" />
+    <tool file="phenotype_association/sift.xml" />
+    <tool file="phenotype_association/linkToGProfile.xml" />
+    <tool file="phenotype_association/linkToDavid.xml"/>
+    <tool file="phenotype_association/ctd.xml" />
+    <tool file="phenotype_association/funDo.xml" />
+    <tool file="phenotype_association/snpFreq.xml" />
+    <tool file="phenotype_association/ldtools.xml" />
+    <tool file="phenotype_association/pass.xml" />
+    <tool file="phenotype_association/gpass.xml" />
+    <tool file="phenotype_association/beam.xml" />
+    <tool file="phenotype_association/lps.xml" />
+    <tool file="phenotype_association/hilbertvis.xml" />
+    <tool file="phenotype_association/freebayes.xml" />
+    <tool file="phenotype_association/master2pg.xml" />
+    <tool file="phenotype_association/vcf2pgSnp.xml" />
+    <tool file="phenotype_association/dividePgSnpAlleles.xml" />
   </section>
   <section name="VCF Tools" id="vcf_tools">
     <tool file="vcf_tools/intersect.xml" />
@@ -545,121 +533,4 @@
     <tool file="vcf_tools/filter.xml" />
     <tool file="vcf_tools/extract.xml" />
   </section>
-  <!--
-  TODO: uncomment the following EMBOSS section whenever
-  moving to test, but comment it in .sample to eliminate
-  it from buildbot functional tests since these tools
-  rarely change.
-  -->
-  <!--
-  <section name="EMBOSS" id="EMBOSSLite">
-  <tool file="emboss_5/emboss_antigenic.xml" />
-  <tool file="emboss_5/emboss_backtranseq.xml" />
-  <tool file="emboss_5/emboss_banana.xml" />
-  <tool file="emboss_5/emboss_biosed.xml" />
-  <tool file="emboss_5/emboss_btwisted.xml" />
-  <tool file="emboss_5/emboss_cai_custom.xml" />
-  <tool file="emboss_5/emboss_cai.xml" />
-  <tool file="emboss_5/emboss_chaos.xml" />
-  <tool file="emboss_5/emboss_charge.xml" />
-  <tool file="emboss_5/emboss_checktrans.xml" />
-  <tool file="emboss_5/emboss_chips.xml" />
-  <tool file="emboss_5/emboss_cirdna.xml" />
-  <tool file="emboss_5/emboss_codcmp.xml" />
-  <tool file="emboss_5/emboss_coderet.xml" />
-  <tool file="emboss_5/emboss_compseq.xml" />
-  <tool file="emboss_5/emboss_cpgplot.xml" />
-  <tool file="emboss_5/emboss_cpgreport.xml" />
-  <tool file="emboss_5/emboss_cusp.xml" />
-  <tool file="emboss_5/emboss_cutseq.xml" />
-  <tool file="emboss_5/emboss_dan.xml" />
-  <tool file="emboss_5/emboss_degapseq.xml" />
-  <tool file="emboss_5/emboss_descseq.xml" />
-  <tool file="emboss_5/emboss_diffseq.xml" />
-  <tool file="emboss_5/emboss_digest.xml" />
-  <tool file="emboss_5/emboss_dotmatcher.xml" />
-  <tool file="emboss_5/emboss_dotpath.xml" />
-  <tool file="emboss_5/emboss_dottup.xml" />
-  <tool file="emboss_5/emboss_dreg.xml" />
-  <tool file="emboss_5/emboss_einverted.xml" />
-  <tool file="emboss_5/emboss_epestfind.xml" />
-  <tool file="emboss_5/emboss_equicktandem.xml" />
-  <tool file="emboss_5/emboss_est2genome.xml" />
-  <tool file="emboss_5/emboss_etandem.xml" />
-  <tool file="emboss_5/emboss_extractfeat.xml" />
-  <tool file="emboss_5/emboss_extractseq.xml" />
-  <tool file="emboss_5/emboss_freak.xml" />
-  <tool file="emboss_5/emboss_fuzznuc.xml" />
-  <tool file="emboss_5/emboss_fuzzpro.xml" />
-  <tool file="emboss_5/emboss_fuzztran.xml" />
-  <tool file="emboss_5/emboss_garnier.xml" />
-  <tool file="emboss_5/emboss_geecee.xml" />
-  <tool file="emboss_5/emboss_getorf.xml" />
-  <tool file="emboss_5/emboss_helixturnhelix.xml" />
-  <tool file="emboss_5/emboss_hmoment.xml" />
-  <tool file="emboss_5/emboss_iep.xml" />
-  <tool file="emboss_5/emboss_infoseq.xml" />
-  <tool file="emboss_5/emboss_isochore.xml" />
-  <tool file="emboss_5/emboss_lindna.xml" />
-  <tool file="emboss_5/emboss_marscan.xml" />
-  <tool file="emboss_5/emboss_maskfeat.xml" />
-  <tool file="emboss_5/emboss_maskseq.xml" />
-  <tool file="emboss_5/emboss_matcher.xml" />
-  <tool file="emboss_5/emboss_megamerger.xml" />
-  <tool file="emboss_5/emboss_merger.xml" />
-  <tool file="emboss_5/emboss_msbar.xml" />
-  <tool file="emboss_5/emboss_needle.xml" />
-  <tool file="emboss_5/emboss_newcpgreport.xml" />
-  <tool file="emboss_5/emboss_newcpgseek.xml" />
-  <tool file="emboss_5/emboss_newseq.xml" />
-  <tool file="emboss_5/emboss_noreturn.xml" />
-  <tool file="emboss_5/emboss_notseq.xml" />
-  <tool file="emboss_5/emboss_nthseq.xml" />
-  <tool file="emboss_5/emboss_octanol.xml" />
-  <tool file="emboss_5/emboss_oddcomp.xml" />
-  <tool file="emboss_5/emboss_palindrome.xml" />
-  <tool file="emboss_5/emboss_pasteseq.xml" />
-  <tool file="emboss_5/emboss_patmatdb.xml" />
-  <tool file="emboss_5/emboss_pepcoil.xml" />
-  <tool file="emboss_5/emboss_pepinfo.xml" />
-  <tool file="emboss_5/emboss_pepnet.xml" />
-  <tool file="emboss_5/emboss_pepstats.xml" />
-  <tool file="emboss_5/emboss_pepwheel.xml" />
-  <tool file="emboss_5/emboss_pepwindow.xml" />
-  <tool file="emboss_5/emboss_pepwindowall.xml" />
-  <tool file="emboss_5/emboss_plotcon.xml" />
-  <tool file="emboss_5/emboss_plotorf.xml" />
-  <tool file="emboss_5/emboss_polydot.xml" />
-  <tool file="emboss_5/emboss_preg.xml" />
-  <tool file="emboss_5/emboss_prettyplot.xml" />
-  <tool file="emboss_5/emboss_prettyseq.xml" />
-  <tool file="emboss_5/emboss_primersearch.xml" />
-  <tool file="emboss_5/emboss_revseq.xml" />
-  <tool file="emboss_5/emboss_seqmatchall.xml" />
-  <tool file="emboss_5/emboss_seqret.xml" />
-  <tool file="emboss_5/emboss_showfeat.xml" />
-  <tool file="emboss_5/emboss_shuffleseq.xml" />
-  <tool file="emboss_5/emboss_sigcleave.xml" />
-  <tool file="emboss_5/emboss_sirna.xml" />
-  <tool file="emboss_5/emboss_sixpack.xml" />
-  <tool file="emboss_5/emboss_skipseq.xml" />
-  <tool file="emboss_5/emboss_splitter.xml" />
-  <tool file="emboss_5/emboss_supermatcher.xml" />
-  <tool file="emboss_5/emboss_syco.xml" />
-  <tool file="emboss_5/emboss_tcode.xml" />
-  <tool file="emboss_5/emboss_textsearch.xml" />
-  <tool file="emboss_5/emboss_tmap.xml" />
-  <tool file="emboss_5/emboss_tranalign.xml" />
-  <tool file="emboss_5/emboss_transeq.xml" />
-  <tool file="emboss_5/emboss_trimest.xml" />
-  <tool file="emboss_5/emboss_trimseq.xml" />
-  <tool file="emboss_5/emboss_twofeat.xml" />
-  <tool file="emboss_5/emboss_union.xml" />
-  <tool file="emboss_5/emboss_vectorstrip.xml" />
-  <tool file="emboss_5/emboss_water.xml" />
-  <tool file="emboss_5/emboss_wobble.xml" />
-  <tool file="emboss_5/emboss_wordcount.xml" />
-  <tool file="emboss_5/emboss_wordmatch.xml" />
-  </section>
-  -->
 </toolbox>

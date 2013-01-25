@@ -8,7 +8,7 @@
             ${s.input_g}
         #end for 
         ;
-        bash ${__root_dir__}/tools/SOER1000genes/galaxy/snptest/snptest.sh ${input_sample} 
+        bash ${__root_dir__}/tools/OtagoGalaxy/galaxy/snptest/snptest.sh ${input_sample} 
         #for $i, $s in enumerate( $inputFiles )
             sample ${s.input_s}
         #end for 
