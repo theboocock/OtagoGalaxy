@@ -1,6 +1,7 @@
-<grid name="BiochemXgrid" runner="xgrid" url="xgrid://Biocperformance/Biochemprocess2012" enable_all_tools="True">
+<grid name="BiochemXgrid" runner="xgrid" default_url="xgrid://Biocperformance/Biochemprocess2012" enable_all_tools="True">
     <config>
-        <option name="xgrid_nfs_mount_location" value="/Users/NFS_SHARE/galaxy-xgrid:/tmp/xgfs/galaxy-xgrid"/> 
+        <option name="xgrid_nfs_mount_location" value="/Users/NFS_SHARE/galaxy-xgrid:/tmp/xgfs/galaxy-xgrid"/>
+        
     </config>
 
 </grid>
@@ -15,13 +16,14 @@
         <option name="auto" label="AutoQueue"/>
     </queues>
     <runtime>
-        <option name="walltime" label="Specify a Wall time for nesi job"/>
-        <option name="memory"   label="Specify max memory usage for nesi job"/>
+        <option name="walltime" label="Specify a Wall time for each task created nesi job" type="integer"/>
+        <option name="memory"   label="Specify max memory usage for nesi job" type="integer"/>
+        <!-- These will be specified and parsed to the runner url if supported !-->
     </runtime>
     <tools>
         <tool id="impute2">
             <paths>
-
+                
             </paths>
         </tool>
     </tools>
