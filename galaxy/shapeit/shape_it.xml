@@ -2,7 +2,7 @@
     <description>performs pre-phasing on genotypic data</description>
     <command interpreter="bash">
 
-        shape_it.sh -g ${input_gen} -s ${input_sample} -m ${threshold} 
+        shape_it.sh -g "$input_gtool.extra_files_path/$input_gtool.metadata.base_name".gen -s "$input_gtool.extra_files_path/$input_gtool.metadata.base_name".sample -m ${threshold} 
         #if $use_reference == "yes":
             -r
         #end if
@@ -10,16 +10,16 @@
             -f $from
             -t $to
         #end if
-        -h ${phased_haps} -o ${phased_sample}
+        -h $input_gtool.metadata.base_name."haps" -o $input_gtool.metadata.base_name."sample"
         -R ${__root_dir__}
         -c ${chromosome}
         -l ${log}
-
+    ;
+    python ${__root_dir__}/tool-data/shared/composite_datatypes/create_composite_rgenetics.py 'shapeit' $output $output.metadata.base_name $output.extra_files_path
     </command>
 
     <inputs>
-        <param name="input_gen" type="data" format="gen" label="Input Gen File" />
-        <param name="input_sample" type="data" format="sample"  label="Input Sample File" />
+        <param name="input_gtool" type="data" format="gtool"  label="Input Sample File" />
         <param name="threshold" type="float" value="0.90"  label="Threshold" help="Will use the most likely genotype if that probability exceeds the threshold, otherwise will be considered missing."/>
 
         <param name="use_reference" type="select" label="Use 1000 Genomes Reference Panel?">
@@ -45,8 +45,7 @@
     </inputs>
 
     <outputs>
-        <data name="phased_haps" format="txt" />
-        <data name="phased_sample" format="txt"/>
+        <data name="output" format="shapeit" metadata_source="input_gtool"/>
         <data name="log" format="txt"/>
     </outputs>
 

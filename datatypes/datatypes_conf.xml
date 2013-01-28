@@ -179,14 +179,13 @@
 <converter file="bgl_to_ped.xml" target_datatype="lped"/>
 -->
 </datatype>
-
+<datatype extension="ihs"  type="galaxy.datatypes.impute:Ihs" display_in_upload="true" />
+<datatype extension="shapeit" type="galaxy.datatypes.impute:ShapeIt" display_in_upload="true"/>
 <datatype extension="gtool" type="galaxy.datatypes.impute:Gtool" display_in_upload="true"/>
 <datatype extension="impute" type="galaxy.datatypes.impute:Impute" display_in_upload="true"/>
-<datatype extension="info" type="galaxy.datatypes.data:Text" subclass="true" display_in_upload="true" />
     <datatype extension="linecount" type="galaxy.datatypes.data:LineCount" display_in_upload="true"/>
     <datatype extension="memexml" type="galaxy.datatypes.xml:MEMEXml" mimetype="application/xml" display_in_upload="true"/>
     <datatype extension="cisml" type="galaxy.datatypes.xml:CisML" mimetype="application/xml" display_in_upload="true"/>
-    <datatype extension="blastxml" type="galaxy.datatypes.xml:BlastXml" mimetype="application/xml" display_in_upload="true"/>
     <datatype extension="xml" type="galaxy.datatypes.xml:GenericXml" mimetype="application/xml" display_in_upload="true"/>
     <datatype extension="vcf" type="galaxy.datatypes.tabular:Vcf" display_in_upload="true">
       <converter file="vcf_to_bgzip_converter.xml" target_datatype="bgzip"/>

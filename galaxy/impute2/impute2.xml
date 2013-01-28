@@ -3,16 +3,21 @@
 
 <command interpreter="bash">
     
-    impute2.sh ${start_pos} ${end_pos} ${chromosome} ${known_haps} ${output_genofile} 
-    ${output_summary} ${output_warnings} ${output_info} ${gen_or_hap.phased_or_not} 
-    ${ne} ${buffer_size} ${__root_dir__}
-
+    impute2.sh ${start_pos} ${end_pos} ${chromosome}
+    #if $gen_or_hap.phased_or_not == "unphased":
+        "$known_haps.extra_files_path/$known_haps.metadata.base_name".gen
+    #else
+        "$known_haps.extra_files_path/$known_haps.metadata.base_name".haps
+    #end if
+    "$known_haps.metadata.base_name".gen
+    ${output_summary} ${output_warnings} "$known_haps.metadata.base_name".info ${gen_or_hap.phased_or_not} 
+    ${ne} ${buffer_size} ${__root_dir__} ${allow_large_regions}
+    ;
+    python ${__root_dir__}/tool-data/shared/composite_datatypes/create_composite_rgenetics.py 'impute' $output $output.metadata.base_name $output.extra_files_path    
 </command>
 
 <inputs>
 
-    <param name="start_pos" type="integer" value="0" label="Start position of region" />
-    <param name="end_pos" type="integer" value="0" label="End position of region" />
     <param name="chromosome" type="text" label="Chromosome Number" help="For X chromosome please just enter x"/>
 
     <conditional name="gen_or_hap">
@@ -22,15 +27,16 @@
         </param>
 
         <when value="phased">
-            <param name="known_haps" type="data" format="hap" label="Pre-phased Known .hap file" />
+            <param name="known_haps" type="data" format="shapeit" label="Pre-phased Known .hap file" />
         </when>
 
         <when value="unphased">
-            <param name="known_haps" type="data" format="gen" label="Unphased .gen file" />
+            <param name="known_haps" type="data" format="gtool" label="Unphased .gen file" />
         </when>
 
-    </conditional>
 
+    </conditional>
+    <param name="allow_large_regions" type="boolean" value="False" label="Allow larger imputation regions" help="This is not a recommended option but for imputing large regions this will be required"/>
     <param name="buffer_size" type="integer" value="250" label="Buffer Size" help="Length of buffer region (in kb) to include on each side of the analysis interval. Using a buffer region helps prevent imputation quality from deteriorating near the edges of the analysis interval. Larger buffers may improve accuracy for low-frequency variants (since such variants tend to reside on long haplotype backgrounds) at the cost of longer running times." />
 
     <param name="ne" type="integer" value="20000" label="Effective Population Size" help="Commonly denoted as Ne in the population genetics literature from which your dataset was sampled. This parameter scales the recombination rates that IMPUTE2 uses to guide its model of linkage disequilibrium patterns" />
@@ -39,10 +45,9 @@
 
 <outputs>
 
-    <data format="gen" name="output_genofile" />
+    <data format="impute" name="output" metadata_source="known_haps"/>
     <data format="txt" name="output_summary" />
     <data format="txt" name="output_warnings" />
-    <data format="txt" name="output_info" />
 
 </outputs>
 

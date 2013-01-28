@@ -5,7 +5,7 @@
     </command>
     <inputs>
         <param name="chr" type="text" value="" label="Chromosome number to extract from 1000 genomes"/>
-        <param name="reg" type="text" value="" label="Chromosome region specified as regionstartregionend " />
+        <param name="reg" type="text" value="" label="Chromosome region specified as regionstart-regionend " />
     </inputs>
 
     <outputs>

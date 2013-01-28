@@ -16,7 +16,7 @@
 # $10 = Ne
 # $11 = buffer_size
 # $12 = root_dir
-
+# $13 = allow_large_regions
 
 if [ "$9" == "unphased" ] ; then
 
@@ -28,17 +28,15 @@ else
 
 fi
 
-
-    START=`echo $line | awk '{print $1}' `
-    END=`echo $line | awk '{print $2}' `
-    
-    impute2 \ 
-    -m ${12}/tools/OtagoGalaxy/data/1kg/impute2/ALL_1000G_phase1integrated_v3_impute/genetic_map_chr${3}_combined_b37.txt \ 
-    -h ${12}/tools/OtagoGalaxy/data/1kg/impute2/ALL_1000G_phase1integrated_v3_impute/ALL_1000G_phase1integrated_v3_chr${3}_impute.hap \ 
-    -l ${12}/tools/OtagoGalaxy/data/1kg/impute2/ALL_1000G_phase1integrated_v3_impute/ALL_1000G_phase1integrated_v3_chr${3}_impute.legend \ 
-    $PHASE $4 -int ${START}e6 ${END}e6 -Ne ${10} -buffer ${11} -o $5 \ 
-    -r $6 -w $7 -i $8 -os 0 1 2 3
-
+     
+    START=`head -1 $4 | awk '{print $3}' `
+    END=`tail -1 $4| awk '{print $3}' `
+    impute2 -allow_large_regions\
+    -m ${12}/tools/OtagoGalaxy/data/1kg/impute2/genetic_map_chr${3}_combined_b37.txt \
+    -h ${12}/tools/OtagoGalaxy/data/1kg/impute2/ALL_1000G_phase1integrated_v3_chr${3}_impute.hap \
+    -l ${12}/tools/OtagoGalaxy/data/1kg/impute2/ALL_1000G_phase1integrated_v3_chr${3}_impute.legend \
+    $PHASE $4 -int $START $END -Ne ${10} -buffer ${11} -o $5 \
+    -r $6 -w $7 -i $8 -os 0 1 2 3 > /dev/null
 
 
-exit 0
+

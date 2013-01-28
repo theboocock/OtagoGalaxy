@@ -23,6 +23,9 @@ galhtmlpostfix = """</div>\n</body>\n</html>\n"""
 def create_html(file_dir, html_file, base_name, title_page):
     f = file(html_file, 'w')
     f.write(galhtmlprefix)
+    f.write("<div>")
+    f.write(title_page)
+    f.write("</div>")
     flist = os.listdir(file_dir)
     for i, data in enumerate(flist):
         f.write('<li><a href="%s">%s</a></li>\n' % (os.path.split(data)[-1],os.path.split(data)[-1]))

@@ -15,8 +15,8 @@
         <option name="auto" label="AutoQueue"/>
     </queues>
     <runtime>
-        <option name="Walltime" label="Specify a Wall time for nesi job"/>
-        <option name="Memory"   label="Specify max memory usage for nesi job"/>
+        <option name="walltime" label="Specify a Wall time for nesi job"/>
+        <option name="memory"   label="Specify max memory usage for nesi job"/>
     </runtime>
     <tools>
         <tool id="impute2">

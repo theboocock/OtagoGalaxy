@@ -105,3 +105,16 @@ class Impute(ImputeDatatypes):
         ImputeDatatypes.__init__(self, **kwd)
         self.add_composite_file('%s.gen', description= " Impute 2 Genotypes File ", substitute_name_with_metadata='base_name', is_binary=False)
         self.add_composite_file('%s.info', description= " Impute 2 Info File ", substitute_name_with_metadata="base_name", is_binary=False)
+
+class ShapeIt(ImputeDatatypes):
+    ""
+    def __init__(self, **kwd):
+        ImputeDatatypes.__init__(self, **kwd)
+        self.add_composite_file('%s.haps', description= "Shape It Genotypes File" , substitute_name_with_metadata='base_name', is_binary=False)
+        self.add_composite_file('%s.sample', description= "Shape It Sample Information File", substitute_name_with_metadata='base_name', is_binary=False)
+class Ihs(ImputeDatatypes):
+    ""
+    def __init__(self, **kwd):
+        ImputeDatatypes.__init__(self, **kwd)
+        self.add_composite_file('%s.ihshap', description= "Ihs Haplotype File" , substitute_name_with_metadata='base_name', is_binary=False)
+        self.add_composite_file('%s.ihsmap', description= "Ihs Map File", substitute_name_with_metadata='base_name', is_binary=False)
