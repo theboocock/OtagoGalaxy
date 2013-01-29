@@ -61,17 +61,18 @@ If you are going to install the xgrid module also you will need to
 run 'bash installers/xgrid_nesi.sh' which will install them both.
 
 
-Otago-Grid-Jobs
+Otago-Grid-Selection
 ---------------
 
 To install our beta environment for galaxy that has many advanced options 
 for job-splitting and grid instance specific options. Currently only has
 features for xgrid, nesi. and local job runners.
 
-run 'bash installers/grid_jobs.sh'
+run 'bash installers/grid_selection.sh'
 
 This command will install the Otago-Grid-Jobs module to your local galaxy instance.
 The GALAXY_HOME_FOLDER environment variable needs to be set to your local
 galaxy instance location.
+
 
 

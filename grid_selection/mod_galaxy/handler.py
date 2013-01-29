@@ -12,7 +12,7 @@ from sqlalchemy.sql.expression import and_, or_, select, func
 
 from galaxy import util, model
 from galaxy.jobs import Sleeper, JobWrapper, TaskWrapper
-from galaxy.jobs.clustering import *
+import galaxy.jobs.clustering.interface 
 log = logging.getLogger( __name__ )
 
 # States for running a job. These are NOT the same as data states
@@ -440,7 +440,7 @@ class DefaultJobDispatcher( object ):
         for name in start_job_runners:
             self._load_plugin( name )
         log.debug( "Job runners: " + ':'.join( start_job_runners ) )
-        self.clustering_interface= ClusteringInterface(app,self.job_runners,'grid_conf.xml')
+        self.clustering_interface= galaxy.jobs.clustering.interface.ClusteringInterface(app,self.job_runners,'grid_conf.xml')
 
     def _load_plugin( self, name ):
         module_name = 'galaxy.jobs.runners.' + name
