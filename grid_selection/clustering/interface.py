@@ -4,15 +4,17 @@
     Author: James Boocock
 """
 
+#Python Imports
 import os
 import sys
 import logging
 
-#Import clustering modules
-import grid
+#Clustering Module Imports
+import util
+from grid import Grid
 
 
-from elementtree import ElementTree, ElementInclude
+from elementtree import ElementTree
 
 log = logging.getLogger(__name__)
 
@@ -25,7 +27,7 @@ class ClusteringInterface(object):
         self.runners= []
         self.avaliable_runners= job_runners
         log.debug( job_runners)
-        self.grids_by_name = {}
+        self.grids_by_id = {}
         #HARDCODED DEFAULT FOR TESTING
         config_file = ('/home/jamesboocock/OtagoGalaxy/grid_selection/conf/grid_conf.xml')
         try:
@@ -35,24 +37,18 @@ class ClusteringInterface(object):
 
     def init_grids(self,config_file):
         """ Initalise all the grids specfied in the grid config file"""
-        tree=self.parse_xml(config_file)
+        tree=util.parse_xml(config_file)
         root=tree.getroot()
         for _, elem in enumerate(root):
             if elem.tag == "grid":
                 grid = Grid(elem,self.app)
+                self.grids_by_id[grid.id] = grid
 
     def print_grids(self):
-        print self.grid_by_name
+        for grid in self.grids_by_id:
+            print grid.name
 
-    def return_runner_from_url(self,runner_url):
-        """Returns the galaxy runner from a galaxy runner url"""
-        return 1
-    def parse_xml(self,fname):
-        """Parse XML file using elemenTree"""
-        tree=ElementTree.parse(fname)
-        root=tree.getroot()
-        ElementInclude.include(root)
-        return tree
 
-    #parse and create each individual grid object
+
+
 
