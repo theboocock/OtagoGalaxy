@@ -24,7 +24,6 @@ class ClusteringInterface(object):
 
     def __init__(self,app,job_runners,config_file):
         self.app =app
-        self.runners= []
         self.avaliable_runners= job_runners
         log.debug( job_runners)
         self.grids_by_id = {}
@@ -43,11 +42,17 @@ class ClusteringInterface(object):
             if elem.tag == "grid":
                 grid = Grid(elem,self.app)
                 self.grids_by_id[grid.id] = grid
+    def get_runner_name(self, job_wrapper):
+        runner_name= ""
+        
+        
+
+        return runner_name
 
     def print_grids(self):
         for grid in self.grids_by_id:
             print grid.name
-
+    
 
 
 

@@ -13,6 +13,7 @@ import logging
 
 #Clustering Module Imports
 import util
+import grid_tool
 
 from elementtree import ElementTree
 

@@ -1,0 +1,21 @@
+Thanks for using the galaxy clustering interface.
+
+The module enables the use of a custom xml file to specify 
+grids that are avaliable to galaxy.
+
+A possible usecase for this module is a 
+galaxy local server with limited requirements
+
+local job runner.
+pbs cluster 
+and a drmaa cluster.
+
+The ability for the galaxy user to be able 
+to select where the jobs get run.
+
+Also added splitting functionality to enable the user to 
+split files by megabase pairs and other such constructs.
+
+
+
+

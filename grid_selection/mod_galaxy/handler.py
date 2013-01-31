@@ -461,6 +461,8 @@ class DefaultJobDispatcher( object ):
             log.debug( 'Loaded job runner: %s' % display_name )
 
     def __get_runner_name( self, job_wrapper ):
+        if self.enable_clustering_interface:
+            runner_name = self.clustering_interface.get_runner_name(job_wrapper)
         if self.app.config.use_tasked_jobs and job_wrapper.tool.parallelism is not None and not isinstance(job_wrapper, TaskWrapper):
             runner_name = "tasks"
         else:
