@@ -71,7 +71,8 @@ class Grid(object):
         self.parse_queues(elem.find("queues"))
         #Get all the galaxy runtime options to be provided to the user through the interface.
         self.parse_runtime_options(elem.find("runtime"))
-        sefl.parse_runtime_options(elem.find("project"))
+        self.parse_project(elem.find("project"))
+        self.parse_tools(elem.find("tools"))
         #DEBUG PRINTS
         log.debug(self.runtime)
         log.debug(self.app)
@@ -149,6 +150,12 @@ class Grid(object):
                 if not label:
                     raise Exception, "Missing value tag in project option"
                 self.projects[name]=value
+    def parse_tools(self, elem):
+        if elem is not None:
+            for _, runtime_elem in enumerate(elem):
+                name = runtime_elem.get("id")
+                if not id:
+                    raise Exception, "Missing tool id":
 
     """Accessors"""
 
