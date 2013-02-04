@@ -13,7 +13,7 @@ import logging
 
 #Clustering Module Imports
 import util
-import grid_tool
+from  grid_tool import GridTool
 
 from elementtree import ElementTree
 
@@ -22,7 +22,8 @@ log = logging.getLogger(__name__)
 class Grid(object):
     """ Class that encapsulates every individual grid object and contains all
         the information that is needed for the clustering interface """
-    def __init__(self,elem,app):
+    def __init__(self,elem,app,avaliable_runners):
+        self.avaliable_runners = avaliable_runners
         self.app = app
         self.name = ""
         self.id = ""
@@ -42,6 +43,17 @@ class Grid(object):
         #Tool mapping from galaxy tool id to with the rules for the grid
         self.grid_tools={}
         self.parse(elem)
+
+
+    def validate_runner(self, runner):
+        """Checks to make sure the job runner that the grid selection module will use
+            is set in the galaxy config"""
+        if runner in self.avaliable_runners.keys():
+            return True
+        else:
+            return False
+
+    
     
     def parse(self,elem):
         """Parse a grid specification xml format """
@@ -61,6 +73,8 @@ class Grid(object):
         self.runner=elem.get("runner")
         if not self.runner:
             raise Exception, "Missing runner name"
+        if not self.validate_runner(self.runner):
+            raise Exception, "Grid runner " + self.name + " not started, cannot setup grid"
         #Get the run_all_tools option
         self.run_all_tools=util.string_as_bool(elem.get("enable_all_tools","False"))
         #Get the overwrite galaxy options
@@ -86,6 +100,8 @@ class Grid(object):
         # mount is avaliable
         log.debug(self.run_all_tools)
         log.debug(self.overwrite_galaxy_config)
+        log.debug(self.grid_tools)
+        log.debug(self.avaliable_runners)
 
     def parse_galaxy_config(self,elem):
         """Parse galaxy grid options and set them in the galaxy app config"""
@@ -152,10 +168,17 @@ class Grid(object):
                 self.projects[name]=value
     def parse_tools(self, elem):
         if elem is not None:
-            for _, runtime_elem in enumerate(elem):
-                name = runtime_elem.get("id")
-                if not id:
-                    raise Exception, "Missing tool id":
+            for _, tool_elem in enumerate(elem):
+                tool= GridTool(tool_elem, self.app)
+                self.grid_tools[tool.id]= tool
+    
+    """ Launch Option Creation """
+
+    def prepare_paths(self,tool_id):
+        return 1
+    def prepare_datatypes(self,job_wrapper):
+        return 1
+
 
     """Accessors"""
 
@@ -167,3 +190,5 @@ class Grid(object):
         return self.galaxy_options
     def check_tool_is_avaliable(self):
         return self.run_all_tools
+    def get_grid_name(self):
+        return self.name

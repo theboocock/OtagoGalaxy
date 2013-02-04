@@ -461,8 +461,6 @@ class DefaultJobDispatcher( object ):
             log.debug( 'Loaded job runner: %s' % display_name )
 
     def __get_runner_name( self, job_wrapper ):
-        if self.enable_clustering_interface:
-            runner_name = self.clustering_interface.get_runner_name(job_wrapper)
         if self.app.config.use_tasked_jobs and job_wrapper.tool.parallelism is not None and not isinstance(job_wrapper, TaskWrapper):
             runner_name = "tasks"
         else:
@@ -486,7 +484,11 @@ class DefaultJobDispatcher( object ):
                 log.debug( "dispatching task %s, of job %d, to %s runner" %( job_wrapper.task_id, job_wrapper.job_id, runner_name ) )
             else:
                 log.debug( "dispatching job %d to %s runner" %( job_wrapper.job_id, runner_name ) )
-            self.job_runners[runner_name].put( job_wrapper )
+            if self.app.config.enable_clustering_interface:
+                log.debug("Using clustering interface, for job %d" %(job_wrapper.job_id))
+                self.clustering_interface.put(job_wrapper)
+            else:
+                self.job_runners[runner_name].put( job_wrapper )
         except KeyError:
             log.error( 'put(): (%s) Invalid job runner: %s' % ( job_wrapper.job_id, runner_name ) )
             job_wrapper.fail( DEFAULT_JOB_PUT_FAILURE_MESSAGE )
