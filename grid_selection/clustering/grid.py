@@ -181,6 +181,8 @@ class Grid(object):
 
 
     """Accessors"""
+    def get_tool_by_id(self, tool_id):
+        return self.grid_tools[tool_id]
     def get_grid_runner(self):
         return self.runner
     def get_galaxy_default_runner_url(self):

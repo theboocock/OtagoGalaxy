@@ -35,7 +35,12 @@ class InputDatatype(object):
         self.merger=elem.get("merger")
         if not self.merger:
             raise Exception, "Missing merger tag in datatype tag"
-
+    def get_merger(self):
+        return self.merger
+    def get_splitters(self):
+        return self.splitter
+    def get_format(self):
+        return self.format
 
 class GridTool(object):
 
@@ -73,3 +78,15 @@ class GridTool(object):
         for _, datatype in enumerate(input_datatypes):
             input_dt = InputDatatype(datatype,self.app)
             self.input_datatypes.append(input_dt)
+
+    def get_splitters_by_format(self):
+        splitters  = {}
+        for input_dt in self.input_datatypes:
+            splitters[input_dt.get_format()]= input_dt.get_merger()
+        return splitters
+    def get_mergers_by_format(self):
+        mergers = {} 
+        for input_dt in self.input_datatypes:
+            mergers[input_dt.get_format()] = input_dt.get_merger()
+        return mergers
+        

@@ -48,10 +48,10 @@ class ToolRun(object):
             # sent to the runner each of the tasks where set to go to #
             # tasks are created so galaxy can unset parralelism and all future tasks will be sent to what
             # they are meant to be set to 
-        
+             
             #unset parrellel after
         #Final setup of job sends it to the task runner.
-        else if self.grid_to_run_on is "local" or self.grid_to_run_on is "lwr":
+        elif self.grid_to_run_on is "local" or self.grid_to_run_on is "lwr":
             #Do local and lwr preparation here # 
 
             #in this case the runner name and the job runner name are the same thing #

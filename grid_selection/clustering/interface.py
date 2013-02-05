@@ -46,7 +46,6 @@ class ClusteringInterface(object):
             if elem.tag == "grid":
                 grid = Grid(elem,self.app,self.avaliable_runners)
                 self.grids_by_id[grid.id] = grid
-
         
     def get_grid(self, job_wrapper):
         return self.grids_by_id['nesi0']
@@ -87,5 +86,7 @@ class ClusteringInterface(object):
             grid_names.append(grid)
         return grid_names
 
+    def get_ui_reader(self):
+        return self.ui_reader
 
 

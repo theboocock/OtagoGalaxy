@@ -74,12 +74,24 @@ class TaskedJobRunner( object ):
                 self.sa_session.flush()
                 # Split with the tool-defined method.
                 if self.app.config.enable_clustering_interface:
-                    clustering_interface = self.app.manager.job_handler.clustering_interface
-                    splitters = clustering_interface.get_ui_handler().get_splitters(job_wrapper)
-                    log.debug(splitters) 
-                    #splitter = getattr(__import__('
-                    #Do my own splitting
-                else    
+                    try:
+                        log.debug("here")
+                        clustering_interface = self.app.job_manager.job_handler.dispatcher.clustering_interface
+                        grid = clustering_interface.get_ui_reader().get_grid(job_wrapper.job_id)
+                         
+                        log.debug(job_wrapper.get_job().tool_id)
+                        tool = grid.get_tool_by_id(job_wrapper.get_job().tool_id)
+                        
+                        splitter = tool.get_splitters()
+                        mergers = tool.get_mergers()
+
+                        #splitter = getattr(__import__('
+                        #Do my own splitting
+                    except: 
+                        job_wrapper.change_state(model.Job.states.ERROR)
+                        job_wrapper.fail("Job Splitting failed for clustering interface missing splitter and merger")
+                        return
+                else:    
                     try:
                     #######TODO EITHER WORK WITH THEIR CODE OR MOVE ON
                         splitter = getattr(__import__('galaxy.jobs.splitters',  globals(),  locals(),  [job_wrapper.tool.parallelism.method]),  job_wrapper.tool.parallelism.method)

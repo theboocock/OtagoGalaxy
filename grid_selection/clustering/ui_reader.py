@@ -28,7 +28,10 @@ class UiReader(object):
     def get_grid(self,job_id):
         return "local"
     def is_parralel(self,job_id):
-        return True   
+        #Read options from screen when job is run
+        #return  False
+        return True
+        
     def shutdown( self):
         """Attempts to gracefully shutdown the monitor thread"""
         log.info("Sending shutdown to monitor thread")
