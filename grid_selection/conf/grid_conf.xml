@@ -10,9 +10,9 @@
         <option name="nesi_group" value="/nz/nesi"/>
         <option name="nesi_scripts_directory" value="/lib/galaxy/jobs/runners/nesi_scripts"/>
     </config>
-    <queues>
-        <queue name="GPU Tesla Queue" value="gpu"/>
-        <queue name="NESI auto queue" value="auto"/>
+    <queues >
+        <queue name="Auto Queue" value="default"/>
+        <queue name="Tesla Queue" value="auto"/>
     </queues>
     <runtime>
         <option name="walltime" label="Specify a Wall time for each task created nesi job" format="integer"/>

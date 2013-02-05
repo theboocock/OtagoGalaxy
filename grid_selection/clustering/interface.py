@@ -13,7 +13,7 @@ import logging
 import util
 from grid import Grid
 from tool_run import ToolRun
-
+from ui_reader import UiReader
 from elementtree import ElementTree
 
 log = logging.getLogger(__name__)
@@ -27,6 +27,7 @@ class ClusteringInterface(object):
         self.avaliable_runners= job_runners
         log.debug( job_runners)
         self.grids_by_id = {}
+        
         #HARDCODED DEFAULT FOR TESTING
         config_file = ('/home/jamesboocock/OtagoGalaxy/grid_selection/conf/grid_conf.xml')
         try:
@@ -34,6 +35,8 @@ class ClusteringInterface(object):
         except:
             log.exception("Error loading grids specifed in the config file {0}".format(config_file))
         log.debug(self.generate_avaliable_grids())
+#       Do some ui reading
+        self.ui_reader = UiReader(self.app,self.grids_by_id)
 
     def init_grids(self,config_file):
         """ Initalise all the grids specfied in the grid config file"""
@@ -50,8 +53,8 @@ class ClusteringInterface(object):
 
     def put(self, job_wrapper):
         try:
-            tool_run = ToolRun(self.app, job_wrapper,self.grids_by_id) 
-            runner_name = self.get_runner_name(job_wrapper)
+            tool_run = ToolRun(self.app, job_wrapper,self.grids_by_id,self.ui_reader) 
+            runner_name = tool_run.get_runner_name()
             # If the grid is local or lwr we wont have a grid
             # Object so the tool should continue to
             # Run as if nothing has changed.

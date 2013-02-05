@@ -26,7 +26,6 @@ class Grid(object):
         self.avaliable_runners = avaliable_runners
         self.app = app
         self.name = ""
-        self.id = ""
         self.runner=""
         self.default_runner_url= ""
         self.queues={}
@@ -176,12 +175,14 @@ class Grid(object):
 
     def prepare_paths(self,tool_id):
         return 1
+        
     def prepare_datatypes(self,job_wrapper):
         return 1
 
 
     """Accessors"""
-
+    def get_grid_runner(self):
+        return self.runner
     def get_galaxy_default_runner_url(self):
         return self.default_runner_url
     def get_queues(self):
