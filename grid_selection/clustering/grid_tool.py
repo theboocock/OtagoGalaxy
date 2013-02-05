@@ -19,7 +19,6 @@ class InputDatatype(object):
 
     def __init__(self, elem, app):
         self.app = app
-
         self.splitter= None
         self.merger = None
         self.format = ""

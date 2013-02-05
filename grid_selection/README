@@ -18,4 +18,14 @@ split files by megabase pairs and other such constructs.
 
 
 
+TODO------
 
+
+Get basic split working with vcf merge 
+think of an elegant way to do it
+
+Keep UI functions as stubs that is the very last
+part of the project
+
+
+----

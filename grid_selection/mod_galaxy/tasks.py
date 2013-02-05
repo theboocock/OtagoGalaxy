@@ -9,6 +9,7 @@ import os, errno
 from time import sleep
 
 from galaxy.jobs import TaskWrapper
+from galaxy.jobs.clustering.parallelism.parallelism import Parallelism
 
 log = logging.getLogger( __name__ )
 
@@ -74,23 +75,26 @@ class TaskedJobRunner( object ):
                 self.sa_session.flush()
                 # Split with the tool-defined method.
                 if self.app.config.enable_clustering_interface:
-                    try:
-                        log.debug("here")
+                    #try:
                         clustering_interface = self.app.job_manager.job_handler.dispatcher.clustering_interface
                         grid = clustering_interface.get_ui_reader().get_grid(job_wrapper.job_id)
-                         
                         log.debug(job_wrapper.get_job().tool_id)
                         tool = grid.get_tool_by_id(job_wrapper.get_job().tool_id)
-                        
-                        splitter = tool.get_splitters()
-                        mergers = tool.get_mergers()
+                        splitters = tool.get_splitters_by_format()
+                        mergers = tool.get_mergers_by_format()
+                        log.debug(splitters)
+                        log.debug(mergers)
+                        splitting_method = clustering_interface.get_ui_reader().get_splitting_options(job_wrapper.job_id)
+                        parallelism = Parallelism(splitters,mergers)
 
-                        #splitter = getattr(__import__('
-                        #Do my own splitting
-                    except: 
+
+                    #splitter = getattr(__import__('
+                    #Do my own splitting
+                    #except: 
                         job_wrapper.change_state(model.Job.states.ERROR)
                         job_wrapper.fail("Job Splitting failed for clustering interface missing splitter and merger")
-                        return
+                       # return
+                        tasks = parallelism.do_split(job_wrapper,splitting_method)
                 else:    
                     try:
                     #######TODO EITHER WORK WITH THEIR CODE OR MOVE ON
@@ -157,7 +161,10 @@ class TaskedJobRunner( object ):
                 import time
                 job_wrapper.reclaim_ownership()      # if running as the actual user, change ownership before merging.
                 log.debug('execution finished - beginning merge: %s' % command_line)
-                stdout,  stderr = splitter.do_merge(job_wrapper,  task_wrappers)
+                if self.app.config.enable_clustering_interface:
+                    log.debug('merging with clustering interface')
+                else:
+                    stdout,  stderr = splitter.do_merge(job_wrapper,  task_wrappers)
             except Exception:
                 job_wrapper.fail( "failure running job", exception=True )
                 log.exception("failure running job %d" % job_wrapper.job_id)
