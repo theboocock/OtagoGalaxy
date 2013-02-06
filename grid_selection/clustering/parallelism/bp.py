@@ -6,7 +6,9 @@
 
 """
 
+import logging
 
+log = logging.getLogger(__name__)
 
 class BasePair(object):
 
@@ -29,12 +31,27 @@ class Vcf(BasePair):
 
     """Performs the splitting on a basepair region"""
     def do_split(self, start, end):
+        
         return 1
 
     def do_merge(self, start, end):
         return 1
-    def get_intervals(self, fname):
-        return 1
+    def get_interval(self, fname):
+        interval=""
+        #We can do this because we know a vcf file is not a composite datatype
+        with open(fname, 'r') as vcf:
+            line = vcf.readline()
+            while("#" in line):
+                line=vcf.readline()
+            i=0 
+            for line in vcf:
+                if (i == 0):
+                    line=line.split()
+                    interval += line[1]
+                i = i + 1
 
+            interval+="-"
+            interval+=line.split()[1]
+        return interval
 
 #class Shapeit(BasePair):
