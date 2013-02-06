@@ -8,7 +8,7 @@
     <tools>
         <tool id="merge_vcfs">
             <input_datatypes>
-                <datatype format="vcf" splitter="vcf" merger="vcf"/>
+                <datatype format="vcf" splitter="Vcf" merger="Vcf"/>
             </input_datatypes>
         </tool>
     </tools>

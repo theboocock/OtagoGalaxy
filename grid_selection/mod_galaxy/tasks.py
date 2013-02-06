@@ -9,7 +9,7 @@ import os, errno
 from time import sleep
 
 from galaxy.jobs import TaskWrapper
-from galaxy.jobs.clustering.parallelism.parallelism import Parallelism
+from galaxy.jobs.clustering.parallelism import Parallelism
 
 log = logging.getLogger( __name__ )
 
@@ -85,7 +85,7 @@ class TaskedJobRunner( object ):
                         log.debug(splitters)
                         log.debug(mergers)
                         splitting_method = clustering_interface.get_ui_reader().get_splitting_options(job_wrapper.job_id)
-                        parallelism = Parallelism(splitters,mergers)
+                        parallelism = Parallelism(self.app,splitters,mergers,job_wrapper)
 
 
                     #splitter = getattr(__import__('
@@ -103,7 +103,7 @@ class TaskedJobRunner( object ):
                         job_wrapper.change_state( model.Job.states.ERROR )
                         job_wrapper.fail("Job Splitting Failed, no match for '%s'" % job_wrapper.tool.parallelism)
                         return
-                    tasks = splitter.do_split(job_wrapper)
+                    tasks = splitter.do_split()
                 
                 # Not an option for now.  Task objects don't *do* anything 
                 # useful yet, but we'll want them tracked outside this thread 
