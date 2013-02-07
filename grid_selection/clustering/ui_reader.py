@@ -34,7 +34,7 @@ class UiReader(object):
         return True
        
     def get_splitting_options(self, job_id):
-        return ['2000','bp']
+        return ['200000','bp']
     
     def shutdown( self):
         """Attempts to gracefully shutdown the monitor thread"""

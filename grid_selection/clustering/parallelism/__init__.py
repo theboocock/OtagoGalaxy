@@ -29,7 +29,7 @@ class Parallelism( object ):
         self.bases = {}
         self.bases ['mb'] = 1000000
         self.bases ['kb'] = 1000
-        self.bases ['b']  =1
+        self.bases ['bp']  =1
         self.base_pair_split = False
         self.simple_split = False
         self.app = app
@@ -67,21 +67,25 @@ class Parallelism( object ):
                 splitter_modules[dataset] = splitter_class(self.job_wrapper)
                 fname = self.job_wrapper.get_input_dataset_fnames(dataset)
                 intervals.append(splitter_modules[dataset].get_interval(fname[0]))
-               
-            min = intervals.split('-')[0]
-            max = intervals.split('-')[1]
-            for interval in intervals:
-                if interval.split('-')[0] < min:
-                    min = interval.split('-')[0]
-                if interval.split('-')[1] > max:
-                    max = interval.split('-')[1]
-            distance=max - min
-            no_divisions=distance / self.bases[split_method]
-            log.debug(no_divisions)
-            log.debug(distance)
-
+            #Get the intervals so we can calculate the number of directories#   
             log.debug("Trying to split by base pairs")
+            setter = dataset
+            #create the maximum amount of task dirs
+            task_dirs = splitter_modules[setter].get_directories(intervals,splitting_method, working_dir)
+            log.debug(task_dirs)
+            #Set all the set all the global variables for each of the datasets.
+            for data_set, splitter_class in splitter_modules.items():
+                #set distance and no_divisions
+                splitter_class.set_split_pars(splitter_modules[setter].distance,splitter_modules[setter].no_divisions)
+                try:
+                    splitter_class.do_split(data_set,task_dirs)
+                except AttributeError:
+                    log_error ="The type '%s' does no define a method for splitting files" % str(input_type)
+                    log.error(log_error)
+            return tasks
+
         elif split_method == 'simple': 
+            # Simple split method NOT IMPLEMENTED #
             self.simple_split = True
             log.debug("Trying to split simply")
         
