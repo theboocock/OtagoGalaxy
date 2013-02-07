@@ -10,7 +10,6 @@
 import logging
 import math
 import os
-
 #For the creation of the tasks
 from galaxy import model
 
@@ -27,23 +26,26 @@ class BasePair(object):
         self.tool_wrapper= tool_wrapper
         self.no_divisions = 0
         self.distance = 0
+        self.min = 0
+        self.max = 0
+        self.bases_per_split = 0
 
     def get_directories(self,intervals,splitting_method,working_dir):
-        min = intervals[0].split('-')[0]
-        max = intervals[0].split('-')[1]
+        self.min = int(intervals[0].split('-')[0])
+        self.max = int(intervals[0].split('-')[1])
         for interval in intervals:
-            if interval.split('-')[0] < min:
-                min = interval.split('-')[0]
-            if interval.split('-')[1] > max:
-                max = interval.split('-')[1]
-        log.debug("max: " + max + " min: " + min)
-        self.distance=int(max) - int(min)
+            if int(interval.split('-')[0]) < self.min:
+                self.min = int(interval.split('-')[0])
+            if interval.split('-')[1] > self.max:
+                self.max = int(interval.split('-')[1])
+        self.distance=int(self.max) - int(self.min)
         #Calculates the number of Directories required
-        log.debug(self.bases)
-        log.debug(self.distance)
+        #log.debug(self.bases)
+        #log.debug(self.distance)
         self.no_divisions= int(math.ceil(self.distance / (float(self.bases[splitting_method[1]]) * float(splitting_method[0]))))
-        log.debug(self.no_divisions)
-        log.debug(self.distance)
+        self.bases_per_split = int(splitting_method[0]) * int(self.bases[splitting_method[1]])
+        #log.debug(self.no_divisions)
+        #log.debug(self.distance)
         task_dirs = []
         for i in range(0,self.no_divisions):
             dir=os.path.join(working_dir, 'task_%d' %i)
@@ -54,9 +56,12 @@ class BasePair(object):
         log.debug("get_directories created %d folders" % i)
         return task_dirs
 
-    def set_split_pairs(self, distance, no_divisions):
+    def set_split_pairs(self, distance, no_divisions, max, min,bases_per_split):
         self.distance = distance
         self.no_divisions = no_divisions
+        self.max = max
+        self.min = min
+        self.bases_per_split = bases_per_split
             
 
 
@@ -66,11 +71,48 @@ class Vcf(BasePair):
         BasePair.__init__(self, tool_wrapper)
 
     """Performs the splitting on a basepair region"""
-    def do_split(self, start, end):
-        
-        return 1
+    def do_split(self, dataset, task_dirs):
+        #Get the start of the region
+        start = self.min
+        max_region = self.min + self.bases_per_split
+        log.debug(str(self.min)  + "     " + str(self.bases_per_split))
+        #Get the file_name
+        fname = self.tool_wrapper.get_input_dataset_fnames(dataset)
+        with open(fname[0], 'r') as f:
+            try:
+                header = ""
+                line = f.readline()
+                while ("#" in line):
+                    header += line
+                    line= f.readline()
+                for value in task_dirs:
+                    part_dir = value
+                    part_path= os.path.join(part_dir, os.path.basename(fname[0]))
+                    part_file = open(part_path, 'w')
+                    check_pos = line.split()
+                    check_pos = int(check_pos[1])
+                    part_file.write(header)
+                    #log.debug("max region: " + str(max_region))
+                    #log.debug("check_pos: " + str(check_pos))
+                    while (check_pos < max_region):
+                        part_file.write(line)
+                        line = f.readline()
+                        # Should break on the final iteration
+                        if not line:
+                            break
+                        check_pos = line.split()
+                        check_pos = int(check_pos[1])
+                    max_region = max_region  + self.bases_per_split
+                    if not line:
+                        break
+                    if part_file is not None:
+                        part_file.close()
+            except Exception, e:
+                    log.error("Unable to split files: %s" % str(e))
+                    if part_file is not None:
+                        part_file.close()
 
-    def do_merge(self, start, end):
+    def do_merge(self, datasets, task_dirs):
         return 1
     def get_interval(self, fname):
         interval=""

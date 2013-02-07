@@ -22,11 +22,22 @@ class UiReader(object):
 #        self.monitor_thread =threading.Thread ( name="UiReader.monitor_thread" target=self.__monitor()
  #       self.monitor_thread.start()
         
-
+        self.create_tasks = {}
             
 
     def get_grid(self,job_id):
+
+
         return self.grids['local']
+    
+    def create_task(self, job_id):
+        if job_id not in self.create_tasks:
+            self.create_tasks[job_id] = False
+            return True
+        else:
+            return self.create_tasks[job_id]
+
+
 
     def is_parralel(self,job_id):
         #Read options from screen when job is run

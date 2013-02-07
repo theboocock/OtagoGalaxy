@@ -37,7 +37,8 @@ class ToolRun(object):
         #Check to make sure we have enabled tasked jobs
         if self.ui_reader.is_parralel(self.job_id) and not self.app.config.use_tasked_jobs:
             raise Exception, "Use tasked jobs needs to be set to true in your universe config to use parralelism options"
-        if self.ui_reader.is_parralel(self.job_id):
+        log.debug(self.job_id)
+        if self.ui_reader.create_task(self.job_id):
             """ Do all the parralelism here """
             log.debug("Job Running in parralel")
             #Requires tasks be enabled in galaxy otherwise the job dispatcher wont start#
@@ -54,21 +55,22 @@ class ToolRun(object):
         elif self.grid_to_run_on is "local" or self.grid_to_run_on is "lwr":
             #Do local and lwr preparation here # 
 
+            log.debug("BLAH")
             #in this case the runner name and the job runner name are the same thing #
             # This means grid id cannot be local or lwr #
             self.runner_name =  self.grid_to_run_on
             log.debug(self.runner_name + " " + self.command_line)
             log.debug("Skipping over interface user Selecter local or lwr runner")
         else:
-            try: 
-                self.grids[self.grid_to_run_on].get_grid_runner() 
+            try:
+                self.runner_name= self.grid_to_run_on.get_grid_runner() 
             #Do grid preparation here#
                 log.debug(self.grid_to_run_on)
                 log.debug(self.runner_name + " " + self.command_line)
-                self.fake_galaxy_dir = grid.prepare_paths(job_wrapper.get_job().tool_id)
-                grid.prepare_datatypes(job_wrapper)
+                #self.fake_galaxy_dir = grid.prepare_paths(job_wrapper.get_job().tool_id)
+                #grid.prepare_datatypes(job_wrapper)
             except:
-                log.debug("Could not get a grid runner forgrid: " + self.grid_to_run_on)
+                log.debug("Could not get a grid runner for grid: " + str(self.grid_to_run_on))
     
 
     def get_grid_runners(self):

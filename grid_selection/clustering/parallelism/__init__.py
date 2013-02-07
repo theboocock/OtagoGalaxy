@@ -13,6 +13,8 @@ import os
 import logging
 #from bp import BasePairSplit
 #from simple import SimpleSplit
+
+from galaxy import model
 import bp, simple
 from sqlalchemy.sql.expression import and_, or_, select, func
 
@@ -22,7 +24,7 @@ BASE_PAIR_SPLITS = ['bp','kb','mb']
 class Parallelism( object ):
     
 
-    def __init__(self,app,splitters,mergers, job_wrapper):
+    def __init__(self,app,splitters,mergers,outputs, job_wrapper, outputs):
         """ Initalises the splitting methods"""
         self.splitters = splitters
         self.mergers = mergers
@@ -34,6 +36,7 @@ class Parallelism( object ):
         self.simple_split = False
         self.app = app
         self.splitting_datasets= {}
+        self.outputs = outputs
         self.sa_session = app.model.context
         self.job_wrapper = job_wrapper
         #self.input_fnames_formats = get_input_formats(job_wrapper.get_input_fnames())
@@ -69,19 +72,27 @@ class Parallelism( object ):
                 intervals.append(splitter_modules[dataset].get_interval(fname[0]))
             #Get the intervals so we can calculate the number of directories#   
             log.debug("Trying to split by base pairs")
+            #Need to set the splitting values across all the files
+            #incase of empty split regions the header will be appended to the file
+            # This should not effect vcf tools
             setter = dataset
             #create the maximum amount of task dirs
             task_dirs = splitter_modules[setter].get_directories(intervals,splitting_method, working_dir)
             log.debug(task_dirs)
+            tasks = []
             #Set all the set all the global variables for each of the datasets.
             for data_set, splitter_class in splitter_modules.items():
                 #set distance and no_divisions
-                splitter_class.set_split_pars(splitter_modules[setter].distance,splitter_modules[setter].no_divisions)
-                try:
-                    splitter_class.do_split(data_set,task_dirs)
-                except AttributeError:
-                    log_error ="The type '%s' does no define a method for splitting files" % str(input_type)
-                    log.error(log_error)
+                splitter_class.set_split_pairs(splitter_modules[setter].distance,splitter_modules[setter].no_divisions, splitter_modules[setter].max, splitter_modules[setter].min, splitter_modules[setter].bases_per_split)
+                #try:
+                splitter_class.do_split(data_set,task_dirs)
+                #except AttributeError:
+                #log_error ="The data_set '%s' does no define a method for splitting files" % str(data_set)
+                #log.error(log_error)
+
+            for dir in task_dirs:
+                task= model.Task(parent_job,dir,None)
+                tasks.append(task)
             return tasks
 
         elif split_method == 'simple': 
@@ -90,16 +101,46 @@ class Parallelism( object ):
             log.debug("Trying to split simply")
         
 
-    def get_input_formats(self, fnames):
-        """ Query database to get the input format for the dataset """
-        """ I know they are just stored as simple datasets with the ability to
-         change dataformat based on each users history but for now merely querying the database
-         and asking for the formats will really help the case we have """
-        data_format_queury = self.sa_session.query(model.HistoryDatasetAssociation).enable_eagerloads(False) 
-        #### DO DATABASE QUERY YOU CAN DO IT ####
-        log.debug(data_format_queury)
+    #def get_input_formats(self, fnames):
+    #    """ Query database to get the input format for the dataset """
+    #    """ I know they are just stored as simple datasets with the ability to
+    #     change dataformat based on each users history but for now merely querying the database
+    #     and asking for the formats will really help the case we have """
+    #    data_format_queury = self.sa_session.query(model.HistoryDatasetAssociation).enable_eagerloads(False) 
+    #    #### DO DATABASE QUERY YOU CAN DO IT ####
+    #    log.debug(data_format_queury)
 
 
 
-    def do_merge(self, job_wrapper):
+    def do_merge(self, job_wrapper, task_wrappers):
+        try:
+            working_directory = job_wrapper.working_directory
+            task_dirs = [os.path.join(working_directory, x) for x in os.listdir(working_directory) if x.startswith('task_')]
+            assert task_dirs, "There should be atleast one sub-task"
+            parent_job = job_wrapper.get_job()
+            #Get output dataset.
+            outputs_datasets = parent_job.output_datasets
+            #For now matching format with output. So vcf is merged using vcf merger.
+            #Takes all the files and does the merge
+
+            #Matches datasets by format for now so all outputs with the same fname as the original
+            #input are concatenated into a new file.
+            #skip every thing else unless it matches
+            outputs = job_wrapper.g()
+            for output in outputs:
+                log.debug(output.dataset.ext)
+            task_dirs.sort(key = lambda x: int(x.split('task_')[-1]))
+            for outputs in self.outputs:
+                log.debug(output_names)               
+                outputs = [os.path.join(dir, base_output_name) for dir in task_dirs]
+                output_files = [f for f in output_files if os.path.exists(f)
+                if output_files:
+                    log.debug("files %s " % output_files)
+                            
+
+
+
+
+
+        
        return 1 
