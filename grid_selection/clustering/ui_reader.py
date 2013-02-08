@@ -21,7 +21,8 @@ class UiReader(object):
         self.monitored_jobs=[]
 #        self.monitor_thread =threading.Thread ( name="UiReader.monitor_thread" target=self.__monitor()
  #       self.monitor_thread.start()
-        
+       
+        self.ui_objects = {}
         self.create_tasks = {}
             
 
