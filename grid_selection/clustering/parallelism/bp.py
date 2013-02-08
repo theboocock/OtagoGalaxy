@@ -112,8 +112,26 @@ class Vcf(BasePair):
                     if part_file is not None:
                         part_file.close()
 
-    def do_merge(self, datasets, task_dirs):
-        return 1
+    def do_merge(self, dataset, task_dirs):
+        header = ''
+        fname = self.tool_wrapper.get_input_dataset_fnames(dataset.dataset)
+        log.debug(fname)
+        read_header = True
+        base_name=os.path.basename(fname[0])
+        with open(fname[0],'w') as out:
+            for task_dir in task_dirs:
+                list_dir = os.listdir(task_dir)
+                for files in list_dir:
+                    if files == base_name:
+                        with open(os.path.join(task_dir,files), 'r') as part_file:
+                            for line in part_file:
+                                if(read_header == True and "#" in line):
+                                    out.write(line)
+                                elif not "#" in line:
+                                    out.write(line)
+                    read_header = False
+        log.debug("merging_vcfs")
+                
     def get_interval(self, fname):
         interval=""
         #We can do this because we know a vcf file is not a composite datatype

@@ -24,7 +24,7 @@ BASE_PAIR_SPLITS = ['bp','kb','mb']
 class Parallelism( object ):
     
 
-    def __init__(self,app,splitters,mergers,outputs, job_wrapper, outputs):
+    def __init__(self,app,splitters,mergers,outputs, job_wrapper):
         """ Initalises the splitting methods"""
         self.splitters = splitters
         self.mergers = mergers
@@ -36,9 +36,11 @@ class Parallelism( object ):
         self.simple_split = False
         self.app = app
         self.splitting_datasets= {}
-        self.outputs = outputs
+        self.merging_datasets = {}
+        self.output_names= outputs
         self.sa_session = app.model.context
         self.job_wrapper = job_wrapper
+        self.splitting_method = []
         #self.input_fnames_formats = get_input_formats(job_wrapper.get_input_fnames())
 
     def do_split(self, job_wrapper,splitting_method):
@@ -48,7 +50,7 @@ class Parallelism( object ):
         fnames = job_wrapper.get_input_fnames()
         split_method = splitting_method[1]
         #TODO DEAL WITH NEW DATASETS THAT ARE NOT TO BE SPLIT
-
+        self.splitting_method = splitting_method
         #Create a list of splitting modules if there are multiple input formats 
         # it should be fine also shared datasets will also work
         # but not right now
@@ -66,19 +68,25 @@ class Parallelism( object ):
             for dataset, splitter in self.splitting_datasets.items():
                 log.debug(dataset)
                 log.debug(splitter)
-                splitter_class = getattr(bp,splitter)
-                splitter_modules[dataset] = splitter_class(self.job_wrapper)
-                fname = self.job_wrapper.get_input_dataset_fnames(dataset)
-                intervals.append(splitter_modules[dataset].get_interval(fname[0]))
+                try:
+                    splitter_class = getattr(bp,splitter)
+                    splitter_modules[dataset] = splitter_class(self.job_wrapper)
+                    fname = self.job_wrapper.get_input_dataset_fnames(dataset)
+                    intervals.append(splitter_modules[dataset].get_interval(fname[0]))
+                except:
+                    log.exception("Could not find the splitter class for the filetype")
+                    
             #Get the intervals so we can calculate the number of directories#   
             log.debug("Trying to split by base pairs")
             #Need to set the splitting values across all the files
+
             #incase of empty split regions the header will be appended to the file
             # This should not effect vcf tools
             setter = dataset
             #create the maximum amount of task dirs
             task_dirs = splitter_modules[setter].get_directories(intervals,splitting_method, working_dir)
             log.debug(task_dirs)
+
             tasks = []
             #Set all the set all the global variables for each of the datasets.
             for data_set, splitter_class in splitter_modules.items():
@@ -114,33 +122,49 @@ class Parallelism( object ):
 
     def do_merge(self, job_wrapper, task_wrappers):
         try:
+            stdout= ''
+            stderr= ''
             working_directory = job_wrapper.working_directory
             task_dirs = [os.path.join(working_directory, x) for x in os.listdir(working_directory) if x.startswith('task_')]
             assert task_dirs, "There should be atleast one sub-task"
             parent_job = job_wrapper.get_job()
             #Get output dataset.
-            outputs_datasets = parent_job.output_datasets
+            output_datasets = parent_job.output_datasets
             #For now matching format with output. So vcf is merged using vcf merger.
             #Takes all the files and does the merge
 
+            for output in parent_job.output_datasets:
+                log.debug(output.name)
+                #Get the splitters based on the output name
+                self.merging_datasets[output] = self.output_names[output.name]
+            log.debug(self.merging_datasets)
             #Matches datasets by format for now so all outputs with the same fname as the original
             #input are concatenated into a new file.
             #skip every thing else unless it matches
-            outputs = job_wrapper.g()
-            for output in outputs:
-                log.debug(output.dataset.ext)
+            log.debug(self.output_names)
+            log.debug(output_datasets)
+            merger_modules={}
             task_dirs.sort(key = lambda x: int(x.split('task_')[-1]))
-            for outputs in self.outputs:
-                log.debug(output_names)               
-                outputs = [os.path.join(dir, base_output_name) for dir in task_dirs]
-                output_files = [f for f in output_files if os.path.exists(f)
-                if output_files:
-                    log.debug("files %s " % output_files)
-                            
+            if self.splitting_method[1] in BASE_PAIR_SPLITS:
+                for dataset, merger in self.merging_datasets.items():
+                    merger_class = getattr(bp, merger)
+                    merger_modules[output] = merger_class(self.job_wrapper)
+                    merger_modules[output].do_merge(dataset,task_dirs)
+                    
+            elif self.splitting_method[1] == "simple":
+                log.debug("Doing a simple merge")
 
+        except Exception, e:
+            stdout = "Error Merging Files"
+            log.exception(stdout)
+            stderr=str(e)     
 
-
-
-
+        for tw in task_wrappers:
+            out = tw.get_task().stdout.strip()
+            err = tw.get_task().stderr.strip()
+            if len(out) > 0:
+                stdout += '\n' + tw.working_directory + '\n' + out
+            if len(err) > 0:
+                stderr =+ '\n' + tw.working_directory + '\n' + err
+        return (stdout,stderr)
         
-       return 1 

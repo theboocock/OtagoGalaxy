@@ -8,7 +8,7 @@
     <tools>
         <tool id="merge_vcfs">
             <input_datatypes>
-                <datatype format="vcf" splitter="Vcf" merger="Vcf"/>
+                <datatype format="vcf" splitter="Vcf" merger="Vcf" output_name="output"/>
             </input_datatypes>
         </tool>
     </tools>
@@ -37,8 +37,8 @@
             <!-- For multiple input possiblities define seperate splitters -->
             <!-- Most galaxy tools will only have one splitter format -->
             <input_datatypes>
-                <datatype format="gtool" splitter="gtool" merger="impute2"/>
-                <datatype format="shapeit" splitter="shapeit" merger="impute2"/>
+                <datatype format="gtool" splitter="gtool" merger="impute2" output_name="output"/>
+                <datatype format="shapeit" splitter="shapeit" merger="impute2" output_name="output"/>
             </input_datatypes>
         <tool id="create_interval" default_run="True"/>
             

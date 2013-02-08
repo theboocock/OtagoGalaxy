@@ -82,17 +82,19 @@ class TaskedJobRunner( object ):
                         tool = grid.get_tool_by_id(job_wrapper.get_job().tool_id)
                         splitters = tool.get_splitters_by_format()
                         mergers = tool.get_mergers_by_format()
+                        outputs = tool.get_output_names_by_merger()
                         log.debug(splitters)
                         log.debug(mergers)
+                        log.debug(outputs)
                         splitting_method = clustering_interface.get_ui_reader().get_splitting_options(job_wrapper.job_id)
-                        parallelism = Parallelism(self.app,splitters,mergers,job_wrapper)
+                        parallelism = Parallelism(self.app,splitters,mergers, outputs, job_wrapper)
 
 
                     #splitter = getattr(__import__('
                     #Do my own splitting
                     #except: 
-                        job_wrapper.change_state(model.Job.states.ERROR)
-                        job_wrapper.fail("Job Splitting failed for clustering interface missing splitter and merger")
+                        #job_wrapper.change_state(model.Job.states.ERROR)
+                        #job_wrapper.fail("Job Splitting failed for clustering interface missing splitter and merger")
                        # return
                         tasks = parallelism.do_split(job_wrapper,splitting_method)
                 else:    
@@ -120,7 +122,7 @@ class TaskedJobRunner( object ):
                     self.app.job_manager.job_handler.dispatcher.put(tw)
                 tasks_complete = False
                 count_complete = 0
-                sleep_time = 1
+                sleep_time = 2
                 # sleep/loop until no more progress can be made. That is when
                 # all tasks are one of { OK, ERROR, DELETED }. If a task  
                 completed_states = [ model.Task.states.OK, \
@@ -162,6 +164,7 @@ class TaskedJobRunner( object ):
                 job_wrapper.reclaim_ownership()      # if running as the actual user, change ownership before merging.
                 log.debug('execution finished - beginning merge: %s' % command_line)
                 if self.app.config.enable_clustering_interface:
+                    stdout, stderr = parallelism.do_merge(job_wrapper, task_wrappers)
                     log.debug('merging with clustering interface')
                 else:
                     stdout,  stderr = splitter.do_merge(job_wrapper,  task_wrappers)
