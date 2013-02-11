@@ -13,7 +13,6 @@ import logging
 import util
 from grid import Grid
 from tool_run import ToolRun
-from job_controller import ToolRun
 from ui_reader import UiReader
 from elementtree import ElementTree
 

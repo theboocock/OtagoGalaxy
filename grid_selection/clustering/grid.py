@@ -183,6 +183,11 @@ class Grid(object):
     """Accessors"""
     def get_tool_by_id(self, tool_id):
         return self.grid_tools[tool_id]
+    def has_tool(self,tool_id):
+        if tool_id in self.grid_tools:
+            return True
+        else:
+            return False
     def get_grid_runner(self):
         return self.runner
     def get_galaxy_default_runner_url(self):
@@ -191,7 +196,5 @@ class Grid(object):
         return self.queues
     def get_galaxy_options(self):
         return self.galaxy_options
-    def run_all_tools(self):
-        return self.run_all_tools
     def get_grid_name(self):
         return self.name
