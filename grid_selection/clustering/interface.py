@@ -13,6 +13,7 @@ import logging
 import util
 from grid import Grid
 from tool_run import ToolRun
+from job_controller import ToolRun
 from ui_reader import UiReader
 from elementtree import ElementTree
 
@@ -54,6 +55,7 @@ class ClusteringInterface(object):
         try:
             tool_run = ToolRun(self.app, job_wrapper,self.grids_by_id,self.ui_reader) 
             runner_name = tool_run.get_runner_name()
+            self.ui_con
             # If the grid is local or lwr we wont have a grid
             # Object so the tool should continue to
             # Run as if nothing has changed.
@@ -74,6 +76,9 @@ class ClusteringInterface(object):
         """ Prints out all the avaliable grids """
         for grid in self.grids_by_id:
             print grid.name
+
+    def get_grids(self):
+        return self.grids_by_id
     
     def generate_avaliable_grids(self):
         """ Gets all the avaliabe grids """

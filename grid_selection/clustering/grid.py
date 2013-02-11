@@ -191,7 +191,7 @@ class Grid(object):
         return self.queues
     def get_galaxy_options(self):
         return self.galaxy_options
-    def check_tool_is_avaliable(self):
+    def run_all_tools(self):
         return self.run_all_tools
     def get_grid_name(self):
         return self.name

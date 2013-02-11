@@ -11,6 +11,11 @@
                 <datatype format="vcf" splitter="Vcf" merger="Vcf" output_name="output"/>
             </input_datatypes>
         </tool>
+        <tool id="select_samples">
+            <input_datatypes>
+                <datatype format="vcf" splitter="Vcf" merger="Vcf" output_name="output"/>
+            </input_datatypes>
+        </tool>
     </tools>
 </grid>
 

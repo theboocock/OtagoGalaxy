@@ -440,7 +440,8 @@ class DefaultJobDispatcher( object ):
         for name in start_job_runners:
             self._load_plugin( name )
         log.debug( "Job runners: " + ':'.join( start_job_runners ) )
-        self.clustering_interface= galaxy.jobs.clustering.interface.ClusteringInterface(app,self.job_runners,'grid_conf.xml')
+        if self.app.config.enable_clustering_interface:
+            self.clustering_interface= galaxy.jobs.clustering.interface.ClusteringInterface(app,self.job_runners,'grid_conf.xml')
 
     def _load_plugin( self, name ):
         module_name = 'galaxy.jobs.runners.' + name

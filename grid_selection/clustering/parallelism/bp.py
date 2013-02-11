@@ -10,6 +10,7 @@
 import logging
 import math
 import os
+import time
 #For the creation of the tasks
 from galaxy import model
 
@@ -122,6 +123,7 @@ class Vcf(BasePair):
             for task_dir in task_dirs:
                 list_dir = os.listdir(task_dir)
                 for files in list_dir:
+                    log.debug(base_name)
                     if files == base_name:
                         with open(os.path.join(task_dir,files), 'r') as part_file:
                             for line in part_file:
@@ -129,8 +131,7 @@ class Vcf(BasePair):
                                     out.write(line)
                                 elif not "#" in line:
                                     out.write(line)
-                    read_header = False
-        log.debug("merging_vcfs")
+                read_header = True
                 
     def get_interval(self, fname):
         interval=""

@@ -23,7 +23,15 @@ class UiReader(object):
  #       self.monitor_thread.start()
        
         self.ui_objects = {}
-        self.create_tasks = {}
+        self.create_tasks = []
+        self.job_options = {}
+
+    def put(self,job_id, job_options):
+        self.job_options[job_id] = job_options
+
+    def delete(self,job_id):
+        del self.job_options[job_id]
+        self.create_tasks.remove(job_id)
             
 
     def get_grid(self,job_id):
@@ -33,11 +41,11 @@ class UiReader(object):
     
     def create_task(self, job_id):
         if job_id not in self.create_tasks:
-            self.create_tasks[job_id] = False
-            return True
+                if job_id[job_id].get_parralelism().is_parralel():
+                    self.create_tasks.append(job_id)
+                    return True
         else:
-            return self.create_tasks[job_id]
-
+            return False
 
 
     def is_parralel(self,job_id):
