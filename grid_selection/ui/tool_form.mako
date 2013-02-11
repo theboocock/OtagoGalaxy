@@ -336,29 +336,33 @@
     </form>
 </div>
 %if app.config.enable_clustering_interface:
-    <%def name="get_option ( tool_id )  ">
+    <%def name="get_options( tool_id )  ">
     <%
         clustering_interface = app.job_manager.job_handler.dispatcher.clustering_interface
         grids = clustering_interface.get_grids()
         display_grids = {}
         for id, grid in grids.items():
-            if grid.run_all_tools():
+            if grid.run_all_tools:
                 display_grids[id] = grid.get_grid_name()
-            elif grid.get_tools_by_id(tool_id):
+            elif grid.has_tool(tool_id):
                 display_grids[id] = grid.get_grid_name()
                 
     %>
+       <div class="form-row">
+       <label for=${name}>Avaliable Grids</label>
+       <ul>
         %for id, name in display_grids.items():
-            <div class="form-row">
-                <input type="submit" class="btn btn-primary" name="${name}" value="${id}"/>   
-            </div>
-
+                <input type="submit" class="btn btn-primary" name="${id}" value="${name}"/>   
+        
+        %endfor
+        </ul>
         <div style="clear: both;"></div>
+        </div>
     </%def>
     <div class="toolFormBody">
-        ${get_options(tool_id)}
+        ${get_options(tool.id)}
     </div>
-%end if
+%endif
 %if tool.help:
     <div class="toolHelp">
         <div class="toolHelpBody">
