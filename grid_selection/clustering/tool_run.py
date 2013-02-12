@@ -37,8 +37,8 @@ class ToolRun(object):
         #Check to make sure we have enabled tasked jobs
         if self.ui_reader.is_parralel(self.job_id) and not self.app.config.use_tasked_jobs:
             raise Exception, "Use tasked jobs needs to be set to true in your universe config to use parralelism options"
-        log.debug(self.job_id)
-        if self.ui_reader.create_task(self.job_id):
+        result = self.ui_reader.create_task(self.job_id) 
+        if result:
             """ Do all the parralelism here """
             log.debug("Job Running in parralel")
             #Requires tasks be enabled in galaxy otherwise the job dispatcher wont start#

@@ -165,6 +165,6 @@ class Parallelism( object ):
             if len(out) > 0:
                 stdout += '\n' + tw.working_directory + '\n' + out
             if len(err) > 0:
-                stderr =+ '\n' + tw.working_directory + '\n' + err
+                stderr += '\n' + tw.working_directory + '\n' + err
         return (stdout,stderr)
         

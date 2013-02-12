@@ -7,7 +7,8 @@ import os
 import sys
 import logging
 import threading
-
+from job_options import JobOptions
+from job_options import ParralelismOptions
 
 log = logging.getLogger(__name__)
 
@@ -20,8 +21,7 @@ class UiReader(object):
         self.grids=grids
         self.monitored_jobs=[]
 #        self.monitor_thread =threading.Thread ( name="UiReader.monitor_thread" target=self.__monitor()
- #       self.monitor_thread.start()
-       
+ #       self.monitor_thread.start() 
         self.ui_objects = {}
         self.create_tasks = []
         self.job_options = {}
@@ -37,11 +37,13 @@ class UiReader(object):
     def get_grid(self,job_id):
 
 
-        return self.grids['local']
+        return self.grids['nesi0']
     
     def create_task(self, job_id):
+        log.debug(str(job_id) + "  = Job id "  + " Parralelism = " )
+        self.job_options[job_id]= JobOptions(self.app, self.get_splitting_options(1),None,None)
         if job_id not in self.create_tasks:
-                if job_id[job_id].get_parralelism().is_parralel():
+                if self.job_options[job_id].get_parralelism().is_parralel():
                     self.create_tasks.append(job_id)
                     return True
         else:
@@ -54,7 +56,7 @@ class UiReader(object):
         return True
        
     def get_splitting_options(self, job_id):
-        return ['200000','bp']
+        return ['800000','bp']
     
     def shutdown( self):
         """Attempts to gracefully shutdown the monitor thread"""

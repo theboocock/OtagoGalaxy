@@ -10,24 +10,29 @@
 
 """
 
+import sys
+import logging
+
+log = logging.getLogger(__name__)
+
 class ParralelismOptions(object):
     
     def __init__(self,app,parralelism):
         self.app = app
-        is_parrelel = False
-        splitting_number = 0
-        splitting_type = ''
-        parse_parralelism(parralelism)
-
+        self.is_parralel_var = False
+        self.splitting_number = 0
+        self.splitting_type = ''
+        self.parse_parralelism(parralelism)
+        log.debug(parralelism)
 
     def parse_parralelism(self,parralelism):
         if parralelism is not None:
-            is_parrelel = True
-            splitting_type =parralelism[1]
-            splitting_number= parralelism[0]
+            self.is_parralel_var = True
+            self.splitting_type =parralelism[1]
+            self.splitting_number= parralelism[0]
 
-    def is_parrelel(self):
-        return self.is_parrelel
+    def is_parralel(self):
+        return self.is_parralel_var
     def get_splitting_type(self):
         return self.splitting_type
     def get_splitting_number(self):

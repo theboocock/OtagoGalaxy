@@ -188,6 +188,11 @@ class Grid(object):
             return True
         else:
             return False
+    def has_galaxy_options(self):
+        if len(self.galaxy_options) > 0:
+            return True
+        else: 
+            return False
     def get_grid_runner(self):
         return self.runner
     def get_galaxy_default_runner_url(self):

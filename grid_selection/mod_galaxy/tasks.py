@@ -75,7 +75,8 @@ class TaskedJobRunner( object ):
                 self.sa_session.flush()
                 # Split with the tool-defined method.
                 if self.app.config.enable_clustering_interface:
-                    #try:
+                    try:
+                        #Interface with the clustering interface
                         clustering_interface = self.app.job_manager.job_handler.dispatcher.clustering_interface
                         grid = clustering_interface.get_ui_reader().get_grid(job_wrapper.job_id)
                         log.debug(job_wrapper.get_job().tool_id)
@@ -92,11 +93,11 @@ class TaskedJobRunner( object ):
 
                     #splitter = getattr(__import__('
                     #Do my own splitting
-                    #except: 
-                        #job_wrapper.change_state(model.Job.states.ERROR)
-                        #job_wrapper.fail("Job Splitting failed for clustering interface missing splitter and merger")
-                       # return
-                        tasks = parallelism.do_split(job_wrapper,splitting_method)
+                    except: 
+                        job_wrapper.change_state(model.Job.states.ERROR)
+                        job_wrapper.fail("Job Splitting failed for clustering interface missing splitter and merger")
+                        return
+                    tasks = parallelism.do_split(job_wrapper,splitting_method)
                 else:    
                     try:
                     #######TODO EITHER WORK WITH THEIR CODE OR MOVE ON
@@ -144,6 +145,7 @@ class TaskedJobRunner( object ):
                     tasks_complete = True
                     for tw in task_wrappers:
                         task_state = tw.get_state()
+                        log.debug(task_state)
                         if ( model.Task.states.ERROR == task_state ):
                             job_exit_code = tw.get_exit_code()
                             log.debug( "Canceling job %d: Task %s returned an error"

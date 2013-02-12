@@ -341,27 +341,32 @@
         clustering_interface = app.job_manager.job_handler.dispatcher.clustering_interface
         grids = clustering_interface.get_grids()
         display_grids = {}
+        options_for_grid = {}
         for id, grid in grids.items():
             if grid.run_all_tools:
                 display_grids[id] = grid.get_grid_name()
             elif grid.has_tool(tool_id):
                 display_grids[id] = grid.get_grid_name()
+        for id, grid in grids.items():
+            if grid.has_galaxy_options():
+                options_for_grid[id] = grid.get_galaxy_options()
+
                 
     %>
        <div class="form-row">
-       <label for=${name}>Avaliable Grids</label>
-       <ul>
+       <label for="grids">Avaliable Grids</label>
+       <select name="grids">
         %for id, name in display_grids.items():
-                <input type="submit" class="btn btn-primary" name="${id}" value="${name}"/>   
-        
+                <option value="id">${name}</option> 
         %endfor
-        </ul>
+        </select>
         <div style="clear: both;"></div>
         </div>
     </%def>
     <div class="toolFormBody">
         ${get_options(tool.id)}
     </div>
+    
 %endif
 %if tool.help:
     <div class="toolHelp">
