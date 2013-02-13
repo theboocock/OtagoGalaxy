@@ -42,7 +42,7 @@ class BasePair(object):
         self.distance=int(self.max) - int(self.min)
         #Calculates the number of Directories required
         #log.debug(self.bases)
-        #log.debug(self.distance)
+        #log.debug(self.bases[splitting_method[1]])
         self.no_divisions= int(math.ceil(self.distance / (float(self.bases[splitting_method[1]]) * float(splitting_method[0]))))
         self.bases_per_split = int(splitting_method[0]) * int(self.bases[splitting_method[1]])
         #log.debug(self.no_divisions)
@@ -116,14 +116,12 @@ class Vcf(BasePair):
     def do_merge(self, dataset, task_dirs):
         header = ''
         fname = self.tool_wrapper.get_input_dataset_fnames(dataset.dataset)
-        log.debug(fname)
         read_header = True
         base_name=os.path.basename(fname[0])
         with open(fname[0],'w') as out:
             for task_dir in task_dirs:
                 list_dir = os.listdir(task_dir)
                 for files in list_dir:
-                    log.debug(base_name)
                     if files == base_name:
                         with open(os.path.join(task_dir,files), 'r') as part_file:
                             for line in part_file:

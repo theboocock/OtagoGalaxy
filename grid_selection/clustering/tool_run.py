@@ -22,10 +22,10 @@ class ToolRun(object):
         self.job_wrapper = job_wrapper
         self.job_wrapper.prepare()
         self.command_line = job_wrapper.get_command_line()
-        self.job_id = self.job_wrapper.job_id
+        #Just to start get something working so we can see if this works on the nesi server
+        self.job_id = self.job_wrapper.get_job().tool_id
         #Set to none for the local runner#  
         self.grid_to_run_on = self.ui_reader.get_grid(self.job_id)
-        log.debug("BLAH")
         self.grids = grids
         log.debug(grids)
         self.datatypes = [] 

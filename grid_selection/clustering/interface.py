@@ -58,6 +58,7 @@ class ClusteringInterface(object):
             # If the grid is local or lwr we wont have a grid
             # Object so the tool should continue to
             # Run as if nothing has changed.
+            #Get a new runner url for situation for each job #
             self.avaliable_runners[runner_name].put(job_wrapper)
         except KeyError:
             log.exception("put(): (%s) Invalid Job Runner: %s" %( job_wrapper.job_id, runner_name))

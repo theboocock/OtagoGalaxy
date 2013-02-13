@@ -7,6 +7,7 @@ from galaxy import model
 
 import os, errno
 from time import sleep
+import time 
 
 from galaxy.jobs import TaskWrapper
 from galaxy.jobs.clustering.parallelism import Parallelism
@@ -58,7 +59,7 @@ class TaskedJobRunner( object ):
             job_wrapper.fail( "failure preparing job", exception=True )
             log.exception("failure running job %d" % job_wrapper.job_id)
             return
-
+        tic = time.clock()
         # This is the job's exit code, which will depend on the tasks'
         # exit code. The overall job's exit code will be one of two values: 
         # o if the job is successful, then the last task scanned will be
@@ -78,14 +79,19 @@ class TaskedJobRunner( object ):
                     try:
                         #Interface with the clustering interface
                         clustering_interface = self.app.job_manager.job_handler.dispatcher.clustering_interface
-                        grid = clustering_interface.get_ui_reader().get_grid(job_wrapper.job_id)
+                        #HACK:::::FOR NOW JUST USE TOOL_ID
+                        #FIX ME
+                        log.debug("line 83: tasks.py")
+                        grid = clustering_interface.get_ui_reader().get_grid(job_wrapper.get_job().tool_id)
+                        log.debug("line 85: tasks.py")
                         log.debug(job_wrapper.get_job().tool_id)
                         tool = grid.get_tool_by_id(job_wrapper.get_job().tool_id)
                         splitters = tool.get_splitters_by_format()
-                        mergers = tool.get_mergers_by_format()
                         outputs = tool.get_output_names_by_merger()
-                        splitting_method = clustering_interface.get_ui_reader().get_splitting_options(job_wrapper.job_id)
-                        parallelism = Parallelism(self.app,splitters,mergers, outputs, job_wrapper)
+                        log.debug("do we get here")
+                        splitting_method = clustering_interface.get_ui_reader().get_splitting_options(job_wrapper.get_job().tool_id)
+                        log.debug(splitting_method)
+                        parallelism = Parallelism(self.app,splitters, outputs, job_wrapper)
 
 
                     #splitter = getattr(__import__('
@@ -142,7 +148,6 @@ class TaskedJobRunner( object ):
                     tasks_complete = True
                     for tw in task_wrappers:
                         task_state = tw.get_state()
-                        log.debug(task_state)
                         if ( model.Task.states.ERROR == task_state ):
                             job_exit_code = tw.get_exit_code()
                             log.debug( "Canceling job %d: Task %s returned an error"
@@ -159,12 +164,14 @@ class TaskedJobRunner( object ):
                         sleep( sleep_time )
                         if sleep_time < 8:
                             sleep_time *= 2
-                import time
                 job_wrapper.reclaim_ownership()      # if running as the actual user, change ownership before merging.
                 log.debug('execution finished - beginning merge: %s' % command_line)
                 if self.app.config.enable_clustering_interface:
                     stdout, stderr = parallelism.do_merge(job_wrapper, task_wrappers)
-                    log.debug('merging with clustering interface')
+                    log.debug('merged with clustering interface')
+                    toc = time.clock()
+                    total =toc - tic
+                    log.debug("Total time for this run with splitting options " + str(splitting_method) + " is: " + str(total))
                 else:
                     stdout,  stderr = splitter.do_merge(job_wrapper,  task_wrappers)
             except Exception:

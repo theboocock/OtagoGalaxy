@@ -24,10 +24,9 @@ BASE_PAIR_SPLITS = ['bp','kb','mb']
 class Parallelism( object ):
     
 
-    def __init__(self,app,splitters,mergers,outputs, job_wrapper):
+    def __init__(self,app,splitters,outputs, job_wrapper):
         """ Initalises the splitting methods"""
         self.splitters = splitters
-        self.mergers = mergers
         self.bases = {}
         self.bases ['mb'] = 1000000
         self.bases ['kb'] = 1000

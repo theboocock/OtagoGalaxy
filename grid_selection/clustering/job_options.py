@@ -25,7 +25,7 @@ class ParralelismOptions(object):
         self.parse_parralelism(parralelism)
 
     def parse_parralelism(self,parralelism):
-        if parralelism is not None:
+        if len(parralelism) > 0:
             self.is_parralel_var = True
             for values in parralelism:
                 if values == "Base Pair":

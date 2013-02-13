@@ -36,8 +36,7 @@ class UiReader(object):
             
 
     def get_grid(self,job_id):
-        log.debug(self.job_options)
-        return self.grids[self.job_options[job_id].get_parralelism().is_parralel()]
+        return self.grids[self.job_options[job_id].get_grid()]
       
     
     def create_task(self, job_id):
@@ -60,7 +59,6 @@ class UiReader(object):
         splitting_options = []
         splitting_options.append(self.job_options[job_id].get_parralelism().get_splitting_number())
         splitting_options.append(self.job_options[job_id].get_parralelism().get_splitting_type())
-        log.debug(splitting_options)
         return splitting_options
     
     def shutdown( self):
