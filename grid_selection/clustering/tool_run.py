@@ -25,12 +25,13 @@ class ToolRun(object):
         self.job_id = self.job_wrapper.job_id
         #Set to none for the local runner#  
         self.grid_to_run_on = self.ui_reader.get_grid(self.job_id)
+        log.debug("BLAH")
         self.grids = grids
         log.debug(grids)
         self.datatypes = [] 
         # need to get the grid from the ui that the user has selected #
         # We are running on local or lwr if grid is none
-        
+        job = job_wrapper.get_job()
         #Do parrarelism stuff so set the runner to tasks.
 
         #Check to see whether the user defined any split options

@@ -27,7 +27,8 @@ class UiReader(object):
         self.job_options = {}
 
     def put(self,job_id, job_options):
-        self.job_options[job_id] = job_options
+        log.debug(job_options)
+        self.job_options[job_id] = JobOptions(self.app,job_options)
 
     def delete(self,job_id):
         del self.job_options[job_id]
@@ -35,13 +36,13 @@ class UiReader(object):
             
 
     def get_grid(self,job_id):
-
-
-        return self.grids['nesi0']
+        log.debug(self.job_options)
+        return self.grids[self.job_options[job_id].get_parralelism().is_parralel()]
+      
     
     def create_task(self, job_id):
         log.debug(str(job_id) + "  = Job id "  + " Parralelism = " )
-        self.job_options[job_id]= JobOptions(self.app, self.get_splitting_options(1),None,None)
+        #self.job_options[job_id]= JobOptions(self.app, self.get_splitting_options(1),None,None)
         if job_id not in self.create_tasks:
                 if self.job_options[job_id].get_parralelism().is_parralel():
                     self.create_tasks.append(job_id)
@@ -53,10 +54,14 @@ class UiReader(object):
     def is_parralel(self,job_id):
         #Read options from screen when job is run
         #return  False
-        return True
+        return self.job_options[job_id].get_grid()
        
     def get_splitting_options(self, job_id):
-        return ['800000','bp']
+        splitting_options = []
+        splitting_options.append(self.job_options[job_id].get_parralelism().get_splitting_number())
+        splitting_options.append(self.job_options[job_id].get_parralelism().get_splitting_type())
+        log.debug(splitting_options)
+        return splitting_options
     
     def shutdown( self):
         """Attempts to gracefully shutdown the monitor thread"""

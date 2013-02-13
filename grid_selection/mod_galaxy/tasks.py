@@ -84,9 +84,6 @@ class TaskedJobRunner( object ):
                         splitters = tool.get_splitters_by_format()
                         mergers = tool.get_mergers_by_format()
                         outputs = tool.get_output_names_by_merger()
-                        log.debug(splitters)
-                        log.debug(mergers)
-                        log.debug(outputs)
                         splitting_method = clustering_interface.get_ui_reader().get_splitting_options(job_wrapper.job_id)
                         parallelism = Parallelism(self.app,splitters,mergers, outputs, job_wrapper)
 

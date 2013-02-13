@@ -58,7 +58,13 @@ class GridTool(object):
         #THINK ABOUT A BETTER WAY TO DO MERGING AND SPLITTING#
         self.input_datatypes = []
         self.parse(elem)
-    
+
+
+    def is_parralel(self):
+        if len(self.input_datatypes) > 0:
+            return True
+        else:
+            return False
     def parse(self, elem):
         """ Parse GridTool parametrs"""
         self.id = elem.get("id")
@@ -101,3 +107,5 @@ class GridTool(object):
         for input_dt in self.input_datatypes:
             outputs[input_dt.get_output_name()] = input_dt.get_merger()
         return outputs
+    def get_splitting_types_by_name(self):
+        return ['Base Pair','Simple']

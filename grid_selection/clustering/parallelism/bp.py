@@ -127,7 +127,6 @@ class Vcf(BasePair):
                     if files == base_name:
                         with open(os.path.join(task_dir,files), 'r') as part_file:
                             for line in part_file:
-                                log.debug(line)
                                 if(read_header == True and "#" in line):
                                     out.write(line)
                                 elif not "#" in line:

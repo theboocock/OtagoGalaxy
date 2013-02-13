@@ -326,16 +326,26 @@
                 ${do_inputs( tool.inputs_by_page[ tool_state.page ], tool_state.inputs, errors, "" )}
                 <div class="form-row form-actions">
                     %if tool_state.page == tool.last_page:
-                        <input type="submit" class="btn btn-primary" name="runtool_btn" value="Execute">
+                        <input id="submit_button" type="submit" class="btn btn-primary" name="runtool_btn" value="Execute" >
                     %else:
-                        <input type="submit" class="btn btn-primary" name="runtool_btn" value="Next step">
+                        <input id="submit_button" type="submit" class="btn btn-primary" name="runtool_btn" value="Next step">
                     %endif
                 </div>
             %endif
         </div>
-    </form>
-</div>
 %if app.config.enable_clustering_interface:
+    <script>
+        $(function() {    // Makes sure the code contained doesn't run until
+                      //     all the DOM elements have loaded
+
+            $('#grids').change(function(){
+                $('.gridselectorform').hide();
+                $('#' + $(this).val()).show();
+            });
+
+    });
+
+    </script>
     <%def name="get_options( tool_id )  ">
     <%
         clustering_interface = app.job_manager.job_handler.dispatcher.clustering_interface
@@ -355,18 +365,42 @@
     %>
        <div class="form-row">
        <label for="grids">Avaliable Grids</label>
-       <select name="grids">
+       <select id="grids" name="grid">
         %for id, name in display_grids.items():
-                <option value="id">${name}</option> 
+                <option value="${id}">${name}</option> 
         %endfor
         </select>
         <div style="clear: both;"></div>
         </div>
+        <% i = 0 %>
+        %for id, name in display_grids.items():
+                <div id="${id}" class="form-row gridselectorform" style="display:${'block' if i == 0 else 'none'}" name=> 
+                % if grids[id].has_tool(tool_id) and grids[id].get_tool_by_id(tool_id).is_parralel():
+                    <label for="${tool_id}.ptype">Parralelism Type</label>
+                    <div class="form-row-input">
+                    <select id="parralel_type" name="${name}+parrelel_type">
+                        <% splitting_types = grids[id].get_tool_by_id(tool_id).get_splitting_types_by_name() %>
+                        %for label in splitting_types:
+                            <option value="${label}">${label}</option>
+                        %endfor
+                    </select>
+                    </div>
+                    <div style="clear: both;"></div>
+                    <label for="${tool_id}.pop">Parralelism String</label>
+                    <div class="form-row-input">
+                        <input type="text" name="${name}+parralel_options" value=""/>
+                    </div>
+                % endif
+                </div>
+        <% i = i + 1 %>
+        %endfor
+
     </%def>
     <div class="toolFormBody">
         ${get_options(tool.id)}
     </div>
-    
+</form>    
+</div>
 %endif
 %if tool.help:
     <div class="toolHelp">
