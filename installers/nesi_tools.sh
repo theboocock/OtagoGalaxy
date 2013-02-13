@@ -19,10 +19,10 @@ cat nesi/nesi_scripts/get_results.py| sed "s|DEFAULT_PATH|$NESI_TOOL_PATH|" >| $
 cat nesi/nesi_scripts/stop_job.py   | sed "s|DEFAULT_PATH|$NESI_TOOL_PATH|" >| $GALAXY_HOME_FOLDER/lib/galaxy/jobs/runners/nesi_scripts/stop_job.py
 cat nesi//nesi.py       | sed "s|DEFAULT_PATH|$NESI_TOOL_PATH|" >| $GALAXY_HOME_FOLDER/lib/galaxy/jobs/runners/nesi.py
 chmod 755 $GALAXY_HOME_FOLDER/lib/galaxy/jobs/runners/nesi_scripts/*
-cp nesi/config.py     $GALAXY_HOME_FOLDER/lib/galaxy/
+#cp nesi/config.py     $GALAXY_HOME_FOLDER/lib/galaxy/
 echo "Installing universe default nesi config your original config\
      was moved to universe_wsgi.ini.backup"
-mv $GALAXY_HOME_FOLDER/universe_wsgi.ini $GALAXY_HOME_FOLDER/universe_wsgi.ini.backup
-cp $OTAGO_GALAXY_LOCATION/nesi/universe_wsgi.ini $GALAXY_HOME_FOLDER/universe_wsgi.ini
+#mv $GALAXY_HOME_FOLDER/universe_wsgi.ini $GALAXY_HOME_FOLDER/universe_wsgi.ini.backup
+#cp $OTAGO_GALAXY_LOCATION/nesi/universe_wsgi.ini $GALAXY_HOME_FOLDER/universe_wsgi.ini
 
 echo "Nesi Installed reboot your galaxy instance to watch the magic work"

@@ -4,7 +4,7 @@ from Queue import Queue, Empty
 
 from galaxy import model
 from galaxy.jobs.runners import BaseJobRunner
-
+from galaxy.jobs import TaskWrapper
 from paste.deploy.converters import asbool
 import pkg_resources
 import shutil
@@ -237,12 +237,17 @@ class NesiJobRunner(BaseJobRunner):
 
     def queue_job(self, job_wrapper):
         """Queue a nesi job"""
+        if isinstance(job_wrapper, TaskWrapper):
+            job_id= str(job_wrapper.job_id) + "task" + str(job_wrapper.task_id)
+        else:
+            job_id= str(job_wrapper.job_id)
+
         try:
             job_wrapper.prepare()
             command_line=self.build_command_line(job_wrapper)
         except:
             job_wrapper.fail("Failure preparing job", exception=True)
-            log.exception("Failure running job %d" % job_wrapper.job_id)
+            log.exception("Failure running job %d" % job_id)
             return
 
         runner_url= job_wrapper.get_job_runner_url()
@@ -252,24 +257,23 @@ class NesiJobRunner(BaseJobRunner):
 
         # Check for deletion before we change state
         if job_wrapper.get_state() == model.Job.states.DELETED:
-            log.debug("Job %s deleted by user before it entered the nesi queue" % job_wrapper.job_id)
+            log.debug("Job %s deleted by user before it entered the nesi queue" % job_id)
             if self.app.config.cleanup_job in ("always", "onsuccess"):
                 job_wrapper.cleanup()
             return
-
         runner_url=job_wrapper.get_job_runner_url()
         nesi_server=self.determine_nesi_server(runner_url)
         nesi_script_location = os.path.abspath(self.app.config.nesi_scripts_directory)
         jobstatus_file = os.path.abspath(nesi_script_location + "/jobstatus_file.tmp")
-        ecfile = "%s/%s.ec" % (self.app.config.cluster_files_directory, job_wrapper.job_id)
-        ofile  = "%s/%s.o" %(self.app.config.cluster_files_directory,job_wrapper.job_id)
-        efile = "%s/%s.e" %(self.app.config.cluster_files_directory,job_wrapper.job_id)
-        nesi_jobname_file = "%s/%s.njf" %(self.app.config.cluster_files_directory,job_wrapper.job_id)
-        job_script= "%s/%s.sh" %(self.app.config.cluster_files_directory,job_wrapper.job_id)
+        ecfile = "%s/%s.ec" % (self.app.config.cluster_files_directory, job_id)
+        ofile  = "%s/%s.o" %(self.app.config.cluster_files_directory,job_id)
+        efile = "%s/%s.e" %(self.app.config.cluster_files_directory,job_id)
+        nesi_jobname_file = "%s/%s.njf" %(self.app.config.cluster_files_directory,job_id)
+        job_script= "%s/%s.sh" %(self.app.config.cluster_files_directory,job_id)
         exec_dir = os.path.abspath( job_wrapper.working_directory )
 
         if job_wrapper.get_state() == model.Job.states.DELETED:
-            log.debug("Job %s deleted by user before it entered the Nesi queue" % job_wrapper.job_id)
+            log.debug("Job %s deleted by user before it entered the Nesi queue" % job_id)
             if self.app.config.cleanup_job in ("always", "onsuccess"):
                 job_wrapper.cleanup((ofile,efile,ecfile,nesi_jobname_file, jobstatus_file))
             return
@@ -510,7 +514,7 @@ class NesiJobRunner(BaseJobRunner):
             nesi_job_state.job_wrapper.fail("Unable to finish job", exception=True)
 
         if self.app.config.cleanup_job == "always" or ( not stderr and self.app.config.cleanup_job == "onsuccess" ):
-            self.cleanup((ecfile,ofile,efile,jobname_file,jobstatus_file))
+            self.cleanup((ecfile,ofile,efile,jobname_file))
 
     def cleanup( self, files ):
         for file in files:

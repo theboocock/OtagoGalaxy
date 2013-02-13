@@ -10,6 +10,7 @@
 from grisu.Grython import serviceInterface as si
 from grisu.model import GrisuRegistryManager
 import sys
+import os
 from grisu.control import JobConstants
 
 try:
@@ -24,6 +25,8 @@ uem = registry.getUserEnvironmentManager()
 
 jobs = uem.getCurrentJobs(True)
 
+if os.path.exists(job_statuses_file):
+        os.remove(job_statuses_file)
 try:
     job_statuses = open(job_statuses_file, "w")
 
