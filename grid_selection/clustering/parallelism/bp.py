@@ -149,4 +149,32 @@ class Vcf(BasePair):
             interval+=line.split()[1]
         return interval
 
-#class Shapeit(BasePair):
+class Shapeit(BasePair):
+    def __init__(self, tool_wrapper):
+        BasePair.__init__(self, tool_wrapper)
+    
+    def get_intervals(self,fname):
+        #Get the intervals from data that has been pre-phased by
+        # shapeit
+
+
+    def do_merge(self, dataset,task_dirs):
+        #Will never get used for now
+
+    def do_split(self, dataset, task_dirs):
+        
+
+#class GTool(BasePair)
+
+class Impute2(BasePair):
+    def __init__(self, tool_wrapper):
+        BasePair.__init__(self, tool_wrapper)
+    
+    def get_intervals(self,fname):
+        #dont need this yet
+
+    def do_merge(self, dataset,task_dirs):
+        # Create the merge function
+
+    def do_split(self, dataset, task_dirs):
+        #skip this
