@@ -64,14 +64,11 @@ class Parallelism( object ):
             #TODO MAKE THIS A FUNCTION #
             self.base_pair_split = True
             intervals = []
-            for dataset, splitter in self.splitting_datasets.items():
-                log.debug(dataset)
-                log.debug(splitter)
+            for hist_dataset, splitter in self.splitting_datasets.items():
                 try:
                     splitter_class = getattr(bp,splitter)
-                    splitter_modules[dataset] = splitter_class(self.job_wrapper)
-                    fname = self.job_wrapper.get_input_dataset_fnames(dataset)
-                    intervals.append(splitter_modules[dataset].get_interval(fname[0]))
+                    splitter_modules[hist_dataset] = splitter_class(self.job_wrapper)
+                    intervals.append(splitter_modules[hist_dataset].get_interval(hist_dataset))
                 except:
                     log.exception("Could not find the splitter class for the filetype")
                     
@@ -81,7 +78,7 @@ class Parallelism( object ):
 
             #incase of empty split regions the header will be appended to the file
             # This should not effect vcf tools
-            setter = dataset
+            setter = hist_dataset
             #create the maximum amount of task dirs
             task_dirs = splitter_modules[setter].get_directories(intervals,splitting_method, working_dir)
             log.debug(task_dirs)

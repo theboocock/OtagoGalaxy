@@ -165,7 +165,6 @@ class NesiJobRunner(BaseJobRunner):
         """Called by the monitor thread to look at each of the jobs and deal 
             with state changes"""
         new_watched=[]
-        log.debug(self.watched)
         nesi_server= self.determine_nesi_server(self.app.config.default_cluster_job_runner)
         nesi_runner= self.determine_nesi_runner(self.app.config.default_cluster_job_runner)
         nesi_script_location = os.path.abspath(self.app.config.nesi_scripts_directory)
@@ -232,7 +231,6 @@ class NesiJobRunner(BaseJobRunner):
             else:
                 log.debug("Appending new nesi_job_state")
                 new_watched.append(nesi_job_state)
-
         self.watched= new_watched
 
     def queue_job(self, job_wrapper):
@@ -444,6 +442,7 @@ class NesiJobRunner(BaseJobRunner):
     
     def fail_job(self, nesi_job_state):
         """Finishes a failed job sent to nesi"""
+        log.debug("ARE WE DELETING SHIT")
         ecfile = nesi_job_state.ecfile 
         ofile = nesi_job_state.ofile
         efile = nesi_job_state.efile
@@ -498,7 +497,6 @@ class NesiJobRunner(BaseJobRunner):
             ecfh = file(ecfile, "r")
             exit_code_str= ecfh.read(32)
             exit_code = int (exit_code_str)
-            print "Exit Code: ", exit_code
 
         except:
             exit_code_str=""

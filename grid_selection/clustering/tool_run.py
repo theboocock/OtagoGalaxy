@@ -33,7 +33,7 @@ class ToolRun(object):
         # We are running on local or lwr if grid is none
         job = job_wrapper.get_job()
         #Do parrarelism stuff so set the runner to tasks.
-
+        log.debug("blah") 
         #Check to see whether the user defined any split options
         #Check to make sure we have enabled tasked jobs
         if self.ui_reader.is_parralel(self.job_id) and not self.app.config.use_tasked_jobs:
@@ -64,6 +64,7 @@ class ToolRun(object):
             log.debug("Skipping over interface user Selecter local or lwr runner")
         else:
             try:
+                log.debug("Are we doing this this time")
                 self.runner_name= self.grid_to_run_on.get_grid_runner() 
             #Do grid preparation here#
                 log.debug(self.grid_to_run_on)

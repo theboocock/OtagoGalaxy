@@ -18,6 +18,9 @@
 # $12 = root_dir
 # $13 = allow_large_regions
 
+
+shift 2
+
 if [ "$9" == "unphased" ] ; then
 
     PHASE="-g"

@@ -54,7 +54,6 @@ class ClusteringInterface(object):
         try:
             tool_run = ToolRun(self.app, job_wrapper,self.grids_by_id,self.ui_reader) 
             runner_name = tool_run.get_runner_name()
-            log.debug(runner_name)
             # If the grid is local or lwr we wont have a grid
             # Object so the tool should continue to
             # Run as if nothing has changed.

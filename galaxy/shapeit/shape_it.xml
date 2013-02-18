@@ -19,7 +19,7 @@
     </command>
 
     <inputs>
-        <param name="input_gtool" type="data" format="gtool"  label="Input Sample File" />
+        <param name="input_gtool" type="data" format="gtool"  label="Gtool Input" />
         <param name="threshold" type="float" value="0.90"  label="Threshold" help="Will use the most likely genotype if that probability exceeds the threshold, otherwise will be considered missing."/>
 
         <param name="use_reference" type="select" label="Use 1000 Genomes Reference Panel?">

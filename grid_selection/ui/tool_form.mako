@@ -378,7 +378,7 @@
                 % if grids[id].has_tool(tool_id) and grids[id].get_tool_by_id(tool_id).is_parralel():
                     <label for="${tool_id}.ptype">Parralelism Type</label>
                     <div class="form-row-input">
-                    <select id="parralel_type" name="${name}+parrelel_type">
+                    <select id="parralel_type" name="${id}+parrelel_type">
                         <% splitting_types = grids[id].get_tool_by_id(tool_id).get_splitting_types_by_name() %>
                         %for label in splitting_types:
                             <option value="${label}">${label}</option>
@@ -388,7 +388,7 @@
                     <div style="clear: both;"></div>
                     <label for="${tool_id}.pop">Parralelism String</label>
                     <div class="form-row-input">
-                        <input type="text" name="${name}+parralel_options" value=""/>
+                        <input type="text" name="${id}+parralel_options" value=""/>
                     </div>
                 % endif
                 </div>

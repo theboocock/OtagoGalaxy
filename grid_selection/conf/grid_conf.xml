@@ -28,6 +28,18 @@
                 <datatype format="vcf" splitter="Vcf" merger="Vcf" output_name="output"/>
             </input_datatypes>
         </tool>
+        <tool id="impute2">
+            <paths>
+               <path src="tools/OtagoGalaxy/data/impute2/1kg" location="/gpfs1m/apps/db/impute/ALL_1000G_phase1integrated_v3_impute"/>
+               <path src="impute2" location="/share/apps/impute2-2.3.0/impute2"/>
+            </paths>
+            <!-- For multiple input possiblities define seperate splitters -->
+            <!-- Most galaxy tools will only have one splitter format -->
+            <input_datatypes>
+                <datatype format="gtool" splitter="GTool" merger="Impute2" output_name="output"/>
+                <datatype format="shapeit" splitter="ShapeIt" merger="Impute2" output_name="output"/>
+            </input_datatypes>
+        </tool>
     </tools>
 </grid>
 
@@ -54,8 +66,8 @@
             <!-- For multiple input possiblities define seperate splitters -->
             <!-- Most galaxy tools will only have one splitter format -->
             <input_datatypes>
-                <datatype format="gtool" splitter="gtool" merger="impute2" output_name="output"/>
-                <datatype format="shapeit" splitter="shapeit" merger="impute2" output_name="output"/>
+                <datatype format="gtool" splitter="GTool" merger="Impute2" output_name="output"/>
+                <datatype format="shapeit" splitter="ShapeIt" merger="Impute2" output_name="output"/>
             </input_datatypes>
         </tool>
         <tool id="create_interval"/>

@@ -131,8 +131,10 @@ class Vcf(BasePair):
                                     out.write(line)
                 read_header = True
                 
-    def get_interval(self, fname):
+    def get_interval(self, hist_dataset):
         interval=""
+        fname = self.job_wrapper.get_input_dataset_fnames(hist_dataset)
+        fname=fname[0]
         #We can do this because we know a vcf file is not a composite datatype
         with open(fname, 'r') as vcf:
             line = vcf.readline()
@@ -147,21 +149,27 @@ class Vcf(BasePair):
 
             interval+="-"
             interval+=line.split()[1]
+        log.debug(interval)
         return interval
 
-class Shapeit(BasePair):
+class ShapeIt(BasePair):
     def __init__(self, tool_wrapper):
         BasePair.__init__(self, tool_wrapper)
     
-    def get_intervals(self,fname):
+    def get_interval(self,hist_dataset):
         #Get the intervals from data that has been pre-phased by
-        # shapeit
-
-
-    def do_merge(self, dataset,task_dirs):
+        # shiapeit
+        interval=""
+        log.debug(hist_dataset.dataset)
+        dataset=hist_dataset
+        log.debug(dataset)
+        extra_files=dataset.extra_files_path
+        log.debug(extra_files)
+        base_name=dataset.metadata.base_name
+   # def do_merge(self, dataset,task_dirs):
         #Will never get used for now
 
-    def do_split(self, dataset, task_dirs):
+  #  def do_split(self, dataset, task_dirs):
         
 
 #class GTool(BasePair)
@@ -170,11 +178,11 @@ class Impute2(BasePair):
     def __init__(self, tool_wrapper):
         BasePair.__init__(self, tool_wrapper)
     
-    def get_intervals(self,fname):
+   # def get_intervals(self,fname):
         #dont need this yet
 
-    def do_merge(self, dataset,task_dirs):
+    #def do_merge(self, dataset,task_dirs):
         # Create the merge function
 
-    def do_split(self, dataset, task_dirs):
+    #def do_split(self, dataset, task_dirs):
         #skip this

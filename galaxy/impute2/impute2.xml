@@ -3,7 +3,7 @@
 
 <command interpreter="bash">
     
-    impute2.sh ${start_pos} ${end_pos} ${chromosome}
+    impute2.sh  ${chromosome}
     #if $gen_or_hap.phased_or_not == "unphased":
         "$known_haps.extra_files_path/$known_haps.metadata.base_name".gen
     #else

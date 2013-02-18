@@ -27,7 +27,6 @@ class UiReader(object):
         self.job_options = {}
 
     def put(self,job_id, job_options):
-        log.debug(job_options)
         self.job_options[job_id] = JobOptions(self.app,job_options)
 
     def delete(self,job_id):
@@ -36,12 +35,17 @@ class UiReader(object):
             
 
     def get_grid(self,job_id):
-        return self.grids[self.job_options[job_id].get_grid()]
+        if job_id == 'upload1':
+            log.debug(self.grids['local'])
+            return self.grids['local']
+        else:
+            return self.grids[self.job_options[job_id].get_grid()]
       
     
     def create_task(self, job_id):
-        log.debug(str(job_id) + "  = Job id "  + " Parralelism = " )
         #self.job_options[job_id]= JobOptions(self.app, self.get_splitting_options(1),None,None)
+        if job_id == 'upload1':
+            return False
         if job_id not in self.create_tasks:
                 if self.job_options[job_id].get_parralelism().is_parralel():
                     self.create_tasks.append(job_id)
@@ -52,8 +56,10 @@ class UiReader(object):
 
     def is_parralel(self,job_id):
         #Read options from screen when job is run
-        #return  False
-        return self.job_options[job_id].get_grid()
+        if job_id == "upload1":
+            return  False
+        else:
+            return self.job_options[job_id].get_grid()
        
     def get_splitting_options(self, job_id):
         splitting_options = []

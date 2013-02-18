@@ -840,6 +840,9 @@ class Tool( object ):
         self.input_required = False
         self.display_interface = True
         self.require_login = False
+        #Keep track of tools the require that define their own tool action we
+        #will ignore these for now
+        self.default_tool_action=True
         # Define a place to keep track of all input parameters.  These
         # differ from the inputs dictionary in that inputs can be page
         # elements like conditionals, but input_params are basic form
@@ -1060,11 +1063,14 @@ class Tool( object ):
         action_elem = root.find( "action" )
         if action_elem is None:
             self.tool_action = DefaultToolAction()
+            
         else:
             module = action_elem.get( 'module' )
             cls = action_elem.get( 'class' )
             mod = __import__( module, globals(), locals(), [cls])
             self.tool_action = getattr( mod, cls )()
+            self.default_tool_action =False
+
         # User interface hints
         self.uihints = {}
         uihints_elem = root.find( "uihints" )
@@ -2121,14 +2127,18 @@ class Tool( object ):
             else:
                 raise Exception( "Unexpected parameter type" )
         return args
-    def execute( self, trans, incoming={}, set_output_hid=True, history=None, **kwargs ):
+    def execute( self, trans, incoming={}, set_output_hid=True, history=None,parralelism=None, **kwargs ):
         """
         Execute the tool using parameter values in `incoming`. This just
         dispatches to the `ToolAction` instance specified by 
         `self.tool_action`. In general this will create a `Job` that 
         when run will build the tool's outputs, e.g. `DefaultToolAction`.
         """
-        return self.tool_action.execute( self, trans, incoming=incoming, set_output_hid=set_output_hid, history=history, **kwargs )
+        if self.default_tool_action:
+            return self.tool_action.execute( self, trans, incoming=incoming, set_output_hid=set_output_hid, history=history,parralelism=parralelism, **kwargs )
+        else:
+            log.debug("Running tool: upload1")
+            return self.tool_action.execute( self, trans, incoming=incoming, set_output_hid=set_output_hid, history=history,**kwargs )
     def params_to_strings( self, params, app ):
         return params_to_strings( self.inputs, params, app )
     def params_from_strings( self, params, app, ignore_errors=False ):
