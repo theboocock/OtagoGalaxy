@@ -10,6 +10,7 @@
 import logging
 import math
 import os
+import shutil
 import time
 #For the creation of the tasks
 from galaxy import model
@@ -67,6 +68,9 @@ class BasePair(object):
 
 
 class Vcf(BasePair):
+
+    """VCF class - all the data for this one is located in 
+        column 1 when split using whitespace """
 
     def __init__(self, tool_wrapper):
         BasePair.__init__(self, tool_wrapper)
@@ -153,25 +157,71 @@ class Vcf(BasePair):
         return interval
 
 class ShapeIt(BasePair):
+
+    """Shapeit datatype the interval in this file happens to be column 2"""
     def __init__(self, tool_wrapper):
         BasePair.__init__(self, tool_wrapper)
-    
+        self.extra_files=None
+        self.base_name=None
+
     def get_interval(self,hist_dataset):
         #Get the intervals from data that has been pre-phased by
-        # shiapeit
         interval=""
-        log.debug(hist_dataset.dataset)
         dataset=hist_dataset
-        log.debug(dataset)
-        extra_files=dataset.extra_files_path
-        log.debug(extra_files)
-        base_name=dataset.metadata.base_name
+        self.extra_files=dataset.extra_files_path
+        self.base_name=dataset.metadata.base_name
+        with open(os.path.join(extra_files,base_name + '.haps')) as f:
+            i=0
+            for line in f:
+                if i is 0:
+                    line=line.split()
+                    interval+=line[2]
+                i = i + 1
+            interval+='-'
+            interval+=line.split()[2]
+        log.debug(interval)
+        return interval
+
    # def do_merge(self, dataset,task_dirs):
         #Will never get used for now
 
-  #  def do_split(self, dataset, task_dirs):
-        
-
+    def do_split(self, dataset, task_dirs):
+        start=self.min
+        max_region = self.min + self.bases_per_split
+        fname=self.tool_wrapper.get_input_dataset_fnames(dataset)
+        for value in task_dirs:
+            try:
+                shutil.copy(fname[0], os.path.join(value,os.path.basename(fname[0]))
+                os.makedirs(self.extra_files)
+                shutil.copy(os.path.join(self.extra_files,self.basename + '.sample'))
+            except Exception, e:
+                log.error("Unable to create Directiories: %s" % str(e))
+        with open(os.path.join(extra_files,base_name + '.haps')) as f:
+            try:
+                header=""
+                line=f.readline()
+                for value in task_dirs:
+                    part_dir=value
+                    part_path= os.path.join(self.extra_files,self.base_name + 'haps'))
+                    part_file= open(part_path, 'w')
+                    check_pos =line.split()
+                    check_pos = int(check_pos[2]))
+                    while ( check_pos < max_region):
+                        part_file.write(line)
+                        line = f.readline()
+                        if not line:
+                            break
+                        check_pos =line.split()
+                        check_pos = int(check_pos[2])
+                    max_region = max_region + self.bases_per_split
+                    if not line:
+                        break
+                    if part_file is not None:
+                        part_file.close()
+                except Exception, e:
+                    log.error("Unable to split files: %s" % str(e))
+                    if part_file is not None:
+                        part_file.close()
 #class GTool(BasePair)
 
 class Impute2(BasePair):
