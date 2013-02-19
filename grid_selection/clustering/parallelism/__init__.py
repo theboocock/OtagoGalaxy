@@ -66,6 +66,7 @@ class Parallelism( object ):
             intervals = []
             for hist_dataset, splitter in self.splitting_datasets.items():
                 try:
+                    log.debug(hist_dataset)
                     splitter_class = getattr(bp,splitter)
                     splitter_modules[hist_dataset] = splitter_class(self.job_wrapper)
                     intervals.append(splitter_modules[hist_dataset].get_interval(hist_dataset))

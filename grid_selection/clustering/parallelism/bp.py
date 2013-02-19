@@ -17,6 +17,9 @@ from galaxy import model
 
 log = logging.getLogger(__name__)
 
+def get_dir_name(dir):
+    return dir.split('/')[-1]
+
 class BasePair(object):
 
 
@@ -113,9 +116,9 @@ class Vcf(BasePair):
                     if part_file is not None:
                         part_file.close()
             except Exception, e:
-                    log.error("Unable to split files: %s" % str(e))
-                    if part_file is not None:
-                        part_file.close()
+                log.error("Unable to split files: %s" % str(e))
+                if part_file is not None:
+                    part_file.close()
 
     def do_merge(self, dataset, task_dirs):
         header = ''
@@ -137,7 +140,7 @@ class Vcf(BasePair):
                 
     def get_interval(self, hist_dataset):
         interval=""
-        fname = self.job_wrapper.get_input_dataset_fnames(hist_dataset)
+        fname = self.tool_wrapper.get_input_dataset_fnames(hist_dataset)
         fname=fname[0]
         #We can do this because we know a vcf file is not a composite datatype
         with open(fname, 'r') as vcf:
@@ -170,7 +173,7 @@ class ShapeIt(BasePair):
         dataset=hist_dataset
         self.extra_files=dataset.extra_files_path
         self.base_name=dataset.metadata.base_name
-        with open(os.path.join(extra_files,base_name + '.haps')) as f:
+        with open(os.path.join(self.extra_files,self.base_name + '.haps')) as f:
             i=0
             for line in f:
                 if i is 0:
@@ -191,21 +194,23 @@ class ShapeIt(BasePair):
         fname=self.tool_wrapper.get_input_dataset_fnames(dataset)
         for value in task_dirs:
             try:
-                shutil.copy(fname[0], os.path.join(value,os.path.basename(fname[0]))
-                os.makedirs(self.extra_files)
-                shutil.copy(os.path.join(self.extra_files,self.basename + '.sample'))
+                log.debug(fname[0])
+                shutil.copy(fname[0], os.path.join(value,os.path.basename(fname[0])))
+                os.makedirs(os.path.join(value,self.extra_files.split('/')[-1]))
+                log.debug(os.path.join(value,self.extra_files.split('/')[-1]))
+                shutil.copy(os.path.join(self.extra_files,self.base_name + '.sample'),os.path.join(value,self.base_name + '.sample'))
             except Exception, e:
-                log.error("Unable to create Directiories: %s" % str(e))
-        with open(os.path.join(extra_files,base_name + '.haps')) as f:
+                log.error("Unable to create extra files path Directiories: %s" % str(e))
+        with open(os.path.join(self.extra_files,self.base_name + '.haps')) as f:
             try:
                 header=""
                 line=f.readline()
                 for value in task_dirs:
                     part_dir=value
-                    part_path= os.path.join(self.extra_files,self.base_name + 'haps'))
+                    part_path= os.path.join(value,self.extra_files.split('/')[-1],self.base_name + '.haps')
                     part_file= open(part_path, 'w')
                     check_pos =line.split()
-                    check_pos = int(check_pos[2]))
+                    check_pos = int(check_pos[2])
                     while ( check_pos < max_region):
                         part_file.write(line)
                         line = f.readline()
@@ -218,10 +223,10 @@ class ShapeIt(BasePair):
                         break
                     if part_file is not None:
                         part_file.close()
-                except Exception, e:
-                    log.error("Unable to split files: %s" % str(e))
-                    if part_file is not None:
-                        part_file.close()
+            except Exception, e:
+                log.error("Unable to split files: %s" % str(e))
+                if part_file is not None:
+                    part_file.close()
 #class GTool(BasePair)
 
 class Impute2(BasePair):
@@ -231,8 +236,7 @@ class Impute2(BasePair):
    # def get_intervals(self,fname):
         #dont need this yet
 
-    #def do_merge(self, dataset,task_dirs):
-        # Create the merge function
-
+    def do_merge(self, dataset,task_dirs):
+       return 1 
     #def do_split(self, dataset, task_dirs):
         #skip this
