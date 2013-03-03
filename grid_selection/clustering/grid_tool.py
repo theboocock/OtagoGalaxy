@@ -109,3 +109,6 @@ class GridTool(object):
         return outputs
     def get_splitting_types_by_name(self):
         return ['Base Pair','Simple']
+
+    def get_paths(self):
+        return self.paths

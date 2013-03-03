@@ -48,7 +48,7 @@ class BasePair(object):
         #log.debug(self.bases)
         #log.debug(self.bases[splitting_method[1]])
         self.no_divisions= int(math.ceil(self.distance / (float(self.bases[splitting_method[1]]) * float(splitting_method[0]))))
-        self.bases_per_split = int(splitting_method[0]) * int(self.bases[splitting_method[1]])
+        self.bases_per_split = int(float(splitting_method[0]) * int(self.bases[splitting_method[1]]))
         #log.debug(self.no_divisions)
         #log.debug(self.distance)
         task_dirs = []

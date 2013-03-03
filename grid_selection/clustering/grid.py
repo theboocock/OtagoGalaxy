@@ -173,11 +173,11 @@ class Grid(object):
     
     """ Launch Option Creation """
 
+
     def prepare_paths(self,tool_id):
-        return 1
+        paths=self.grid_tools[tool_id].get_paths()
+        log.debug(paths)
         
-    def prepare_datatypes(self,job_wrapper):
-        return 1
 
 
     """Accessors"""

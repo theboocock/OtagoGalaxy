@@ -35,7 +35,7 @@ import os
 
 DEFAULT_GROUP = '/nz/nesi'
 DEFAULT_QUEUE = 'pan:pan.nesi.org.nz'
-DEFAULT_MEMORY = 2147483648 # 2 GB
+DEFAULT_MEMORY = 8589934592 # 8 GB
 DEFAULT_WALLTIME = 600 # 10 minutes
 
 current_dir = os.path.abspath(os.path.curdir)
@@ -77,7 +77,6 @@ except:
     sys.exit(-4)
 
 #create nesi job_script
-print job.getJobname()
 try:
 # save jobname for job
     njn = open(jobname_file, "w")
@@ -91,6 +90,7 @@ command_arguments = command.split()
 
 new_commandline = ""
 for arg in command_arguments:
+    print arg
     if (os.path.exists(arg)) and (os.path.isfile(arg)==True) and (arg not in input_files):
         try:
             job.addInputFileUrl(arg)
@@ -100,8 +100,12 @@ for arg in command_arguments:
             print e
             job.kill(True)
             sys.exit(-3)
-    new_commandline += (os.path.basename(arg) + " ")
-print "bash " + job_script.split('/')[-1]
+    #Ensure we strip the basename of any files that exist or any files that will  exist
+    if(os.path.exists(arg)) or (os.path.exists('/'.join(arg.split('/')[:len(arg.split('/'))-1]))):
+        new_commandline += (os.path.basename(arg) + " ")
+    else:
+        new_commandline += (arg + " ")
+print job_header % (new_commandline)
 job.setCommandline("bash "+ job_script.split('/')[-1])
 try:
     jscript = open(job_script, 'w')

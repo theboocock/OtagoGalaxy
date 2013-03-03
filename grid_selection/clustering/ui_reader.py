@@ -27,7 +27,9 @@ class UiReader(object):
         self.job_options = {}
 
     def put(self,job_id, job_options):
+        log.debug(job_id + "   job _options: " +  str(job_options))
         self.job_options[job_id] = JobOptions(self.app,job_options)
+
 
     def delete(self,job_id):
         del self.job_options[job_id]

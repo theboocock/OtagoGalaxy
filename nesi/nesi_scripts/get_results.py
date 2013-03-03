@@ -33,10 +33,13 @@ error_codefile  = sys.argv[3]
 job_name        = sys.argv[4]
 output_files    = list()
 print job_name
+
 # get list of output files for this job
 for f in sys.argv[5:]:
     output_files.append(f)
 
+
+print output_files
 job = JobObject(si, job_name)
 
 # Save stdout and stderr to files to be read by galaxy
@@ -52,6 +55,7 @@ try:
     err.write(job.getStdErrContent())
 except:
 # There is no stderr so just write blank file
+    print "No stderr So just writing blakn file"
     err.write("")
     err.close()
 try:
@@ -73,7 +77,7 @@ for f in output_files:
 
 
 # clean it up
-job.kill(True)
+#job.kill(True)
 
 # That's all folks!
 sys.exit(0)
