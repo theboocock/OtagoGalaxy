@@ -36,23 +36,6 @@ public class VcfToCsv{
 		}
 	}
 
-<<<<<<< HEAD
-=======
-    public static void printKey() {
-        
-        System.out.println("** KEY **\n");
-        System.out.println("LDAF \t = \t Linkage Disequilibrium Allele Frequency");
-        System.out.println("AF \t = \t Allele Frequency");
-        System.out.println("AMR_AF \t = \t American AF");
-        System.out.println("ASN_AF \t = \t Asian AF");
-        System.out.println("AFR_AF \t = \t African AF");
-        System.out.println("AFR_AF \t = \t African AF");
-        System.out.println("EUR_AF \t = \t European AF");
-        System.out.println("\t***************************\t\n");
-
-    }
-
->>>>>>> parent of 6dc2286... updated key
 	public static void usage(){
 		System.out.println("program: VCF to CSV converter\n");
 		System.out.println("Usage: java VcfToCsv <IN.vcf>");

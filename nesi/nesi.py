@@ -242,7 +242,8 @@ class NesiJobRunner(BaseJobRunner):
 
         try:
             job_wrapper.prepare()
-            command_line=self.build_command_line(job_wrapper)
+            if not (self.app.enable_clustering_interface):
+                command_line=self.build_command_line(job_wrapper)
         except:
             job_wrapper.fail("Failure preparing job", exception=True)
             log.exception("Failure running job %d" % job_id)
@@ -282,6 +283,8 @@ class NesiJobRunner(BaseJobRunner):
                
         input_files = " ".join(job_wrapper.get_input_fnames())
         #Submit the job to nesi
+        import time
+
         rc = call(nesi_script_location + "/./submit_job.py" + " -b BeSTGRID " + nesi_server + " " + self.nesi_group + " " + galaxy_job_id + " " + nesi_jobname_file + " '" + command_line + "' " +" " + job_script + " "  +input_files, shell=True)
         if rc == -2:
             job_wrapper.fail("NeSI job submitter returned an unsuccessful error code. Unable to submit NeSI job currently.")

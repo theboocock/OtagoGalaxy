@@ -10,7 +10,7 @@
         "$known_haps.extra_files_path/$known_haps.metadata.base_name".haps
     #end if
     "$known_haps.metadata.base_name".gen
-    ${output_summary} ${output_warnings} "$known_haps.metadata.base_name".info ${gen_or_hap.phased_or_not} 
+    ${output_summary} ${output_warnings} "$known_haps.metadata.base_name".sample ${gen_or_hap.phased_or_not} 
     ${ne} ${buffer_size} ${__root_dir__} ${allow_large_regions}
     ;
     python ${__root_dir__}/tool-data/shared/composite_datatypes/create_composite_rgenetics.py 'impute' $output $output.metadata.base_name $output.extra_files_path    

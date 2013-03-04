@@ -72,7 +72,7 @@
         </tool>
         <tool id="create_interval"/>
         <tool id="merge_vcfs">
-           <input_datatypes>
+            <input_datatypes>
                 <datatype format="vcf" splitter="Vcf" merger="Vcf" output_name="output"/>
             </input_datatypes>
         </tool>
