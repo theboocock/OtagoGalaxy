@@ -28,7 +28,7 @@ class ParralelismOptions(object):
         if len(parralelism) > 0:
             self.is_parralel_var = True
             for values in parralelism:
-                if values == "Base Pair":
+                if values == "BasePair":
                     self.splitting_type = 'bp'
                 elif values == "Simple":
                     self.splitting_type ="simple"
@@ -67,6 +67,7 @@ class JobOptions(object):
                     self.grid = str(value)
             for key,value in incoming.items():
                 if key.split('+')[0] == self.grid:
+                    log.debug(value)
                     self.parralelism.append(str(value))
         log.debug(self.parralelism)
         log.debug(self.grid)

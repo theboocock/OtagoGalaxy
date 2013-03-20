@@ -5,7 +5,7 @@
 # set the path to you local Nesi_Tools file
 NESI_TOOL_PATH=/home/jamesboocock/NeSI_Tools/bin
 #set the galaxy home folder
-GALAXY_HOME_FOLDER=~/galaxy-dist
+GALAXY_HOME_FOLDER=~/work/galaxy-central
 
 
 echo $NESI_TOOL_PATH

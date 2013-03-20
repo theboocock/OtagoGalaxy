@@ -72,14 +72,19 @@ class NesiJobRunner(BaseJobRunner):
         self.sa_session=app.model.context
         self.watched=[]
         self.monitor_queue=Queue()
-        self.default_nesi_grid=self.determine_nesi_runner(self.app.config.nesi_default_server)
-        self.default_nesi_server=self.determine_nesi_server(self.app.config.nesi_default_server)
-        self.nesi_group=self.determine_nesi_group(self.app.config.nesi_group)
+        self.default_nesi_grid=''
+        self.default_nesi_server=''
+        self.nesi_group=''
+        if hasattr(self.app.config, 'nesi_default_server'):
+            self.default_nesi_grid=self.determine_nesi_runner(self.app.config.nesi_default_server)
+            self.default_nesi_server=self.determine_nesi_server(self.app.config.nesi_default_server)
+        if hasattr(self.app.config,'nesi_group'):
+            self.nesi_group=self.determine_nesi_group(self.app.config.nesi_group)
         self.monitor_thread = threading.Thread(target=self.monitor)
         self.monitor_thread.start()
         self.work_queue=Queue()
         self.work_threads =[] 
-        nworkers = app.config.cluster_job_queue_workers
+        nworkers = 4
         for i in range(nworkers):
             worker =threading.Thread(target=self.run_next)
             worker.start()

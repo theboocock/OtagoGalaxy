@@ -24,8 +24,10 @@ class ToolRun(object):
         self.command_line = job_wrapper.get_command_line()
         #Just to start get something working so we can see if this works on the nesi server
         self.job_id = self.job_wrapper.get_job().tool_id
+        log.debug(self.job_id)
         #Set to none for the local runner#  
         self.grid_to_run_on = self.ui_reader.get_grid(self.job_id)
+        log.debug(self.grid_to_run_on)
         self.grids = grids
         log.debug(grids)
         self.datatypes = [] 
@@ -58,8 +60,8 @@ class ToolRun(object):
             #Do grid preparation here#
                 log.debug(self.grid_to_run_on)
                 log.debug(self.runner_name + " " + self.command_line)
-                self.fake_galaxy_dir = grid.prepare_paths(job_wrapper.get_job().tool_id)
-                grid.prepare_datatypes(job_wrapper)
+                #self.fake_galaxy_dir = grid.prepare_paths(job_wrapper.get_job().tool_id)
+                #grid.prepare_datatypes(job_wrapper)
             except:
                 log.debug("Could not get a grid runner for grid: " + str(self.grid_to_run_on))
     

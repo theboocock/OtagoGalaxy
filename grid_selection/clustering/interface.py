@@ -27,16 +27,15 @@ class ClusteringInterface(object):
         self.avaliable_runners= job_runners
         log.debug( job_runners)
         self.grids_by_id = {}
-        
-        #HARDCODED DEFAULT FOR TESTING
-        config_file = ('/home/jamesboocock/OtagoGalaxy/grid_selection/conf/grid_conf.xml')
+        log.debug(config_file)
         try:
             self.init_grids(config_file)
         except:
             log.exception("Error loading grids specifed in the config file {0}".format(config_file))
         log.debug(self.generate_avaliable_grids())
 #       Do some ui reading
-        self.ui_reader = UiReader(self.app,self.grids_by_id)
+        #HARD CODED FOR NOW
+        self.ui_reader = UiReader(self.app,self.grids_by_id,"lib/galaxy/jobs/clustering/tool_parralelism.ini")
 
     def init_grids(self,config_file):
         """ Initalise all the grids specfied in the grid config file"""

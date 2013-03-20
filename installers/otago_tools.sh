@@ -5,7 +5,7 @@
 # Installs all the otago galaxy stuff
 # 
 
-GALAXY_HOME_FOLDER=~/galaxy-dist
+GALAXY_HOME_FOLDER=~/work/galaxy-central
 
 getoptions(){
     while getopts "nd" opt; do

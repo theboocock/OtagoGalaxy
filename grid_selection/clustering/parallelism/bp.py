@@ -22,7 +22,6 @@ def get_dir_name(dir):
 
 class BasePair(object):
 
-
     def __init__(self, tool_wrapper):
         self.bases = {}
         self.bases['mb'] = 1000000
@@ -237,6 +236,12 @@ class Impute2(BasePair):
         #dont need this yet
 
     def do_merge(self, dataset,task_dirs):
-       return 1 
+        fname=self.tool_wrapper.get_input_dataset_fnames(dataset)
+        base_name = os.path.basename(fname[0])
+        with open(fname[0],'w'):
+            for value in task_dirs:
+                print("blah")       
+            
+
     #def do_split(self, dataset, task_dirs):
         #skip this
