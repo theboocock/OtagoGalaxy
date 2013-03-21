@@ -5,7 +5,7 @@
 
 <inputs>
 	<param name="input_vcf" type="data" format="vcf" label="VCF file to extract region from"/>
-	<param name="region"  type="text" label="Type In region" 
+	<param name="region"  type="text" label="Type In region" size="20" 
 	help="The format of the region to be selected is chr:start-end"/>
 </inputs>
 
