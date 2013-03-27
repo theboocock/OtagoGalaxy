@@ -7,7 +7,6 @@ from galaxy import model
 
 import os, errno
 from time import sleep
-from time imort 
 
 from galaxy.jobs import TaskWrapper
 from galaxy.jobs.runners import BaseJobRunner
@@ -148,7 +147,7 @@ class TaskedJobRunner( BaseJobRunner ):
             if self.app.config.enable_clustering_interface:
                 stdout, stderr = parallelism.do_merge(job_wrapper, task_wrappers)
                 log.debug('merged with clustering interface')
-                log.debug("Total time for this run with splitting options " + str(splitting_method) + " is: " + str(total))
+                #log.debug("Total time for this run with splitting options " + str(splitting_method) + " is: " + str(total))
             else:
                 stdout,  stderr = splitter.do_merge(job_wrapper,  task_wrappers)
         except Exception:

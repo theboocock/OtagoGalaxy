@@ -22,6 +22,10 @@ Additional Errors may follow:
 %s
 """
 
+# NASTY DEFAULTS NEED TO BE CHANGED
+
+
+
 log = logging.getLogger(__name__)
 
 __all__ = ['NesiJobRunner']
@@ -65,16 +69,17 @@ class NesiJobRunner(BaseJobRunner):
     Job Runner Backed by a finite pool of worker threads. FIFO scheduling
     """
     STOP_SIGNAL=object()
-
-    def __init__(self, app):
+    runner_name="nesi"
+    def __init__(self, app,nworkers):
         """Initialize this job runner and start monitor thread"""
         self.app=app
         self.sa_session=app.model.context
         self.watched=[]
         self.monitor_queue=Queue()
         self.default_nesi_grid=''
-        self.default_nesi_server=''
-        self.nesi_group=''
+        self.default_nesi_server='pan:pan.nesi.org.nz'
+        self.nesi_group='/nz/nesi'
+        self.nesi_scripts_directory='lib/galaxy/jobs/runners/nesi_scripts'
         if hasattr(self.app.config, 'nesi_default_server'):
             self.default_nesi_grid=self.determine_nesi_runner(self.app.config.nesi_default_server)
             self.default_nesi_server=self.determine_nesi_server(self.app.config.nesi_default_server)
@@ -170,9 +175,9 @@ class NesiJobRunner(BaseJobRunner):
         """Called by the monitor thread to look at each of the jobs and deal 
             with state changes"""
         new_watched=[]
-        nesi_server= self.determine_nesi_server(self.app.config.default_cluster_job_runner)
-        nesi_runner= self.determine_nesi_runner(self.app.config.default_cluster_job_runner)
-        nesi_script_location = os.path.abspath(self.app.config.nesi_scripts_directory)
+        #nesi_server= self.determine_nesi_server(self.app.config.default_cluster_job_runner)
+        #nesi_runner= self.determine_nesi_runner(self.app.config.default_cluster_job_runner)
+        nesi_script_location = os.path.abspath(self.nesi_scripts_directory)
         jobstatus_file = os.path.abspath(nesi_script_location + "/jobstatus_file.tmp")
         
         rc = call(nesi_script_location + "/./check_jobs.py " + "-b BeSTGRID " + jobstatus_file, shell=True)
@@ -246,15 +251,19 @@ class NesiJobRunner(BaseJobRunner):
             job_id= str(job_wrapper.job_id)
 
         try:
-            job_wrapper.prepare()
-            if not (self.app.enable_clustering_interface):
-                command_line=self.build_command_line(job_wrapper)
+            if hasattr(self.app.config,'enable_clustering_interface'):
+                if not self.app.config.enable_clustering_interface:
+                    job_wrapper.prepare()
+                    command_line=self.build_command_line(job_wrapper)
+                else:
+                    command_line=job_wrapper.get_command_line()
         except:
             job_wrapper.fail("Failure preparing job", exception=True)
-            log.exception("Failure running job %d" % job_id)
+            log.exception("Failure running job %s" % job_id)
             return
-
-        runner_url= job_wrapper.get_job_runner_url()
+        
+        #job_wrapper.set_job_destination('nesi',job_wrapper.job_id)
+        log.debug(job_wrapper.job_destination)
         #Make sure we dont queue job with no command line
         if not command_line:
             job_wrapper.finish('','')
@@ -265,9 +274,9 @@ class NesiJobRunner(BaseJobRunner):
             if self.app.config.cleanup_job in ("always", "onsuccess"):
                 job_wrapper.cleanup()
             return
-        runner_url=job_wrapper.get_job_runner_url()
-        nesi_server=self.determine_nesi_server(runner_url)
-        nesi_script_location = os.path.abspath(self.app.config.nesi_scripts_directory)
+        #runner_url=job_wrapper.get_job_runner_url()
+        nesi_server=self.default_nesi_server
+        nesi_script_location = os.path.abspath(self.nesi_scripts_directory)
         jobstatus_file = os.path.abspath(nesi_script_location + "/jobstatus_file.tmp")
         ecfile = "%s/%s.ec" % (self.app.config.cluster_files_directory, job_id)
         ofile  = "%s/%s.o" %(self.app.config.cluster_files_directory,job_id)
@@ -317,9 +326,9 @@ class NesiJobRunner(BaseJobRunner):
         except:
             job_wrapper.fail("Unable to submit NeSI job currently.")
             log.error("NeSI job file not created correctly.")
-
+        runner_url="nesi://"
         # store runner information for tracking if Galaxy restarts.
-        job_wrapper.set_runner(runner_url, nesi_job_name)
+        #job_wrapper.set_runner(runner_url, nesi_job_name)
         # Store nesi related state information for job.
         nesi_job_state=NesiJobState()
         nesi_job_state.job_wrapper = job_wrapper
@@ -362,7 +371,7 @@ class NesiJobRunner(BaseJobRunner):
     def stop_job(self,job):
         """Attempts to remove a job from the Nesi queue"""
     
-        nesi_script_location = os.path.abspath(self.app.config.nesi_scripts_directory)
+        nesi_script_location = os.path.abspath(self.nesi_scripts_directory)
 
         rc = call(nesi_script_location + "/./stop_job.py " + "-b BeSTGRID " + job.get_job_runner_external_id(), shell=True)
 
@@ -377,8 +386,8 @@ class NesiJobRunner(BaseJobRunner):
         efile = nesi_job_state.efile
         jobname_file = nesi_job_state.nesi_jobname_file
         runner_url=nesi_job_state.job_wrapper.get_job_runner_url()
-        nesi_server=self.determine_nesi_server(runner_url)
-        nesi_script_location = os.path.abspath(self.app.config.nesi_scripts_directory)
+        nesi_server=self.default_nesi_server
+        nesi_script_location = os.path.abspath(self.nesi_scripts_directory)
         jobstatus_file = os.path.abspath(nesi_script_location + "/jobstatus_file.tmp")
         nesi_job_name = nesi_job_state.job_name
         output_fnames = nesi_job_state.job_wrapper.get_output_fnames()
@@ -456,8 +465,8 @@ class NesiJobRunner(BaseJobRunner):
         efile = nesi_job_state.efile
         jobname_file = nesi_job_state.nesi_jobname_file
         runner_url=nesi_job_state.job_wrapper.get_job_runner_url()
-        nesi_server=self.determine_nesi_server(runner_url)
-        nesi_script_location = os.path.abspath(self.app.config.nesi_scripts_directory)
+        nesi_server=self.default_nesi_server
+        nesi_script_location = os.path.abspath(nesi_scripts_directory)
         jobstatus_file = os.path.abspath(nesi_script_location + "/jobstatus_file.tmp")
         nesi_job_name = nesi_job_state.job_name
         

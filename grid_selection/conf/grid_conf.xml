@@ -1,7 +1,7 @@
 <gridconfig>
 <!--grid name="BiochemXgrid" id="xgrid0" runner="xgrid" default_runner_url="xgrid://Biocperformance/Biochemprocess2012/" enable_all_tools="True">
     <config>
-        <option name="xgrid_nfs_mount_location" value="/Users/NFS_SHARE/galaxy-xgrid:/tmp/xgfs/galaxy-xgrid"/>
+        <option name="xgrid_nfs_mount_src" value="/Users/NFS_SHARE/galaxy-xgrid:/tmp/xgfs/galaxy-xgrid"/>
     </config>
     <tools>
         <tool id="merge_vcfs">
@@ -30,8 +30,8 @@
         </tool>
         <tool id="impute2">
             <paths>
-               <path src="tools/OtagoGalaxy/data/impute2/1kg" location="/gpfs1m/apps/db/impute/ALL_1000G_phase1integrated_v3_impute"/>
-               <path src="impute2" location="/share/apps/impute2-2.3.0/impute2"/>
+               <path src="tools/OtagoGalaxy/data/impute2/1kg" dest="/gpfs1m/apps/db/impute/ALL_1000G_phase1integrated_v3_impute/*"/>
+               <path src="impute2" dest="/share/apps/impute2-2.3.0/impute2"/>
             </paths>
             <!-- For multiple input possiblities define seperate splitters -->
             <!-- Most galaxy tools will only have one splitter format -->
@@ -60,8 +60,8 @@
     <tools>
         <tool id="impute2">
             <paths>
-               <path src="tools/OtagoGalaxy/data/impute2/1kg/" path="/usr/share/"/>
-               <path src="impute2" path=""/>
+               <path src="tools/OtagoGalaxy/data/impute2/1kg" dest="/gpfs1m/apps/db/impute/ALL_1000G_phase1integrated_v3_impute/*"/>
+               <path src="impute2" dest="/share/apps/impute2-2.3.0/impute2"/>
             </paths>
             <!-- For multiple input possiblities define seperate splitters -->
             <!-- Most galaxy tools will only have one splitter format -->

@@ -20,8 +20,6 @@ class ToolRun(object):
         self.app = app
         self.ui_reader = ui_reader
         self.job_wrapper = job_wrapper
-        self.job_wrapper.prepare()
-        self.command_line = job_wrapper.get_command_line()
         #Just to start get something working so we can see if this works on the nesi server
         self.job_id = self.job_wrapper.get_job().tool_id
         log.debug(self.job_id)
@@ -55,15 +53,18 @@ class ToolRun(object):
             #unset parrellel after
         #Final setup of job sends it to the task runner.
         else:
-            try:
-                self.runner_name= self.grid_to_run_on.get_grid_runner() 
-            #Do grid preparation here#
-                log.debug(self.grid_to_run_on)
-                log.debug(self.runner_name + " " + self.command_line)
-                #self.fake_galaxy_dir = grid.prepare_paths(job_wrapper.get_job().tool_id)
-                #grid.prepare_datatypes(job_wrapper)
-            except:
-                log.debug("Could not get a grid runner for grid: " + str(self.grid_to_run_on))
+        #try: 
+            self.runner_name= self.grid_to_run_on.get_grid_runner() 
+        #Do grid preparation here#
+            log.debug(self.grid_to_run_on)
+            self.job_wrapper.prepare()
+            self.command_line =job_wrapper.get_command_line()
+            log.debug(self.runner_name + " " + self.command_line)
+            self.fake_galaxy_dir = self.grid_to_run_on.prepare_paths(job_wrapper.get_job().tool_id)
+            job_wrapper.command_line= self.fake_galaxy_dir + " " +job_wrapper.command_line
+            #grid.prepare_datatypes(job_wrapper)
+        #except:
+            #log.debug("Could not get a grid runner for grid: " + str(self.grid_to_run_on))
     
 
     def get_grid_runners(self):
@@ -89,3 +90,49 @@ class ToolRun(object):
 
     def get_runner_name(self):
         return self.runner_name
+    
+    def build_command_line( self, job_wrapper, include_metadata=False, include_work_dir_outputs=True ):
+        """
+        Compose the sequence of commands necessary to execute a job. This will
+        currently include:
+
+            - environment settings corresponding to any requirement tags
+            - preparing input files
+            - command line taken from job wrapper
+            - commands to set metadata (if include_metadata is True)
+        """
+
+        commands = job_wrapper.get_command_line()
+        # All job runners currently handle this case which should never
+        # occur
+        if not commands:
+            return None
+        # Prepend version string
+        if job_wrapper.version_string_cmd:
+            commands = "%s &> %s; " % ( job_wrapper.version_string_cmd, job_wrapper.get_version_string_path() ) + commands
+        # prepend getting input files (if defined)
+        if hasattr(job_wrapper, 'prepare_input_files_cmds') and job_wrapper.prepare_input_files_cmds is not None:
+            commands = "; ".join( job_wrapper.prepare_input_files_cmds + [ commands ] ) 
+        # Prepend dependency injection
+        if job_wrapper.dependency_shell_commands:
+            commands = "; ".join( job_wrapper.dependency_shell_commands + [ commands ] ) 
+
+        # Append commands to copy job outputs based on from_work_dir attribute.
+        if include_work_dir_outputs:
+            work_dir_outputs = self.get_work_dir_outputs( job_wrapper )
+            if work_dir_outputs:
+                commands += "; " + "; ".join( [ "if [ -f %s ] ; then cp %s %s ; fi" % 
+                    ( source_file, source_file, destination ) for ( source_file, destination ) in work_dir_outputs ] )
+
+        # Append metadata setting commands, we don't want to overwrite metadata
+        # that was copied over in init_meta(), as per established behavior
+        if include_metadata and self.app.config.set_metadata_externally:
+            commands += "; cd %s; " % os.path.abspath( os.getcwd() )
+            commands += job_wrapper.setup_external_metadata( 
+                            exec_dir = os.path.abspath( os.getcwd() ),
+                            tmp_dir = job_wrapper.working_directory,
+                            dataset_files_path = self.app.model.Dataset.file_path,
+                            output_fnames = job_wrapper.get_output_fnames(),
+                            set_extension = False,
+                            kwds = { 'overwrite' : False } ) 
+        return commands

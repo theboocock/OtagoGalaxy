@@ -178,8 +178,8 @@ class Grid(object):
         paths=self.grid_tools[tool_id].get_paths()
         log.debug(paths)
         command=''
-        for src, dest in paths:
-            if len(src.split('/') > 1):
+        for src, dest in paths.items():
+            if len(src.split('/')) > 1:
                 command += ("mkdir -p {0} ;".format(src))
             command += ("ln -s {0} {1} ;".format(dest,src))
         log.debug(command)

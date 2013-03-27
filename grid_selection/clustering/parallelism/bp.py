@@ -240,7 +240,8 @@ class Impute2(BasePair):
         base_name = os.path.basename(fname[0])
         with open(fname[0],'w'):
             for value in task_dirs:
-                print("blah")       
+                print("blah")
+                print(value)
             
 
     #def do_split(self, dataset, task_dirs):

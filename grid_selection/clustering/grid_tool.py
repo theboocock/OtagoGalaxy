@@ -82,7 +82,7 @@ class GridTool(object):
             source = path.get("src")
             if not source:
                 raise Exception, "Missing src tag in path element"
-            dest = path.get("src")
+            dest = path.get("dest")
             if not dest:
                 raise Exception, "Missing dest tag in path element"
             self.paths[source] = dest
