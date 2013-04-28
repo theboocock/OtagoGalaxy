@@ -28,10 +28,9 @@ else
 fi
     START=`head -1 $2 | awk '{print $3}' `
     END=`tail -1 $2| awk '{print $3}' `
-    impute2 -allow_large_regions\
-    -m ${10}/tools/OtagoGalaxy/data/1kg/impute2/genetic_map_chr${1}_combined_b37.txt \
-    -h ${10}/tools/OtagoGalaxy/data/1kg/impute2/ALL_1000G_phase1integrated_v3_chr${1}_impute.hap \
-    -l ${10}/tools/OtagoGalaxy/data/1kg/impute2/ALL_1000G_phase1integrated_v3_chr${1}_impute.legend \
+    impute2 -m tools/OtagoGalaxy/data/1kg/impute2/genetic_map_chr${1}_combined_b37.txt \
+    -h tools/OtagoGalaxy/data/1kg/impute2/ALL_1000G_phase1integrated_v3_chr${1}_impute.hap \
+    -l tools/OtagoGalaxy/data/1kg/impute2/ALL_1000G_phase1integrated_v3_chr${1}_impute.legend \
     $PHASE $2 -int $START $END -Ne ${8} -buffer ${9} -o $3 \
     -r $4 -w $5 -i $6 -os 0 1 2 3 
 

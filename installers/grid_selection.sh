@@ -17,6 +17,6 @@ cp grid_selection/mod_galaxy/tasks.py $GALAXY_HOME_FOLDER/lib/galaxy/jobs/runner
 cp -R grid_selection/clustering $GALAXY_HOME_FOLDER/lib/galaxy/jobs/
 #mv $GALAXY_HOME_FOLDER/templates/tool_form.mako $GALAXY_HOME_FOLDER/templates/tool_form.mako.backup
 #cp grid_selection/ui/tool_form.mako $GALAXY_HOME_FOLDER/templates
-
+cp grid_selection/conf/grid_conf.xml $GALAXY_HOME_FOLDER/
 
 

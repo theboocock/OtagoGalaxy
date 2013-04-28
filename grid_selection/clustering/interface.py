@@ -25,7 +25,7 @@ class ClusteringInterface(object):
     def __init__(self,app,job_runners,config_file):
         self.app =app
         self.avaliable_runners= job_runners
-        log.debug( job_runners)
+        log.debug(job_runners)
         self.grids_by_id = {}
         log.debug(config_file)
         try:
@@ -59,7 +59,7 @@ class ClusteringInterface(object):
             #Get a new runner url for situation for each job #
             self.avaliable_runners[runner_name].put(job_wrapper)
         except KeyError:
-            log.exception("put(): (%s) Invalid Job Runner: %s" %( job_wrapper.job_id, runner_name))
+            log.exception("put(): (%s) Invalid Job Runner:")
             job_wrapper.fail(DEFAULT_CLUSTERING_FAIL_MESSAGE)
 
    

@@ -44,6 +44,7 @@ class Grid(object):
         self.parse(elem)
 
 
+
     def validate_runner(self, runner):
         """Checks to make sure the job runner that the grid selection module will use
             is set in the galaxy config"""
@@ -177,7 +178,8 @@ class Grid(object):
     def prepare_paths(self,tool_id):
         paths=self.grid_tools[tool_id].get_paths()
         log.debug(paths)
-        command=''
+        # Add the current directory to the path so any executables can be run without ./
+        command='PATH=$PATH:.;'
         for src, dest in paths.items():
             if len(src.split('/')) > 1:
                 command += ("mkdir -p {0} ;".format(src))

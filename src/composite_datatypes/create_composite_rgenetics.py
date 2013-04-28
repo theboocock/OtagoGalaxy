@@ -6,7 +6,6 @@
 import sys
 import os
 import shutil
-import html_creation
 
 ""
 # $1 rgenetics datatype.

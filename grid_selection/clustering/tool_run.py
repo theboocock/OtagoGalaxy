@@ -60,8 +60,10 @@ class ToolRun(object):
             self.job_wrapper.prepare()
             self.command_line =job_wrapper.get_command_line()
             log.debug(self.runner_name + " " + self.command_line)
-            self.fake_galaxy_dir = self.grid_to_run_on.prepare_paths(job_wrapper.get_job().tool_id)
-            job_wrapper.command_line= self.fake_galaxy_dir + " " +job_wrapper.command_line
+            # Ensure we dont try and prepare paths for jobs that are just running locally
+            if(self.grid_to_run_on != self.grids['local']):
+                self.fake_galaxy_dir = self.grid_to_run_on.prepare_paths(job_wrapper.get_job().tool_id)
+                job_wrapper.command_line= self.fake_galaxy_dir + " " +job_wrapper.command_line
             #grid.prepare_datatypes(job_wrapper)
         #except:
             #log.debug("Could not get a grid runner for grid: " + str(self.grid_to_run_on))

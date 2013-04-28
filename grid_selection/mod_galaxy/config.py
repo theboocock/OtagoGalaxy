@@ -270,6 +270,7 @@ class Configuration( object ):
         self.fluent_log = string_as_bool( kwargs.get( 'fluent_log', False ) )
         self.fluent_host = kwargs.get( 'fluent_host', 'localhost' )
         self.fluent_port = int( kwargs.get( 'fluent_port', 24224 ) )
+        self.enable_old_display_applications = string_as_bool( kwargs.get( "enable_old_display_applications", "True" ) )
         self.enable_clustering_interface = string_as_bool(kwargs.get( 'enable_clustering_interface', False))
         if self.enable_clustering_interface:
             self.clustering_config_file=os.path.abspath(kwargs.get('clustering_config_file','grid_conf.xml'))

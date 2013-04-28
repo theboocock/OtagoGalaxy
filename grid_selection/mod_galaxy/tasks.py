@@ -28,10 +28,11 @@ class TaskedJobRunner( BaseJobRunner ):
         self._init_worker_threads()
 
     def queue_job( self, job_wrapper ):
-        super( TaskedJobRunner, self ).queue_job( job_wrapper )
-        if not job_wrapper.is_ready:
+        #super( TaskedJobRunner, self ).queue_job( job_wrapper )
+        #if not job_wrapper.is_ready:
+        #    return
+        if not self.prepare_job( job_wrapper ):
             return
-
         stderr = stdout = ''
         command_line = job_wrapper.runner_command_line
 

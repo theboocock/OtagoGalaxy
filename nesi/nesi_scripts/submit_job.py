@@ -90,8 +90,8 @@ command_arguments = command.split()
 
 new_commandline = ""
 for arg in command_arguments:
-    print arg
-    if (os.path.exists(arg)) and (os.path.isfile(arg)==True) and (arg not in input_files):
+    arg=arg.replace('"','')
+    if (os.path.exists(arg)) or (os.path.isfile(arg)==True) and (arg not in input_files):
         try:
             job.addInputFileUrl(arg)
             print "Stagin in:  " + arg
