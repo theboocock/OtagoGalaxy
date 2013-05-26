@@ -9,6 +9,7 @@
     #else
         "$known_haps.extra_files_path/$known_haps.metadata.base_name".haps
     #end if
+    "$known_haps.metadata.base_name".gen
     ${output_summary} ${output_warnings} "$known_haps.extra_files_path/$known_haps.metadata.base_name".sample ${gen_or_hap.phased_or_not} 
     ${ne} ${buffer_size} "TESTING" ${allow_large_regions}
     ;

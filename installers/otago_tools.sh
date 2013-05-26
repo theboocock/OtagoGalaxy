@@ -5,7 +5,7 @@
 # Installs all the otago galaxy stuff
 # 
 
-GALAXY_HOME_FOLDER=~/work/galaxy-central
+GALAXY_HOME_FOLDER=~/galaxy-dist
 
 getoptions(){
     while getopts "nd" opt; do
@@ -46,7 +46,7 @@ mkdir -p $GALAXY_HOME_FOLDER/tool-data/shared/ihs
 
 echo "Installing snpEff"
 cp src/snpEff/*.jar $GALAXY_HOME_FOLDER/tool-data/shared/jars/snpEff/
-cp src/snpEff/snpEff.config $GALAXY_HOME_FOLDER/tool-data/shared/jars/snpEff/
+#cp src/snpEff/snpEff.config $GALAXY_HOME_FOLDER/tool-data/shared/jars/snpEff/
 echo "Installing Composite Datatypes"
 cp src/composite_datatypes/*.py $GALAXY_HOME_FOLDER/tool-data/shared/composite_datatypes/
 echo "Installing beagle"
