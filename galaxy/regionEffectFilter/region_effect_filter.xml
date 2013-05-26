@@ -39,7 +39,7 @@
 	<option value="TRANSCRIPT">Filter TRANSCIPT effect</option>
 	<option value="EXON">Filter EXON effect </option>
 	<option value="EXON_DELETED">Filter EXON_DELETED effect</option>
-	<option value="NON_SYNONOMOUS_CODING"> Filter NON_SYNONOMOUS_CODING effect</option>
+	<option value="NON_SYNONYMOUS_CODING"> Filter NON_SYNONYMOUS_CODING effect</option>
 	<option value="FRAME_SHIFT"> Filter FRAME_SHIFT effect </option>
 	<option value="CODON_CHANGE">Filter CODON_CHANGE effect </option>
 	<option value="CODON_INSERTION">Filter CODON_INSERTION effect </option>
@@ -47,7 +47,7 @@
 	<option value="CODON_DELETION">Filter CODON_DELETION effect </option>
 	<option value="CODON_CHANGE_PLUS_CODON_DELETION">Filter CODON_CHANGE_PLUS_CODON_DELETION effect </option>
 	<option value="STOP_GAINED">Filter STOP_GAINED effect </option>
-	<option value="SYNONOMOUS_STOP">Filter SYNONOMOUS_STOP effect </option>
+	<option value="SYNONYMOUS_STOP">Filter SYNONYMOUS_STOP effect </option>
 	<option value="STOP_LOST">Filter STOP_LOST effect </option>
 	<option value="INTRON">Filter INTRON effect </option>
 	<option value="UTR_3_PRIME">Filter UTR_3_PRIME effect</option>
