@@ -80,5 +80,4 @@ do
     COUNT=`expr $COUNT + 1`
 done
 cat $1 | java -jar ~/galaxy-dist/tool-data/shared/jars/snpEff/SnpSift.jar filter  "$SNPSIFT_EXPR"
-
 exit 0
