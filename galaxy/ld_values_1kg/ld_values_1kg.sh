@@ -99,8 +99,8 @@ else
 	tabix -fh ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20110521/ALL.chr`echo ${REGION} | awk -F [\:] '{print $1}'`.phase1_release_v3.20101123.snps_indels_svs.genotypes.vcf.gz $REGION > temp.vcf 2> /dev/null
 fi
 	#subset vcf file
-    vcftools --vcf temp.vcf --remove-indels --recode --out temp2.vcf
-    mv temp2.vcf temp.vcf
+    vcftools --vcf temp.vcf --remove-indels --recode --out temp
+    mv temp.recode.vcf temp.vcf
 if [ "$ID_LIST" != "" ]; then
 	vcf-subset -c $ID_LIST temp.vcf > temp2.vcf 2> /dev/null
 elif [ "$ID_FILE" != "" ]; then
