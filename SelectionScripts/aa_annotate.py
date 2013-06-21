@@ -86,7 +86,7 @@ def aa_check(realAA,ref,alt,format,line):
                 return line.strip() 
             elif(realAA == alt):
                 newLine = line.split()
-                print newLine
+#                print newLine
                 newLine[3] = alt
                 newLine[4] = ref
                 for i in range(5,len(newLine)):
