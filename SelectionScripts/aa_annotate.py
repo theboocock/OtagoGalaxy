@@ -18,6 +18,12 @@ from pyfasta import Fasta
 #
 
 #
+# 10000 genomesfasta Ancestral allele file can be downloaded from
+# ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/phase1/analysis_results/supporting/ancestral_alignments/human_ancestor_GRCh37_e59.tar.bz2
+# 
+
+
+#
 # Takes a FASTA File Containing the Ancestral Alleles.
 # Using the same format as the 1000 genomes ancestral alleles file.
 # ATCG high confidence call
