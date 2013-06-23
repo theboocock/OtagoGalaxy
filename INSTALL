@@ -60,6 +60,17 @@ match the location of you Nesi_Tools bin folder.
 If you are going to install the xgrid module also you will need to 
 run 'bash installers/xgrid_nesi.sh' which will install them both.
 
+NESI universe settings ( galaxy config main file ) 
+
+#nesi_group= /nz/nesi
+#nesi_default_server = nesi://pan:pan.nesi.org.nz
+#nesi_scripts_directory = lib/galaxy/jobs/runners/nesi_scripts
+
+nesi job runner needs to be added to the config file
+#start_job_runners = nesi
+
+An example job_conf.xml for nesi + the standard local runner is located in the root of the nesi folder
+
 
 Otago-Grid-Selection
 ---------------

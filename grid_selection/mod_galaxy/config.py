@@ -64,21 +64,33 @@ class Configuration( object ):
             tcf = kwargs[ 'tool_config_files' ]
         else:
             tcf = 'tool_conf.xml'
+        self.tool_filters = listify( kwargs.get( "tool_filters", [] ) )
+        self.tool_label_filters = listify( kwargs.get( "tool_label_filters", [] ) )
+        self.tool_section_filters = listify( kwargs.get( "tool_section_filters", [] ) )
         self.tool_configs = [ resolve_path( p, self.root ) for p in listify( tcf ) ]
+        self.shed_tool_data_path = kwargs.get( "shed_tool_data_path", None )
+        if self.shed_tool_data_path:
+            self.shed_tool_data_path = resolve_path( self.shed_tool_data_path, self.root )
+        else:
+            self.shed_tool_data_path = self.tool_data_path
         self.tool_data_table_config_path = resolve_path( kwargs.get( 'tool_data_table_config_path', 'tool_data_table_conf.xml' ), self.root )
         self.shed_tool_data_table_config = resolve_path( kwargs.get( 'shed_tool_data_table_config', 'shed_tool_data_table_conf.xml' ), self.root )
         self.enable_tool_shed_check = string_as_bool( kwargs.get( 'enable_tool_shed_check', False ) )
+        self.hours_between_check = kwargs.get( 'hours_between_check', 12 )
         try:
-            self.hours_between_check = kwargs.get( 'hours_between_check', 12 )
-            if isinstance( self.hours_between_check, float ):
+            hbc_test = int( self.hours_between_check )
+            self.hours_between_check = hbc_test
+            if self.hours_between_check < 1 or self.hours_between_check > 24:
+                self.hours_between_check = 12
+        except:
+            try:
                 # Float values are supported for functional tests.
+                hbc_test = float( self.hours_between_check )
+                self.hours_between_check = hbc_test
                 if self.hours_between_check < 0.001 or self.hours_between_check > 24.0:
                     self.hours_between_check = 12.0
-            else:
-                if self.hours_between_check < 1 or self.hours_between_check > 24:
-                    self.hours_between_check = 12
-        except:
-            self.hours_between_check = 12
+            except:
+                self.hours_between_check = 12
         self.update_integrated_tool_panel = kwargs.get( "update_integrated_tool_panel", True )
         self.enable_data_manager_user_view = string_as_bool( kwargs.get( "enable_data_manager_user_view", "False" ) )
         self.data_manager_config_file = resolve_path( kwargs.get('data_manager_config_file', 'data_manager_conf.xml' ), self.root )
@@ -86,7 +98,6 @@ class Configuration( object ):
         self.galaxy_data_manager_data_path = kwargs.get( 'galaxy_data_manager_data_path',  self.tool_data_path )
         self.tool_secret = kwargs.get( "tool_secret", "" )
         self.id_secret = kwargs.get( "id_secret", "USING THE DEFAULT IS NOT SECURE!" )
-        self.set_metadata_externally = string_as_bool( kwargs.get( "set_metadata_externally", "False" ) )
         self.retry_metadata_internally = string_as_bool( kwargs.get( "retry_metadata_internally", "True" ) )
         self.use_remote_user = string_as_bool( kwargs.get( "use_remote_user", "False" ) )
         self.remote_user_maildomain = kwargs.get( "remote_user_maildomain", None )
@@ -151,9 +162,15 @@ class Configuration( object ):
         self.log_actions = string_as_bool( kwargs.get( 'log_actions', 'False' ) )
         self.log_events = string_as_bool( kwargs.get( 'log_events', 'False' ) )
         self.sanitize_all_html = string_as_bool( kwargs.get( 'sanitize_all_html', True ) )
+        self.enable_old_display_applications = string_as_bool( kwargs.get( "enable_old_display_applications", "True" ) )
         self.ucsc_display_sites = kwargs.get( 'ucsc_display_sites', "main,test,archaea,ucla" ).lower().split(",")
         self.gbrowse_display_sites = kwargs.get( 'gbrowse_display_sites', "modencode,sgd_yeast,tair,wormbase,wormbase_ws120,wormbase_ws140,wormbase_ws170,wormbase_ws180,wormbase_ws190,wormbase_ws200,wormbase_ws204,wormbase_ws210,wormbase_ws220,wormbase_ws225" ).lower().split(",")
         self.brand = kwargs.get( 'brand', None )
+        self.welcome_url = kwargs.get( 'welcome_url', '/static/welcome.html' )
+        # Configuration for the message box directly below the masthead.
+        self.message_box_visible = kwargs.get( 'message_box_visible', False )
+        self.message_box_content = kwargs.get( 'message_box_content', None )
+        self.message_box_class = kwargs.get( 'message_box_class', 'info' )
         self.support_url = kwargs.get( 'support_url', 'http://wiki.g2.bx.psu.edu/Support' )
         self.wiki_url = kwargs.get( 'wiki_url', 'http://g2.trac.bx.psu.edu/' )
         self.blog_url = kwargs.get( 'blog_url', None )
@@ -165,6 +182,7 @@ class Configuration( object ):
         self.enable_whoosh_library_search = string_as_bool( kwargs.get( 'enable_whoosh_library_search', False ) )
         self.whoosh_index_dir = resolve_path( kwargs.get( "whoosh_index_dir", "database/whoosh_indexes" ), self.root )
         self.ftp_upload_dir = kwargs.get( 'ftp_upload_dir', None )
+        self.ftp_upload_dir_identifier = kwargs.get( 'ftp_upload_dir_identifier', 'email' )  # attribute on user - email, username, id, etc...
         self.ftp_upload_site = kwargs.get( 'ftp_upload_site', None )
         self.allow_library_path_paste = kwargs.get( 'allow_library_path_paste', False )
         self.disable_library_comptypes = kwargs.get( 'disable_library_comptypes', '' ).lower().split( ',' )
@@ -270,6 +288,8 @@ class Configuration( object ):
         self.fluent_log = string_as_bool( kwargs.get( 'fluent_log', False ) )
         self.fluent_host = kwargs.get( 'fluent_host', 'localhost' )
         self.fluent_port = int( kwargs.get( 'fluent_port', 24224 ) )
+        # visualizations registry config path
+        self.visualizations_conf_path = kwargs.get( 'visualizations_conf_path', None )
         self.enable_old_display_applications = string_as_bool( kwargs.get( "enable_old_display_applications", "True" ) )
         self.enable_clustering_interface = string_as_bool(kwargs.get( 'enable_clustering_interface', False))
         if self.enable_clustering_interface:

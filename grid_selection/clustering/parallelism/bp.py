@@ -241,8 +241,8 @@ class Impute2(BasePair):
         with open(fname[0],'w'):
             for value in task_dirs:
                 print("blah")
-                print(value)
+                log.debug('are we merging this')
             
 
     #def do_split(self, dataset, task_dirs):
-        #skip this
+        #skip this unnecessary uneeded at this point 
