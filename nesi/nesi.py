@@ -89,7 +89,7 @@ class NesiJobRunner(BaseJobRunner):
         self.monitor_thread.start()
         self.work_queue=Queue()
         self.work_threads =[] 
-        nworkers = 4
+        nworkers = 1
         for i in range(nworkers):
             worker =threading.Thread(target=self.run_next)
             worker.start()
@@ -169,7 +169,7 @@ class NesiJobRunner(BaseJobRunner):
                     log.exception("Uncaught exception checking jobs")
 
             #sleep a bit before the next state is checked
-            time.sleep(5)
+            time.sleep(1)
 
     def check_watched_items(self):
         """Called by the monitor thread to look at each of the jobs and deal 
@@ -393,9 +393,12 @@ class NesiJobRunner(BaseJobRunner):
         output_fnames = nesi_job_state.job_wrapper.get_output_fnames()
         output_files = [ str( o ) for o in output_fnames]
         output_files = " ".join(output_files)
-        
         # get results
-        rc = call(nesi_script_location + "/./get_results.py" + " -b BeSTGRID " + ofile + " " + efile + " " + ecfile + " " + nesi_job_name + " " + output_files, shell=True)
+        # TODO check so that standard jobs submitted to the nesi cluster also work.
+        # This can be done using a isinstance check on the job_wrapper to check
+        # whether it is an instance of TaskWrapper.
+        
+        rc = call(nesi_script_location + "/./get_results.py" + " -b BeSTGRID " + ofile + " " + efile + " " + ecfile + " " + nesi_job_name + " " + nesi_job_state.job_wrapper.working_directory + " "+output_files, shell=True)
         
         # can't hit server for some reason
         if rc == -2:

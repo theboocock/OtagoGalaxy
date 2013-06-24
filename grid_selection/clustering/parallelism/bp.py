@@ -124,10 +124,14 @@ class Vcf(BasePair):
         fname = self.tool_wrapper.get_input_dataset_fnames(dataset.dataset)
         read_header = True
         base_name=os.path.basename(fname[0])
+        log.debug(fname[0])
+        log.debug("We are merging in the vcf merge method")
         with open(fname[0],'w') as out:
             for task_dir in task_dirs:
                 list_dir = os.listdir(task_dir)
+                log.debug(list_dir)
                 for files in list_dir:
+                    log.debug(files)
                     if files == base_name:
                         with open(os.path.join(task_dir,files), 'r') as part_file:
                             for line in part_file:
@@ -240,9 +244,15 @@ class Impute2(BasePair):
         base_name = os.path.basename(fname[0])
         with open(fname[0],'w'):
             for value in task_dirs:
-                print("blah")
-                log.debug('are we merging this')
-            
+                list_dir = os.listdir(task_dir)
+                for files in list_dir:
+                    if files == base_name:
+                        with open(os.path.join(task_dir,files), 'r') as part_file:
+                            for line in part_file:
+                                if(read_header == True and "#" in line):
+                                    out.write(line)
+                                elif not "#" in line:
+                                    out.write(line)
 
     #def do_split(self, dataset, task_dirs):
         #skip this unnecessary uneeded at this point 

@@ -31,7 +31,6 @@
         <tool id="impute2">
             <paths>
                <path src="tools/OtagoGalaxy/data/impute2/1kg" dest="/gpfs1m/apps/db/impute/ALL_1000G_phase1integrated_v3_impute/*"/>
-               <path src="impute2" dest="/share/apps/impute2-2.3.0/impute2"/>
             </paths>
             <!-- For multiple input possiblities define seperate splitters -->
             <!-- Most galaxy tools will only have one splitter format -->

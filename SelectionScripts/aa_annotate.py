@@ -48,6 +48,8 @@ def annotate_vcf(options):
     f = Fasta(options.ancestralfasta)
     keyz = (f.keys())
     chroms = {}
+    if(options.output != None):
+        output = open(options.output, 'w')
     for key in keyz:
         chroms[(key.split(':'))[2]] = key
     

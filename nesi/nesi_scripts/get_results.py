@@ -31,11 +31,11 @@ outfile         = sys.argv[1]
 errfile         = sys.argv[2]
 error_codefile  = sys.argv[3]
 job_name        = sys.argv[4]
+working_directory = sys.argv[5]
 output_files    = list()
-print job_name
 
 # get list of output files for this job
-for f in sys.argv[5:]:
+for f in sys.argv[6:]:
     output_files.append(f)
 
 
@@ -70,7 +70,8 @@ for f in output_files:
     try:
         rel_f = os.path.basename(f)
         output_file= job.downloadAndCacheOutputFile(rel_f).toString()
-        shutil.copy(output_file,f)
+        print(current_dir)
+        shutil.copy(output_file,os.path.join(working_directory,rel_f))
     except:
         "Cannot write output_files"
         sys.exit(-3)
