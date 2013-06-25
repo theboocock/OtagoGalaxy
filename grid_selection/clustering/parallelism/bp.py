@@ -139,7 +139,7 @@ class Vcf(BasePair):
                                     out.write(line)
                                 elif not "#" in line:
                                     out.write(line)
-                read_header = True
+                        read_header=False
                 
     def get_interval(self, hist_dataset):
         interval=""
@@ -147,15 +147,15 @@ class Vcf(BasePair):
         fname=fname[0]
         #We can do this because we know a vcf file is not a composite datatype
         with open(fname, 'r') as vcf:
-            line = vcf.readline()
-            while("#" in line):
-                line=vcf.readline()
-            i=0 
+            i =0
             for line in vcf:
-                if (i == 0):
-                    line=line.split()
-                    interval += line[1]
-                i = i + 1
+                if ('#' in line):
+                    continue
+                else:
+                    if( i == 0):
+                        line=line.split()
+                        interval += line[1]
+                    i = i + 1
 
             interval+="-"
             interval+=line.split()[1]
@@ -201,7 +201,6 @@ class ShapeIt(BasePair):
                 shutil.copy(fname[0], os.path.join(value,os.path.basename(fname[0])))
                 os.makedirs(os.path.join(value,self.extra_files.split('/')[-1]))
                 log.debug(os.path.join(value,self.extra_files.split('/')[-1]))
-                shutil.copy(os.path.join(self.extra_files,self.base_name + '.sample'),os.path.join(value,self.base_name + '.sample'))
             except Exception, e:
                 log.error("Unable to create extra files path Directiories: %s" % str(e))
         with open(os.path.join(self.extra_files,self.base_name + '.haps')) as f:
@@ -242,17 +241,14 @@ class Impute2(BasePair):
     def do_merge(self, dataset,task_dirs):
         fname=self.tool_wrapper.get_input_dataset_fnames(dataset)
         base_name = os.path.basename(fname[0])
+        extra_files=dataset.extra_files_path
         with open(fname[0],'w'):
             for value in task_dirs:
                 list_dir = os.listdir(task_dir)
-                for files in list_dir:
-                    if files == base_name:
-                        with open(os.path.join(task_dir,files), 'r') as part_file:
-                            for line in part_file:
-                                if(read_header == True and "#" in line):
-                                    out.write(line)
-                                elif not "#" in line:
-                                    out.write(line)
+                if files in ".gen":
+                    with open(os.path.join(task_dir,files), 'r') as part_file:
+                        for line in part_file:
+                            out.write(line)
 
     #def do_split(self, dataset, task_dirs):
         #skip this unnecessary uneeded at this point 

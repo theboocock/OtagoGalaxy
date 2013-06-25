@@ -77,7 +77,7 @@ class NesiJobRunner(BaseJobRunner):
         self.watched=[]
         self.monitor_queue=Queue()
         self.default_nesi_grid=''
-        self.default_nesi_server='pan:pan.nesi.org.nz'
+        self.default_nesi_server='pan:gram.uoa.nesi.org.nz'
         self.nesi_group='/nz/nesi'
         self.nesi_scripts_directory='lib/galaxy/jobs/runners/nesi_scripts'
         if hasattr(self.app.config, 'nesi_default_server'):
@@ -295,11 +295,28 @@ class NesiJobRunner(BaseJobRunner):
         galaxy_job_id = job_wrapper.get_id_tag()
         log.debug("(%s) Submitting: %s" % (galaxy_job_id, command_line))
                
-        input_files = " ".join(job_wrapper.get_input_fnames())
+        input_files = job_wrapper.get_input_fnames()
+        new_input_files= []
+        for input_file in input_files:
+            replacee = os.path.join(job_wrapper.working_directory,os.path.basename(input_file))
+            if(os.path.isfile(replacee)):
+                new_input_files.append(replacee)
+            else:
+                new_input_files.append(input_file)
+
+        log.debug('nesi.py line:299 ' + str(new_input_files))
+        input_files = ' '.join(new_input_files)
         #Submit the job to nesi
         import time
+        log.debug("Currenty working directory" + str(os.getcwd()))
+        log.debug("Call: " + nesi_script_location + "/./submit_job.py" + " -b BeSTGRID " + nesi_server + " " + self.nesi_group + " " + galaxy_job_id + " " + nesi_jobname_file + " '" + command_line + "' " +  job_script + " "+ job_wrapper.working_directory +" "+ input_files) 
+        #while(True):
+        #    log.debug("Currenty working directory" + str(os.getcwd()))
+        #    log.debug("Call: " + nesi_script_location + "/./submit_job.py" + " -b BeSTGRID " + nesi_server + " " + self.nesi_group + " " + galaxy_job_id + " " + nesi_jobname_file + " '" + command_line + "' " +  job_script + " " + input_files)
+        
+       
 
-        rc = call(nesi_script_location + "/./submit_job.py" + " -b BeSTGRID " + nesi_server + " " + self.nesi_group + " " + galaxy_job_id + " " + nesi_jobname_file + " '" + command_line + "' " +" " + job_script + " "  +input_files, shell=True)
+        rc = call(nesi_script_location + "/./submit_job.py" + " -b BeSTGRID " + nesi_server + " " + self.nesi_group + " " + galaxy_job_id + " " + nesi_jobname_file + " '" + command_line + "' " +" " + job_script + " "+ job_wrapper.working_directory + "  " + input_files, shell=True)
         if rc == -2:
             job_wrapper.fail("NeSI job submitter returned an unsuccessful error code. Unable to submit NeSI job currently.")
             log.error("Jobname file could not be created. Cannot submit NeSI job currently.")
@@ -317,7 +334,7 @@ class NesiJobRunner(BaseJobRunner):
             log.error("Cannot submit NeSI job currently.")
             log.debug("Call: " + nesi_script_location + "/./submit_job.py" + " -b BeSTGRID " + nesi_server + " " + self.nesi_group + " " + galaxy_job_id + " " + nesi_jobname_file + " '" + command_line + "' "  + job_script + " " + input_files)
             return
-
+        
         # get nesi jobname
         try:
             njn = open(nesi_jobname_file, 'r')

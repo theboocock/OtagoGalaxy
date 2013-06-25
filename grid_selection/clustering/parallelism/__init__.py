@@ -8,7 +8,7 @@
 
 
 
-
+import time
 import os
 import logging
 #from bp import BasePairSplit
@@ -98,13 +98,13 @@ class Parallelism( object ):
             for dir in task_dirs:
                 task= model.Task(parent_job,dir,None)
                 tasks.append(task)
+            log.debug(tasks)
             return tasks
 
         elif split_method == 'simple': 
             # Simple split method NOT IMPLEMENTED #
             self.simple_split = True
-            log.debug("Trying to split simply")
-        
+            log.debug("Trying to split simply") 
 
     #def get_input_formats(self, fnames):
     #    """ Query database to get the input format for the dataset """

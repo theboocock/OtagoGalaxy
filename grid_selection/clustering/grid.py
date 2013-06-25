@@ -184,7 +184,6 @@ class Grid(object):
             if len(src.split('/')) > 1:
                 command += ("mkdir -p {0} ;".format(src))
             command += ("ln -s {0} {1} ;".format(dest,src))
-        log.debug(command)
         return command
 
         

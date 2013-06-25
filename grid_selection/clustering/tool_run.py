@@ -58,6 +58,7 @@ class ToolRun(object):
         #Do grid preparation here#
             log.debug(self.grid_to_run_on)
             self.job_wrapper.prepare()
+            log.debug("tool_run.py line:61" + str(job_wrapper.get_input_fnames()))
             self.command_line =job_wrapper.get_command_line()
             log.debug(self.runner_name + " " + self.command_line)
             # Ensure we dont try and prepare paths for jobs that are just running locally

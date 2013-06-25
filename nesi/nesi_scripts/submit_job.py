@@ -46,6 +46,7 @@ galaxy_job_id   = sys.argv[3]
 jobname_file    = sys.argv[4]
 command         = sys.argv[5]
 job_script      = sys.argv[6]
+working_directory = sys.argv[7]
 input_files     = list()
 
 job_header="""#!/bin/sh
@@ -56,7 +57,7 @@ if group == '':
 if queue == '':
     queue = DEFAULT_QUEUE
 
-for f in sys.argv[7:]:
+for f in sys.argv[8:]:
     input_files.append(f)
 
 try:
@@ -88,13 +89,40 @@ except:
 
 command_arguments = command.split()
 
+print input_files
 new_commandline = ""
+file = open("/home/jamesboocock/blah.txt", 'a')
 for arg in command_arguments:
+    file.write(arg + '\n')
     arg=arg.replace('"','')
-    if (os.path.exists(arg)) or (os.path.isfile(arg)==True) and (arg not in input_files):
+    print("arg: " + arg)
+    if ((os.path.exists(arg)) or (os.path.isfile(arg)==True)) and (arg not in input_files) and ("_file" not in arg):
         try:
             job.addInputFileUrl(arg)
             print "Stagin in:  " + arg
+            file.write("stagin in 1" + arg + '\n')
+        except Exception, e:
+            print "Cannot stage in: " + arg
+            print e
+            job.kill(True)
+            sys.exit(-3)
+    elif ((os.path.exists(arg)) or (os.path.isfile(arg)==True)) and (arg not in input_files) and ("_file" in arg):
+        try:
+            folder=arg.split('/')[len(arg.split('/'))-2]
+            fil= arg.split('/')[len(arg.split('/'))-1]
+            argupdate=os.path.join(working_directory,os.path.join((folder.split('.')[0]), fil))
+            print "argupdate "  + argupdate
+            if(os.path.isfile(argupdate)):
+                print "Stagin in:  " + argupdate
+                file.write(argupdate + "did it work???")
+                file.write("stagin in 2 " + argupdate + '\n')
+                job.addInputFileUrl(argupdate)
+            else:
+                print "Stagin in:  " + arg
+                file.write("stagin in 3" + arg + '\n')
+                file.write("arg update " + argupdate  + '\n')
+                file.write("os path join" + os.path.join(folder.split('.')[0], fil))
+                job.addInputFileUrl(arg)
         except Exception, e:
             print "Cannot stage in: " + arg
             print e
