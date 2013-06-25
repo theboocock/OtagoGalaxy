@@ -47,11 +47,11 @@ try:
     out = open(outfile, "w")
     out.write(job.getStdOutContent())
     out.close()
-    err = open(errfile, "w")
 except:
     print "Cannot open files to write results to"
     sys.exit(-2)
 try:
+    err = open(errfile, "w")
     err.write(job.getStdErrContent())
 except:
 # There is no stderr so just write blank file
@@ -70,10 +70,10 @@ for f in output_files:
     try:
         rel_f = os.path.basename(f)
         output_file= job.downloadAndCacheOutputFile(rel_f).toString()
-        print(current_dir)
         shutil.copy(output_file,os.path.join(working_directory,rel_f))
     except:
-        "Cannot write output_files"
+        print(rel_f)
+        print "Cannot write output_files"
         sys.exit(-3)
 
 
