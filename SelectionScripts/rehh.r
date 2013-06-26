@@ -84,9 +84,9 @@ png(file=paste("ihsplot",pop1,".png",sep=""))
 ihsplot(result_pop1$res.ihs,plot.pval=TRUE,ylim.scan=2,main="iHS")
 dev.off()
 write.table(result_pop1$res.ihs,file=paste("res.ihs.",pop1,".txt",sep=""), sep="\t")
+save.image(file="ihs.RData")
 
-
-sig=rownames(result_pop1$res.ihs[result_pop1$res.ihs[,4] > 2 & result_pop1$res.ihs[result_pop1$res.ihs[,4] < -2,])
+sig=rownames(result_pop1$res.ihs[result_pop1$res.ihs[,4] > 2 & result_pop1$res.ihs[result_pop1$res.ihs[,4] < -2],])
 sig=subset(sig, sig != "NA")
 sigPop1=sig
 
@@ -132,10 +132,10 @@ png(file=paste("ihsplot_",pop2,".png",sep=""))
 ihsplot(result_pop2$res.ihs,plot.pval=TRUE,ylim.scan=2,main="iHS")
 dev.off()
 write.table(result_pop2$res.ihs,file=paste("res.ihs.",pop2,".txt",sep=""), sep="\t")
+save.image(file="ihs.RData")
 
 
-
-sig=rownames(result_pop2$res.ihs[result_pop2$res.ihs[,4] > 2 & result_pop2$res.ihs[result_pop2$res.ihs[,4] < -2,])
+sig=rownames(result_pop2$res.ihs[result_pop2$res.ihs[,4] > 2 & result_pop2$res.ihs[result_pop2$res.ihs[,4] < -2] ,])
 sig=subset(sig, sig != "NA")
 sigPop2=sig
 
@@ -196,36 +196,4 @@ distribplot(rsb_pop1_pop2$res.rsb[,3],col=c("blue","red"), main=paste("rsb distr
 dev.off()
 save.image(file="ihs.RData")
 
-## method for multicore iHS found at http://my.opera.com/wavefancy/blog/2013/01/14/using-r-package-rehh-compute-ihs-rsb
-# Using rehh package to compute iHS  
-#library(rehh) 
-#library(multicore) #package for run in parallel in R.
-#map_file=paste("ind_",pop2,"_split.test",sep="")
-#hap_file=paste("t_",pop2,"_split.haps", sep="")
-##hap_file="neutral_data_rehh/hap_neutral_"; 
-##map_file="neutral_data_rehh/map_neutral_"; 
-#
-#chr = 0:22 
-#flag = 0; 
-#para = list(); 
-#for( i in chr){     
-#  #p = c(paste(hap_file,i,sep=""), paste(map_file,i,sep=""))   
-#  p = c(hap_file, paste(map_file,i,sep="")) 
-#  if(flag==0){        
-#    para = list(p)      
-#  }else{        
-#    para = c(para,list(p))     
-#  }     
-#  flag = 1;  
-#}  
-#
-#my_scan_hh = function(x){     
-#  d = data2haplohh(hap_file=x[1],map_file=x[2])     
-#  res = scan_hh(d) 
-#}  
-#
-## run in parallel, using 50 cpus. 
-#neutral_res = mclapply(para,my_scan_hh,mc.cores=2)  
-#
-#
-#?save(neutral_res,file="neutral_res.RData")
+
