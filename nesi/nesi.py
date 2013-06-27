@@ -410,6 +410,14 @@ class NesiJobRunner(BaseJobRunner):
         output_fnames = nesi_job_state.job_wrapper.get_output_fnames()
         output_files = [ str( o ) for o in output_fnames]
         output_files = " ".join(output_files)
+        parent_job  = nesi_job_state.job_wrapper.get_job()
+        extra_files = []
+        output_datasets = parent_job.output_datasets
+        for output_dataset in output_datasets:
+            if(output_dataset.dataset.extra_files_path):
+                extra_files.append(output_dataset.dataset.dataset._extra_files_path)
+        log.debug(extra_files)
+
         # get results
         # TODO check so that standard jobs submitted to the nesi cluster also work.
         # This can be done using a isinstance check on the job_wrapper to check
