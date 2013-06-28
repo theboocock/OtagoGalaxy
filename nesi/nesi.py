@@ -412,13 +412,22 @@ class NesiJobRunner(BaseJobRunner):
         output_files = [ str( o ) for o in output_fnames]
         output_files = " ".join(output_files)
         parent_job  = nesi_job_state.job_wrapper.get_job()
-        extra_files = []
         output_datasets = parent_job.output_datasets
-        for output_dataset in output_datasets:
-            if(output_dataset.dataset.extra_files_path):
-                extra_files.append(output_dataset.dataset.dataset._extra_files_path)
-        log.debug(extra_files)
-
+        if hasattr(self.app.config,'enable_clustering_interface'):
+            if self.app.config.enable_clustering_interface:
+                clustering_interface = self.app.job_manager.job_handler.dispatcher.clustering_interface 
+                grid = clustering_interface.get_ui_reader().get_grid(nesi_job_state.job_wrapper.get_job().tool_id) 
+                tool = grid.get_tool_by_id(nesi_job_state.job_wrapper.get_job().tool_id)        
+                has_extra_files=tool.get_extra_folders()
+                log.debug(has_extra_files)
+                for dataset, truth in has_extra_files.items():
+                    if truth:
+                        for o in parent_job.output_datasets:
+                            if o.name == dataset:
+                                fname=nesi_job_state.job_wrapper.get_input_dataset_fnames(o.dataset)[0]
+                                output_files+=(' ' + fname.split('/')[-1].split('.')[0] + '_files/')
+                                log.debug(output_files)
+        log.debug(output_files)
         # get results
         # TODO check so that standard jobs submitted to the nesi cluster also work.
         # This can be done using a isinstance check on the job_wrapper to check

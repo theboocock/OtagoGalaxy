@@ -46,8 +46,8 @@
 <outputs>
 
     <data format="impute" name="output" metadata_source="known_haps"/>
-    <data format="txt" name="output_summary" />
     <data format="txt" name="output_warnings" />
+    <data format="txt" name="output_summary" />
 
 </outputs>
 

@@ -58,7 +58,8 @@ class Parallelism( object ):
         #input_formats = get_input_formats()
         for input in parent_job.input_datasets:
             ext = input.dataset.ext
-            self.splitting_datasets[input.dataset] = self.splitters[ext]
+            if self.splitters[ext]:
+                self.splitting_datasets[input.dataset] = self.splitters[ext]
         log.debug(self.splitting_datasets)
         if split_method in BASE_PAIR_SPLITS:
             #TODO MAKE THIS A FUNCTION #
@@ -133,7 +134,11 @@ class Parallelism( object ):
             for output in parent_job.output_datasets:
                 log.debug(output.name)
                 #Get the splitters based on the output name
-                self.merging_datasets[output] = self.output_names[output.name]
+                if output.name not in self.output_names:
+                    #default merger
+                    self.merging_datasets[output] = 'Concatenation'
+                else:
+                    self.merging_datasets[output] = self.output_names[output.name]
             log.debug(self.merging_datasets)
             #Matches datasets by format for now so all outputs with the same fname as the original
             #input are concatenated into a new file.
@@ -147,7 +152,7 @@ class Parallelism( object ):
                     merger_class = getattr(bp, merger)
                     merger_modules[output] = merger_class(self.job_wrapper)
                     merger_modules[output].do_merge(dataset,task_dirs)
-                    
+                     
             elif self.splitting_method[1] == "simple":
                 log.debug("Doing a simple merge")
 

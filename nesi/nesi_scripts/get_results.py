@@ -1,4 +1,4 @@
-#!DEFAULT_PATH/grython
+#!/home/jamesboocock/NeSI_Tools/bin/grython
 # FIXME: need an installer type thing to do ^^ correctly
 #
 # Author: Ed hills
@@ -68,13 +68,12 @@ except:
     sys.exit(-2)
 for f in output_files:
     try:
-        rel_f = os.path.basename(f)
+        rel_f = (f)
         output_file= job.downloadAndCacheOutputFile(rel_f).toString()
         shutil.copy(output_file,os.path.join(working_directory,rel_f))
     except:
         print(rel_f)
         print "Cannot write output_files"
-        sys.exit(-3)
 
 
 # clean it up

@@ -85,12 +85,12 @@ def main():
     elif rg == "impute":
         title_page=impute_tite
         shutil.copy(base_name + '.gen', os.path.join(extra_files, base_name + '.gen'))
-        shutil.copy(base_name + '.sample', os.path.join(extra_files, base_name + 'sample'))
+        shutil.copy(base_name + '.sample', os.path.join(extra_files, base_name + '.sample'))
     elif rg == "ihs":
         title_page=ihs_title
         shutil.copy(base_name + 'ihshap', os.path.join(extra_files, base_name + '.ihshap'))
         shutil.copy(base_name + 'ihsmap', os.path.join(extra_files, base_name + '.ihsmap'))
-    html_creation.create_html(extra_files,html_out, base_name + '/',title_page)
+    create_html(extra_files,html_out, base_name + '/',title_page)
 
 if __name__=="__main__":main()
 

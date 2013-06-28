@@ -1,4 +1,4 @@
-#!DEFAULT_PATH/grython
+#!~/NeSI_Tools/bin/grython
 # FIXME: need an installer type thing to do ^^ correctly
 #
 # Author: Ed hills

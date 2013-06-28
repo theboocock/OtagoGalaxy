@@ -13,6 +13,9 @@ from elementtree import ElementTree
 
 log = logging.getLogger(__name__)
 
+def str2bool(v):
+  return v.lower() in ("yes", "true", "t", "1")
+
 class InputDatatype(object):
     """ Class that encapsulates every individual input object and contains
         all the information that is needed for the clustering interface """
@@ -23,6 +26,7 @@ class InputDatatype(object):
         self.merger = None
         self.format = ""
         self.output_name = ""
+        self.extra_output_files=False
         self.parse(elem)
     
     def parse(self, elem):
@@ -39,7 +43,16 @@ class InputDatatype(object):
         if not self.output_name:
             raise Exception, "Missing output name tag in datatype tag"
         log.debug(self.output_name)
+        self.extra_output_files= (elem.get("extra_output_files"))
+        if self.extra_output_files:
+            self.extra_output_files=str2bool(self.extra_output_files)
+        else:
+            self.extra_output_files=False
+        log.debug(self.extra_output_files)
     
+    def has_extra_file(self):
+        return self.extra_output_files
+
     def get_merger(self):
         return self.merger
     def get_splitter(self):
@@ -109,6 +122,14 @@ class GridTool(object):
         return outputs
     def get_splitting_types_by_name(self):
         return ['Base Pair','Simple']
+
+    #Check whether the output file has an extra files folder that requires downloading
+    def get_extra_folders(self):
+        outputs = {}
+        for input_dt in self.input_datatypes:
+            outputs[input_dt.get_output_name()] = input_dt.has_extra_file()
+        return outputs
+
 
     def get_paths(self):
         return self.paths

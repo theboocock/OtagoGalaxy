@@ -64,8 +64,8 @@
             <!-- For multiple input possiblities define seperate splitters -->
             <!-- Most galaxy tools will only have one splitter format -->
             <input_datatypes>
-                <datatype format="gtool" splitter="GTool" merger="Impute2" output_name="output"/>
-                <datatype format="shapeit" splitter="ShapeIt" merger="Impute2" output_name="output"/>
+                <datatype format="gtool" splitter="GTool" merger="Impute2" output_name="output" extra_output_files="True"/>
+                <datatype format="shapeit" splitter="ShapeIt" merger="Impute2" output_name="output" extra_output_files="True"/>
             </input_datatypes>
         </tool>
         <tool id="create_interval"/>

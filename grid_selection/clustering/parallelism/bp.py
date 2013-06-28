@@ -242,7 +242,7 @@ class Impute2(BasePair):
         fname=self.tool_wrapper.get_input_dataset_fnames(dataset)
         base_name = os.path.basename(fname[0])
         extra_files=dataset.extra_files_path
-        with open(fname[0],'w'):
+        with open(fname[0],'w') as out:
             for value in task_dirs:
                 list_dir = os.listdir(task_dir)
                 if files in ".gen":
@@ -252,3 +252,25 @@ class Impute2(BasePair):
 
     #def do_split(self, dataset, task_dirs):
         #skip this unnecessary uneeded at this point 
+
+# Needed to merge all the output files that are not explicitly merged
+
+class Concatenation(BasePair):
+
+    def __init__(self,tool_wrapper):
+        BasePair.__init__(self,tool_wrapper)
+
+    def do_merge(self,dataset,task_dirs):
+        fname=self.tool_wrapper.get_input_dataset_fnames(dataset.dataset)
+        base_name = os.path.basename(fname[0])
+        log.debug('We are doing concatenation merging')
+        with(open(fname[0],'w')) as out:
+            log.debug(fname[0])
+            for value in task_dirs:
+                list_dir = os.listdir(task_dir)
+                for files in list_dir:
+                    log.debug(files)
+                    if files == base_name:
+                        with open(os.path.join(task_dir,files), 'r') as part_file:
+                            for line in part_file:
+                                out.write(line)
