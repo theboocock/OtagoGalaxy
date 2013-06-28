@@ -35,8 +35,8 @@ import os
 
 DEFAULT_GROUP = '/nz/nesi'
 DEFAULT_QUEUE = 'pan:pan.nesi.org.nz'
-DEFAULT_MEMORY = 8589934592 # 8 GB
-DEFAULT_WALLTIME = 600 # 10 minutes
+DEFAULT_MEMORY = 21474836480# 8 GB
+DEFAULT_WALLTIME = 6000 # 10 minutes
 
 current_dir = os.path.abspath(os.path.curdir)
 # TODO not use argv like this. use command line args instead

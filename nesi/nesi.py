@@ -179,7 +179,7 @@ class NesiJobRunner(BaseJobRunner):
         #nesi_runner= self.determine_nesi_runner(self.app.config.default_cluster_job_runner)
         nesi_script_location = os.path.abspath(self.nesi_scripts_directory)
         jobstatus_file = os.path.abspath(nesi_script_location + "/jobstatus_file.tmp")
-        
+        log.debug("checking again") 
         rc = call(nesi_script_location + "/./check_jobs.py " + "-b BeSTGRID " + jobstatus_file, shell=True)
         if rc == -2:
             log.debug("Call failed: " + nesi_script_location + "/./check_jobs.py" + " -b BeSTGRID" + " " + jobstatus_file)
@@ -197,6 +197,8 @@ class NesiJobRunner(BaseJobRunner):
             return
 
         for nesi_job_state in self.watched:
+            log.debug(self.watched)
+            log.debug(nesi_job_state.job_wrapper.get_id_tag())
             job_name = nesi_job_state.job_name
             galaxy_job_id = nesi_job_state.job_wrapper.get_id_tag()
             old_state = nesi_job_state.old_state
@@ -219,7 +221,6 @@ class NesiJobRunner(BaseJobRunner):
                 log.exception("Could not access jobs to check job status.")
                 return
 
-            log.debug("Status for " + job_name + " is: " + status) 
             if status != old_state:          
                 log.debug("(%s/%s) NeSI Jobs state changed from %s to %s" % (galaxy_job_id, job_name,old_state,status))
             if status == "Active" and not nesi_job_state.running:
@@ -234,7 +235,7 @@ class NesiJobRunner(BaseJobRunner):
                 log.debug("Old state: %s is now %s and put into fail queue." % (old_state, status))
                 nesi_job_state.old_state=job_status[2]
                 self.work_queue.put(('fail', nesi_job_state))
-            if status == "Done":
+            elif status == "Done":
                 log.debug("Adding job %s to finish queue" % nesi_job_state.job_name)
                 nesi_job_state.old_state=job_status[0]
                 self.work_queue.put(('finish',nesi_job_state))

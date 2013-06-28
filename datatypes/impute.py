@@ -104,7 +104,7 @@ class Impute(ImputeDatatypes):
     def __init__(self, **kwd):
         ImputeDatatypes.__init__(self, **kwd)
         self.add_composite_file('%s.gen', description= " Impute 2 Genotypes File (.gen)", substitute_name_with_metadata='base_name', is_binary=False)
-        self.add_composite_file('%s.info', description= " Impute 2 Info File (.info)", substitute_name_with_metadata="base_name", is_binary=False)
+        self.add_composite_file('%s.sample', description= " Impute 2 Sample File (.sample)", substitute_name_with_metadata="base_name", is_binary=False)
 
 class ShapeIt(ImputeDatatypes):
     ""

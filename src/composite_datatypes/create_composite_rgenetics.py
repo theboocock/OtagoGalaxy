@@ -85,7 +85,7 @@ def main():
     elif rg == "impute":
         title_page=impute_tite
         shutil.copy(base_name + '.gen', os.path.join(extra_files, base_name + '.gen'))
-        shutil.copy(base_name + '.info', os.path.join(extra_files, base_name + '.info'))
+        shutil.copy(base_name + '.sample', os.path.join(extra_files, base_name + 'sample'))
     elif rg == "ihs":
         title_page=ihs_title
         shutil.copy(base_name + 'ihshap', os.path.join(extra_files, base_name + '.ihshap'))
