@@ -1,11 +1,18 @@
 #script to split chromosome into x sized segments to compute iHH on
-chr = 17
-pop1="CEU"
+#read in haps file from shapeit
+pop1=as.character(args[1])
+hapsPop=read.table(file=args[2])
+chr=as.numeric(args[3])
+window=as.numeric(args[4])
+overlap=as.numeric(args[5])
+cores=as.numeric(args[6])
+
+
 #size of each region
-window=500000
-overlap = 100000
+#window=500000
+#overlap = 100000
 #haps file
-hapsPop=read.table("CEU.haps")
+#hapsPop=read.table("CEU.haps")
 
 #want to create overlapping bins
 #column 3 is base position
@@ -61,7 +68,7 @@ while(i * (window - overlap) <= hapsPop[length(hapsPop[,3]),3]){
 library(rehh) 
 library(multicore) #package for run in parallel in R.
 
-pop1="CEU"
+
 #hap_file="neutral_data_rehh/hap_neutral_"; 
 #map_file="neutral_data_rehh/map_neutral_"; 
 
@@ -85,11 +92,12 @@ for( i in fileNumber){
 
 my_scan_hh = function(x){     
   d = data2haplohh(hap_file=x[1],map_file=x[2])     
-  res = scan_hh(d) 
+  res = scan_hh(d)
+  save(res, paste(x[1],"iHH",sep=""))
 }  
 
 # run in parallel, using 50 cpus. 
-neutral_res = mclapply(para,my_scan_hh,mc.cores=4)  
+neutral_res = mclapply(para,my_scan_hh,mc.cores=cores)  
 
 
 save(neutral_res,file="neutral_res.RData")
@@ -138,7 +146,7 @@ for (n in seq(fileNumber)){
         print("middle")
         
         a = results
-        b = neutral_res[[n]][ ((window-overlap)* (n-1) + 1/2*overlap) < neutral_res[[n]][,2]  && neutral_res[[n]][,2] <=  ((window -overlap)* n + (1/2 * overlap)), ]
+        b = neutral_res[[n]][ ((window-overlap)* (n-1) + 1/2*overlap) < neutral_res[[n]][,2]  & neutral_res[[n]][,2] <=  ((window -overlap)* n + (1/2 * overlap)), ]
         print(max(a[,2]))
         print(min(b[,2]))
         results = rbind(a,b )
@@ -146,4 +154,4 @@ for (n in seq(fileNumber)){
      }
    } 
 }
-save.image("multi_core_redd.RData") 
+save.image("multi_core_rehh.RData") 
