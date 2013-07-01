@@ -1,4 +1,5 @@
 #script to split chromosome into x sized segments to compute iHH on
+args<-commandArgs(TRUE)
 #read in haps file from shapeit
 pop1=as.character(args[1])
 hapsPop=read.table(file=args[2])
