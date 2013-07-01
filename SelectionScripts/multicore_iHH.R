@@ -94,7 +94,7 @@ for( i in fileNumber){
 my_scan_hh = function(x){     
   d = data2haplohh(hap_file=x[1],map_file=x[2])     
   res = scan_hh(d)
-  save(res, paste(x[1],"iHH",sep=""))
+#  save(res, paste(x[1],"iHH",sep=""))
 }  
 
 # run in parallel, using 50 cpus. 
