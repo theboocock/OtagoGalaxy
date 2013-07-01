@@ -130,7 +130,7 @@ def annotate_haps(options):
             outputLine = aa_check(tempSeq,ref,alt,options.format,line) 
             if(outputLine != None):
                 if(options.output != None):
-                    output.write(outputLine)
+                    output.write(outputLine + "\n")
                 else:
                     print(outputLine)
 
