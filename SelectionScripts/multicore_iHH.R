@@ -94,7 +94,7 @@ for( i in fileNumber){
 my_scan_hh = function(x){     
   d = data2haplohh(hap_file=x[1],map_file=x[2])     
   res = scan_hh(d)
-#  save(res, paste(x[1],"iHH",sep=""))
+  write.table(res,paste(x[1],".iHH",sep=""))
 }  
 
 # run in parallel, using 50 cpus. 
@@ -105,21 +105,21 @@ save(neutral_res,file="neutral_res.RData")
 
 
 #bin regions
-i=0
-w = window
-while(i * (window-overlap) <= hapsPop[length(hapsPop[,3]),3]){
-  i = i + 1
-  print(paste("window:",i, sep=" "))
-  if(i == 1){
-    print(window * i)
-  } else {
-    #next window is "shifted" back by the overlap distance
-    print((window - overlap) * (i-1))
-    print((window -overlap) * i + overlap)
-    print("")
-  }
-  
-}
+#i=0
+#w = window
+#while(i * (window-overlap) <= hapsPop[length(hapsPop[,3]),3]){
+#  i = i + 1
+#  print(paste("window:",i, sep=" "))
+#  if(i == 1){
+#    print(window * i)
+#  } else {
+#    #next window is "shifted" back by the overlap distance
+#    print((window - overlap) * (i-1))
+#    print((window -overlap) * i + overlap)
+#    print("")
+#  }
+#  
+#}
 
 
 
