@@ -95,6 +95,7 @@ my_scan_hh = function(x){
   d = data2haplohh(hap_file=x[1],map_file=x[2])     
   res = scan_hh(d)
   write.table(res,paste(x[1],".iHH",sep=""))
+  return(res)
 }  
 
 # run in parallel, using 50 cpus. 
@@ -155,4 +156,7 @@ for (n in seq(fileNumber)){
      }
    } 
 }
-save.image("multi_core_rehh.RData") 
+
+save.image(file=paste(pop1,"_chr_",chr,".RData",sep="")
+ihs_results=ihh2ihs(results)
+
