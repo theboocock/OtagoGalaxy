@@ -157,6 +157,6 @@ for (n in seq(fileNumber)){
    } 
 }
 
-save.image(file=paste(pop1,"_chr_",chr,".RData",sep="")
+save.image(file=paste(pop1,"_chr_",chr,".RData",sep=""))
 ihs_results=ihh2ihs(results)
 
