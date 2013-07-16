@@ -1,22 +1,9 @@
 <tool id="snpEff" name="SnpEff" version="1.0">
 	<description>Variant effect and annotation</description>
-    <command>java -Xmx7G -jar ${__root_dir__}/tool-data/shared/jars/snpEff/snpEff.jar eff -c ${__root_dir__}/tool-data/shared/jars/snpEff/snpEff.config -i $inputFormat -o $outputFormat -upDownStreamLen $udLength $filterIn $filterHomHet -no $filterOut -stats $statsFile $genomeVersion $input > $output </command>
+    <command>java -Xmx7G -jar ${__root_dir__}/tool-data/shared/jars/snpEff/snpEff.jar eff -c ${__root_dir__}/tool-data/shared/jars/snpEff/snpEff.config -i vcf -o vcf -upDownStreamLen $udLength $filterIn $filterHomHet -no $filterOut -stats $statsFile $genomeVersion $input > $output </command>
 	<inputs>
-		<param format="Tabular" name="input" type="data" label="Sequence changes (SNPs, MNPs, InDels)"/>
+		<param format="Vcf" name="input" type="data" label="Sequence changes (SNPs, MNPs, InDels)"/>
 
-		<param name="inputFormat" type="select" label="Input format">
-			<option value="vcf">VCF</option>
-			<option value="txt">Tabular</option>
-			<option value="pileup">Pileup</option>
-			<option value="bed">BED</option>
-		</param>
-
-		<param name="outputFormat" type="select" label="Output format">
-			<option value="txt">Tabular</option>
-			<option value="vcf">VCF (only if input is VCF)</option>
-			<option value="bed">BED</option>
-			<option value="bedAnn">BED Annotations</option>
-		</param>
 
 		<param name="genomeVersion" type="select" label="Genome">
 				<option value="ailmel1.61">Ailuropoda melanoleuca : ailmel1.61</option>
@@ -188,6 +175,7 @@
 				<option value="hg37.59">Homo sapiens : hg37.59</option>
 				<option value="hg36.54">Homo sapiens : hg36.54</option>
 				<option value="hg19">Homo sapiens : hg19</option>
+				<option value="GRCh37.69">Homo sapiens : GRCh37.69</option>
 				<option value="GRCh37.66">Homo sapiens : GRCh37.66</option>
 				<option value="GRCh37.65">Homo sapiens : GRCh37.65</option>
 				<option value="GRCh37.64">Homo sapiens : GRCh37.64</option>
@@ -462,7 +450,7 @@
 		</param>
 	</inputs>
 	<outputs>
-		<data format="tabular" name="output" />
+		<data format="vcf" name="output" />
 		<data format="html" name="statsFile" />
 	</outputs>
 
