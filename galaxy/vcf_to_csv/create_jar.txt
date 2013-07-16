@@ -1,0 +1,1 @@
+jar cvfm VcfToCsv.jar manifest.txt VcfToCsv.class

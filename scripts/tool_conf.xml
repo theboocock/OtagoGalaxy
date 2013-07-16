@@ -83,6 +83,7 @@
    <tool file="OtagoGalaxy/galaxy/vcfSubset/select_samples.xml"/>
    <tool file="OtagoGalaxy/galaxy/vcfConsensus/vcfConsensus.xml"/>
    <tool file="OtagoGalaxy/galaxy/getvcfaf/getvcfaf.xml"/>
+   <tool file="OtagoGalaxy/galaxy/get_rsids/get_rsids.xml"/>
 </section>
 <section name="Otago - Work with 1000 Genomes Data" id="ou_1kg" >
    <tool file="OtagoGalaxy/galaxy/ld_values_1kg/ld_values_1kg.xml"/>

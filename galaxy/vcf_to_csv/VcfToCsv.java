@@ -67,11 +67,14 @@ public class VcfToCsv{
 						if(bothParts[0].compareTo("INDEL")==0){
 							listInfo[infoColumnA.indexOf("INDEL")] = "Y";							
 						}else {
-						listInfo[headerIndex]= bothParts[1];
-						}
-						
-					}						
-				}
+                            if (bothParts.length > 1){
+						        listInfo[headerIndex]= bothParts[1];
+						    }else{
+                                listInfo[headerIndex] ="NA";
+                            }
+					    }						
+				    }
+                }
 				for(int i = 0; i < listInfo.length; i ++){
 					row+= "\"" + listInfo[i]+"\"" + ",";	
 				}
