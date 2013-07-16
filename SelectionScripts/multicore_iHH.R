@@ -3,6 +3,7 @@ args<-commandArgs(TRUE)
 #read in haps file from shapeit
 pop1=as.character(args[1])
 hapsPop=read.table(file=args[2])
+hapsPop=hapsPop[nchar(as.character(hapsPop[,4]))==1 & nchar(as.character(hapsPop[,5]))==1, ] #remove indels
 chr=as.numeric(args[3])
 window=as.numeric(args[4])
 overlap=as.numeric(args[5])
