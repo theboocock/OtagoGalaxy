@@ -100,6 +100,7 @@ def aa_check(realAA,ref,alt,format,line):
                 newLine = line.split()
                 newLine[3] = realAA
                 newLine[4] = ref
+                #print(newLine)
                 for i in range(5,len(newLine)):
                         newLine[i] = '1'
             return ' '.join(newLine)
