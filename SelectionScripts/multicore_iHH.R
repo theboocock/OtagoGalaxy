@@ -3,13 +3,12 @@ args<-commandArgs(TRUE)
 #read in haps file from shapeit
 pop1=as.character(args[1])
 hapsPop=read.table(file=args[2])
-hapsPop=hapsPop[nchar(as.character(hapsPop[,4]))==1 & nchar(as.character(hapsPop[,5]))==1, ] #remove indels
 chr=as.numeric(args[3])
 window=as.numeric(args[4])
 overlap=as.numeric(args[5])
 cores=as.numeric(args[6])
-
-
+working_dir=as.character(args[7])
+offset=as.numeric(args[8])
 #size of each region
 #window=500000
 #overlap = 100000
@@ -18,7 +17,7 @@ cores=as.numeric(args[6])
 
 #want to create overlapping bins
 #column 3 is base position
-
+setwd(working_dir)
 #pseudo code
 i=0
 while(i * (window - overlap) <= hapsPop[length(hapsPop[,3]),3]){
@@ -75,7 +74,7 @@ library(multicore) #package for run in parallel in R.
 #map_file="neutral_data_rehh/map_neutral_"; 
 
 
-fileNumber = 1:i 
+fileNumber = offset:i 
 map_file=paste("ind_",pop1,".test",sep="")
 hap_file=paste("t_",pop1,".haps", sep="")
 
@@ -96,13 +95,14 @@ my_scan_hh = function(x){
   d = data2haplohh(hap_file=x[1],map_file=x[2])     
   res = scan_hh(d)
   write.table(res,paste(x[1],".iHH",sep=""))
-  return(res)
 }  
 
-# run in parallel, using 50 cpus. 
+# run in parallel, using the number of cores specified by the arguments. 
 neutral_res = mclapply(para,my_scan_hh,mc.cores=cores)  
 
-
+for ( j in fileNumber){
+	neutral_res[[j]] = read.table(paste(hap_file,i,'.iHH',sep=''))
+}
 save(neutral_res,file="neutral_res.RData")
 
 
@@ -157,7 +157,4 @@ for (n in seq(fileNumber)){
      }
    } 
 }
-
-save.image(file=paste(pop1,"_chr_",chr,".RData",sep=""))
-ihs_results=ihh2ihs(results)
-
+save.image("multi_core_rehh.RData") 
