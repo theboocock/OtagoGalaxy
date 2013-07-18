@@ -2,7 +2,10 @@
 args<-commandArgs(TRUE)
 #read in haps file from shapeit
 pop1=as.character(args[1])
+#print("*")
 hapsPop=read.table(file=args[2])
+hapsPop=hapsPop[nchar(as.character(hapsPop[,4]))==1 & nchar(as.character(hapsPop[,5]))==1, ] #remove indels
+write.table(hapsPop,file="hapsPop.test")
 chr=as.numeric(args[3])
 window=as.numeric(args[4])
 overlap=as.numeric(args[5])
@@ -15,13 +18,15 @@ offset=as.numeric(args[8])
 #haps file
 #hapsPop=read.table("CEU.haps")
 
+
+#print("Why are you not working")
 #want to create overlapping bins
 #column 3 is base position
 setwd(working_dir)
 #pseudo code
-i=0
+i=1
 while(i * (window - overlap) <= hapsPop[length(hapsPop[,3]),3]){
-  i = i + 1
+  print(i * (window - overlap))
   if(i == 1){
     bin = hapsPop[hapsPop[,3] < (window * i),]
   } else {
@@ -51,6 +56,7 @@ while(i * (window - overlap) <= hapsPop[length(hapsPop[,3]),3]){
   write.table(indPop1,file=paste("ind_",pop1,".test",i,sep=""),col.names=F,row.names=F)
   write.table(t.hapsPop,file=paste("t_",pop1,".haps",i, sep=""),col.names=F)
   }
+  i = i + 1
   
 }
 #column 3 of haps file is position
@@ -80,7 +86,8 @@ hap_file=paste("t_",pop1,".haps", sep="")
 
 flag = 0; 
 para = list(); 
-for( i in fileNumber){     
+for( i in fileNumber){    
+  print(i) 
   p = c(paste(hap_file,i,sep=""), paste(map_file,i,sep=""))   
   
   if(flag==0){        
@@ -95,13 +102,16 @@ my_scan_hh = function(x){
   d = data2haplohh(hap_file=x[1],map_file=x[2])     
   res = scan_hh(d)
   write.table(res,paste(x[1],".iHH",sep=""))
+  return(res)
 }  
 
 # run in parallel, using the number of cores specified by the arguments. 
 neutral_res = mclapply(para,my_scan_hh,mc.cores=cores)  
 
+index = 1
 for ( j in fileNumber){
-	neutral_res[[j]] = read.table(paste(hap_file,i,'.iHH',sep=''))
+	neutral_res[[index]] = read.table(paste(hap_file,j,'.iHH',sep=''))
+    index = index + 1
 }
 save(neutral_res,file="neutral_res.RData")
 
@@ -157,4 +167,5 @@ for (n in seq(fileNumber)){
      }
    } 
 }
-save.image("multi_core_rehh.RData") 
+write.table(results,paste(pop1,"chr", chr,"wd",working_dir,".ihh",sep="_")) 
+save.image(file=paste(pop1,"chr", chr,"wd",working_dir,".RData",sep="_"))
