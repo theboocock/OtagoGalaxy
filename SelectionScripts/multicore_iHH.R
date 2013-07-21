@@ -12,6 +12,7 @@ overlap=as.numeric(args[5])
 cores=as.numeric(args[6])
 working_dir=as.character(args[7])
 offset=as.numeric(args[8])
+maf=as.numeric(args[9])
 #size of each region
 #window=500000
 #overlap = 100000

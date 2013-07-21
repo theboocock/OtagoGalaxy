@@ -22,6 +22,7 @@ cat << EOF
 	4 = parrallel cores
 	5 = Chromosome 
     6 = population
+    7 = MAF filter
 EOF
 }
 
@@ -65,7 +66,7 @@ for i in $(eval echo "{1..${noFolders}}") ; do
      ulimit -v ${limit} -m ${limit}
      mkdir $i
      # Call R with the input file as a command line argument
-     Rscript multicore_iHH.R $6 ${6}${i}.phaps $5 $2 $3 $4 $i $offset
+     Rscript multicore_iHH.R $6 ${6}${i}.phaps $5 $2 $3 $4 $i $offset ${7}
 	" > ${i}.job
      sync
      llsubmit ${i}.job
