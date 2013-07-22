@@ -1,0 +1,13 @@
+<tool id="vcf_to_haplogrep" label="VCF to HaploGrep Tool" version="1.0">
+
+<command interpreter="python">
+    vcf_to_haplogrep.py -i $input_vcf -o $haplogrep_out
+</command>
+<inputs>
+    <param name="input_vcf" format="vcf" type="data" label="VCF file to convert to haplogrep format"/>
+</inputs>
+<outputs>
+    <data name="haplogrep_out" format="txt"/>
+</outputs>
+
+</tool> 
