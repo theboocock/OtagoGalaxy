@@ -5,7 +5,7 @@
 -c 'java -Xmx6G -jar ${__tool_data_path__}/shared/jars/beagle/beagle.jar
 #set $count = 0
 #if ($beagle_use_type_param.beagle_use_type) == "imputting":
-#for $i, $s in enumerate( $beagle_use_type_param.unphased )
+#for $i, $s in enumerate( $beagle_use_type_param.unphased ):
   	unphased=${s.unphased_unrelated_data}
 	#set $count = $count + 1
 #end for
