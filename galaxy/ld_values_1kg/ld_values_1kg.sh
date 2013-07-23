@@ -16,6 +16,7 @@ cat << EOF
 	-v <VCF_FILE> user vcf file
 	-r  <RSID>     single snp to calculate LD for
 	-s  <SNP_LIST> text file containing snp rsid to calculate ld of.
+    -S            only use these snps that are specified by -s
 	-c  <REGION>   Chromosome region and position to calculate ld for.
 	-w  <WINDOW>   LD distance in number of snps
 	-r  <R2>       only show snps above this ld frequency
@@ -33,7 +34,7 @@ EOF
 }
 
 getoptions(){
-while getopts "p:O:R:v:i:I:o:r:s:c:w:r:l:mh:" opt;  do
+while getopts "p:O:R:v:i:I:o:r:s:c:w:r:l:mSh:" opt;  do
 case $opt in
 v)
 	VCF_INPUT=$OPTARG
@@ -43,6 +44,9 @@ R)
 ;;
 s)
 	SNP_LIST=$OPTARG
+;;
+S)
+    SNP_LIST_ONLY="TRUE"
 ;;
 c)
 	REGION=$OPTARG
@@ -118,15 +122,18 @@ fi
     if [ "$HAPLOVIEW" == "" ]; then
 	#convert to plink format
 	vcftools --vcf temp2.vcf --plink-tped --out plinkfile  > /dev/null
-	PLINK_COMMAND="p-link --tped plinkfile.tped --tfam plinkfile.tfam --r2 --noweb --ld-window $WINDOW  --ld-window-r2 $R2 --ld-window-kb $KB"
+	PLINK_COMMAND="plink --tped plinkfile.tped --tfam plinkfile.tfam --r2 --noweb --ld-window $WINDOW  --ld-window-r2 $R2 --ld-window-kb $KB"
 	if [ "$SNP_LIST" != "" ]; then
 		PLINK_COMMAND="${PLINK_COMMAND} --ld-snp-list $SNP_LIST"
 	fi
+    if [ "$SNP_LIST_ONLY" != "" ]; then 
+        PLINK_COMMAND="${PLINK_COMMAND} --only-snp-list"
+    fi
 	if [ "$RSID" != "" ]; then
 		PLINK_COMMAND="${PLINK_COMMAND} --ld-snp $RSID"
 	fi
 	if [ "$MATRIX" == "TRUE" ]; then
-	PLINK_COMMAND="p-link --tped plinkfile.tped --tfam plinkfile.tfam --r2 --noweb --matrix"
+	PLINK_COMMAND="plink --tped plinkfile.tped --tfam plinkfile.tfam --r2 --noweb --matrix"
 	fi
     if [ "$HAPLOVIEW" == "" ]; then
 	        eval	$PLINK_COMMAND > /dev/null
@@ -136,7 +143,7 @@ fi
     fi
     if [ "$HAPLOVIEW" != "" ]; then
         vcftools --vcf temp2.vcf --plink-tped --remove-indels --out plinkfile > $PLINK_LOG
-        p-link --tfile plinkfile  --noweb --recodeHV --out plinkfile >> $PLINK_LOG
+        plink --tfile plinkfile  --noweb --recodeHV --out plinkfile >> $PLINK_LOG
         mv plinkfile.info $HAPLOVIEW
         mv plinkfile.ped $PED_FILE
     fi

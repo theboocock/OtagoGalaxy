@@ -17,6 +17,6 @@ OUTPUT_FILENAME=$3
 bgzip -c $INPUT_FILENAME > INPUT.gz
 tabix -p vcf INPUT.gz
 
-vcf-subset -c $SAMPLE_LIST INPUT.gz > $OUTPUT_FILENAME 2> /dev/null
+vcf-subset -c $SAMPLE_LIST INPUT.gz > $OUTPUT_FILENAME 
 
 exit 0
