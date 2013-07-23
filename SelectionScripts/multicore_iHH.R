@@ -5,7 +5,6 @@ pop1=as.character(args[1])
 #print("*")
 hapsPop=read.table(file=args[2])
 hapsPop=hapsPop[nchar(as.character(hapsPop[,4]))==1 & nchar(as.character(hapsPop[,5]))==1, ] #remove indels
-write.table(hapsPop,file="hapsPop.test")
 chr=as.numeric(args[3])
 window=as.numeric(args[4])
 overlap=as.numeric(args[5])
@@ -81,26 +80,35 @@ library(multicore) #package for run in parallel in R.
 #map_file="neutral_data_rehh/map_neutral_"; 
 
 
-fileNumber = offset:i 
+fileNumber = offset:(offset+cores-1) 
 map_file=paste("ind_",pop1,".test",sep="")
 hap_file=paste("t_",pop1,".haps", sep="")
 
+
+print(fileNumber)
 flag = 0; 
 para = list(); 
-for( i in fileNumber){    
-  print(i) 
-  p = c(paste(hap_file,i,sep=""), paste(map_file,i,sep=""))   
-  
-  if(flag==0){        
-    para = list(p)      
-  }else{        
-    para = c(para,list(p))     
-  }     
-  flag = 1;  
+new_file_number = 0
+for( i in fileNumber){  
+  if(file.exists(paste(hap_file,i,sep=""))){ 
+    print(i)
+    p = c(paste(hap_file,i,sep=""), paste(map_file,i,sep=""))   
+    new_file_number = new_file_number + 1 
+    if(flag==0){        
+        para = list(p)      
+    }else{        
+        para = c(para,list(p))     
+    }     
+    flag = 1;  
+    }
 }  
 
+fileNumber = offset:(offset+new_file_number-1)
+ 
+#print("File number: " + fileNumber)
+
 my_scan_hh = function(x){     
-  d = data2haplohh(hap_file=x[1],map_file=x[2])     
+  d = data2haplohh(hap_file=x[1],map_file=x[2],min_maf=maf)     
   res = scan_hh(d)
   write.table(res,paste(x[1],".iHH",sep=""))
   return(res)
@@ -115,7 +123,7 @@ for ( j in fileNumber){
     index = index + 1
 }
 save(neutral_res,file="neutral_res.RData")
-
+save.image(file="working_data.RData")
 
 #bin regions
 #i=0
@@ -137,6 +145,7 @@ save(neutral_res,file="neutral_res.RData")
 
 
 #combine iHH results from window
+print(fileNumber)
 
 for (n in seq(fileNumber)){
   print((n -1)* (window-overlap))
@@ -146,10 +155,10 @@ for (n in seq(fileNumber)){
   if(n == 1){ # from start to first half of overlaped region (first chunk)
   print("n=1")
     results = neutral_res[[n]][neutral_res[[n]][,2] <= (n * window - 1/2 *overlap) ,] #correct window
-    print(max(results[,2]))
+    #print(max(results[,2]))
    } else {
       if(n == max(fileNumber)){ #take second half of overlap at start and go until the end (final chunk)
-        print("max")
+        #print("max")
         a= results
         b = neutral_res[[n]][ ((window-overlap)* (n-1) + 1/2*overlap) < neutral_res[[n]][,2]  ,]
         print(max(results[,2]))
@@ -157,16 +166,16 @@ for (n in seq(fileNumber)){
         results = rbind(a,b)
         print(max(results[,2]))
       } else { #start =take second half of overlap, end = take first half (middle regions)
-        print("middle")
+        #print("middle")
         
         a = results
         b = neutral_res[[n]][ ((window-overlap)* (n-1) + 1/2*overlap) < neutral_res[[n]][,2]  & neutral_res[[n]][,2] <=  ((window -overlap)* n + (1/2 * overlap)), ]
-        print(max(a[,2]))
-        print(min(b[,2]))
+        #print(max(a[,2]))
+        #print(min(b[,2]))
         results = rbind(a,b )
-        print(max(results[,2]))
+        #print(max(results[,2]))
      }
    } 
 }
 write.table(results,paste(pop1,"chr", chr,"wd",working_dir,".ihh",sep="_")) 
-save.image(file=paste(pop1,"chr", chr,"wd",working_dir,".RData",sep="_"))
+#save.image(file=paste(pop1,"chr", chr,"wd",working_dir,".RData",sep="_"))

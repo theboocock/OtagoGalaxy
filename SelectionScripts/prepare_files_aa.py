@@ -17,7 +17,7 @@ def main():
     overlapping_file = open(population+str(i+1)+'.phaps','w')
     first_file = open(population+str(i) + '.phaps','w')
     temp=overlap
-    print(window * i)
+    #print(window * i)
     with open(sys.argv[1],'r') as f:
         for line in f:
             #if(i == 1):
