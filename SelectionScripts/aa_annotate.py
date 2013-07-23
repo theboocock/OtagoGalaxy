@@ -91,8 +91,9 @@ def aa_check(realAA,ref,alt,format,line):
 #                print newLine
                 newLine[3] = alt
                 newLine[4] = ref
+                print(newLine)
                 for i in range(5,len(newLine)):
-                    if(newLine[i] == 1):
+                    if((newLine[i]) == "1"):
                         newLine[i] = '0'
                     else:
                         newLine[i] = '1'
