@@ -12,7 +12,10 @@
         -c $onekg_own_param.region_txt
 	#end if
 	#if ($onekg_use_type_param.onekg_use_rs) == 'file':
-		-s $onekg_use_type_param.snplist	
+		-s $onekg_use_type_param.snplist
+        #if ($onekg_use_type_param.just_these_snps):	
+            -S            
+        #end if
 	#end if
 		-w $ld_window
 		-r $ld_window_r2
@@ -54,6 +57,7 @@
 	</when>
 	<when value="file">
 		<param name="snplist" type="data" format="txt" label="Line Seperated List of snp RSIDs for LD calculation" help="Leaving this box empty will perform Ld analysis on all the samples"/>
+        <param name="just_these_snps" type="boolean" label="Only these snps" help="Only use these snpsfrom the file to compare against each other for ld calculations."/>
 	</when>
 	</conditional>
 	<conditional name="onekg_own_param">

@@ -1,0 +1,20 @@
+<tool id="ou_get_rsids" name="Get RSIDs from VCF file" version="1.0">
+<description>read out all the rsids from a vcf file and preserve the order</description>
+<command>
+    cat $input_vcf | grep -v ^# | awk '{print $3}' > $output
+</command>
+
+<inputs>
+    <param name="input_vcf" type="data" format="vcf" label="Input VCF file"/>
+</inputs>
+<outputs>
+    <data name="output" format="txt" type="data"/>
+</outputs>
+<help>
+This tool retrieves RSIDs from a VCF file.
+</help>
+
+
+
+
+</tool>

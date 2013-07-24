@@ -1,0 +1,26 @@
+<tool id="get_duplicated_lines" name="Get Duplicated Lines" version="1.0">
+<description>from a line seperated file or the concatenation of two or more file.</description>
+<command>
+cat ${input_file_one}
+#for $i, $s in enumerate($input_files):
+    ${s.input_data} >> out.tmp
+#end for
+    ;
+    cat out.tmp | sort | uniq -d > $output_file
+</command>
+<inputs>
+    <param name="input_file_one" title="First Input file" format="txt" type="data" label="Text input file" />
+    <repeat name="input_files" title="Input text file">
+        <param name="input_data" type="data" format="txt" label="Input text file"/>
+    </repeat>
+</inputs>
+<outputs>
+    <data name="output_file"  format="txt"/>
+</outputs>
+<help>
+***TIP*** Useful in combination with the get sample IDS tool as you can find out whether the samples
+          you think are in the file are actually there.
+</help>
+
+
+</tool>
