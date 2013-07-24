@@ -23,6 +23,8 @@ cat << EOF
 	5 = Chromosome 
     6 = population
     7 = MAF filter
+    8 = Wall Clock hh:mm:ss
+    9 = Memory per thread (gb)
 EOF
 }
 
@@ -30,11 +32,14 @@ if [ "$1" == "" ] ; then
 	help
 	exit 1
 fi
-
+echo "$@" > command.out
 bigWindow=`echo "(${2}-${3}) * (${4}) + ${3}" | bc`
 echo $bigWindow
 max_line=`tail -1 $1 | awk '{ print $3 }'`
-let "limit = 30000 * 1024"
+#let "limit = 30000 * 1024"
+mem_in_gigs=`echo "${9} * ${4}" | bc`
+limit=`echo "${9} * ${4} * 1024 * 1024" | bc`
+
 
 noFolders=`echo "(${max_line}+${3})/(${bigWindow}-${3}) + 1" | bc`
 echo $noFolders 
@@ -51,8 +56,8 @@ for i in $(eval echo "{1..${noFolders}}") ; do
      #@ group = nesi
      #@ class = default
      #@ notification = never
-     #@ wall_clock_limit = 107:59:00
-     #@ resources = ConsumableMemory(30gb) ConsumableVirtualMemory(30gb)
+     #@ wall_clock_limit = 1:00:00
+     #@ resources = ConsumableMemory(${mem_in_gigs}) ConsumableVirtualMemory(${mem_in_gigs})
      #@ output = ${i}/\$(jobid).out
      #@ error = ${i}/\$(jobid).err
      #@ parallel_threads =${4} 
@@ -74,4 +79,5 @@ for i in $(eval echo "{1..${noFolders}}") ; do
      #remove the temp file
      #rm ${i}.job	
 done
+
 
