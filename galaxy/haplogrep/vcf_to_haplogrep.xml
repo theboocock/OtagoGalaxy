@@ -1,4 +1,4 @@
-<tool id="vcf_to_haplogrep" label="VCF to HaploGrep Tool" version="1.0">
+<tool id="vcf_to_haplogrep" name="VCF to HaploGrep Tool" version="1.0">
 
 <command interpreter="python">
     vcf_to_haplogrep.py -i $input_vcf -o $haplogrep_out
@@ -9,5 +9,16 @@
 <outputs>
     <data name="haplogrep_out" format="txt"/>
 </outputs>
+<help>
+**TIP** Converts a file to the hsd format required for using the haplogrep service.
+
+HaploGrep is a cooperation between the Division of Genetic Epidemiology at the Medical University Innsbruck and the Department of Database and Information Systems - Institute of Computer Science at the University of Innsbruck
+HaploGrep is implemented as a web application based on Phylotree, a periodically updated classification tree estimated from data worldwide. Any given range of the mitochondrial genome can be used for haplogroup classification, which is based on the phylogenetic stability of mtDNA polymorphisms. For every input sample the top ten results and the phylogenetic position of the respective haplogroup are displayed, thus providing a detailed explanation how and why a haplogroup was ranked best. HaploGrep generates an interactive data visualization of the results and provides recommendations which polymorphisms should be analyzed additionally to get a more accurate result. HaploGrep can be used without login and imported samples are exclusive visible to appropriate users due to HaploGrepâ€™s session management. The export possibilities as a standard tab delimited file and as a *.rdf file for the phylogenetic software network.exe render HaploGrep the currently best solution for human mtDNA haplogroup determination.
+
+Kloss-Brandstaetter A., Pacher D., Schoenherr S., Weissensteiner H., Binna R., Specht G., Kronenberg F. 2010 HaploGrep: a fast and reliable algorithm for automatic classification of mitochondrial DNA haplogroups http://www.haplogrep.uibk.ac.at doi: 10.1002/humu.21382 
+
+van Oven M, Kayser M. 2009. Updated comprehensive phylogenetic tree of global human mitochondrial DNA variation. Hum Mutat 30(2):E386-E394. http://www.phylotree.org . doi:10.1002/humu.20921
+
+</help>
 
 </tool> 

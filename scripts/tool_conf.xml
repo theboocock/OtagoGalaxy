@@ -106,6 +106,7 @@
     <tool file="OtagoGalaxy/galaxy/get_duplicated_lines/get_duplicated_lines.xml"/>
  </section>
  <section name="Otago - File converters" id="ou_converters" >
+   <tool file="OtagoGalaxy/galaxy/haplogrep/vcf_to_haplogrep.xml"/>
    <tool file="OtagoGalaxy/galaxy/cm_to_lped/cm_to_lped.xml"/>
    <tool file="OtagoGalaxy/galaxy/cm_to_lped/remove_missing_cm.xml"/>
    <tool file="OtagoGalaxy/galaxy/plink/ped_to_tped.xml"/>

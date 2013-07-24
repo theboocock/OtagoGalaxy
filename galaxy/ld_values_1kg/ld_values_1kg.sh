@@ -142,8 +142,14 @@ fi
 	mv plink.log $PLINK_LOG
     fi
     if [ "$HAPLOVIEW" != "" ]; then
+ 
         vcftools --vcf temp2.vcf --plink-tped --remove-indels --out plinkfile > $PLINK_LOG
-        plink --tfile plinkfile  --noweb --recodeHV --out plinkfile >> $PLINK_LOG
+        if [ "$SNP_LIST_ONLY" != "" ]; then
+           plink --tfile plinkfile --extract ${SNP_LIST} --out tempfile >> $PLINK_LOG      
+           plink --tfile tempfile  --noweb --recodeHV --out plinkfile >> $PLINK_LOG
+        else
+           plink --tfile plinkfile  --noweb --recodeHV --out plinkfile >> $PLINK_LOG
+        fi
         mv plinkfile.info $HAPLOVIEW
         mv plinkfile.ped $PED_FILE
     fi
