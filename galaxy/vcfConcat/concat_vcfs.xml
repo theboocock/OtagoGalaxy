@@ -1,0 +1,33 @@
+<tool id="concat_vcfs" name="Concatenate Vcf files" version="1.0">
+<description>into a new vcf file</description>
+
+<command interpreter="bash">
+    concat_vcfs.sh ${input1} ${input2} 
+    #for $i, $s in enumerate( $inputFiles )
+        ${s.input}
+    #end for
+    > ${output}
+</command>
+
+<inputs>
+    <param name="input1" type="data" format="vcf" label="Select VCF" />
+    <param name="input2" type="data" format="vcf" label="Select VCF" />
+    <repeat name="inputFiles" title="Extra file">
+        <param name="input" type="data" format="vcf" label="Select VCF" />
+    </repeat>
+</inputs>
+
+<outputs>
+<data format="vcf" name="output"/>
+</outputs>
+<help>
+Merge VCFs takes input of two or more VCF files and merges the VCFs together
+to make on large VCF containing the sum of its parts.
+
+
+Credits
+
+VCFtools is used to perfrom the merge. The Variant Call Format and VCFtools, Petr Danecek, Adam Auton, Goncalo Abecasis, Cornelis A. Albers, Eric Banks, Mark A. DePristo, Robert Handsaker, Gerton Lunter, Gabor Marth, Stephen T. Sherry, Gilean McVean, Richard Durbin and 1000 Genomes Project Analysis Group, Bioinformatics, 2011  
+
+</help>
+</tool>

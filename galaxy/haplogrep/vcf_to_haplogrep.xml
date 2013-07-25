@@ -1,5 +1,5 @@
 <tool id="vcf_to_haplogrep" name="VCF to HaploGrep Tool" version="1.0">
-
+<description>from a vcf file to the format required by haplogrep </description>
 <command interpreter="python">
     vcf_to_haplogrep.py -i $input_vcf -o $haplogrep_out
 </command>
@@ -11,6 +11,10 @@
 </outputs>
 <help>
 **TIP** Converts a file to the hsd format required for using the haplogrep service.
+
+Requires the installation of PyVCF to your python install.
+
+https://github.com/jamescasbon/PyVCF/archive/master.zip
 
 HaploGrep is a cooperation between the Division of Genetic Epidemiology at the Medical University Innsbruck and the Department of Database and Information Systems - Institute of Computer Science at the University of Innsbruck
 HaploGrep is implemented as a web application based on Phylotree, a periodically updated classification tree estimated from data worldwide. Any given range of the mitochondrial genome can be used for haplogroup classification, which is based on the phylogenetic stability of mtDNA polymorphisms. For every input sample the top ten results and the phylogenetic position of the respective haplogroup are displayed, thus providing a detailed explanation how and why a haplogroup was ranked best. HaploGrep generates an interactive data visualization of the results and provides recommendations which polymorphisms should be analyzed additionally to get a more accurate result. HaploGrep can be used without login and imported samples are exclusive visible to appropriate users due to HaploGrepâ€™s session management. The export possibilities as a standard tab delimited file and as a *.rdf file for the phylogenetic software network.exe render HaploGrep the currently best solution for human mtDNA haplogroup determination.

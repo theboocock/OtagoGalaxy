@@ -1,0 +1,25 @@
+<tool id="genotypes_by_sample" name="Get Genotypes By Sample" version="1.0">
+<description>extracts the genotypes from a VCF file</description>
+<command interpreter="python">
+    get_genotypes_by_sample.py -i $input_vcf -o $gt_by_sample 
+</command>
+
+<inputs>
+    <param name="input_vcf" type="data" format="vcf" label="Input VCF file to extract genotypes from"/>
+</inputs>
+<outputs>
+    <data format="txt" name="gt_by_sample"/>
+</outputs>
+<help>
+Takes a VCF input and returns a tab delimited file containing all the genotypes for each sample
+in the file. 
+
+Requires the installation of PyVCF to your python install. 
+
+https://github.com/jamescasbon/PyVCF/archive/master.zip
+
+
+</help>
+
+
+</tool>

@@ -79,11 +79,13 @@
 <section name="Otago - VCF file Manipulation" id="ou_vcf-manip" >
    <tool file="OtagoGalaxy/galaxy/regionExtraction/region_extraction.xml" />
    <tool file="OtagoGalaxy/galaxy/vcfMerge/merge_vcfs.xml"/>
+   <tool file="OtagoGalaxy/galaxy/vcfConcat/concat_vcfs.xml"/>
    <tool file="OtagoGalaxy/galaxy/extractSampleId/get_sample_id.xml" />
    <tool file="OtagoGalaxy/galaxy/vcfSubset/select_samples.xml"/>
    <tool file="OtagoGalaxy/galaxy/vcfConsensus/vcfConsensus.xml"/>
    <tool file="OtagoGalaxy/galaxy/getvcfaf/getvcfaf.xml"/>
    <tool file="OtagoGalaxy/galaxy/get_rsids/get_rsids.xml"/>
+   <tool file="OtagoGalaxy/galaxy/get_genotypes_by_sample/get_genotypes_by_sample.xml"/>
 </section>
 <section name="Otago - Work with 1000 Genomes Data" id="ou_1kg" >
    <tool file="OtagoGalaxy/galaxy/ld_values_1kg/ld_values_1kg.xml"/>
