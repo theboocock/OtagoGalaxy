@@ -28,22 +28,34 @@ cat << EOF
 EOF
 }
 
+HAPS=$1
+WINDOW=$2
+OVERLAP=$3
+PARRALEL_CORES=$4
+CHROM=$5
+POP=$6
+MAF=$7
+WALL_CLOCK=$8
+MEM_PER_THREAD=$9
+
+
+
 if [ "$1" == "" ] ; then
 	help
 	exit 1
 fi
 echo "$@" > command.out
-bigWindow=`echo "(${2}-${3}) * (${4}) + ${3}" | bc`
+bigWindow=`echo "(${WINDOW}-${OVERLAP}) * (${PARRALEL_CORES}) + ${OVERLAP}" | bc`
 echo $bigWindow
-max_line=`tail -1 $1 | awk '{ print $3 }'`
+max_line=`tail -1 $HAPS | awk '{ print $3 }'`
 #let "limit = 30000 * 1024"
-mem_in_gigs=`echo "${9} * ${4}" | bc`
-limit=`echo "${9} * ${4} * 1024 * 1024" | bc`
+mem_in_gigs=`echo "${MEM_PER_THREAD} * ${PARRALEL_CORES}" | bc`
+limit=`echo "${MEM_PER_THREAD} * ${PARRALEL_CORES} * 1024 * 1024" | bc`
 
 
-noFolders=`echo "(${max_line}+${3})/(${bigWindow}-${3}) + 1" | bc`
+noFolders=`echo "(${max_line}+${OVERLAP})/(${bigWindow}-${OVERLAP}) + 1" | bc`
 echo $noFolders 
-python prepare_files_aa.py $1 $bigWindow $3 $6
+python prepare_files_aa.py $HAPS $bigWindow $OVERLAP $POP
 for i in $(eval echo "{1..${noFolders}}") ; do
      let "offset = ${i} * 10"
      offset=`echo "${offset} - 9" | bc`
@@ -60,7 +72,7 @@ for i in $(eval echo "{1..${noFolders}}") ; do
      #@ resources = ConsumableMemory(${mem_in_gigs}) ConsumableVirtualMemory(${mem_in_gigs})
      #@ output = ${i}/\$(jobid).out
      #@ error = ${i}/\$(jobid).err
-     #@ parallel_threads =${4} 
+     #@ parallel_threads =${PARRALEL_CORES} 
      #@ notification = complete
      #@ queue
  		 
@@ -71,7 +83,7 @@ for i in $(eval echo "{1..${noFolders}}") ; do
      ulimit -v ${limit} -m ${limit}
      mkdir $i
      # Call R with the input file as a command line argument
-     Rscript multicore_iHH.R $6 ${6}${i}.phaps $5 $2 $3 $4 $i $offset ${7}
+     Rscript multicore_iHH.R ${POP} ${POP}${i}.phaps ${CHROM} ${WINDOW} ${OVERLAP} ${PARRALEL_CORES} $i $offset ${MAF}
 	" > ${i}.job
      sync
      llsubmit ${i}.job
@@ -80,4 +92,14 @@ for i in $(eval echo "{1..${noFolders}}") ; do
      #rm ${i}.job	
 done
 
+NUMBER_FINISHED=0
+
+while true; do 
+    NUMBER_FINISHED=`ls */*ihh | wc -l`
+    if [ "${NUMBER_FINISHED}" == "${noFolders}" ]; then
+        Rscript nesi_recombine_ihh.R ${POP} ${CHROM} ${WINDOW} ${OVERLAP} ${OVERLAP} ${PARRALEL_CORES}
+        break
+    fi
+    sleep 5m
+done
 
