@@ -146,7 +146,7 @@ save.image(file="working_data.RData")
 
 #combine iHH results from window
 print(fileNumber)
-
+results=data.frame()
 for (n in fileNumber){
   print((n -1)* (window-overlap))
   print(paste("window",n,": is from:",(window-overlap) * (n-1 ), "to:", ((window - overlap)* (n ) + overlap) , sep=" "))
@@ -168,7 +168,7 @@ for (n in fileNumber){
       } else { #start =take second half of overlap, end = take first half (middle regions)
         print("middle")
           
-        }
+        
         a = results
         b = neutral_res[[i]][ ((window-overlap)* (n-1) + 1/2*overlap) < neutral_res[[i]][,2]  & neutral_res[[i]][,2] <  ((window -overlap)* (n) + (1/2 * overlap)), ]
         #print(max(a[,2]))
