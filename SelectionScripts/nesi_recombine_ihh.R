@@ -12,7 +12,7 @@ cores=as.numeric(args[6])
 #window=5000000
 #overlap = 1000000
 #cores = 10
-bigWindow= (window-smallWindowOverlap) * cores
+bigWindow= (window-overlap) * (cores-1) + window
 
 setwd(workingdir)
 fileList=dir(pattern="*wd.*ihh", recursive=TRUE)
@@ -22,32 +22,32 @@ names(ihh_list)<-fileList
 fileNumber=1:length(ihh_list)
 
 for (n in fileNumber){
-  print((n -1)* (window-overlap))
-  print(paste("window",n,": is from:", bigWindow * (n-1), "to:", bigWindow * n + overlap , sep=" "))
-  print(paste("merge window",n,": is from:",bigWindow * (n-1) + 1/2 * overlap, "to:", bigWindow * n + 1/2 * overlap, sep=" "))
+  print((n -1)* (bigWindow-overlap))
+  print(paste("window",n,": is from:",( (bigWindow-overlap) * (n-1)), "to:", ((bigWindow - overlap)* n + overlap) , sep=" "))
+  print(paste("merge window",n,": is from:",((bigWindow-overlap)* (n-1) + 1/2*overlap), "to:", ((bigWindow -overlap)* n + (1/2 * overlap)), sep=" "))
   
   if(n == 1){ # from start to first half of overlaped region (first chunk)
     print("n=1")
-    results = ihh_list[[n]][ ihh_list[[n]][,2] <= (n * bigWindow - 1/2 *overlap) ,] #correct window
-    print(max(results[,2]))
+    results = ihh_list[[n]][ihh_list[[n]][,2] <= (n * bigWindow - 1/2 *overlap) ,] #correct window
+    #print(max(results[,2]))
   } else {
     if(n == max(fileNumber)){ #take second half of overlap at start and go until the end (final chunk)
-      print("max")
+      #print("max")
       a= results
-      b = ihh_list[[n]][ ( bigWindow* (n-1) + 1/2*overlap) < ihh_list[[n]][,2]  ,]
+      b = ihh_list[[n]][ ((bigWindow-overlap)* (n-1) + 1/2*overlap) < ihh_list[[n]][,2]  ,]
       print(max(results[,2]))
       print(min(b[,2]))
       results = rbind(a,b)
       print(max(results[,2]))
     } else { #start =take second half of overlap, end = take first half (middle regions)
-      print("middle")
+      #print("middle")
       
       a = results
-      b = ihh_list[[n]][ ( bigWindow* (n-1) + 1/2*overlap) < ihh_list[[n]][,2]  & ihh_list[[n]][,2] <=  (bigWindow* n + (1/2 * overlap)), ]
-      print(max(a[,2]))
-      print(min(b[,2]))
+      b = ihh_list[[n]][ ((bigWindow-overlap)* (n-1) + 1/2*overlap) < ihh_list[[n]][,2]  & ihh_list[[n]][,2] <=  ((bigWindow -overlap)* n + (1/2 * overlap)), ]
+      #print(max(a[,2]))
+      #print(min(b[,2]))
       results = rbind(a,b )
-      print(max(results[,2]))
+      #print(max(results[,2]))
     }
   } 
 }
