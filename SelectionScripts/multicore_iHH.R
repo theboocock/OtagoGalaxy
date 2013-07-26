@@ -147,29 +147,30 @@ save.image(file="working_data.RData")
 #combine iHH results from window
 print(fileNumber)
 
-for (n in seq(fileNumber)){
+for (n in fileNumber){
   print((n -1)* (window-overlap))
-  print(paste("window",n,": is from:",( (window-overlap) * (n-1)), "to:", ((window - overlap)* n + overlap) , sep=" "))
-  print(paste("merge window",n,": is from:",((window-overlap)* (n-1) + 1/2*overlap), "to:", ((window -overlap)* n + (1/2 * overlap)), sep=" "))
-  
+  print(paste("window",n,": is from:",(window-overlap) * (n-1 ), "to:", ((window - overlap)* (n ) + overlap) , sep=" "))
+  print(paste("merge window",n,": is from:",((window-overlap)* (n-1) + 1/2*overlap), "to:", ((window -overlap)* (n) + (1/2 * overlap)), sep=" "))
+  i=n-(offset-1)
   if(n == 1){ # from start to first half of overlaped region (first chunk)
   print("n=1")
-    results = neutral_res[[n]][neutral_res[[n]][,2] <= (n * window - 1/2 *overlap) ,] #correct window
+    results = neutral_res[[i]][neutral_res[[i]][,2] < ((n+offset-1) * window - 1/2 *overlap) ,] #correct window
     #print(max(results[,2]))
    } else {
       if(n == max(fileNumber)){ #take second half of overlap at start and go until the end (final chunk)
         #print("max")
         a= results
-        b = neutral_res[[n]][ ((window-overlap)* (n-1) + 1/2*overlap) < neutral_res[[n]][,2]  ,]
+        b = neutral_res[[i]][ ((window-overlap)* (n-1) + 1/2*overlap) < neutral_res[[i]][,2]  ,]
         print(max(results[,2]))
         print(min(b[,2]))
         results = rbind(a,b)
         print(max(results[,2]))
       } else { #start =take second half of overlap, end = take first half (middle regions)
-        #print("middle")
-        
+        print("middle")
+          
+        }
         a = results
-        b = neutral_res[[n]][ ((window-overlap)* (n-1) + 1/2*overlap) < neutral_res[[n]][,2]  & neutral_res[[n]][,2] <=  ((window -overlap)* n + (1/2 * overlap)), ]
+        b = neutral_res[[i]][ ((window-overlap)* (n-1) + 1/2*overlap) < neutral_res[[i]][,2]  & neutral_res[[i]][,2] <  ((window -overlap)* (n) + (1/2 * overlap)), ]
         #print(max(a[,2]))
         #print(min(b[,2]))
         results = rbind(a,b )
