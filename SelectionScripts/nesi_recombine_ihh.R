@@ -12,7 +12,7 @@ cores=as.numeric(args[6])
 #window=5000000
 #overlap = 1000000
 #cores = 10
-bigWindow= (window-overlap) * (cores-1) + window
+bigWindow= (window-smallWindowOverlap) * (cores-1) + window
 
 setwd(workingdir)
 fileList=dir(pattern="*wd.*ihh", recursive=TRUE)
