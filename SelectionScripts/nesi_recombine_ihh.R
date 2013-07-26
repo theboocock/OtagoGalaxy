@@ -1,9 +1,9 @@
 args<-commandArgs(TRUE)
 pop=as.character(args[1])
 chr=as.numeric(args[2])
-window=as.numeric(args[3])
-smallWindowOverlap=as.numeric(args[4]))
-overlap=as.numeric(args[5])
+window=as.numeric(args[3]) # size of the small windows
+smallWindowOverlap=as.numeric(args[4])) # overlap for the small windows
+overlap=as.numeric(args[5]) # overlap between the large windows
 cores=as.numeric(args[6])
 
 
