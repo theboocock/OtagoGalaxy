@@ -10,6 +10,9 @@
     #end if
     #if ($onekg_own_param.onekg_own) == "onekg_file":
         -c $onekg_own_param.region_txt
+        #if ($onekg_use_type_param.just_these_snps):	
+            -S            
+        #end if
 	#end if
 	#if ($onekg_use_type_param.onekg_use_rs) == 'file':
 		-s $onekg_use_type_param.snplist

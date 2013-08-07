@@ -1,6 +1,6 @@
 #!/bin/bash
 
-GALAXY_HOME_FOLDER=~/new_galaxy/galaxy-central
+GALAXY_HOME_FOLDER=~/galaxy-dist
 echo "Installing Clustering Interface"
 echo "Also backing up files with .backup extension"
 

@@ -1,7 +1,7 @@
 <tool id="get_custom_1kg" name="Get Custom 1000Genomes VCF" version="1.0.0" >
     <description>using a region specified by the user</description>
     <command>
-       tabix -fh ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20110521/ALL.chr${chr}.phase1_release_v3.20101123.snps_indels_svs.genotypes.vcf.gz ${chr}:${reg} > $output_vcf 2> /dev/null
+       tabix -fh /media/Documents/galaxy/extra_database_files/ALL.chr${chr}.phase1_release_v3.20101123.snps_indels_svs.genotypes.vcf.gz ${chr}:${reg} > $output_vcf 2> /dev/null
     </command>
     <inputs>
         <param name="chr" type="text" value="" label="Chromosome number to extract from 1000 genomes"/>

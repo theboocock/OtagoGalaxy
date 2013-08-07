@@ -5,7 +5,7 @@
 # Installs all the otago galaxy stuff
 # 
 
-GALAXY_HOME_FOLDER=~/new_galaxy/galaxy-central
+GALAXY_HOME_FOLDER=~/galaxy-dist
 
 getoptions(){
     while getopts "nd" opt; do
@@ -45,8 +45,8 @@ mkdir -p $GALAXY_HOME_FOLDER/tool-data/shared/jars/presto
 mkdir -p $GALAXY_HOME_FOLDER/tool-data/shared/ihs
 
 echo "Installing snpEff"
-#cp src/snpEff/*.jar $GALAXY_HOME_FOLDER/tool-data/shared/jars/snpEff/
-#cp src/snpEff/snpEff.config $GALAXY_HOME_FOLDER/tool-data/shared/jars/snpEff/
+cp src/snpEff/*.jar $GALAXY_HOME_FOLDER/tool-data/shared/jars/snpEff/
+cp src/snpEff/snpEff.config $GALAXY_HOME_FOLDER/tool-data/shared/jars/snpEff/
 echo "Installing Composite Datatypes"
 cp src/composite_datatypes/*.py $GALAXY_HOME_FOLDER/tool-data/shared/composite_datatypes/
 echo "Installing beagle"
@@ -59,14 +59,14 @@ echo "Installing presto"
 cp src/presto/presto.jar     $GALAXY_HOME_FOLDER/tool-data/shared/jars/presto/
 echo "Installing Ihs"
 cp src/iHS/ihs               $GALAXY_HOME_FOLDER/tool-data/shared//ihs/
-if [ "$INSTALL_TOOL_CONF" == "" ]; then
+if [ "$INSTALL_TOOL_CONF" != "" ]; then
     echo "Installing Otago Tool configuration"
     cp $OTAGO_GALAXY_LOCATION/scripts/tool_conf.xml $GALAXY_HOME_FOLDER
 else
     echo "Did not install the tool_conf the tools will have to be added manually \
           tool_conf.xml is located in the scripts folder"
 fi
-if [ "$INSTALL_OTAGO_DATATYPES" == "" ]; then
+if [ "$INSTALL_OTAGO_DATATYPES" != "" ]; then
     echo "Installing Otago Datatypes"
     cp $OTAGO_GALAXY_LOCATION/datatypes/datatypes_conf.xml $GALAXY_HOME_FOLDER
     cp  $OTAGO_GALAXY_LOCATION/datatypes/genetics.py $GALAXY_HOME_FOLDER/lib/galaxy/datatypes/
