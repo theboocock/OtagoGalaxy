@@ -106,13 +106,14 @@ fi
     vcftools --vcf temp.vcf --remove-indels --recode --out temp
     mv temp.recode.vcf temp.vcf
 if [ "$ID_LIST" != "" ]; then
-	vcf-subset -c $ID_LIST temp.vcf > temp2.vcf 2> /dev/null
+	vcf-subset -c $ID_LIST temp.vcf > temp2.vcf  
 elif [ "$ID_FILE" != "" ]; then
     ID_LIST=`cat $ID_FILE | sed -r ':a;N;$!ba;s/[\t\n ]+/,/g'`
-    vcf-subset -c $ID_LIST temp.vcf > temp2.vcf 2> /dev/null 
+    vcf-subset -c $ID_LIST temp.vcf > temp2.vcf  
 else
 	cp -f temp.vcf temp2.vcf
 fi
+echo "VCF SUBSET WTF"
 LINE_COUNT=`wc -l temp2.vcf` 
 LINE_COUNT=`echo $LINE_COUNT  | awk '{print $1}'`
 if [ $LINE_COUNT == "0" ]; then
@@ -143,9 +144,9 @@ fi
     fi
     if [ "$HAPLOVIEW" != "" ]; then
  
-        vcftools --vcf temp2.vcf --plink-tped --remove-indels --out plinkfile > $PLINK_LOG
+        vcftools --vcf temp2.vcf --plink-tped --remove-indels --out plinkfile>> $PLINK_LOG
         if [ "$SNP_LIST_ONLY" != "" ]; then
-           plink --tfile plinkfile --extract ${SNP_LIST} --out tempfile >> $PLINK_LOG      
+           plink --tfile plinkfile --noweb --allow-no-sex --extract ${SNP_LIST} --out tempfile --recode --transpose >> $PLINK_LOG      
            plink --tfile tempfile  --noweb --recodeHV --out plinkfile >> $PLINK_LOG
         else
            plink --tfile plinkfile  --noweb --recodeHV --out plinkfile >> $PLINK_LOG

@@ -4,15 +4,12 @@
 ./ld_values_1kg.sh
 	#if ($onekg_own_param.onekg_own) == "own_file":
 		-v $onekg_own_param.own_vcf		
-        #if ($onekg_own_param.region_txt_param.region_txt_bool) == "True":
+        #if ($onekg_own_param.region_txt_param.region_txt_bool):
         -c $onekg_own_param.region_txt_param.region_txt
         #end if
     #end if
     #if ($onekg_own_param.onekg_own) == "onekg_file":
         -c $onekg_own_param.region_txt
-        #if ($onekg_use_type_param.just_these_snps):	
-            -S            
-        #end if
 	#end if
 	#if ($onekg_use_type_param.onekg_use_rs) == 'file':
 		-s $onekg_use_type_param.snplist
