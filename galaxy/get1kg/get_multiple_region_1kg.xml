@@ -3,7 +3,7 @@
 	<command>
 		echo $input_region | tr -s "__cr____cn__" "\n" > region.txt
 		;
-		bash ${__root_dir__}/tools/OtagoGalaxy/get1kg/mult_1kg.sh region.txt $all_regions_vcf
+		bash ${__root_dir__}/tools/OtagoGalaxy/galaxy/get1kg/mult_1kg.sh region.txt $all_regions_vcf
 	</command>
 	
 	<inputs>

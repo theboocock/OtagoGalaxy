@@ -93,11 +93,11 @@ done
 getoptions "$@"
 if [ "$VCF_INPUT" != "" ]; then
     if [ "$REGION" != "" ]; then
-    
-	tabix -p vcf temp_vcf.gz
-	tabix -fh temp_vcf.gz $REGION > temp.vcf
+       bgzip -c  $VCF_INPUT  > temp_vcf.gz    
+	   tabix -p vcf temp_vcf.gz
+	   tabix -fh temp_vcf.gz $REGION > temp.vcf
     else
-    cp -f $VCF_INPUT temp.vcf
+        cp -f $VCF_INPUT temp.vcf
     fi
 else
 	tabix -fh ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20110521/ALL.chr`echo ${REGION} | awk -F [\:] '{print $1}'`.phase1_release_v3.20101123.snps_indels_svs.genotypes.vcf.gz $REGION > temp.vcf 2> /dev/null
@@ -113,7 +113,6 @@ elif [ "$ID_FILE" != "" ]; then
 else
 	cp -f temp.vcf temp2.vcf
 fi
-echo "VCF SUBSET WTF"
 LINE_COUNT=`wc -l temp2.vcf` 
 LINE_COUNT=`echo $LINE_COUNT  | awk '{print $1}'`
 if [ $LINE_COUNT == "0" ]; then

@@ -1,0 +1,17 @@
+
+VCFtools - v0.1.11
+(C) Adam Auton 2009
+
+Parameters as interpreted:
+	--vcf temp2.vcf
+	--out plinkfile
+	--plink-tped
+
+Index file is older than variant file. Will regenerate.
+Building new index file.
+Writing Index file.
+File contains 0 entries and 1092 individuals.
+Applying Required Filters.
+After filtering, kept 1092 out of 1092 Individuals
+After filtering, kept 0 out of a possible 0 Sites
+Error:No data left for analysis!
