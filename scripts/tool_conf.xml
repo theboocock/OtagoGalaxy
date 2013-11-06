@@ -91,6 +91,7 @@
    <tool file="OtagoGalaxy/galaxy/ld_values_1kg/ld_values_1kg.xml"/>
    <tool file="OtagoGalaxy/galaxy/getPopAlleleFreq/getPopAF.xml"/>
    <tool file="OtagoGalaxy/galaxy/get1kg/get_custom_1kg.xml" />
+	 <tool file="OtagoGalaxy/galaxy/get1kg/get_multiple_region_1kg.xml" />
 </section>
 <section name="Otago - Query Databases" id="ou_datab" >
    <tool file="OtagoGalaxy/galaxy/evs/evs.xml" />
@@ -149,7 +150,7 @@
     <tool file="filters/tailWrapper.xml" />
     <tool file="filters/trimmer.xml" />
     <tool file="filters/wc_gnu.xml" />
-    <tool file="filters/secure_hash_message_digest.xml" />
+    <tool file="filters/secure_hash_message_digest.xml" /> 
     <tool file="stats/dna_filtering.xml" />
     <tool file="new_operations/tables_arithmetic_operations.xml" />
   </section>

@@ -1,0 +1,18 @@
+<tool id="get_multiple_1kg" name="Get Custom muliple Region 1000Genomes VCF" version="1.0.0">
+	<description>Using multiple regions specified by the user</description>
+	<command>
+		echo $input_region | tr -s "__cr____cn__" "\n" > region.txt
+		;
+		bash ${__root_dir__}/tools/OtagoGalaxy/get1kg/mult_1kg.sh region.txt $all_regions_vcf
+	</command>
+	
+	<inputs>
+		<param name="input_region" type="text" area="True" size="20x30" label="Region Text file" help="In Format chr:regionFrom-regionTo line seperated" />
+	</inputs>
+	<outputs>
+	
+		<data name="all_regions_vcf" format="vcf"/>
+
+	</outputs>
+
+</tool>
