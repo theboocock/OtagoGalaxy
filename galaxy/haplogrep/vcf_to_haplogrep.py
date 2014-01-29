@@ -50,7 +50,7 @@ def vcf_to_haplogrep(vcf_input,hgrep_output):
                         sample_lines[s].append(str(temp_position+i-1) + "."  + str(i) + gt)  
                         temp_position = temp_position - 1 
                          
-                    elif(len(real_gt) < len(ref)):
+                    elif(len(real_gt) < len(ref) and i != 0):
                         sample_lines[s].append(str(position+i) + "d" )
     min_max_coord.append(str(position))                   
     for sample, substitions in sample_lines.items():

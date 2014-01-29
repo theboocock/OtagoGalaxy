@@ -7,6 +7,9 @@
         #if ($onekg_own_param.region_txt_param.region_txt_bool):
         -c $onekg_own_param.region_txt_param.region_txt
         #end if
+    #else if ($onekg_use_type_param.onekg_own) == "snp_max_wide":
+        -snp_max_wide $onekg_use_type_param.snp_max_wide
+    #end 
     #end if
     #if ($onekg_own_param.onekg_own) == "onekg_file":
         -c $onekg_own_param.region_txt
@@ -64,6 +67,7 @@
 		<param name="onekg_own" type="select" label="1000Genomes file or Own Vcf File">
 		<option value="onekg_file">1000 Genomes</option>
 		<option value="own_file">VCF from History </option>
+        <option value="snp_max_file">SnpMax Wide Format from History</option>
 		</param>
 	<when value="onekg_file">
 	    <param name="region_txt" type="text" label="Chromosome Region" help="Chromosome region specified as chr:start-end e.g 4:34234-50000" />
