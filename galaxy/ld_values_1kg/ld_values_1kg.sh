@@ -126,17 +126,23 @@ fi
 	if [ "$SNP_LIST" != "" ]; then
 		PLINK_COMMAND="${PLINK_COMMAND} --ld-snp-list $SNP_LIST"
 	fi
-    if [ "$SNP_LIST_ONLY" != "" ]; then 
-        PLINK_COMMAND="${PLINK_COMMAND} --only-snp-list"
-    fi
+   # if [ "$SNP_LIST_ONLY" != "" ]; then 
+   #     PLINK_COMMAND="${PLINK_COMMAND} --only-snp-list"
+   ## fi
+	echo $RSID
 	if [ "$RSID" != "" ]; then
 		PLINK_COMMAND="${PLINK_COMMAND} --ld-snp $RSID"
+		grep ${RSID} plinkfile.tped > grep_temp.txt
+		if [ `wc -l grep_temp.txt | cut -d ' ' -f 1` == "0" ]; then
+			echo "SNP could not be found in file check coordinates" >&2
+			exit 1
+		fi
 	fi
 	if [ "$MATRIX" == "TRUE" ]; then
 	PLINK_COMMAND="plink --tped plinkfile.tped --tfam plinkfile.tfam --r2 --noweb --matrix"
 	fi
     if [ "$HAPLOVIEW" == "" ]; then
-	        eval	$PLINK_COMMAND > /dev/null
+	    eval $PLINK_COMMAND > /dev/null
             mv plink.ld $PLINK_OUTPUT
     fi
 	mv plink.log $PLINK_LOG

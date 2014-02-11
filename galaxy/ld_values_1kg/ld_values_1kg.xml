@@ -1,6 +1,9 @@
 <tool id="1kg_ld" name="Calculate LD values" >
 <description>Calculate LD from your own vcf or from the 1000 genomes</description>
 <command interpreter="bash">
+	#if ($onekg_use_type_param.onekg_use_rs) == 'text_box':
+		echo $onekg_use_type_param.text_box | tr -s "__cr____cn__" "\n" | sed 's/[[:space:]]\+/\n/g' > samples.txt
+;
 ./ld_values_1kg.sh
 	#if ($onekg_own_param.onekg_own) == "own_file":
 		-v $onekg_own_param.own_vcf		
@@ -16,6 +19,8 @@
 	#end if
 	#if ($onekg_use_type_param.onekg_use_rs) == 'file':
 		-s $onekg_use_type_param.snplist
+	#if ($onekg_use_type_param.onekg_use_rs) == 'text_box':
+		-s samples.txt
         #if ($onekg_use_type_param.just_these_snps):	
             -S            
         #end if
@@ -51,6 +56,7 @@
 		<option value="single" selected="True">Single Snp</option>
 		<option value="all">All Snps</option>
 		<option value="file">Snp List</option>
+		<option value="text_box">Snps in Text Box</option>
 		</param>
 	<when value="single">
 		<param name="rsid" value="" type="text" label="RSID of snp" />
@@ -60,6 +66,9 @@
 	</when>
 	<when value="file">
 		<param name="snplist" type="data" format="txt" label="Line Seperated List of snp RSIDs for LD calculation" help="Leaving this box empty will perform Ld analysis on all the samples"/>
+	<when value="text_box">
+		<param name="snps_box" type="text" area="True" size="20x30" label="Enter RSIDs white space seperated"/>
+	</when>
         <param name="just_these_snps" type="boolean" label="Only these snps" help="Only use these snpsfrom the file to compare against each other for ld calculations."/>
 	</when>
 	</conditional>
