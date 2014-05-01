@@ -66,10 +66,11 @@
 	</when>
 	<when value="file">
 		<param name="snplist" type="data" format="txt" label="Line Seperated List of snp RSIDs for LD calculation" help="Leaving this box empty will perform Ld analysis on all the samples"/>
+        	<param name="just_these_snps" type="boolean" label="Only these snps" help="Only use these snpsfrom the file to compare against each other for ld calculations."/>
+	</when>
 	<when value="text_box">
 		<param name="snps_box" type="text" area="True" size="20x30" label="Enter RSIDs white space seperated"/>
-	</when>
-        <param name="just_these_snps" type="boolean" label="Only these snps" help="Only use these snpsfrom the file to compare against each other for ld calculations."/>
+        	<param name="just_these_snps" type="boolean" label="Only these snps" help="Only use these snpsfrom the file to compare against each other for ld calculations."/>
 	</when>
 	</conditional>
 	<conditional name="onekg_own_param">
