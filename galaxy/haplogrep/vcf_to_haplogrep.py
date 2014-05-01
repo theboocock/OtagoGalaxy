@@ -12,7 +12,7 @@ from optparse import OptionParser
 
 
 def vcf_to_haplogrep(vcf_input,hgrep_output):
-    vcf_reader = vcf.Reader(open(vcf_input,'r'))
+    vcf_reader = vcf.Reader(open(vcf_input,'r'),strict_whitespace=True)
     hgrep_o = open(hgrep_output,'w')
     hgrep_o.write('SampleId\tRange\tHaploGroup\tPolymorphisms (delimited by tab)\n')
     samples = vcf_reader.samples

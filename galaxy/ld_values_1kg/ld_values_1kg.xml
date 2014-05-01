@@ -4,23 +4,22 @@
 	#if ($onekg_use_type_param.onekg_use_rs) == 'text_box':
 		echo $onekg_use_type_param.text_box | tr -s "__cr____cn__" "\n" | sed 's/[[:space:]]\+/\n/g' > samples.txt
 ;
+	#end if
 ./ld_values_1kg.sh
+	#if ($onekg_use_type_param.onekg_use_rs) == 'text_box':
+		-s samples.txt
+	#end if
 	#if ($onekg_own_param.onekg_own) == "own_file":
 		-v $onekg_own_param.own_vcf		
         #if ($onekg_own_param.region_txt_param.region_txt_bool):
-        -c $onekg_own_param.region_txt_param.region_txt
+        	-c $onekg_own_param.region_txt_param.region_txt
         #end if
-    #else if ($onekg_use_type_param.onekg_own) == "snp_max_wide":
-        -snp_max_wide $onekg_use_type_param.snp_max_wide
-    #end 
     #end if
-    #if ($onekg_own_param.onekg_own) == "onekg_file":
+    	#if ($onekg_own_param.onekg_own) == "onekg_file":
         -c $onekg_own_param.region_txt
 	#end if
 	#if ($onekg_use_type_param.onekg_use_rs) == 'file':
 		-s $onekg_use_type_param.snplist
-	#if ($onekg_use_type_param.onekg_use_rs) == 'text_box':
-		-s samples.txt
         #if ($onekg_use_type_param.just_these_snps):	
             -S            
         #end if
@@ -45,10 +44,11 @@
     #if str($output_format) == "haploview":
         -h $plink_map
         -p $plink_ped
-	#end if 
+   #end if 
     #if $onekg_use_type_param.onekg_use_rs =="single":
         -R $onekg_use_type_param.rsid
     #end if
+
 </command>
 	<inputs>
 	<conditional name="onekg_use_type_param">
